@@ -1,0 +1,8 @@
+
+#Set this to control which environment configuration is used
+environment.active=dev
+
+#Set these values to control which database is used
+spring.datasource.url=jdbc:sqlserver://localhost;databaseName=
+spring.datasource.username=
+spring.datasource.password=
