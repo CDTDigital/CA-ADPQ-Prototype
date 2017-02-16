@@ -27,7 +27,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger // Enable swagger 1.2 spec
 @EnableSwagger2 // Enable swagger 2.0 spec
 @ComponentScan(basePackageClasses = { DefaultController.class })
-@PropertySources({ @PropertySource(value = "classpath:/config/override.properties", name = "override1"),
+@PropertySources({ @PropertySource(value = "classpath:/core/default.properties", name = "default"),
+		@PropertySource(value = "classpath:/config/override.properties", name = "override1"),
 		@PropertySource(value = "classpath:/environments/${environment.active}.properties"),
 		@PropertySource(value = "classpath:/config/override.properties", name = "override2") })
 

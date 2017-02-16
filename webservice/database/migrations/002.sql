@@ -48,9 +48,11 @@ create table device_info (
 
 -- Table for User Device
 create table user_device (
+	id INT  NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	devinfo_id INT NOT NULL,
 	auth_token NVARCHAR(25) UNIQUE,
+	CONSTRAINT pk_userDevice PRIMARY KEY (id),
 	CONSTRAINT fk_userDevice_user FOREIGN KEY (user_id) REFERENCES user(user_id),
 	CONSTRAINT fk_userDevice_device FOREIGN KEY (devinfo_id) REFERENCES device_info(devinfo_id)
 );
@@ -70,6 +72,6 @@ create table notification (
 
 /***************************** INSERT DEFAULT VALUES *****************************************/
 -- For User Role
-INSERT INTO user_role(name)
+INSERT INTO user_role(role)
 	values ('ADMIN'),
 			('USER');

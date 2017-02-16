@@ -43,12 +43,12 @@ public class User {
 	@Column(name="zip_code")
 	private String zipCode;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="role_id")
 	private UserRole userRole;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="user_id", insertable=false, updatable=false)
 	private UserLogin userLogin;
 
 	public int getId() {
