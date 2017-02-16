@@ -27,6 +27,9 @@ public class Notification {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="sent_by")
 	private User sentBy;
+	
+	@Column(name="subject")
+	private String subject;
 
 	@Column(name="message")
 	private String message;
@@ -56,6 +59,14 @@ public class Notification {
 		this.sentBy = sentBy;
 	}
 
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	
 	public String getMessage() {
 		return message;
 	}

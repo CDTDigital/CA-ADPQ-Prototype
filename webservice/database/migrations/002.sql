@@ -59,6 +59,7 @@ create table user_device (
 create table notification (
 	notification_id INT NOT NULL AUTO_INCREMENT,
 	sent_by INT NOT NULL,
+	subject NVARCHAR(100) NOT NULL, 
 	message NVARCHAR(1000) NOT NULL,
 	city NVARCHAR(100) NOT NULL,
 	zip_code NVARCHAR(100) NOT NULL,
