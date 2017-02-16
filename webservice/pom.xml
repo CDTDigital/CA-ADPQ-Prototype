@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>CaliforniaResidentsNotificationService</artifactId>
-	<packaging>war</packaging>
-	<name>CaliforniaResidentsNotificationService</name>
-	<description>California Residents Notification Service</description>
+	<groupId>com.intimetec.crns</groupId>
+	<artifactId>webservice</artifactId>
+	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>California Residents Notification Service</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -19,34 +19,38 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+	<modules>
+		<module>website</module>
+	</modules>
+
+ <repositories>
+    <repository>
+    	<id>project.repository.local</id>
+    	<name>CRNS Local Project Repository</name>
+    	<url>file:${project.basedir}/../maven/repository</url>
+    </repository>
+  </repositories>
+  
+<dependencyManagement>
 	<dependencies>
-		<!-- Web -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		
-		<!-- Web with Tomcat + Embed -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		
 		<!-- MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-
 	</dependencies>
-	<build>
-		<plugins>
-			<!-- Package as an executable jar/war -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+ </dependencyManagement>
+ 
+	  <build>
+    <plugins>
+       <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-compiler-plugin</artifactId>
+           <configuration>
+               <source>1.8</source>
+               <target>1.8</target>
+           </configuration>
+       </plugin>
+    </plugins>
+  </build>
 </project>

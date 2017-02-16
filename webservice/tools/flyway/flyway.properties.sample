@@ -1,0 +1,4 @@
+
+flyway.url=jdbc:sqlserver://localhost;databaseName=?
+flyway.user=?
+flyway.password=?

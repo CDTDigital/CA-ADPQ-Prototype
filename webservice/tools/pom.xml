@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>tools</artifactId>
+	<name>CRNS Tools Module</name>
+
+	<parent>
+		<groupId>com.intimetec.crns</groupId>
+		<artifactId>webservice</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<!-- Setting this dependency will allow Flyway to pick it up. http://stackoverflow.com/questions/12243172/flyway-unable-to-instantiate-jdbc-driver -->
+		<!-- MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>3.2.1</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- Flyway configuration can be set directly on the plugin, but in testing 
+		it doesn't appear to support blank values (e.g. to override the prefix). 
+		http://flywaydb.org/documentation/maven/ If this POM later becomes about 
+		more that Flyway, or if we need to externalize/share the base properties 
+		with another Flyway runner (such as the command line runner) we can move 
+		these properties into flyway.properties and load via the Maven properties 
+		plugin. It would be nice if Flyway supported multiple values for configFile, 
+		but it doesn't. In the command line runner it loads multiple base files from 
+		predefined locations which gives you partial support for this, but the Maven 
+		runner doesn't. http://stackoverflow.com/questions/7144620/reading-properties-file-from-maven-pom-file -->
+	<properties>
+		<!-- Had to put these here because Flyway Maven doesn't support multiple 
+			configuration files like Flyway command line. -->
+		<flyway.table>ScriptLog</flyway.table>
+		<flyway.sqlMigrationPrefix></flyway.sqlMigrationPrefix>
+		<flyway.sqlMigrationSeparator>.</flyway.sqlMigrationSeparator>
+		<flyway.sqlMigrationSuffix>sql</flyway.sqlMigrationSuffix>
+
+		<!-- Set the template for these here to make developer calls easier (e.g. 
+			mvn flyway:migration -Dsite=en-us). -->
+		<flyway.locations>filesystem:${project.basedir}/../database/migrations/</flyway.locations>
+	</properties>
+
+	<profiles>
+		<!-- The default profile allows deriving all properties from the "site" 
+			property, but requires the creation of a properties file. This is useful 
+			on local development machines we you want to create a properties file for 
+			each site database. -->
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<flyway.configFile>flyway/flyway.properties</flyway.configFile>
+			</properties>
+		</profile>
+		<!-- The custom profile allows specifying all properties via the command 
+			line (by using -Dname=value entries). This is useful when running from the 
+			build server where we don't want to have to create temporary properties files 
+			after checkout just to run Flyway. -->
+		<profile>
+			<id>custom</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties></properties>
+		</profile>
+	</profiles>
+
+</project>
