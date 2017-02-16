@@ -6,10 +6,17 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var eslint = require('gulp-eslint');
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
+
+gulp.task('lint', function() {
+    return gulp.src(['./www/*.js', './www/js/*.js'])
+        .pipe(eslint())
+        .pipe(eslint.format());
+});
 
 gulp.task('default', ['sass']);
 
