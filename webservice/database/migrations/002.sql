@@ -6,8 +6,9 @@
 
 -- Table for User Role
 create table user_role (
+	
 	role_id INT NOT NULL AUTO_INCREMENT,
-	name NVARCHAR(10) NOT NULL,
+	role NVARCHAR(10) NOT NULL,
 	CONSTRAINT pk_userRole PRIMARY KEY (role_id)
 );
 
@@ -20,7 +21,7 @@ create table user (
 	address_line1 NVARCHAR(100) NOT NULL,
 	address_line2 NVARCHAR(100),
 	city NVARCHAR(100) NOT NULL,
-	city_code NVARCHAR(100) NOT NULL,
+	zip_code NVARCHAR(100) NOT NULL,
 	role_id INT NOT NULL,	
 	CONSTRAINT pk_user PRIMARY KEY (user_id),
 	CONSTRAINT fk_user_userRole FOREIGN KEY (role_id) REFERENCES user_role(role_id)
