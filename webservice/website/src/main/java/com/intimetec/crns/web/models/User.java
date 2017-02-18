@@ -2,6 +2,8 @@ package com.intimetec.crns.web.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,9 +20,9 @@ import javax.persistence.Table;
 @Table(name="user")
 public class User {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="user_id")
-	private int id;
+	private long id;
 
 	@Column(name="first_name")
 	private String firstName;
@@ -43,19 +45,19 @@ public class User {
 	@Column(name="zip_code")
 	private String zipCode;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="role_id")
+	@Column(name="role")
+	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id", insertable=false, updatable=false)
 	private UserLogin userLogin;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -121,5 +123,13 @@ public class User {
 
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
+	}
+	
+	public UserLogin getUserLogin() {
+		return userLogin;
+	}
+
+	public void setUserLogin(UserLogin userLogin) {
+		this.userLogin = userLogin;
 	}
 }

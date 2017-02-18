@@ -4,14 +4,6 @@
 *
 *******************************************************************************************/
 
--- Table for User Role
-create table user_role (
-	
-	role_id INT NOT NULL AUTO_INCREMENT,
-	role NVARCHAR(10) NOT NULL,
-	CONSTRAINT pk_userRole PRIMARY KEY (role_id)
-);
-
 -- Table for User Information
 create table user (
 	user_id INT NOT NULL AUTO_INCREMENT,
@@ -22,9 +14,8 @@ create table user (
 	address_line2 NVARCHAR(100),
 	city NVARCHAR(100) NOT NULL,
 	zip_code NVARCHAR(100) NOT NULL,
-	role_id INT NOT NULL,	
-	CONSTRAINT pk_user PRIMARY KEY (user_id),
-	CONSTRAINT fk_user_userRole FOREIGN KEY (role_id) REFERENCES user_role(role_id)
+	role NVARCHAR(10) NOT NULL,	
+	CONSTRAINT pk_user PRIMARY KEY (user_id)
 );
 
 -- Table for User Login
@@ -69,9 +60,3 @@ create table notification (
 	CONSTRAINT pk_notification PRIMARY KEY (notification_id),
 	CONSTRAINT fk_sentBy_user FOREIGN KEY (sent_by) REFERENCES user(user_id)
 );
-
-/***************************** INSERT DEFAULT VALUES *****************************************/
--- For User Role
-INSERT INTO user_role(role)
-	values ('ADMIN'),
-			('USER');
