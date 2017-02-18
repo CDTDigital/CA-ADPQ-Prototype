@@ -1,6 +1,32 @@
-<ion-view view-title="Login">
-  <ion-content class="padding">
-    <h2>Welcome</h2>
+<ion-view>
+    <ion-content has-bouncing="false" class="padding25 alignCenter">
 
-  </ion-content>
+        <img src="./img/logo.png" class="marginTop30">
+        <div class="dBlueFontClr loginTitle marginTop30">Welcome to our system</div>
+
+        <div class="list list-inset">
+            <label class="item item-input extendInput">
+                <input id="test" type="email" placeholder="info@exmaple.com">
+            </label>
+            <label class="item item-input extendInput marginTop5">
+                <input id="test" type="password" placeholder="********">
+            </label>
+        </div>
+
+
+        <button class="button button-positive positiveBtn">
+            Login
+        </button>
+
+
+        <div class="lBlueFontClr marginTop20">
+            <span ng-click="onTapForgotLink()">Forgot password?</span><span class="paddingLeftRight">|</span><span
+                ng-click="onTapRegisterLink()">Register
+        </span>
+        </div>
+
+
+
+
+    </ion-content>
 </ion-view>

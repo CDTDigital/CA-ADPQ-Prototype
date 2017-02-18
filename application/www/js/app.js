@@ -20,21 +20,26 @@ angular.module('CRNS', ['ionic'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
+  .state('login', {
+      url: '/login',
+      templateUrl: 'views/login.html',
+      controller: 'AuthController'
+  })
   .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'views/menu.html',
     controller: 'AppController'
   })
-  .state('app.login', {
-    url: '/login',
+  .state('app.dash', {
+    url: '/dash',
     views: {
       'crnsview': {
-        templateUrl: 'views/login.html',
-        controller: 'AuthController'
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashBoardController'
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/login');
 });

@@ -1,1 +1,184 @@
-/* Empty. Add your own CSS if you like */
+/* Override font family */
+
+@font-face {
+    font-family: "Merriweather";
+    src: url("../fonts/Merriweather-Regular.ttf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, ionic-body {
+    font-family: "Merriweather", "Arial", "Helvetica Neue", "Segoe UI", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Merriweather";
+}
+
+.tab-item {
+    font-family: "Merriweather";
+}
+
+input, button, select, textarea {
+    font-family: "Merriweather";
+}
+
+/* --------------- */
+
+/* Global Style */
+
+.whiteFontClr {
+    color: #fff;
+}
+
+.dBlueFontClr {
+    color: #003366;
+}
+
+.lBlueFontClr {
+    color: #0074BC;
+}
+
+.grayFontColor {
+    color: #fff;
+}
+
+.blueBgColor {
+    color: #003366;
+}
+
+.inputBgColor {
+    color: #003366;
+}
+
+.zeroPadding {
+    padding: 0px;
+}
+
+.zeroMargin {
+    margin: 0px;
+}
+
+.margin5 {
+    margin: 5px;
+}
+
+.margin10 {
+    margin: 10px;
+}
+
+.margin15 {
+    margin: 15px;
+}
+
+.marginTop5 {
+    margin-top: 5px;
+}
+
+.marginTop10 {
+    margin-top: 10px;
+}
+
+.marginTop20 {
+    margin-top: 20px;
+}
+
+.marginTop30 {
+    margin-top: 30px;
+}
+
+.padding10 {
+    padding: 10px;
+}
+
+.padding15 {
+    padding: 15px;
+}
+
+.padding25 {
+    padding: 25px;
+}
+
+.paddingTop10 {
+    padding-top: 10px;
+}
+
+.paddingTop15 {
+    padding-top: 15px;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.alignRight {
+    text-align: right;
+}
+
+.alignLeft {
+    text-align: left;
+}
+
+/* Auth screens */
+.loginTitle {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.extendInput.item-input {
+    padding: 1px 0 2px 8px;
+}
+
+.positiveBtn.button.button-positive, .positiveBtn.button.button-positive.activated {
+    background-color: #0074BD;
+    min-height: 36px;
+    line-height: 36px;
+    border: none;
+    padding: 0 35px;
+}
+
+.cancelBtn.button.button-positive, .cancelBtn.button.button-positive.activated {
+    background-color: #908d8c;
+    min-height: 36px;
+    line-height: 36px;
+    border: none;
+    padding: 0 35px;
+}
+
+.paddingLeftRight {
+    padding: 0 10px;
+}
+
+.btnMarRight {
+    margin-right: 3px;
+}
+
+.btnMarLeft {
+    margin-left: 3px;
+}
+
+.registerLabel {
+    text-align: left;
+    padding: 1px 0px;
+    font-size: 14px;
+}
+
+input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="tel"], input[type="color"] {
+    height: 28px;
+    color: #111;
+    padding-right: 10px;
+}
+
+.item-checkbox {
+    padding: 8px 16px 8px 48px;
+    font-size: 14px;
+}
+
+.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+    background: #0074bd;
+    border-color: #0074bd;
+}
+
+.item-checkbox .checkbox {
+    left: 0px;
+}

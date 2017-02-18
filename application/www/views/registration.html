@@ -1,25 +1,52 @@
 <ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Login</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
-    </div>
-  </ion-header-bar>
-  <ion-content>
-    <form ng-submit="doLogin()">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
-        </label>
-      </div>
-    </form>
-  </ion-content>
+    <ion-content has-bouncing="false" class="padding25 alignCenter">
+
+        <img src="./img/logo.png">
+        <div class="list list-inset alignLeft margin5">
+            <div class="registerLabel lBlueFontClr">Personal Information</div>
+            <label class="item item-input extendInput">
+                <input type="text" placeholder="First Name">
+            </label>
+            <label class="item item-input extendInput marginTop5">
+                <input type="text" placeholder="Last Name">
+            </label>
+            <label class="item item-input extendInput marginTop5">
+                <input type="number" placeholder="Phone Number">
+            </label>
+
+            <div class="registerLabel lBlueFontClr marginTop5">Login Information</div>
+            <label class="item item-input extendInput">
+                <input type="email" placeholder="info@example.com">
+            </label>
+            <label class="item item-input extendInput marginTop5">
+                <input type="password" placeholder="Password">
+            </label>
+            <label class="item item-input extendInput marginTop5">
+                <input type="password" placeholder="Confirm Password">
+            </label>
+
+            <div class="registerLabel lBlueFontClr marginTop5">Options for Notification</div>
+            <ion-checkbox ng-model="filter.red">Email</ion-checkbox>
+            <ion-checkbox ng-model="filter.yellow" class="marginTop5">SMS</ion-checkbox>
+            <ion-checkbox ng-model="filter.pink" class="marginTop5">Notifications</ion-checkbox>
+
+
+
+        </div>
+
+
+        <div class="row zeroPadding marginTop10">
+            <div class="col zeroPadding alignRight btnMarRight">
+                <button class="button button-positive cancelBtn" ng-click="onRegisterCancel()">
+                    Cancel
+                </button>
+            </div>
+            <div class="col zeroPadding alignLeft btnMarLeft">
+                <button class="button button-positive positiveBtn">
+                    Register
+                </button>
+            </div>
+        </div>
+
+    </ion-content>
 </ion-modal-view>

@@ -14,6 +14,7 @@ module.exports = {
         "object-curly-spacing": 0,
         "one-var": 0,
         "one-var-declaration-per-line": 0,
-        "comma-dangle": 0
+        "comma-dangle": 0,
+        "no-trailing-spaces": "error"
     }
 };
