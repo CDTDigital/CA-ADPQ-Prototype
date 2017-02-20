@@ -719,7 +719,7 @@ button,
     border-bottom: 0;
     color: #ffffff;
     text-decoration: none; }
-  .usa-button:focus, .usa-button.usa-button-focus,
+  /*.usa-button:focus, .usa-button.usa-button-focus,
   .usa-button-primary:focus,
   .usa-button-primary.usa-button-focus,
   .usa-button:visited:focus,
@@ -736,7 +736,7 @@ button,
   [type="reset"].usa-button-focus,
   [type="image"]:focus,
   [type="image"].usa-button-focus {
-    box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf; }
+    box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf; }*/
   .usa-button:active, .usa-button.usa-button-active,
   .usa-button-primary:active,
   .usa-button-primary.usa-button-active,
@@ -1439,9 +1439,9 @@ a {
     color: #205493; }
   a:visited {
     color: #4c2c92; }
-  a:focus {
+  /*a:focus {
     box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
-    outline: 0; }
+    outline: 0; }*/
 
 .usa-external_link::after {
   background: url("../img/external-link.png") no-repeat 0 0;
@@ -1780,8 +1780,8 @@ dfn {
   width: 100%; }
   .usa-accordion-button:hover {
     background-color: transparent; }
-  .usa-accordion-button:focus {
-    box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf; }
+  /*.usa-accordion-button:focus {
+    box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf; }*/
   .usa-accordion-button:hover {
     background-color: #d6d7d9;
     color: #212121; }
@@ -2280,7 +2280,9 @@ li.usa-footer-primary-content {
 
 .usa-footer-slim-logo-img {
   float: left;
-  max-width: 10rem; }
+  max-width: 10rem;
+  border-radius: 50px;
+}
 
 .usa-footer-logo-heading {
   margin-top: 2rem; }
@@ -2339,13 +2341,13 @@ form a {
 form [type="submit"],
 form [type="submit"] {
   display: block;
-  margin-bottom: 1.5em;
-  margin-top: 2.5rem; }
+  margin-bottom: 15px;
+  margin-top: 15px; }
   @media screen and (min-width: 600px) {
     form [type="submit"],
     form [type="submit"] {
-      padding-left: 2.7em;
-      padding-right: 2.7em;
+      padding-left: 15px;
+      padding-right: 15px;
       width: auto; } }
 form [name="password"],
 form [name="confirmPassword"] {
@@ -2854,8 +2856,8 @@ fieldset {
         font-size: 1.5rem;
         font-weight: 700;
         width: initial; } }
-    .usa-nav-primary button:focus, .usa-nav-primary button:active {
-      box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf; }
+    /*.usa-nav-primary button:focus, .usa-nav-primary button:active {
+      box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf; }*/
     .usa-nav-primary button:hover {
       background-color: #f1f1f1;
       color: #0071bc; }
@@ -3658,8 +3660,7 @@ h3 + .button_wrapper {
 .button_wrapper {
   clear: both;
   display: block;
-  margin-left: -1rem;
-  padding: 0 1rem; }
+}
   @media screen and (min-width: 481px) {
     .button_wrapper {
       display: table; } }
@@ -4311,3 +4312,154 @@ pre[class*="language-"] {
     .demo-footer-content {
       margin-right: 3rem;
       margin-left: 3rem; } }
+
+/**************************************/
+/*  Base styling
+/**************************************/
+body {
+  color: #000;
+  background-color: #fff;
+  line-height: normal;
+}
+
+/* Overriding Bootstrap Row margin*/
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.subheader {
+  background-color: #d6d7d9;
+}
+
+.fullwidth{
+  width: 100%;
+}
+
+.usa-logo-text a img {
+  width: 22%;
+}
+
+.center {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.whiteBackground {
+  background: #ffffff !important;
+}
+
+.center {
+  text-align: center;
+}
+
+.grayFont {
+  color: #5e5e5c;
+}
+
+.form-signin {
+  padding: 15px 35px;
+}
+
+.form {
+  margin: 20px 18px;
+}
+
+.form-control {
+  margin-bottom: 25px;
+}
+
+.form p {
+  font-size: 14px;
+  width: 75%;
+  margin: 0px auto;
+}
+
+.form a {
+  font-size: 13px;
+}
+
+.login-screen {
+  margin: 60px auto;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  float: none;
+  position: relative;
+  padding: 0;
+}
+
+.login-header {
+  background: #112e51;
+  padding: 20px;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+}
+
+.buttonLink {
+  padding: 10px 30px;
+  margin: 0 auto;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/**************************************/
+/*  Footer
+/**************************************/
+.footer {
+  font-size: 14px;
+  color: #003855;
+  background-color: #e0e0d7;
+  padding-top: 16px;
+  padding-bottom: 32px;
+}
+
+/**************************************/
+/*  Notification History Page
+/**************************************/
+
+.topbar {
+  margin-left: 30px;
+  border-bottom: 1px solid black;
+}
+
+.searchInput {
+  font-size: 14px;
+  text-align: left;
+  padding: 13px 60px 10px 40px;
+}
+
+.searchButton {
+  background-image: url(../images/search-image.png);
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: 0 0;
+  border: none;
+  cursor: pointer;
+  height: 26px;
+  width: 26px;
+  vertical-align: middle;
+  float: left;
+}
+
+.titleBlock {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+/**************************************/
+/*  Notification Message Page
+/**************************************/
+.sendForm {
+  margin-top: 35px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  border-radius: 0;
+}
