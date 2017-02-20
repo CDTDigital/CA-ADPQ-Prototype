@@ -4,7 +4,7 @@ module.exports = {
         "arrow-parens": [2, "always"],
         "linebreak-style": 0,
         // Increase the line length warning to match Webstorm default, although shorter lines are better
-        "max-len": [1, 120, 4, {
+        "max-len": [1, 150, 4, {
             "ignoreComments": true,
             "ignoreUrls": true
         }],

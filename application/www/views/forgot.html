@@ -4,7 +4,7 @@
         <img src="./img/logo.png" class="marginTop30">
         <div class="list list-inset">
             <label class="item item-input extendInput">
-                <input type="email" placeholder="info@exmaple.com">
+                <input type="email" placeholder="info@exmaple.com" ng-model="forgot.email">
             </label>
         </div>
 
@@ -16,7 +16,7 @@
                 </button>
             </div>
             <div class="col zeroPadding alignLeft btnMarLeft">
-                <button class="button button-positive positiveBtn">
+                <button class="button button-positive positiveBtn" ng-click="onTapResetBtn()">
                     Reset
                 </button>
             </div>

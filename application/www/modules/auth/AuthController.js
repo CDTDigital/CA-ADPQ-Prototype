@@ -6,7 +6,7 @@ angular.module('CRNS')
     $ionicModal.fromTemplateUrl('views/registration.html', {
         scope: $scope,
         animation: 'slide-in-up',
-        backdropClickToClose: false,
+        backdropClickToClose: false
     }).then(function(modal) {
         $scope.registerModal = modal;
     });
@@ -15,7 +15,7 @@ angular.module('CRNS')
     $ionicModal.fromTemplateUrl('views/forgot.html', {
         scope: $scope,
         animation: 'slide-in-up',
-        backdropClickToClose: false,
+        backdropClickToClose: false
     }).then(function(modal) {
         $scope.forgotModal = modal;
     });
@@ -24,40 +24,49 @@ angular.module('CRNS')
     $scope.onTapForgotLink = function() {
         $ionicScrollDelegate.scrollTop();
         $scope.forgot = {
-            email: '',
+            email: ''
         };
 
         $scope.forgotModal.show();
     };
 
-    $scope.onRegisterCancel = function() {
-        $scope.registerModal.hide();
-    }
+    // Perform the register action when the user submits the register form
+    $scope.onTapResetBtn = function() {
+        console.log('Doing register', $scope.forgot);
+    };
 
     $scope.onForgotCancel = function() {
         $scope.forgotModal.hide();
-    }
+    };
 
     // Open the Register user modal
     $scope.onTapRegisterLink = function() {
         $ionicScrollDelegate.scrollTop();
         $scope.register = {
-            firstName: '',
-            lastName: '',
+            userName: '',
             email: '',
-            phoneNumber: '',
             pasword: '',
-            confirmPasword: '',
-            isEmail: '',
-            isSMS: '',
-            isNotificaton: ''
         };
 
         $scope.registerModal.show();
     };
 
-    // Perform the login action when the user submits the login form
-    $scope.onTapRegisterSubmit = function() {
+    // Perform the register action when the user submits the register form
+    $scope.onTapRegisterBtn = function() {
         console.log('Doing register', $scope.register);
+    };
+
+    $scope.onRegisterCancel = function() {
+        $scope.registerModal.hide();
+    };
+
+    $scope.login = {
+        userName: '',
+        password: ''
+    };
+
+    // Perform the login action when the user submits the login form
+    $scope.onTapLoginBtn = function() {
+        console.log('Doing login', $scope.login);
     };
 }]);
