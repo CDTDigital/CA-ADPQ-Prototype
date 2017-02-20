@@ -12,26 +12,32 @@ resource "aws_security_group" "docker_host_sg" {
     name = "docker_host_sg"
     description = "security group for docker host"
 	
-	ingress{
+	ingress {
         from_port = 22
         to_port = 22
         protocol= "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
-		ingress{
+		ingress {
+        from_port = 8080
+        to_port = 8080
+        protocol= "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+		ingress {
         from_port = 443
         to_port = 443
         protocol= "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
 	 
-		ingress{
+		ingress {
         from_port = 80
         to_port = 80
         protocol= "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
-	   egress{
+	   egress {
         from_port = 0
         to_port = 65535
         protocol= "tcp"
@@ -43,8 +49,15 @@ resource "aws_instance" "docker_host"  {
     
 	ami = "${var.provider["ami"]}"
     instance_type = "${var.provider["instance_type"]}"
-	key_name = "${var.provider["key_name"]}"
-	security_groups = ["${aws_security_group.docker_host_sg.name}"]
+	key_name ="${var.provider["key_name"]}"
+	security_groups= ["${aws_security_group.docker_host_sg.name}"]
+	root_block_device 
+        {
+          
+		  volume_type = "gp2"
+          volume_size = 15
+          delete_on_termination = "true"
+        }
 	
  connection {
                type = "ssh"
@@ -57,7 +70,10 @@ resource "aws_instance" "docker_host"  {
    provisioner "remote-exec" {
         inline = [
          "sudo apt-get update",
-		 "sudo apt-get install docker.io -y"
+		 "sudo apt-get install docker.io -y",
+		 "sudo docker pull jenkins",
+		 "sudo mkdir /var/jenkins-home",
+		 "sudo docker run -d --name crns-jenkins -p 8080:8080 -p 50000:50000 -v /var/jenkins-home:/var/jenkins_home -u root jenkins"
         ]
     }   
 
@@ -65,3 +81,9 @@ resource "aws_instance" "docker_host"  {
         Name = "docker_host_CRNS"
        }		
 }
+
+resource "aws_eip" "docker_host_pub_ip" {
+    
+	instance = "${aws_instance.docker_host.id}"
+ 
+ }
