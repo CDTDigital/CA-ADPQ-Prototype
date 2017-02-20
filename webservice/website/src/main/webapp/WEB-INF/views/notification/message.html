@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CRNS</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- PUSH Menu JS and CSS -->
+<script src="js/jquery.min.js"></script>
+<script src="js/index.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jPushMenu.js"></script>
+<script type="text/javascript">
+	//<![CDATA[
+	$(document).ready(function() {
+		$('.toggle-menu').jPushMenu({
+			closeOnClickLink : false
+		});
+		$('.dropdown-toggle').dropdown();
+	});
+	//]]>
+</script>
+
+</head>
+
+<body>
+
+	<div>
+		<header>
+			<h1>CRNS</h1>
+			<p>California Residents Notification Service</p>
+
+			<!-- <div id="header"></div>-->
+
+		</header>
+		<!-- <ul class="nav navbar-nav">-->
+		<div class="container borderBottom">
+			<nav class="navbar" id="navbar">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Notification <span class="caret"></span>
+					</a>
+						<ul role="menu" class="dropdown-menu">
+							<li class="dropdown-header"></li>
+							<li><a href="/index">Send Notifications</a></li>
+							<li><a href="#">Notification List</a></li>
+						</ul></li>
+					<li><a href="#">User List</a></li>
+				</ul>
+			</nav>
+		</div>
+
+
+		<div class="container titleBlock">
+			<h3>Send Notifications</h3>
+			<div class="sendForm">
+				<div class="form-group row">
+					<label for="text-input"
+						class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-label">City</label>
+					<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+						<input class="form-control" type="text" value="" id="text-input">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="text-input"
+						class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-label">Subject</label>
+					<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+						<input class="form-control" type="text" value="" id="text-input">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="text-input"
+						class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-label">Message</label>
+					<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+						<textarea class="form-control" id="comments"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="buttonLink btn btn-primary pull-right">Publish</button>
+				</div>
+
+			</div>
+		</div>
+	<footer class="footer">
+			<div class="row">
+				<div class="col-sm-6">Copyright&copy; 2017 California
+					Residents Notification Service</div>
+			</div>
+		</footer>
+	</div>
+<body>
+</html>
