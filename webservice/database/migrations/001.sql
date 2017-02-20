@@ -16,7 +16,7 @@ CREATE TABLE scriptlog (
   script NVARCHAR(1000) NOT NULL,
   checksum INT(11),
   installed_by NVARCHAR(100) NOT NULL,
-  installed_on DATETIME DEFAULT CURRENT_TIMESTAMP ,
+  installed_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   execution_time INT(11) NOT NULL,
   success BINARY NOT NULL,
   CONSTRAINT PK_ScriptLog PRIMARY KEY (version)

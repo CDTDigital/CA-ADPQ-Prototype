@@ -56,7 +56,7 @@ create table notification (
 	message NVARCHAR(1000) NOT NULL,
 	city NVARCHAR(100) NOT NULL,
 	zip_code NVARCHAR(100) NOT NULL,
-	date DATETIME DEFAULT CURRENT_TIMESTAMP,
+	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	CONSTRAINT pk_notification PRIMARY KEY (notification_id),
 	CONSTRAINT fk_sentBy_user FOREIGN KEY (sent_by) REFERENCES user(user_id)
 );
