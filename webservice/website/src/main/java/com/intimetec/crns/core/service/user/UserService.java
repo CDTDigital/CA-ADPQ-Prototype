@@ -3,7 +3,7 @@ package com.intimetec.crns.core.service.user;
 import java.util.Collection;
 import java.util.Optional;
 
-import com.intimetec.crns.web.models.User;
+import com.intimetec.crns.models.User;
 
 public interface UserService {
 	Optional<User> getUserById(long id);

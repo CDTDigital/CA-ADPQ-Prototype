@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.intimetec.crns.core.service.user.UserService;
-import com.intimetec.crns.web.models.CurrentUser;
-import com.intimetec.crns.web.models.User;
+import com.intimetec.crns.models.CurrentUser;
+import com.intimetec.crns.models.User;
 
 @Service
 public class CurrentUserDetailsService implements UserDetailsService {

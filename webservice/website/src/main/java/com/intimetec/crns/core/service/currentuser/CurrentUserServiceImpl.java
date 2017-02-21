@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.intimetec.crns.web.models.CurrentUser;
-import com.intimetec.crns.web.models.UserRole;
+import com.intimetec.crns.models.CurrentUser;
+import com.intimetec.crns.models.UserRole;
 
 @Service
 public class CurrentUserServiceImpl implements CurrentUserService {

@@ -1,4 +1,4 @@
-package com.intimetec.crns.web.models;
+package com.intimetec.crns.models;
 
 import java.util.Date;
 

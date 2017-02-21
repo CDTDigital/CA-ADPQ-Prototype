@@ -1,6 +1,6 @@
 package com.intimetec.crns.core.service.currentuser;
 
-import com.intimetec.crns.web.models.CurrentUser;
+import com.intimetec.crns.models.CurrentUser;
 
 public interface CurrentUserService {
 

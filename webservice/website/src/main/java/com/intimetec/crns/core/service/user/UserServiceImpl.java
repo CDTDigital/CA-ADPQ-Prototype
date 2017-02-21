@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.intimetec.crns.core.repository.UserRepository;
-import com.intimetec.crns.web.models.User;
+import com.intimetec.crns.models.User;
 
 @Service
 public class UserServiceImpl implements UserService {

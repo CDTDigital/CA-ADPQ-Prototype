@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.intimetec.crns.core.service.user.UserService;
-import com.intimetec.crns.web.models.User;
+import com.intimetec.crns.models.User;
 
 @Controller
 public class UserController {
