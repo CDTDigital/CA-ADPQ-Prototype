@@ -1,29 +1,50 @@
 <!DOCTYPE html>
-<html>
-
+<html ng-app="CRNS">
 <head>
 <title>CRNS</title>
- <!-- Bootstrap -->
+<!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
- <!-- Custom StyleSheets -->
+<!-- Custom StyleSheets -->
 <link
 	href="//fast.fonts.net/cssapi/8476b357-99c7-4a18-9347-449c4773185a.css"
 	rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="/css/styles.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/index.js"></script>
-<script src="js/bootstrap.min.js"></script>
-</head>
-<body>
-	<div>
-		 <div class="header">
-			<h1>CRNS</h1>
-			<p>California Residents Notification Service</p>
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<!-- scripts -->
+<script
+	src="/js/angular.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<!-- Include the ui-router script -->
+<script src="/js/angular-ui-router.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/controller.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 
-		</div> 
-		 <!--<div id="header"></div>-->
-		<div class="login-screen center col-lg-4 col-md-4 col-sm-6 col-xs-8">
+<!-- meta data-->
+<meta charset="UTF-8">
+<meta name="description"
+	content="California Residents Notification Service">
+<meta name="keywords" content="Notifications, Userlist">
+<meta name="author" content="CRNS">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body ng-controller="LoginCtrl">
+<div ng-view></div>
+	<div>
+		<header class="usa-header usa-header-extended" role="banner">
+			<div class="subheader">
+				<div class="usa-navbar">
+					<div class="usa-logo" id="logo">
+						<em class="usa-logo-text"> 
+						<a href="#" accesskey="1" title="Home" aria-label="Home"> 
+						  <img src="/images/logo.png" alt="CRNS">
+						  <span>California Residents Notification Service</span>
+						</a>
+						</em>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="login-screen center col-lg-3 col-md-3 col-sm-6 col-xs-8">
 			<h2 class="login-header">Welcome to our page</h2>
 			<div class="form">
 				<h4 class="text-bold">Lets get started</h4>
@@ -40,24 +61,15 @@
 							<input type="password" class="form-control" name="password"
 								value="" placeholder="Password" required></input>
 						</div>
-						<div class="form-group">
-							<button type="submit" class="buttonLink btn btn-primary">SUBMIT</button>
+						<div class="button_wrapper fullwidth">
+							<button ui-sref="message" type="submit" class="center">SUBMIT</button>
 						</div>
-						<a class="text-bold" href="forgotPassword">Forgot Password</a>&nbsp;&nbsp;
-                        <a class="text-bold" href="signUp">Sign Up</a>
+						<a class="text-bold">Forgot Password</a>&nbsp;&nbsp;
+						<a class="text-bold" href="signUp">Sign Up</a>
 					</div>
 				</form>
 			</div>
 		</div>
-
-		<footer class="footer">
-			<div class="row">
-				<div class="col-sm-6">Copyright&copy; 2017 California
-					Residents Notification Service</div>
-			</div>
-		</footer> 
-		<!--<div id="footer"></div>-->
 	</div>
-
 </body>
 </html>
