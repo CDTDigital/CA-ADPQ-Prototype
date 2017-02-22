@@ -3,6 +3,8 @@
  */
 package com.intimetec.crns.core.authentication;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -50,8 +52,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 		LOGGER.info(authentication.getPrincipal() + " got is connected ");
 
 		LOGGER.debug("User: " + authentication.getPrincipal());
-		System.out.println("User: " + authentication.getPrincipal());
-
-		//super.onAuthenticationSuccess(request, response, authentication);
+		PrintWriter writer = response.getWriter();
+        writer.write(mapper.writeValueAsString(authUser));
 	}
 }

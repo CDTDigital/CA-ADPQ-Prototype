@@ -1,12 +1,17 @@
 package com.intimetec.crns.core.models;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -42,6 +47,10 @@ public class User {
 	@Column(name="role")
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private Set<UserDevice> userDevice;
 	
 	public long getId() {
 		return id;
@@ -105,6 +114,14 @@ public class User {
 
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
+	}
+
+	public Set<UserDevice> getUserDevice() {
+		return userDevice;
+	}
+
+	public void setUserDevice(Set<UserDevice> userDevice) {
+		this.userDevice = userDevice;
 	}
 
 	@Override
