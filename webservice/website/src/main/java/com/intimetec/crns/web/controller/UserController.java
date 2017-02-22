@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.service.user.UserService;
-import com.intimetec.crns.models.User;
 
 @Controller
 public class UserController {

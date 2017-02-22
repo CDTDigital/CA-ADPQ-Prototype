@@ -15,16 +15,23 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
           .addResourceHandler("/view/**")
-          .addResourceLocations("(/resources/", "WEB-INF/views/");    
+          .addResourceLocations("/resources/", "WEB-INF/views/");    
         registry
          .addResourceHandler("/css/**")
-         .addResourceLocations("(/resources/", "WEB-INF/css/");
+         .addResourceLocations("/resources/", "WEB-INF/css/");
         registry
          .addResourceHandler("/js/**")
-         .addResourceLocations("(/resources/", "WEB-INF/js/");
+         .addResourceLocations("/resources/", "WEB-INF/js/");
         registry
         .addResourceHandler("/images/**")
-        .addResourceLocations("(/resources/", "WEB-INF/images/");
+        .addResourceLocations("/resources/", "WEB-INF/images/");
+        
+        /* Added resource handler location for Swagger UI */
+        registry.addResourceHandler("swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 	@Override

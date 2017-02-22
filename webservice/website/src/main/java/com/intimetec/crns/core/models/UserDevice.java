@@ -1,10 +1,13 @@
-package com.intimetec.crns.models;
+package com.intimetec.crns.core.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -12,13 +15,17 @@ import javax.persistence.Table;
  * @author shiva.dixit
  */
 @Entity
-@Table(name="device_info")
-public class DeviceInfo {
+@Table(name="user_device")
+public class UserDevice {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="devinfo_id")
-	private int id;
-
+	@Column(name="id")
+	private int id;	
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private User user;
+	
 	@Column(name="device_id")
 	private String deviceId;
 	
@@ -28,12 +35,23 @@ public class DeviceInfo {
 	@Column(name="device_type")
 	private String deviceType;
 
+	@Column(name="auth_token")
+	private String authToken;
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getDeviceId() {
@@ -60,4 +78,11 @@ public class DeviceInfo {
 		this.deviceType = deviceType;
 	}
 
+	public String getAuthToken() {
+		return authToken;
+	}
+
+	public void setAuthToken(String authToken) {
+		this.authToken = authToken;
+	}
 }

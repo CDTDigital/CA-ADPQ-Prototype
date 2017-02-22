@@ -1,4 +1,4 @@
-package com.intimetec.crns.models;
+package com.intimetec.crns.core.models;
 
 import org.springframework.security.core.authority.AuthorityUtils;
 
@@ -7,7 +7,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
     private User user;
 
     public CurrentUser(User user) {
-        super(user.getEmail(), user.getUserLogin().getPassword(), AuthorityUtils.createAuthorityList(user.getUserRole().toString()));
+        super(user.getUserName(), user.getPassword(), AuthorityUtils.createAuthorityList(user.getUserRole().toString()));
         this.user = user;
     }
 

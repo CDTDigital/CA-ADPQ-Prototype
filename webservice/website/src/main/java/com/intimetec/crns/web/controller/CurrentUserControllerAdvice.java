@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.intimetec.crns.models.CurrentUser;
+import com.intimetec.crns.core.models.CurrentUser;
 
 @ControllerAdvice
 public class CurrentUserControllerAdvice {

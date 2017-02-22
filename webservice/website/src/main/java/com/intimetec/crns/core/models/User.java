@@ -1,15 +1,12 @@
-package com.intimetec.crns.models;
+package com.intimetec.crns.core.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,27 +29,20 @@ public class User {
 	
 	@Column(name="email")
 	private String email;
+
+	@Column(name="username")
+	private String userName;
 	
-	@Column(name="address_line1")
-	private String addressLine1;
+	@Column(name="password")
+	private String password;
 	
-	@Column(name="address_line2")
-	private String addressLine2;
-	
-	@Column(name="city")
-	private String city;
-	
-	@Column(name="zip_code")
-	private String zipCode;
+	@Column(name="status")
+	private boolean status;
 	
 	@Column(name="role")
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="user_id", insertable=false, updatable=false)
-	private UserLogin userLogin;
-
 	public long getId() {
 		return id;
 	}
@@ -85,36 +75,28 @@ public class User {
 		this.email = email;
 	}
 
-	public String getAddressLine1() {
-		return addressLine1;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getAddressLine2() {
-		return addressLine2;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getCity() {
-		return city;
+	public boolean isStatus() {
+		return status;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getZipCode() {
-		return zipCode;
-	}
-
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	public UserRole getUserRole() {
@@ -124,12 +106,15 @@ public class User {
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
-	
-	public UserLogin getUserLogin() {
-		return userLogin;
-	}
 
-	public void setUserLogin(UserLogin userLogin) {
-		this.userLogin = userLogin;
-	}
+	@Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username=" + userName +
+                ", email='" + email.replaceFirst("@.*", "@***") +
+                ", password='" + password.substring(0, 10) +
+                ", role=" + userRole +
+                '}';
+    }
 }

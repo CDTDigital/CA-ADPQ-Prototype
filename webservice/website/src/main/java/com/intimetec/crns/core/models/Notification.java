@@ -1,4 +1,4 @@
-package com.intimetec.crns.models;
+package com.intimetec.crns.core.models;
 
 import java.util.Date;
 
@@ -40,8 +40,11 @@ public class Notification {
 	@Column(name="zip_code")
 	private String zipCode;
 
-	@Column(name="date")
-	private Date sentDate;
+	@Column(name="sent_time")
+	private Date sentTime;
+	
+	@Column(name="valid_through")
+	private Date validThrough;
 
 	public int getId() {
 		return id;
@@ -66,7 +69,7 @@ public class Notification {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}
@@ -91,11 +94,19 @@ public class Notification {
 		this.zipCode = zipCode;
 	}
 
-	public Date getSentDate() {
-		return sentDate;
+	public Date getSentTime() {
+		return sentTime;
 	}
 
-	public void setSentDate(Date sentDate) {
-		this.sentDate = sentDate;
+	public void setSentTime(Date sentTime) {
+		this.sentTime = sentTime;
+	}
+
+	public Date getValidThrough() {
+		return validThrough;
+	}
+
+	public void setValidThrough(Date validThrough) {
+		this.validThrough = validThrough;
 	}
 }
