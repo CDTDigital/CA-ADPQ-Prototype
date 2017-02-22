@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public Optional<User> getUserByUserName(String userName) {
-        LOGGER.debug("Getting user by username={}", userName);
+        System.out.println("Getting user by username={}"+ userName);
         LOGGER.debug("Getting user by username={}"+ userName);
         Optional<User> user= userRepository.findOneByUserName(userName);
        return user;

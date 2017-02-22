@@ -1,6 +1,7 @@
 package com.intimetec.crns.core.authentication;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,17 +14,20 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AuthFilter extends UsernamePasswordAuthenticationFilter {
+public class AuthFilter extends AbstractAuthenticationProcessingFilter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthFilter.class);
 	
+	public AuthFilter() {
+	    super("/login");
+	}
+	
 	@Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response){
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)  throws AuthenticationException{
         if (!request.getMethod().equals("POST")) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
@@ -39,22 +43,23 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
             if (parsedReq != null) {
                 ObjectMapper mapper = new ObjectMapper();
                 LoginRequest loginRequest = mapper.readValue(parsedReq, LoginRequest.class);
+                System.out.println("Login Request: "+ loginRequest);
                 LOGGER.debug("Login Request: "+ loginRequest);
-                return new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+                return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             LOGGER.debug(e.getMessage());
             throw new InternalAuthenticationServiceException("Failed to parse authentication request body");
         }
         return null;
     }
-	
+
 	@Autowired
     @Override
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         super.setAuthenticationManager(authenticationManager);
     }
-
+/*
     @Autowired
     @Override
     public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler successHandler) {
@@ -65,5 +70,5 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public void setAuthenticationFailureHandler(AuthenticationFailureHandler failureHandler) {
         super.setAuthenticationFailureHandler(failureHandler);
-    }
+    }*/
 }
