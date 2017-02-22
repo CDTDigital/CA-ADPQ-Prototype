@@ -1,8 +1,8 @@
 // Ionic CRNS App
 
-angular.module('CRNS', ['ionic'])
+angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
     // (remove this to show the accessory bar above the keyboard for form inputs)
@@ -12,9 +12,18 @@ angular.module('CRNS', ['ionic'])
     }
 
     if(window.StatusBar) {
-      StatusBar.styleDefault();
+      StatusBar.styleLightContent();
     }
   });
+
+  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      console.log(toState);
+  });
+
+  /* It will go back to previous state */
+  $rootScope.goBack = function() {
+      history.back();
+  };
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -23,20 +32,32 @@ angular.module('CRNS', ['ionic'])
   .state('login', {
       url: '/login',
       templateUrl: 'views/login.html',
-      controller: 'AuthController'
+      controller: 'AuthCtrl'
   })
   .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'views/menu.html',
-    controller: 'AppController'
+      templateUrl: 'views/menu.html',
+      controller: 'AppCtrl'
+  })
+  .state('accountSetup', {
+      url: '/accountSetup',
+      cache: 'false',
+      templateUrl: 'views/accountSetup.html',
+      controller: 'SetupCtrl'
+  })
+  .state('location', {
+      url: '/location',
+      cache: 'false',
+      templateUrl: 'views/location.html',
+      controller: 'LocationCtrl'
   })
   .state('app.dash', {
     url: '/dash',
     views: {
-      'crnsview': {
+      'menuview': {
         templateUrl: 'views/dashboard.html',
-        controller: 'DashBoardController'
+        controller: 'DashboardCtrl'
       }
     }
   });

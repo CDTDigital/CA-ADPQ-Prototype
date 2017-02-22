@@ -1,5 +1,5 @@
-angular.module('CRNS')
-.controller('NotificationListController', function($scope) {
+angular.module('CRNSCtrl')
+.controller('NotificationListCtrl', [function() {
     'use strict';
     // To Do
-});
+}]);

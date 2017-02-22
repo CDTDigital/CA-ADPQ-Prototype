@@ -1,7 +1,6 @@
-angular.module('CRNS')
-.controller('AuthController', ['$scope', 'AuthServices', '$ionicModal', '$ionicScrollDelegate', function($scope, AuthServices, $ionicModal, $ionicScrollDelegate) {
+angular.module('CRNSCtrl')
+.controller('AuthCtrl', ['$scope', '$ionicModal', '$ionicScrollDelegate', '$state', function($scope, $ionicModal, $ionicScrollDelegate, $state) {
     'use strict';
-
     // Create the registration modal that will use on tap on register link
     $ionicModal.fromTemplateUrl('views/registration.html', {
         scope: $scope,
@@ -45,7 +44,7 @@ angular.module('CRNS')
         $scope.register = {
             userName: '',
             email: '',
-            pasword: '',
+            pasword: ''
         };
 
         $scope.registerModal.show();
@@ -67,6 +66,6 @@ angular.module('CRNS')
 
     // Perform the login action when the user submits the login form
     $scope.onTapLoginBtn = function() {
-        console.log('Doing login', $scope.login);
+        $state.go('accountSetup');
     };
 }]);

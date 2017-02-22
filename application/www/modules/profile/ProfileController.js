@@ -1,5 +1,5 @@
-angular.module('CRNS')
-.controller('ProfileController', function($scope) {
+angular.module('CRNSCtrl')
+.controller('ProfileCtrl', [function() {
     'use strict';
     // To Do
-});
+}]);
