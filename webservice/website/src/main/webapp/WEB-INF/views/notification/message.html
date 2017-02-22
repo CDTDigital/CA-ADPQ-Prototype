@@ -1,97 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>CRNS</title>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="css/styles.css" />
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!-- PUSH Menu JS and CSS -->
-<script src="js/jquery.min.js"></script>
-<script src="js/index.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jPushMenu.js"></script>
-<script type="text/javascript">
-	//<![CDATA[
-	$(document).ready(function() {
-		$('.toggle-menu').jPushMenu({
-			closeOnClickLink : false
-		});
-		$('.dropdown-toggle').dropdown();
-	});
-	//]]>
-</script>
-
+	<title>CRNS</title>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+	<!-- Custom StyleSheets -->
+	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+	<!-- Scripts-->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="/js/nav.min.js"></script>
+	<!-- Meta Data-->
+	<meta charset="UTF-8">
+	<meta name="description" content="California Residents Notification Service">
+	<meta name="keywords" content="Notifications, Userlist">
+	<meta name="author" content="CRNS">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
-
-	<div>
-		<header>
-			<h1>CRNS</h1>
-			<p>California Residents Notification Service</p>
-
-			<!-- <div id="header"></div>-->
-
-		</header>
-		<!-- <ul class="nav navbar-nav">-->
-		<div class="container borderBottom">
-			<nav class="navbar" id="navbar">
-				<ul class="nav navbar-nav">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Notification <span class="caret"></span>
-					</a>
-						<ul role="menu" class="dropdown-menu">
-							<li class="dropdown-header"></li>
-							<li><a href="/index">Send Notifications</a></li>
-							<li><a href="#">Notification List</a></li>
-						</ul></li>
-					<li><a href="#">User List</a></li>
-				</ul>
-			</nav>
-		</div>
-
-
-		<div class="container titleBlock">
-			<h3>Send Notifications</h3>
-			<div class="sendForm">
-				<div class="form-group row">
-					<label for="text-input"
-						class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-label">City</label>
-					<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
-						<input class="form-control" type="text" value="" id="text-input">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="text-input"
-						class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-label">Subject</label>
-					<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
-						<input class="form-control" type="text" value="" id="text-input">
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label for="text-input"
-						class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-label">Message</label>
-					<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
-						<textarea class="form-control" id="comments"></textarea>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<button type="submit" class="buttonLink btn btn-primary pull-right">Publish</button>
-				</div>
-
+  <div>
+    <header class="usa-header usa-header-extended" role="banner">
+	  <div class="subheader">
+	    <div class="usa-navbar">
+		  <button class="usa-menu-btn">
+			  <div></div>
+			  <div></div>
+			  <div></div>
+		  </button>
+			<div class="usa-logo col-lg-8 col-md-8 col-sm-8 col-xs-10 noSpace" id="logo">
+			  <em class="usa-logo-text">
+			    <a href="#" class="col-xs-12 noSpace" accesskey="1" title="Home" aria-label="Home">
+				  <img src="/images/logo.png" alt="CRNS">
+			      <span>California Residents Notification Service</span>
+				</a>
+			  </em>
 			</div>
 		</div>
-	<footer class="footer">
-			<div class="row">
-				<div class="col-sm-6">Copyright&copy; 2017 California
-					Residents Notification Service</div>
+	  </div>
+	  <nav role="navigation" class="usa-nav">
+	    <div class="usa-nav-inner">
+		  <button class="usa-nav-close">
+		    <img src="/images/close.svg" alt="close">
+		  </button>
+		  <ul class="usa-nav-primary usa-accordion">
+            <li>
+              <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="side-nav-1">
+                <span>Notification</span>
+			  </button>
+              <ul id="side-nav-1" class="usa-nav-submenu">
+                <li>
+                  <a href="#">Send Notification</a>
+				</li>
+                <li>
+                  <a href="#">Notification List</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a class="usa-nav-link" href="#">
+                <span>User List</span>
+              </a>
+            </li>
+		  </ul>
+		  <div class="usa-nav-secondary">
+		    <ul class="usa-unstyled-list usa-nav-secondary-links">
+			  <li class="hidden-sm hidden-xs">
+			    <a href="#">Welcome John</a>
+			  </li>
+			  <li>
+			    <a href="#">Logout</a>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+	  </nav>
+	</header>
+	<div class="container main-body-content">
+	  <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+		<h3>Send Notifications</h3>
+	      <div class="sendForm">
+		    <div class="form-group row">
+			  <label for="text-input" class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-label">City</label>
+			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+			    <input class="form-control" type="text" value="" id="text-input">
+			  </div>
 			</div>
-		</footer>
-	</div>
-<body>
+			<div class="form-group row">
+			  <label for="text-input" class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-label">Subject</label>
+			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+			    <input class="form-control" type="text" value="" id="text-input">
+			  </div>
+			</div>
+			<div class="form-group row">
+			  <label for="text-input" class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-label">Message</label>
+			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+			    <textarea class="form-control" id="comments"></textarea>
+			  </div>
+			</div>
+			<div class="form-group">
+		      <button type="submit" class="buttonLink btn btn-primary pull-right">Publish</button>
+			</div>
+		  </div>
+	  </div>
+    </div>
+  </div>
+</body>
 </html>
