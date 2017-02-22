@@ -1,181 +1,136 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-<title>CRNS</title>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="css/styles.css" />
-<link rel="stylesheet" type="text/css" href="css/styleguide.css" />
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!-- PUSH Menu JS and CSS -->
-<script src="js/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jPushMenu.js"></script>
-<script type="text/javascript">
-	//<![CDATA[
-	$(document).ready(function() {
-		$('.toggle-menu').jPushMenu({
-			closeOnClickLink : false
-		});
-		$('.dropdown-toggle').dropdown();
-	});
-	//]]>
-</script>
-
+  <title>CRNS</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <!-- Custom StyleSheets -->
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <!-- Scripts-->
+  <script src="js/bootstrap.min.js"></script>
+  <script src="/js/nav.min.js"></script>
+  <!-- Meta Data-->
+  <meta charset="UTF-8">
+  <meta name="description" content="California Residents Notification Service">
+  <meta name="keywords" content="Notifications, Userlist">
+  <meta name="author" content="CRNS">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
-
-	<div>
-		<header class="usa-header usa-header-basic" role="banner">
-			<div class="usa-nav-container">
-				<div class="usa-navbar">
-					<button class="usa-menu-btn">Menu</button>
-					<div class="usa-logo" id="logo">
-						<em class="usa-logo-text"> <a href="#" accesskey="1"
-							title="Home" aria-label="Home">CRNS</a>
-						</em>
-					</div>
-				</div>
-				<nav role="navigation" class="usa-nav">
-					<button class="usa-nav-close">
-						<img src="/assets/img/close.svg" alt="close">
-					</button>
-					<ul class="usa-nav-primary usa-accordion">
-						<li>
-							<button class="
-            usa-accordion-button usa-nav-link"
-								aria-expanded="false" aria-controls="side-nav-1">
-								<span>Notification</span>
-							</button>
-							<ul id="side-nav-1" class="usa-nav-submenu">
-								<li><a href="#">Send Notification</a></li>
-								<li><a href="#">Notification List</a></li>
-							</ul>
-						</li>
-						<li><a class="usa-nav-link" href="#"> <span>User
-									List</span>
-						</a></li>
-
-					</ul>
-				</nav>
-			</div>
-		</header>
-		<div class="usa-overlay"></div>
-		<div class="container titleBlock">
-			<div class="col-sm-3 col-xs-9 clearfix">
-				<h3>Notifications History</h3>
-			</div>
-
-			<div class="pull-right">
-				<input type="text" class="searchInput left" data-search-input="true"
-					data-search-url="/search?query=" id="searchTermTop"
-					placeholder="Search">
-				<div data-search-button="true" class="left searchButton"></div>
+  <div>
+    <header class="usa-header usa-header-extended" role="banner">
+	  <div class="subheader">
+		<div class="usa-navbar">
+			<button class="usa-menu-btn">
+				<div></div>
+				<div></div>
+				<div></div>
+			</button>
+		    <div class="usa-logo col-lg-8 col-md-8 col-sm-8 col-xs-10 noSpace" id="logo">
+			  <em class="usa-logo-text">
+			    <a href="#" class="col-xs-12 noSpace" accesskey="1" title="Home" aria-label="Home">
+				  <img src="/images/logo.png" alt="CRNS">
+				    <span>California Residents Notification Service</span>
+				</a>
+			  </em>
 			</div>
 		</div>
-
-		<div class="container notificationTable">
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>City</th>
-						<th>Subject</th>
-						<th>Message</th>
-						<th>Sent By</th>
-						<th>Date</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>California</td>
-						<td>ABC</td>
-						<td>Test Message</td>
-						<td>Test</td>
-						<td>Test</td>
-					</tr>
-					<tr>
-						<td>California</td>
-						<td>ABC</td>
-						<td>Test Message</td>
-						<td>Test</td>
-						<td>Test</td>
-					</tr>
-					<tr>
-						<td>California</td>
-						<td>ABC</td>
-						<td>Test Message</td>
-						<td>Test</td>
-						<td>Test</td>
-					</tr>
-					<tr>
-						<td>California</td>
-						<td>ABC</td>
-						<td>Test Message</td>
-						<td>Test</td>
-						<td>Test</td>
-					</tr>
-					<tr>
-						<td>California</td>
-						<td>ABC</td>
-						<td>Test Message</td>
-						<td>Test</td>
-						<td>Test</td>
-					</tr>
-
-
-				</tbody>
-			</table>
-
+	  </div>
+	  <nav role="navigation" class="usa-nav">
+		<div class="usa-nav-inner">
+	      <button class="usa-nav-close">
+		    <img src="/images/close.svg" alt="close">
+		  </button>
+		  <ul class="usa-nav-primary usa-accordion">
+		    <li>
+			  <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="side-nav-1">
+			    <span>Notification</span>
+			  </button>
+			  <ul id="side-nav-1" class="usa-nav-submenu">
+			    <li>
+				  <a href="#">Send Notification</a>
+				</li>
+				<li>
+				  <a href="#">Notification List</a>
+				</li>
+			  </ul>
+			</li>
+			<li>
+			  <a class="usa-nav-link" href="#">
+				<span>User List</span>
+			  </a>
+			</li>
+		  </ul>
+		  <div class="usa-nav-secondary">
+		    <ul class="usa-unstyled-list usa-nav-secondary-links">
+			  <li class="hidden-sm hidden-xs">
+			    <a href="#">Welcome John</a>
+			  </li>
+			  <li>
+				<a href="#">Logout</a>
+			  </li>
+			</ul>
+		  </div>
 		</div>
-
-		<footer class="footer">
-			<div class="row">
-				<div class="col-sm-6">Copyright&copy; 2017 California
-					Residents Notification Service</div>
-			</div>
-		</footer>
-
-		<!--[if lt IE 9]>
-  <script src="/assets/js/vendor/selectivizr-min.js"></script>
-  <script src="/assets/js/vendor/respond.js"></script>
-  <script src="/assets/js/vendor/rem.min.js"></script>
-<![endif]-->
-
-		<!-- Digital Analytics Program roll-up, see https://analytics.usa.gov for data -->
-		<script id="_fed_an_ua_tag"
-			src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=GSA"></script>
-
-		<!-- Google Analytics -->
-		<script>
-			(function(i, s, o, g, r, a, m) {
-				i['GoogleAnalyticsObject'] = r;
-				i[r] = i[r] || function() {
-					(i[r].q = i[r].q || []).push(arguments)
-				}, i[r].l = 1 * new Date();
-				a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-				a.async = 1;
-				a.src = g;
-				m.parentNode.insertBefore(a, m)
-			})(window, document, 'script',
-					'https://www.google-analytics.com/analytics.js', 'ga');
-			ga('create', 'UA-48605964-43', 'gsa.gov');
-
-			// anonymize user IPs (chops off the last IP triplet)
-			ga('set', 'anonymizeIp', true);
-
-			// forces SSL even if the page were somehow loaded over http://
-			ga('set', 'forceSSL', true);
-
-			ga('send', 'pageview');
-		</script>
-
-		<script src="js/styleguide.js"></script>
-
-		<script src="js/uswds.min.js"></script>
-
+	  </nav>
+	</header>
+	<div class="usa-overlay"></div>
+	<div class="container main-body-content">
+	  <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 noSpace clearfix">
+			<h3>Notifications History</h3>
+		  </div>
+			<div class="pull-right col-lg-4 col-md-4 col-sm-6 col-xs-12 noSpace">
+			<input type="text" class="searchInput left" data-search-input="true" data-search-url="/search?query=" id="searchTermTop" placeholder="Search">
+			<div data-search-button="true" class="left searchButton"></div>
+		  </div>
+		</div>
+		<div class="row notificationTable  table-responsive">
+		  <table>
+		    <thead>
+			  <tr>
+			    <th scope="col">City</th>
+				<th scope="col">Subject</th>
+				<th scope="col">Message</th>
+				<th scope="col">Sent By</th>
+				<th scope="col">Date</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<th scope="row">California</th>
+				<td>ABC</td>
+				<td>Test Message</td>
+				<td>Test</td>
+				<td>Test</td>
+			  </tr>
+			  <tr>
+			    <th scope="row">California</th>
+				<td>ABC</td>
+				<td>Test Message</td>
+				<td>Test</td>
+				<td>Test</td>
+			  </tr>
+			  <tr>
+				<th scope="row">California</th>
+				<td>ABC</td>
+				<td>Test Message</td>
+				<td>Test</td>
+				<td>Test</td>
+			  </tr>
+			  <tr>
+			    <th scope="row">California</th>
+				<td>ABC</td>
+				<td>Test Message</td>
+				<td>Test</td>
+				<td>Test</td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+	  </div>
 	</div>
-<body>
+  </div>
+</body>
 </html>

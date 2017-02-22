@@ -2961,13 +2961,12 @@ fieldset {
 	border: 0;
 	border-radius: 0;
 	font-weight: 400;
-	margin: 0;
+	margin: 15px 0 0 0;
 	outline: 0;
 	padding: 0;
 	text-align: left;
 	-webkit-font-smoothing: auto;
-	background-color: #0071bc;
-	color: #ffffff;
+	color: #fff;
 	display: inline;
 	float: right;
 	font-size: 1.3rem;
@@ -3019,7 +3018,7 @@ fieldset {
 
 .usa-menu-btn:hover {
 	color: #fff;
-	background-color: #205493;
+	background-color: transparent;
 }
 
 .usa-menu-btn:visited {
@@ -3250,6 +3249,7 @@ fieldset {
 	border-bottom: 1px solid #aeb0b5;
 	height: 4rem;
 	min-height: 80px;
+	padding: 0 15px;
 }
 
 @media screen and (min-width: 951px) {
@@ -5655,16 +5655,18 @@ body {
 }
 
 .searchButton {
-	background-image: url(../images/search-image.png);
+	background-image: url(/images/search-image.png);
 	background-repeat: no-repeat;
 	background-color: transparent;
 	background-position: 0 0;
+	background-size: cover;
 	border: none;
 	cursor: pointer;
 	height: 26px;
 	width: 26px;
-	vertical-align: middle;
-	float: left;
+	top: -38px;
+	left: 6px;
+	position: relative;
 }
 
 /**************************************/
@@ -5685,4 +5687,21 @@ body {
 .noSpace {
 	margin: 0;
 	padding: 0;
+}
 
+.main-body-content {
+	padding-top: 40px;
+	padding-bottom: 30px;
+}
+
+button.usa-menu-btn div {
+	width: 8px;
+	height: 8px;
+	background-color: #000;
+	margin: 6px auto;
+	border-radius: 4px;
+}
+
+button.usa-menu-btn:hover div {
+	background-color: #fff;
+}
