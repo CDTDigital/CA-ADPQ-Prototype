@@ -1,0 +1,26 @@
+<div class="login-screen center col-lg-3 col-md-3 col-sm-6 col-xs-8">
+	<h2 class="login-header">Welcome to our page</h2>
+	<div class="form">
+		<h4 class="text-bold">Lets get started</h4>
+		<p class="grayFont">Enter your username and password and start the
+			tour.</p>
+		<form class="form-signin">
+			<div class="row">
+				<div class="form-group">
+					<input type="text" name="username" class="form-control" value=""
+						placeholder="Username or Email" required> <i
+						class="fa fa-user" aria-hidden="true"></i>
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" name="password"
+						value="" placeholder="Password" required />
+				</div>
+				<div class="button_wrapper fullwidth">
+					<button ui-sref="message" type="submit" class="center" ng-click="go('/home')">SUBMIT</button>
+				</div>
+				<a class="text-bold">Forgot Password</a>&nbsp;&nbsp; <a
+					class="text-bold" href="signUp">Sign Up</a>
+			</div>
+		</form>
+	</div>
+</div>
