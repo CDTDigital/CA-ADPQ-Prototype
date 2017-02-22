@@ -20,7 +20,7 @@ public class UserDevice {
 	private int id;	
 	
 	@Column(name = "user_id", nullable = false)
-	private int userId;
+	private long userId;
 	
 	@Column(name="device_id")
 	private String deviceId;
@@ -42,11 +42,11 @@ public class UserDevice {
 		this.id = id;
 	}
 
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 

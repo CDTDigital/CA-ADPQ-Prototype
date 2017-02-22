@@ -51,6 +51,9 @@ public class LoginRequest {
 	@Override
 	public String toString(){
 		return "Username: "+username
-				+", password: "+password;
+				+", password: "+password
+				+", deviceId: "+deviceId
+				+", deviceToken: "+deviceToken
+				+", deviceType: "+deviceType;
 	}
 }

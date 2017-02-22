@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class UserNotificationOptions {
 	@Id
 	@Column(name="user_id")
-	private String userId;
+	private long userId;
 	
 	@Column(name="send_sms")
 	private boolean sendSms;
@@ -29,11 +29,11 @@ public class UserNotificationOptions {
 	@Column(name="live_location_tracking")
 	private boolean liveLocationTracking;
 
-	public String getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 

@@ -15,17 +15,16 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intimetec.crns.core.models.CurrentUser;
+import com.intimetec.crns.core.models.User;
+import com.intimetec.crns.core.models.UserRole;
 
-public class AuthFilter extends AbstractAuthenticationProcessingFilter {
+public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthFilter.class);
-	
-	public AuthFilter() {
-	    super("/login");
-	}
-	
+
 	@Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)  throws AuthenticationException{
         if (!request.getMethod().equals("POST")) {
@@ -45,7 +44,26 @@ public class AuthFilter extends AbstractAuthenticationProcessingFilter {
                 LoginRequest loginRequest = mapper.readValue(parsedReq, LoginRequest.class);
                 System.out.println("Login Request: "+ loginRequest);
                 LOGGER.debug("Login Request: "+ loginRequest);
-                return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                request.getSession().setAttribute("loginRequest", loginRequest);
+                Authentication authentication =  getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                
+                User authUser = ((CurrentUser) authentication.getPrincipal()).getUser();
+                if(!authUser.isStatus()){
+                	throw new InternalAuthenticationServiceException("User Account is locked");
+                }
+                
+                if(loginRequest.getDeviceId() !=null && !loginRequest.getDeviceId().isEmpty()) {
+                	if(authUser.getUserRole().equals(UserRole.USER)) {
+                		((CurrentUser)authentication.getPrincipal()).setDeviceInfo(loginRequest.getDeviceId(), loginRequest.getDeviceType(), loginRequest.getDeviceToken());
+                	} else {
+                    	LOGGER.info("Invalid Login: User Role - "+authUser.getUserRole()+", Device ID: "+loginRequest.getDeviceId());
+                		throw new InternalAuthenticationServiceException("Invalid login request");
+                	}
+                } else if(!authUser.getUserRole().equals(UserRole.ADMIN)) {
+                	LOGGER.info("Invalid Login: User Role - "+authUser.getUserRole()+", Device ID: "+loginRequest.getDeviceId());
+                	throw new InternalAuthenticationServiceException("Invalid login request");
+                }
+                return authentication;
             }
         } catch (IOException e) {
             LOGGER.debug(e.getMessage());
@@ -59,16 +77,4 @@ public class AuthFilter extends AbstractAuthenticationProcessingFilter {
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         super.setAuthenticationManager(authenticationManager);
     }
-/*
-    @Autowired
-    @Override
-    public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler successHandler) {
-        super.setAuthenticationSuccessHandler(successHandler);
-    }
-    
-    @Autowired
-    @Override
-    public void setAuthenticationFailureHandler(AuthenticationFailureHandler failureHandler) {
-        super.setAuthenticationFailureHandler(failureHandler);
-    }*/
 }

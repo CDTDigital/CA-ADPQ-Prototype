@@ -1,7 +1,5 @@
 package com.intimetec.crns.core.models;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -48,9 +46,9 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
-	private Set<UserDevice> userDevice;
+	private UserNotificationOptions userNotificationOptions;
 	
 	public long getId() {
 		return id;
@@ -116,12 +114,12 @@ public class User {
 		this.userRole = userRole;
 	}
 
-	public Set<UserDevice> getUserDevice() {
-		return userDevice;
+	public UserNotificationOptions getUserNotificationOptions() {
+		return userNotificationOptions;
 	}
 
-	public void setUserDevice(Set<UserDevice> userDevice) {
-		this.userDevice = userDevice;
+	public void setUserNotificationOptions(UserNotificationOptions userNotificationOptions) {
+		this.userNotificationOptions = userNotificationOptions;
 	}
 
 	@Override
@@ -129,7 +127,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username=" + userName +
-                ", email='" + email.replaceFirst("@.*", "@***") +
+                ", email='" + email +
                 ", password='" + password.substring(0, 10) +
                 ", role=" + userRole +
                 '}';
