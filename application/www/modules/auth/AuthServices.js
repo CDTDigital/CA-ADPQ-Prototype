@@ -1,5 +1,5 @@
-angular.module('CRNS')
-.factory('AuthServices', ['$http', '$q', function($http, $q) {
+angular.module('CRNSSrv')
+.factory('AuthServices', ['$http', function($http) {
     return {
         login: function(paramObj) {
             var promise = $http.post(rootUrl + '/login.json', paramObj)

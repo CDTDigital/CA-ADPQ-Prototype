@@ -1,5 +1,5 @@
-angular.module('CRNS')
-.controller('PushManagerController', function($scope) {
+angular.module('CRNSCtrl')
+.controller('PushManagerCtrl', [function() {
     'use strict';
     // To Do
-});
+}]);

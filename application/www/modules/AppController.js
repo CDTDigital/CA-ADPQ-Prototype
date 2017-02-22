@@ -1,9 +1,8 @@
-angular.module('CRNS')
-.controller('AppController', function($scope, $ionicModal, $timeout) {
-    'use strict';
-    // Form data for the login modal
-})
-.controller('DashBoardController', function($scope, $ionicModal, $timeout) {
-    'use strict';
+'use strict';
+angular.module('CRNSSrv')
+.controller('AppCtrl', [function() {
     // To D0
-});
+}])
+.controller('DashboardCtrl', [function() {
+    // To D0
+}]);
