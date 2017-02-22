@@ -1,0 +1,77 @@
+<ion-view>
+    <ion-header-bar class="bar-positive">
+
+        <h1 class="title">Setup Your Account</h1>
+
+    </ion-header-bar>
+    <ion-content has-bouncing="false" class="padding25 alignCenter has-header paddingTop10">
+
+        <!-- <img src="./img/logo.png" class="marginTop30">-->
+
+
+        <div class="list list-inset alignLeft margin10">
+
+            <div class="registerLabel lBlueFontClr">Personal Information</div>
+            <label class="item item-input extendInput">
+                <input type="text" placeholder="First Name" ng-model="information.firstName">
+            </label>
+
+            <label class="item item-input extendInput marginTop5">
+                <input type="text" placeholder="Last Name" ng-model="information.lastName">
+            </label>
+
+            <label class="item item-input extendInput marginTop5">
+                <input type="number" placeholder="Phone Number" ng-model="information.phoneNumber">
+            </label>
+
+            <div class="registerLabel lBlueFontClr marginTop5">Location</div>
+            <div class="locationLabel" ng-if="currentAddress.address != ''">{{currentAddress.address}}</div>
+            <div class="marginTop5" ng-if="currentAddress.address == ''">
+                <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
+                    Add
+                </button>
+            </div>
+
+            <div class="row zeroPadding marginTop5"  ng-if="currentAddress.address != ''">
+                <div class="col zeroPadding alignRight btnMarRight">
+                    <button class="button button-full button-assertive delBtn" ng-click="onTapDeleteLocation()">
+                        Delete
+                    </button>
+                </div>
+                <div class="col zeroPadding alignLeft btnMarLeft">
+                    <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
+                        Edit
+                    </button>
+                </div>
+            </div>
+
+            <div class="registerLabel lBlueFontClr marginTop5">Track Location</div>
+            <li class="item item-toggle trackToggleItem">
+                Current Location
+                <label class="toggle toggle-balanced trackToggle">
+                    <input type="checkbox">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+
+            <div class="registerLabel lBlueFontClr marginTop5">Options for Notification</div>
+            <ion-checkbox ng-model="information.email">Email</ion-checkbox>
+            <ion-checkbox ng-model="information.sms">SMS</ion-checkbox>
+            <ion-checkbox ng-model="information.notification">Notifications</ion-checkbox>
+
+
+        </div>
+
+        <div class="row zeroPadding marginTop20">
+            <div class="col zeroPadding">
+                <button class="button button-positive positiveBtn" ng-click="onTapProceedBtn()">
+                    Procced
+                </button>
+            </div>
+        </div>
+
+
+    </ion-content>
+</ion-view>

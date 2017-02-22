@@ -1,0 +1,30 @@
+<ion-view>
+    <ion-header-bar class="bar-positive">
+
+        <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
+        <h1 class="title">Add Location</h1>
+
+    </ion-header-bar>
+    <ion-content class="has-header" has-bouncing="false">
+        <ion-list>
+            <div>
+                <label class="item item-input">
+                    <i class="icon ion-ios-search placeholder-icon ionSearch"></i>
+                    <input type="text" placeholder="Enter address or city" ng-model="location.search"
+                           ng-change="getLocation(location.search)">
+                </label>
+            </div>
+
+            <ul id="resComponent" ng-if="!isMapVisible">
+                <ion-item ng-repeat="result in locResults" ng-if="result.description"
+                          class="item item-icon-right resultItem" ng-click="getLocationDescription(result)">
+                    <a class="item-image-right">
+                        <h2>{{ result.description }}</h2>
+                        <i ng-if="result.code != 'NORESULT'"
+                           class="icon ion-chevron-right ionArrow"></i>
+                    </a>
+                </ion-item>
+            </ul>
+        </ion-list>
+    </ion-content>
+</ion-view>
