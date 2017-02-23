@@ -51,11 +51,12 @@ create table user_device (
 	id INT  NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	device_id NVARCHAR(100) NOT NULL,
-	device_token NVARCHAR(250) NOT NULL UNIQUE,
+	device_token NVARCHAR(250) NOT NULL,
 	device_type NVARCHAR(15) NOT NULL,
-	auth_token NVARCHAR(25) UNIQUE,
+	auth_token NVARCHAR(150) UNIQUE,
 	CONSTRAINT pk_userDevice PRIMARY KEY (id),
-	CONSTRAINT fk_userDevice_user FOREIGN KEY (user_id) REFERENCES user(user_id)
+	CONSTRAINT fk_userDevice_user FOREIGN KEY (user_id) REFERENCES user(user_id),
+	CONSTRAINT unique_userDevice_user UNIQUE INDEX (user_id, device_id)
 );
 
 -- Table for Notification

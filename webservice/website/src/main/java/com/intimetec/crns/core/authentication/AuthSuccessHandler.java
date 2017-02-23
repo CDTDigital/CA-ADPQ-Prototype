@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intimetec.crns.core.models.CurrentUser;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserDevice;
+import com.intimetec.crns.core.models.UserRole;
 import com.intimetec.crns.core.service.userdevice.UserDeviceServiceImpl;
 
 /**
@@ -58,22 +59,26 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         LOGGER.info(authentication.getPrincipal() + " got is connected ");
 		LOGGER.info("User: " + authUser);
 		LOGGER.info("Device Info: " + currentUser.getDeviceInfo());
-        
-		//Generate authToke for mobile devices
-		String authToken = new BCryptPasswordEncoder().encode(authUser.getUserName()+System.currentTimeMillis());
 		
-        //Generate reponseMessage for Successful Login
+		String authToken = null;
+        
+		if(currentUser.getDeviceInfo() != null && currentUser.getRole() == UserRole.USER){
+			//Generate authToke for mobile devices
+			authToken = new BCryptPasswordEncoder().encode(authUser.getUserName()+System.currentTimeMillis());
+	        
+	        //Save Device Information
+	        UserDevice userDevice = new UserDevice(authUser, 
+	        		currentUser.getDeviceInfo().getDeviceId(), 
+	        		currentUser.getDeviceInfo().getDeviceType(), 
+	        		currentUser.getDeviceInfo().getDeviceToken(), 
+	        		authToken);
+	        
+	        UserDeviceService.save(userDevice);
+		}
+		
+		 //Generate reponseMessage for Successful Login
         Map<String, Object> responseMessage = generateResponseMessage(authUser, authToken);
-        
-        //Save Device Information
-        UserDevice userDevice = new UserDevice(authUser, 
-        		currentUser.getDeviceInfo().getDeviceId(), 
-        		currentUser.getDeviceInfo().getDeviceType(), 
-        		currentUser.getDeviceInfo().getDeviceToken(), 
-        		authToken);
-        
-        UserDeviceService.save(userDevice);
- 
+		
         //set our response to OK status
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
