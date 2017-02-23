@@ -36,7 +36,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
 		this.deviceInfo = new DeviceInfo(deviceId, deviceType, deviceToken);
 	}
 
-	class DeviceInfo {
+	public class DeviceInfo {
 		private String deviceId;
 		private String deviceType;
 		private String deviceToken;

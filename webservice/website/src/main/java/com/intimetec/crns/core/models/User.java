@@ -26,30 +26,30 @@ public class User {
 
 	@Column(name="first_name")
 	private String firstName;
-	
+
 	@Column(name="last_name")
 	private String lastName;
-	
+
 	@Column(name="email")
 	private String email;
 
 	@Column(name="username")
 	private String userName;
-	
+
 	@Column(name="password")
 	private String password;
-	
+
 	@Column(name="status")
 	private boolean status;
-	
+
 	@Column(name="role")
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private UserNotificationOptions userNotificationOptions;
-	
+
 	public long getId() {
 		return id;
 	}
