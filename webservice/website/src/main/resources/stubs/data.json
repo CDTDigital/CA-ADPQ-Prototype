@@ -1,0 +1,25 @@
+/************************************************************************************
+*
+* This file contains the stubs data.
+*
+*************************************************************************************/
+{
+"user":[{ "id": 1, "firstName":"CRNS Demo" , "lastName": "Admin", "email": "demo.crns@gmail.com", "userName": "admin", "password": "$2a$10$va6WE55FcZQrChb3uMutSugrrfW9K6.TFFHag3xwbbEWH/zRop5R6", "status": "true", "userRole": "ADMIN" }
+, { "id": 2, "firstName":"CRNS Demo" , "lastName": "User", "email": "demouser@gmail.com", "userName": "admin", "password": "$2a$10$RoZnolmb64akVPHfbKIE8Ow1Vgsa0/qi13lk3EvTkbfI771AHUAf6", "status": "true", "userRole": "USER" }
+],
+"userLocation":[{ "id": 1, "userId":1, "addressLine1": "", "addressLine2": "", "city": "", "zipCode": "", "placeId": "" , "lattitude":"", "longitude":"", "currentLocation":"" }
+, { "id": 2, "userId":2 , "addressLine1": "", "addressLine2": "", "city": "", "zipCode": "", "placeId": "" , "lattitude":"", "longitude":"", "currentLocation":"" }
+],
+"userNotificationOption":[{ "userId": 1, "sendSms": 0, "sendEmail": 0, "sendPushNotification": 0, "liveLocationTracking": 0" }
+, { "userId": 2, "sendSms":1 , "sendEmail": 1, "sendPushNotification": 1, "liveLocationTracking": 1 }
+],
+"userDevice":[{ "id": 1, "userId":1"CRNS Demo" , "deviceId": "Admin", "deviceToken": "demo.crns@gmail.com", "deviceType": "admin", "authToken": "" }
+, { "id": 1, "userId":2 , "deviceId": "Admin", "deviceToken": "demo.crns@gmail.com", "deviceType": "admin", "authToken": "" }
+],
+"notification":[{ "id": 1, "sentBy":"Admin" , "subject": "CRNS Demo", "message": "Test notification", "city": "", "zipCode": "", "sentTime":"", "validThrough": "" }
+, { "id": 2, "sentBy":"Admin" , "subject": "CRNS Demo", "message": "Sample notification", "city": "", "zipCode": "", "sentTime":"", "validThrough": "" }
+],
+"userNotification":[{ "userNotificationId": 1, "userId":1 , "notificationId": 1, "isRead": "" }
+, { "userNotificationId": 2, "userId":2 , "notificationId": 2, "isRead": "" }
+]
+}
