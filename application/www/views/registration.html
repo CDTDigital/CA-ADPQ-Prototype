@@ -1,11 +1,11 @@
-<ion-modal-view>
+<ion-view>
     <ion-content has-bouncing="false" class="padding25 alignCenter">
 
         <img src="./img/logo.png">
         <div class="list list-inset alignLeft margin5">
 
             <label class="item item-input extendInput">
-                <input type="text" placeholder="Username" ng-model="register.username">
+                <input type="text" placeholder="Username" ng-model="register.userName">
             </label>
 
             <label class="item item-input extendInput marginTop5">
@@ -16,12 +16,16 @@
                 <input type="password" placeholder="Password" ng-model="register.password">
             </label>
 
+            <label class="item item-input extendInput marginTop5">
+                <input type="password" placeholder="Confirm Password" ng-model="register.cpassword">
+            </label>
+
         </div>
 
 
         <div class="row zeroPadding marginTop20">
             <div class="col zeroPadding alignRight btnMarRight">
-                <button class="button button-positive cancelBtn" ng-click="onRegisterCancel()">
+                <button class="button button-positive cancelBtn" ng-click="backToLogin()">
                     Cancel
                 </button>
             </div>
@@ -33,4 +37,4 @@
         </div>
 
     </ion-content>
-</ion-modal-view>
+ </ion-view>
