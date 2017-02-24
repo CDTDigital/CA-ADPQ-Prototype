@@ -7,12 +7,15 @@ package com.intimetec.crns.web;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.catalina.connector.Connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,6 +23,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.SocketUtils;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -79,5 +83,22 @@ public class Application extends SpringBootServletInitializer {
 	private ApiInfo apiInfo() {
 	    ApiInfo apiInfo = new ApiInfo("California Residents Notification Service", "Description of APIs.", "API TOS", "Terms of service", new Contact("InTimeTec", "http://intimetec.com/", "shiva.dixit@intimetec.com"), "License of API", "API license URL");
 	    return apiInfo;
+	}
+	@Bean
+	public Integer port() {
+		return SocketUtils.findAvailableTcpPort();
+	}
+
+	@Bean
+	public EmbeddedServletContainerFactory servletContainer() {
+		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
+		tomcat.addAdditionalTomcatConnectors(createStandardConnector());
+		return tomcat;
+	}
+
+	private Connector createStandardConnector() {
+		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+		connector.setPort(port());
+		return connector;
 	}
 }
