@@ -69,7 +69,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {  
 		http.csrf().disable()
         .authorizeRequests()
-        .antMatchers("/", "/user/register").permitAll()
+        .antMatchers("/**", "/users/signup").permitAll()
         .antMatchers("/swagger-ui.html", "/webjars/**").fullyAuthenticated()
         .antMatchers("/*", "/images/**", "/css/**", "/js/**", "/swagger-ui.html").permitAll()
         .antMatchers("/images/favicon.ico").permitAll()

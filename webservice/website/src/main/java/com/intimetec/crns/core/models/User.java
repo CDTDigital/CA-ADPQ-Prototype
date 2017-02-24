@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Entity model class for User table
  * @author shiva.dixit
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="user")
 public class User {
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="user_id")
@@ -128,7 +131,6 @@ public class User {
                 "id=" + id +
                 ", username=" + userName +
                 ", email='" + email +
-                ", password='" + password.substring(0, 10) +
                 ", role=" + userRole +
                 '}';
     }
