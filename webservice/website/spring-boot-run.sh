@@ -1,0 +1,1 @@
+mvn -f ../pom.xml -pl core -am clean install -DskipTests=true && mvn clean spring-boot:run
