@@ -43,7 +43,7 @@ angular.module('CRNSCtrl')
         console.log('Doing register', $scope.register);
         if($scope.register.userName == '' || $scope.register.email == '' || $scope.register.password == '' || $scope.register.cpassword == '') {
             Notify.errorToaster('Please fill all the input fields!');
-        } else if(!Constant.isEmail.test($scope.register.email)) {
+        } else if(!Constant.IS_EMAIL.test($scope.register.email)) {
             Notify.errorToaster('Email address is not valid!');
         } else if($scope.register.password != $scope.register.cpassword) {
             Notify.errorToaster('Password and Confirm Password are mismatch!');

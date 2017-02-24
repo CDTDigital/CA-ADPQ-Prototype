@@ -20,7 +20,7 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
 
   /* Toaster disappear listner */
   $rootScope.$on('toasterDisappear', function(e) {
-      Constant.isToaster = true;
+      Constant.IS_TOASTER = true;
   });
 
   /* It will go back to previous state */
