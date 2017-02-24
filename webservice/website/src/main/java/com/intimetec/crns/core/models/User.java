@@ -6,7 +6,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -21,9 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="user")
 public class User {
-	@JsonIgnore
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue
 	@Column(name="user_id")
 	private long id;
 
@@ -39,6 +37,7 @@ public class User {
 	@Column(name="username")
 	private String userName;
 
+	@JsonIgnore
 	@Column(name="password")
 	private String password;
 
@@ -53,6 +52,8 @@ public class User {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private UserNotificationOptions userNotificationOptions;
+	
+	private boolean accountSetupDone = false;
 
 	public long getId() {
 		return id;
@@ -124,6 +125,18 @@ public class User {
 
 	public void setUserNotificationOptions(UserNotificationOptions userNotificationOptions) {
 		this.userNotificationOptions = userNotificationOptions;
+	}
+	
+	public boolean isAccountSetupDone(){
+		return this.accountSetupDone;
+	}
+	
+	public void setAccountSetupDone(){
+		this.accountSetupDone = (userNotificationOptions == null) ? false : true;
+	}
+	
+	public User(){
+		setAccountSetupDone();
 	}
 
 	@Override

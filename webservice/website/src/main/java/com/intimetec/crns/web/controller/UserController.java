@@ -2,8 +2,9 @@ package com.intimetec.crns.web.controller;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserRole;
 import com.intimetec.crns.core.service.user.UserService;
@@ -62,13 +63,13 @@ public class UserController {
     
     @RequestMapping(value = "/isUniqueUsername", method = RequestMethod.GET)
     public Map<String, Object> isUniqueUsername(@RequestParam String userName) {
-        LOGGER.debug("Processing user creation");
+        LOGGER.debug("Processing request for unique user name verification");
         try {
             if(userService.getUserByUserName(userName).isPresent()){
             	return ResponseMessage.failureResponse(HttpServletResponse.SC_CONFLICT, "User Name already exists");
             }
         } catch (DataIntegrityViolationException e) {
-            LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate email", e);
+            LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate username", e);
             return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Not valid inputs");
         }
         return ResponseMessage.successResponse(HttpServletResponse.SC_OK);
@@ -90,10 +91,35 @@ public class UserController {
 
     @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
     @RequestMapping(value = "/{id}",  method = RequestMethod.GET)
-    public ModelAndView getUserPage(@PathVariable Long id) {
+    public Map<String, Object> getProfileByID(@PathVariable Long id) {
         LOGGER.debug("Getting user page for user={}", id);
-        return new ModelAndView("user", "user", userService.getUserById(id)
-                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", id))));
+        Optional<User> user = userService.getUserById(id);
+        if(user.isPresent()) {
+        	Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+        	response.put("data", user.get());
+        	return response;
+        } else {
+        	return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, String.format("User=%s not found", id));
+        }
+    }
+    
+    //Get Profile of User based on Auth Token
+    @RequestMapping(value = "/getProfile",  method = RequestMethod.GET)
+    public Map<String, Object> getProfile(HttpServletRequest request) {
+    	String authToken = request.getHeader("authToken");
+        LOGGER.debug("Getting user page based on Auth Token:", authToken);
+        Optional<User> user;
+		try {
+			user = userService.getValidUserForAuthToken(authToken);
+			if(user.isPresent()) {
+	        	Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+	        	response.put("data", user.get());
+	        	return response;
+	        }
+		} catch (InvalidAuthTokenException e) {
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+		}
+		return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "User not found");
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

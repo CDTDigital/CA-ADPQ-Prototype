@@ -23,6 +23,8 @@ public interface UserDeviceRepository extends JpaRepository<UserDevice, Integer>
 	
 	Optional<UserDevice> findByUserUserNameAndDeviceId(String userName, String deviceId);
 	
+	Optional<UserDevice> getByAuthToken(String authToken);
+	
 	@Modifying
 	@Query("update UserDevice dev set dev.authToken = ?1, dev.deviceType = ?2, dev.deviceToken = ?3 where dev.id = ?4")
 	void setUserDeviceInfoById(String authToken, String deviceType, String deviceToken, int id);

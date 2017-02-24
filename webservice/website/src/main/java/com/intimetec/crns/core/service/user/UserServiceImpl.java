@@ -10,13 +10,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
 import com.intimetec.crns.core.models.User;
+import com.intimetec.crns.core.models.UserDevice;
 import com.intimetec.crns.core.repository.UserRepository;
+import com.intimetec.crns.core.service.userdevice.UserDeviceService;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    @Autowired
+    UserDeviceService userDeviceService;
+    
     @Autowired
     private UserRepository userRepository;
 
@@ -52,5 +58,16 @@ public class UserServiceImpl implements UserService {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return userRepository.save(user);
     }
+    
+	
+	@Override
+	public Optional<User> getValidUserForAuthToken(String authToken) throws InvalidAuthTokenException{
+		Optional<UserDevice> userDevice =  userDeviceService.getByAuthToken(authToken);
+		if(userDevice.isPresent()){
+			return getUserById(userDevice.get().getId());
+		} else {
+			throw new InvalidAuthTokenException("Invalid Authentication Token Supplied");
+		}
+	}
 
 }

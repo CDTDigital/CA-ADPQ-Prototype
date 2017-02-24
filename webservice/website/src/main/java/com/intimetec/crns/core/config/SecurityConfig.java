@@ -24,6 +24,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.intimetec.crns.core.authentication.AuthFailureHandler;
 import com.intimetec.crns.core.authentication.AuthFilter;
 import com.intimetec.crns.core.authentication.AuthSuccessHandler;
+import com.intimetec.crns.core.authentication.HttpAccessDeniedHandler;
 import com.intimetec.crns.core.authentication.HttpAuthenticationEntryPoint;
 import com.intimetec.crns.core.authentication.HttpLogoutSuccessHandler;
 
@@ -39,6 +40,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailsService;
     @Autowired
     private HttpAuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private HttpAccessDeniedHandler accessDeniedHandler;
     @Autowired
     private AuthSuccessHandler successHandler;
     @Autowired
@@ -89,6 +92,11 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         .maximumSessions(1);
 
 		http.authorizeRequests().anyRequest().authenticated();
+		
+		http.exceptionHandling()
+            .authenticationEntryPoint(authenticationEntryPoint)
+            .accessDeniedHandler(accessDeniedHandler)
+            .and();
     }
 	
 	@Override

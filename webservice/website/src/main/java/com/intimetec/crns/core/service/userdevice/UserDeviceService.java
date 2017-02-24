@@ -15,8 +15,11 @@ public interface UserDeviceService {
 	Collection<UserDevice> getUserDevicesByUserId(long userId);
 
 	Optional<UserDevice> getAllUserDevicesByUserIdDeviceId(long userId, String deviceId);
+	
+	Optional<UserDevice> getByAuthToken(String authToken);
 
 	UserDevice save(UserDevice userDevice);
 
 	void delete(UserDevice userDevice);
+
 }

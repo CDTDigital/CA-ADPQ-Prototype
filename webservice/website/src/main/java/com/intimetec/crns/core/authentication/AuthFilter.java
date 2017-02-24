@@ -20,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intimetec.crns.core.models.CurrentUser;
 import com.intimetec.crns.core.models.User;
-import com.intimetec.crns.core.models.UserRole;
 
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthFilter.class);
@@ -45,15 +44,17 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
                 System.out.println("Login Request: "+ loginRequest);
                 LOGGER.debug("Login Request: "+ loginRequest);
                 request.getSession().setAttribute("loginRequest", loginRequest);
-                Authentication authentication =  getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                Authentication authentication =  getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
                 
                 User authUser = ((CurrentUser) authentication.getPrincipal()).getUser();
                 if(!authUser.isStatus()){
                 	throw new InternalAuthenticationServiceException("User Account is locked");
                 }
                 
-                if(loginRequest.getDeviceId() !=null && !loginRequest.getDeviceId().isEmpty()) {
-                	if(authUser.getUserRole().equals(UserRole.USER)) {
+               if(loginRequest.getDeviceId() !=null && !loginRequest.getDeviceId().isEmpty()) {
+            	   ((CurrentUser)authentication.getPrincipal()).setDeviceInfo(loginRequest.getDeviceId(), loginRequest.getDeviceType(), loginRequest.getDeviceToken());
+               }
+                	/*if(authUser.getUserRole().equals(UserRole.USER)) {
                 		((CurrentUser)authentication.getPrincipal()).setDeviceInfo(loginRequest.getDeviceId(), loginRequest.getDeviceType(), loginRequest.getDeviceToken());
                 	} else {
                     	LOGGER.info("Invalid Login: User Role - "+authUser.getUserRole()+", Device ID: "+loginRequest.getDeviceId());
@@ -62,7 +63,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
                 } else if(!authUser.getUserRole().equals(UserRole.ADMIN)) {
                 	LOGGER.info("Invalid Login: User Role - "+authUser.getUserRole()+", Device ID: "+loginRequest.getDeviceId());
                 	throw new InternalAuthenticationServiceException("Invalid login request");
-                }
+                }*/
                 return authentication;
             }
         } catch (IOException e) {

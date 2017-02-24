@@ -3,6 +3,7 @@ package com.intimetec.crns.core.service.user;
 import java.util.Collection;
 import java.util.Optional;
 
+import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
 import com.intimetec.crns.core.models.User;
 
 public interface UserService {
@@ -15,4 +16,6 @@ public interface UserService {
     Collection<User> getAllUsers();
 
     User create(User user);
+	
+	Optional<User> getValidUserForAuthToken(String authToken) throws InvalidAuthTokenException;
 }

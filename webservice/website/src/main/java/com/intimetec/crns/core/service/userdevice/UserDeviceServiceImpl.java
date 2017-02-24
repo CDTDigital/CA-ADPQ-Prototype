@@ -51,6 +51,13 @@ public class UserDeviceServiceImpl implements UserDeviceService {
 		Optional<UserDevice> userDevice = userDeviceRepository.findByUserIdAndDeviceId(userId, deviceId);
 		return userDevice;
 	}
+	
+	@Override
+	public Optional<UserDevice> getByAuthToken(String authToken) {
+		LOGGER.debug("Getting userDevice by Auth Token, deviceId={}", authToken);
+		Optional<UserDevice> userDevice = userDeviceRepository.getByAuthToken(authToken);
+		return userDevice;
+	}
 
 	@Override
 	public UserDevice save(UserDevice userDevice) {

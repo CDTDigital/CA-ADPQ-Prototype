@@ -11,17 +11,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginRequest {
-	private String username;
+	private String userName;
 	private String password;
 	private String deviceId;
 	private String deviceToken;
 	private String deviceType;
 	
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getPassword() {
 		return password;
@@ -50,7 +50,7 @@ public class LoginRequest {
 	
 	@Override
 	public String toString(){
-		return "Username: "+username
+		return "Username: "+userName
 				+", password: "+password
 				+", deviceId: "+deviceId
 				+", deviceToken: "+deviceToken

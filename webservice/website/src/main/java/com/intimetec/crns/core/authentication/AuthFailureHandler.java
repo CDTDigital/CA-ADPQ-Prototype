@@ -5,7 +5,6 @@ package com.intimetec.crns.core.authentication;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -20,6 +19,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intimetec.crns.util.ResponseMessage;
 
 /**
  * @author shiva.dixit
@@ -27,27 +27,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @Component
 public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-	
+
 	private final ObjectMapper mapper;
 
 	@Autowired
 	AuthFailureHandler(MappingJackson2HttpMessageConverter messageConverter) {
 		this.mapper = messageConverter.getObjectMapper();
 	}
+
+	@Override
+	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException exception) throws IOException, ServletException {
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+		Map<String, Object> responseMap = ResponseMessage.failureResponse(HttpServletResponse.SC_UNAUTHORIZED,
+				exception.getMessage());
+
+		PrintWriter writer = response.getWriter();
+		writer.write(mapper.writeValueAsString(responseMap));
+		writer.flush();
+	}
 	
-    @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException exception) throws IOException, ServletException {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        
-        Map<String, Object> responseMap = new LinkedHashMap<String, Object>();
-        responseMap.put("responseStatus", "FAILURE");
-        responseMap.put("statusCode", HttpServletResponse.SC_UNAUTHORIZED);
-        responseMap.put("message", exception.getMessage());
-        
-        PrintWriter writer = response.getWriter();
-        writer.write(mapper.writeValueAsString(responseMap));
-        writer.flush();
-    }
+	
 }

@@ -4,7 +4,6 @@
 package com.intimetec.crns.core.authentication;
 
 import java.io.PrintWriter;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +26,7 @@ import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserDevice;
 import com.intimetec.crns.core.models.UserRole;
 import com.intimetec.crns.core.service.userdevice.UserDeviceServiceImpl;
+import com.intimetec.crns.util.ResponseMessage;
 
 /**
  * @author shiva.dixit
@@ -60,12 +60,13 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 		LOGGER.info("User: " + authUser);
 		LOGGER.info("Device Info: " + currentUser.getDeviceInfo());
 		
+		//Generate authToke
 		String authToken = null;
         
 		if(currentUser.getDeviceInfo() != null && currentUser.getRole() == UserRole.USER){
-			//Generate authToke for mobile devices
+			
 			authToken = new BCryptPasswordEncoder().encode(authUser.getUserName()+System.currentTimeMillis());
-	        
+			
 	        //Save Device Information
 	        UserDevice userDevice = new UserDevice(authUser, 
 	        		currentUser.getDeviceInfo().getDeviceId(), 
@@ -76,7 +77,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 	        UserDeviceService.save(userDevice);
 		}
 		
-		 //Generate reponseMessage for Successful Login
+		//Generate reponseMessage for Successful Login
         Map<String, Object> responseMessage = generateResponseMessage(authUser, authToken);
 		
         //set our response to OK status
@@ -88,14 +89,9 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 	}
 
 	private Map<String, Object> generateResponseMessage(User authUser, String authToken) {
-		Map<String, Object> responseMap = new LinkedHashMap<String, Object>();
-		responseMap.put("responseStatus", "SUCCESS");
-		responseMap.put("statusCode", HttpServletResponse.SC_OK);
+		Map<String, Object> responseMap = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+		responseMap.put("data", authUser);
 		responseMap.put("authToken", authToken);
-		responseMap.put("setupAccount", new Boolean((authUser.getUserNotificationOptions() == null) ? false : true));
-		responseMap.put("firstName", authUser.getFirstName());
-		responseMap.put("lastName", authUser.getLastName());
-
 		return responseMap;
 	}
 
