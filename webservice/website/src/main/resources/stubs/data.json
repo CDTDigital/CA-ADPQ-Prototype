@@ -7,19 +7,19 @@
 "user":[{ "id": 1, "firstName":"CRNS Demo" , "lastName": "Admin", "email": "demo.crns@gmail.com", "userName": "admin", "password": "$2a$10$va6WE55FcZQrChb3uMutSugrrfW9K6.TFFHag3xwbbEWH/zRop5R6", "status": "true", "userRole": "ADMIN" }
 , { "id": 2, "firstName":"CRNS Demo" , "lastName": "User", "email": "demouser@gmail.com", "userName": "admin", "password": "$2a$10$RoZnolmb64akVPHfbKIE8Ow1Vgsa0/qi13lk3EvTkbfI771AHUAf6", "status": "true", "userRole": "USER" }
 ],
-"userLocation":[{ "id": 1, "userId":1, "addressLine1": "", "addressLine2": "", "city": "", "zipCode": "", "placeId": "" , "lattitude":"", "longitude":"", "currentLocation":"" }
-, { "id": 2, "userId":2 , "addressLine1": "", "addressLine2": "", "city": "", "zipCode": "", "placeId": "" , "lattitude":"", "longitude":"", "currentLocation":"" }
+"userLocation":[{ "id": 1, "userId":1, "addressLine1": "11146", "addressLine2": "Downey Avenue", "city": "Downey", "zipCode": 90241, "placeId": "ChIJP__G9Wcx3YARZaspTiCdN6s" , "lattitude":"33.9401", "longitude":"-118.1332", "currentLocation":"true" }
+, { "id": 2, "userId":2 , "addressLine1": "39", "addressLine2": "State Street", "city": "Commerce", "zipCode": "30529", "placeId": "ChIJ2XMUTfwE9ogRdU5NBLNmsIA" , "lattitude":"34.2040", "longitude":"-83.4571", "currentLocation":"false" }
 ],
 "userNotificationOption":[{ "userId": 1, "sendSms": 0, "sendEmail": 0, "sendPushNotification": 0, "liveLocationTracking": 0" }
 , { "userId": 2, "sendSms":1 , "sendEmail": 1, "sendPushNotification": 1, "liveLocationTracking": 1 }
 ],
-"userDevice":[{ "id": 1, "userId":1"CRNS Demo" , "deviceId": "Admin", "deviceToken": "demo.crns@gmail.com", "deviceType": "admin", "authToken": "" }
-, { "id": 1, "userId":2 , "deviceId": "Admin", "deviceToken": "demo.crns@gmail.com", "deviceType": "admin", "authToken": "" }
+"userDevice":[{ "id": 1, "userId":1 , "deviceId": "", "deviceToken": "", "deviceType": "", "authToken": "" }
+, { "id": 1, "userId":2 , "deviceId": "", "deviceToken": "", "deviceType": "", "authToken": "" }
 ],
-"notification":[{ "id": 1, "sentBy":"Admin" , "subject": "CRNS Demo", "message": "Test notification", "city": "", "zipCode": "", "sentTime":"", "validThrough": "" }
-, { "id": 2, "sentBy":"Admin" , "subject": "CRNS Demo", "message": "Sample notification", "city": "", "zipCode": "", "sentTime":"", "validThrough": "" }
+"notification":[{ "id": 1, "sentBy":"Admin" , "subject": "CRNS Demo", "message": "Test notification", "city": "Downey", "zipCode": "90241", "sentTime":"", "validThrough": "" }
+, { "id": 2, "sentBy":"Admin" , "subject": "CRNS Demo", "message": "Sample notification", "city": "Commerce", "zipCode": "30529", "sentTime":"", "validThrough": "" }
 ],
-"userNotification":[{ "userNotificationId": 1, "userId":1 , "notificationId": 1, "isRead": "" }
-, { "userNotificationId": 2, "userId":2 , "notificationId": 2, "isRead": "" }
+"userNotification":[{ "userNotificationId": 1, "userId":1 , "notificationId": 1, "isRead": "true" }
+, { "userNotificationId": 2, "userId":2 , "notificationId": 2, "isRead": "true" }
 ]
 }
