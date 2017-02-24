@@ -3,6 +3,6 @@
 environment.active=dev
 
 #Set these values to control which database is used
-spring.datasource.url=jdbc:mysql://localhost;databaseName=crns
+spring.datasource.url=jdbc:mysql://localhost:3306/crns
 spring.datasource.username=
 spring.datasource.password=
