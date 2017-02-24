@@ -1,32 +1,29 @@
 angular.module('CRNSCtrl')
-.controller('AuthCtrl', ['$scope', '$ionicModal', '$ionicScrollDelegate', '$state', function($scope, $ionicModal, $ionicScrollDelegate, $state) {
+.controller('AuthCtrl', ['$scope', '$ionicScrollDelegate', '$state', 'AuthServices', 'Notify', 'Constant', function($scope, $ionicScrollDelegate, $state, AuthServices, Notify, Constant) {
     'use strict';
-    // Create the registration modal that will use on tap on register link
-    $ionicModal.fromTemplateUrl('views/registration.html', {
-        scope: $scope,
-        animation: 'slide-in-up',
-        backdropClickToClose: false
-    }).then(function(modal) {
-        $scope.registerModal = modal;
-    });
-
-    // Create the forgot modal that will use on tap on forgot link
-    $ionicModal.fromTemplateUrl('views/forgot.html', {
-        scope: $scope,
-        animation: 'slide-in-up',
-        backdropClickToClose: false
-    }).then(function(modal) {
-        $scope.forgotModal = modal;
-    });
-
     // Open the Forgot password modal
-    $scope.onTapForgotLink = function() {
-        $ionicScrollDelegate.scrollTop();
+    $scope.resetModels = function() {
+        $scope.login = {
+            userName: '',
+            password: ''
+        };
+
+        $scope.register = {
+            userName: '',
+            email: '',
+            password: '',
+            cpassword: ''
+        };
+
         $scope.forgot = {
             email: ''
         };
+    };
 
-        $scope.forgotModal.show();
+    $scope.onTapForgotLink = function() {
+        $ionicScrollDelegate.scrollTop();
+        $scope.resetModels();
+        $state.go('forgot');
     };
 
     // Perform the register action when the user submits the register form
@@ -34,38 +31,48 @@ angular.module('CRNSCtrl')
         console.log('Doing register', $scope.forgot);
     };
 
-    $scope.onForgotCancel = function() {
-        $scope.forgotModal.hide();
-    };
-
     // Open the Register user modal
     $scope.onTapRegisterLink = function() {
         $ionicScrollDelegate.scrollTop();
-        $scope.register = {
-            userName: '',
-            email: '',
-            pasword: ''
-        };
-
-        $scope.registerModal.show();
+        $scope.resetModels();
+        $state.go('register');
     };
 
     // Perform the register action when the user submits the register form
     $scope.onTapRegisterBtn = function() {
         console.log('Doing register', $scope.register);
+        if($scope.register.userName == '' || $scope.register.email == '' || $scope.register.password == '' || $scope.register.cpassword == '') {
+            Notify.errorToaster('Please fill all the input fields!');
+        } else if(!Constant.isEmail.test($scope.register.email)) {
+            Notify.errorToaster('Email address is not valid!');
+        } else if($scope.register.password != $scope.register.cpassword) {
+            Notify.errorToaster('Password and Confirm Password are mismatch!');
+        } else {
+            AuthServices.register($scope.register).then(function(resp) {
+                if(resp.data && resp.data.responseStatus == 'SUCCESS') {
+                    Notify.successToaster(resp.data.message);
+                    $state.go('login');
+                } else {
+                    Notify.successToaster(resp.data.message);
+                };
+            });
+        }
     };
 
-    $scope.onRegisterCancel = function() {
-        $scope.registerModal.hide();
-    };
-
-    $scope.login = {
-        userName: '',
-        password: ''
+    $scope.backToLogin = function() {
+        $state.go('login');
     };
 
     // Perform the login action when the user submits the login form
     $scope.onTapLoginBtn = function() {
-        $state.go('accountSetup');
+        AuthServices.login($scope.login).then(function(resp) {
+            if(resp.data && resp.data.responseStatus == 'SUCCESS') {
+                $state.go('accountSetup');
+            } else {
+                Notify.errorToaster(resp.data.message);
+            };
+        });
     };
+
+    $scope.resetModels();
 }]);

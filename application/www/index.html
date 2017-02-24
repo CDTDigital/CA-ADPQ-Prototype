@@ -17,6 +17,7 @@
     </script>-->
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="lib/toaster/toaster.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -26,18 +27,33 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <!-- For Http MOCK services -->
+    <script src="lib/angular-mocks.js"></script>
+
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
+    <!-- For containg the constant params -->
+    <script src="js/constants.js"></script>
+
     <!-- your app's js -->
     <script src="js/app.js"></script>
+
+    <!-- Comman moduels -->
     <script src="js/modules.js"></script>
+
+    <!-- App and Mock Contollers -->
     <script src="modules/AppController.js"></script>
+    <script src="modules/MockController.js"></script>
 
     <!-- Rest API's Success and Error Interceptor -->
     <script src="js/api-interceptor.js"></script>
 
-    <!-- Auth Controller for Login, Registration and Forgot Password Features -->
+    <!-- Toaster lib for showing Success, Error and Info content to user -->
+    <script src="lib/toaster/toaster.js"></script>
+    <script src="js/notify-service.js"></script>
+
+    <!-- Auth Controller and Services for Login, Registration and Forgot Password Features -->
     <script src="modules/auth/AuthController.js"></script>
     <script src="modules/auth/AuthServices.js"></script>
 
@@ -60,5 +76,6 @@
 
   <body ng-app="CRNS">
     <ion-nav-view></ion-nav-view>
+    <toaster-container toaster-options="{'time-out': 4000,'spinner':false}"></toaster-container>
   </body>
 </html>

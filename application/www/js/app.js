@@ -1,8 +1,6 @@
 // Ionic CRNS App
-
-angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv'])
-
-.run(function($ionicPlatform, $rootScope) {
+angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstants', 'toaster'])
+.run(function($ionicPlatform, $rootScope, Constant) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
     // (remove this to show the accessory bar above the keyboard for form inputs)
@@ -17,7 +15,12 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv'])
   });
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      console.log(toState);
+      //console.log(toState);
+  });
+
+  /* Toaster disappear listner */
+  $rootScope.$on('toasterDisappear', function(e) {
+      Constant.isToaster = true;
   });
 
   /* It will go back to previous state */
@@ -32,6 +35,16 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv'])
   .state('login', {
       url: '/login',
       templateUrl: 'views/login.html',
+      controller: 'AuthCtrl'
+  })
+  .state('register', {
+      url: '/register',
+      templateUrl: 'views/registration.html',
+      controller: 'AuthCtrl'
+  })
+  .state('forgot', {
+      url: '/forgot',
+      templateUrl: 'views/forgot.html',
       controller: 'AuthCtrl'
   })
   .state('app', {
