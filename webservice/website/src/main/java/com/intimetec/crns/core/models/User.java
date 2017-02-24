@@ -45,6 +45,7 @@ public class User {
 	@Column(name="status")
 	private boolean status;
 
+	@JsonIgnore
 	@Column(name="role")
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
