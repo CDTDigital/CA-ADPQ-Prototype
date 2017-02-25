@@ -18,19 +18,19 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close>
+        <ion-item menu-close ng-click="onTapSideMenu('home')">
           Home
         </ion-item>
-        <ion-item menu-close>
+        <ion-item menu-close ng-click="onTapSideMenu('notification')">
           Notification
         </ion-item>
-        <ion-item menu-close>
+        <ion-item menu-close ng-click="onTapSideMenu('profile')">
           Profile
         </ion-item>
-        <ion-item menu-close>
+        <ion-item menu-close ng-click="onTapSideMenu('settings')">
           Settings
         </ion-item>
-        <ion-item menu-close>
+        <ion-item menu-close ng-click="onTapSideMenu('logout')">
           Logout
         </ion-item>
       </ion-list>

@@ -1,6 +1,6 @@
 // Ionic CRNS App
 angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstants', 'toaster'])
-.run(function($ionicPlatform, $rootScope, Constant, $http) {
+.run(function($ionicPlatform, $rootScope, Constant, $http, AuthToken) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
     // (remove this to show the accessory bar above the keyboard for form inputs)
@@ -14,11 +14,11 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
     }
   });
 
-    if (window.localStorage.getItem('loginData') == undefined || window.localStorage.getItem('loginData') == null) {
+    if (localStorage.getItem('loginData') == undefined || localStorage.getItem('loginData') == null) {
         $rootScope.loginData = undefined;
     } else {
-        $rootScope.loginData = angular.fromJson(window.localStorage.getItem('loginData'));
-        $http.defaults.headers.common['authToken']= $rootScope.loginData.authToken;
+        $rootScope.loginData = angular.fromJson(localStorage.getItem('loginData'));
+        AuthToken.setAuthToken(localStorage.getItem('authToken'));
     }
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
@@ -41,16 +41,19 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
 
   .state('login', {
       url: '/login',
+      cache: 'false',
       templateUrl: 'views/login.html',
       controller: 'AuthCtrl'
   })
   .state('register', {
       url: '/register',
+      cache: 'false',
       templateUrl: 'views/registration.html',
       controller: 'AuthCtrl'
   })
   .state('forgot', {
       url: '/forgot',
+      cache: 'false',
       templateUrl: 'views/forgot.html',
       controller: 'AuthCtrl'
   })

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('CRNSCtrl')
-.controller('SetupCtrl', ['$scope', '$state', 'GoogleMapService', 'AccountData', 'Notify', 'AuthServices', function($scope, $state, GoogleMapService, AccountData, Notify, AuthServices) {
+.controller('SetupCtrl', ['$scope', '$state', 'GoogleMapService', 'AccountData', 'Notify', 'AccountServices', function($scope, $state, GoogleMapService, AccountData, Notify, AccountServices) {
     $scope.account = AccountData.getCurrentData();
     $scope.currentAddress = GoogleMapService.getLocationAddress();
     $scope.account.address = $scope.currentAddress.address;
@@ -28,7 +28,7 @@ angular.module('CRNSCtrl')
         } else if($scope.account.address == '') {
             Notify.errorToaster('Please add your location for getting the notifications!');
         } else {
-            AuthServices.register($scope.account).then(function(resp) {
+            AccountServices.setUpAccount($scope.account).then(function(resp) {
                 if(resp.data && resp.data.responseStatus == 'SUCCESS') {
                     localStorage.setItem('accountSetup', true);
                     $state.go('app.dash');
