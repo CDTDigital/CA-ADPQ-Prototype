@@ -5,7 +5,10 @@
 (function () {
     angular.module("CRNS", [
         //3rd party module
-        'ngRoute'
+        'ngRoute',
+        'ngStorage',
+        'toaster',
+        'ngAnimate'
     ]);
 }());
 (function () {

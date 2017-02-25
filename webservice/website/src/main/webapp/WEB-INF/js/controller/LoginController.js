@@ -3,10 +3,12 @@
  */
 (function () {
 
-    function LoginController($scope, HttpFactory) {
+    function LoginController($scope, HttpFactory, toaster) {
         $scope.submitLogin = function () {
             HttpFactory.login($scope.user.email, $scope.user.password).then(function (loginResponse) {
-                
+                $scope.go('/home')
+            }, function (error) {
+                toaster.pop('info', error.message);
             })
         }
     }
@@ -15,6 +17,7 @@
         requires = [
             '$scope',
             'modules.core.HttpFactory',
+            'toaster',
             LoginController
         ];
     app.controller('LoginController', requires)
