@@ -1,0 +1,93 @@
+/**
+ * 
+ */
+package com.intimetec.crns.util;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.intimetec.crns.core.models.User;
+import com.intimetec.crns.core.models.UserLocation;
+import com.intimetec.crns.core.restmodels.RestLocation;
+import com.intimetec.crns.core.restmodels.RestUser;
+
+/**
+ * @author shiva.dixit
+ *
+ */
+public class RestObjectToModelObjectMapper {
+
+	public static User RestUserToUser(RestUser restUser) {
+		User user = new User();
+		if (user != null) {
+			user.setId(restUser.getId());
+			user.setEmail(restUser.getEmail());
+			user.setFirstName(restUser.getFirstName());
+			user.setLastName(restUser.getLastName());
+			user.setMobileNo(restUser.getMobileNo());
+			user.setUserName(restUser.getUserName());
+			user.setPassword(restUser.getPassword());
+			user.setUserRole(restUser.getUserRole());
+			user.setUserNotificationOptions(restUser.getUserNotificationOptions());
+		}
+		return user;
+	}
+
+	public static RestUser UserToRestUser(User user) {
+		RestUser restUser = new RestUser();
+		if (user != null) {
+			restUser.setId(user.getId());
+			restUser.setEmail(user.getEmail());
+			restUser.setFirstName(user.getFirstName());
+			restUser.setLastName(user.getLastName());
+			restUser.setMobileNo(user.getMobileNo());
+			restUser.setUserName(user.getUserName());
+			restUser.setPassword(user.getPassword());
+			restUser.setUserRole(user.getUserRole());
+			restUser.setEnabled(user.isEnabled());
+			restUser.setAccountSetupDone();
+			restUser.setUserNotificationOptions(user.getUserNotificationOptions());
+		}
+		return restUser;
+	}
+
+	public static Collection<RestUser> UserToRestUser(Collection<User> users) {
+		Collection<RestUser> restUsers = new ArrayList<RestUser>();
+		for (User user : users) {
+			restUsers.add(UserToRestUser(user));
+		}
+		return restUsers;
+	}
+
+	public static UserLocation RestLocationToUserLocation(RestLocation restLocation) {
+		UserLocation userLocation = new UserLocation();
+		if (restLocation != null) {
+			userLocation.setId(restLocation.getId());
+			userLocation.setAddressLine1(restLocation.getAddressLine1());
+			userLocation.setAddressLine2(restLocation.getAddressLine2());
+			userLocation.setCity(restLocation.getCity());
+			userLocation.setZipCode(restLocation.getZipCode());
+			userLocation.setPlaceId(restLocation.getPlaceId());
+			userLocation.setLattitude(restLocation.getLattitude());
+			userLocation.setLongitude(restLocation.getLongitude());
+			userLocation.setCurrentLocation(restLocation.isCurrentLocation());
+		}
+		return userLocation;
+	}
+
+	public static RestLocation UserLocationToRestLocation(UserLocation userLocation) {
+		RestLocation restLocation = new RestLocation();
+		if (userLocation != null) {
+			restLocation.setId(userLocation.getId());
+			restLocation.setAddressLine1(userLocation.getAddressLine1());
+			restLocation.setAddressLine2(userLocation.getAddressLine2());
+			restLocation.setCity(userLocation.getCity());
+			restLocation.setZipCode(userLocation.getZipCode());
+			restLocation.setPlaceId(userLocation.getPlaceId());
+			restLocation.setLattitude(userLocation.getLattitude());
+			restLocation.setLongitude(userLocation.getLongitude());
+			restLocation.setCurrentLocation(userLocation.isCurrentLocation());
+		}
+		return restLocation;
+	}
+}
