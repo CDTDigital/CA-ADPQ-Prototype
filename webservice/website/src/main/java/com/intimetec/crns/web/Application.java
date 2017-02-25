@@ -4,12 +4,10 @@
  */
 package com.intimetec.crns.web;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.catalina.connector.Connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,6 +22,8 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.SocketUtils;
+
+import com.intimetec.crns.core.config.google.GoogleApiConfig;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -64,6 +64,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 public class Application extends SpringBootServletInitializer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+	
+	@Value("${google.api.url}")
+	private String googleApiUrl;
+	
+	@Value("${google.api.apikey}")
+	private String googleApiKey;
+	
+	@Bean
+	public GoogleApiConfig getGoogleApiConfig(){
+		return new GoogleApiConfig(googleApiUrl, googleApiKey);
+	}
 
 	public static void main(String[] args) throws Exception {
 		LOGGER.debug("Admin credentials: demo.crns@gmail.com/crnsadmin ["+new BCryptPasswordEncoder().encode("crnsadmin")+"]");

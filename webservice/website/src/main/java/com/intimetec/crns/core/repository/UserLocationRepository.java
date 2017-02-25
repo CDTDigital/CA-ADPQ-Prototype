@@ -1,6 +1,7 @@
 package com.intimetec.crns.core.repository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -18,4 +19,6 @@ public interface UserLocationRepository extends JpaRepository<UserLocation, Inte
 	Collection<UserLocation> getByZipCode(String zipCode);
 	
 	Collection<UserLocation> getByPlaceId(String placeId);
+	
+	Optional<UserLocation> findOneByUserIdAndCurrentLocation(long userId, boolean currentLocation);
 }

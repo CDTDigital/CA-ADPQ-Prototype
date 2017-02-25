@@ -15,14 +15,16 @@ public interface UserLocationService {
 	
 	Collection<UserLocation> getByPlaceId(String placeId);
 	
-	UserLocation getProfileLocationByUserId(long userId);
+	Optional<UserLocation> getProfileLocationByUserId(long userId);
 
-	UserLocation getCurrentLocationByUserId(long userId);
+	Optional<UserLocation> getCurrentLocationByUserId(long userId);
 	
 	Collection<UserLocation> getByAuthToken(String authToken) throws InvalidAuthTokenException;
 
 	UserLocation save(UserLocation userLocation);
 
 	void delete(UserLocation userLocation);
+	
+	
 
 }
