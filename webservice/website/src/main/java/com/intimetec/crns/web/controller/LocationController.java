@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.intimetec.crns.core.service.location.LocationService;
+import com.intimetec.crns.core.service.userLocation.UserLocationService;
 import com.intimetec.crns.util.ResponseMessage;
 
 @RestController
@@ -20,13 +20,14 @@ public class LocationController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LocationController.class);
 	@Autowired
-	private LocationService locationService;
+	private UserLocationService userlocationService;
 
 	@RequestMapping(value = "/location", method = RequestMethod.GET)
-	public Map<String, Object> getPostalCode(@RequestParam(value="latlng") String latlng) {
+	public Map<String, Object> getPostalCode(@RequestParam(value="lat") String lattitude,
+			@RequestParam(value="lng") String longitude) {
 		LOGGER.info("Getting postal code");
 		Map<String, Object> responseMap = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-		responseMap.put("data", locationService.getLocationDetails(latlng));
+		responseMap.put("data", userlocationService.getLocationDetails(lattitude, longitude));
 		return responseMap;
 	}
 }
