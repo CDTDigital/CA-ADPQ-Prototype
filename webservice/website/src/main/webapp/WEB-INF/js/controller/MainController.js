@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function MainController($scope, $location) {
+    function MainController($rootScope, $location) {
         $rootScope.go = function (path) {
             $location.url(path);
         }

@@ -20,6 +20,9 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
          .addResourceHandler("/css/**")
          .addResourceLocations("/resources/", "WEB-INF/css/");
         registry
+          .addResourceHandler("/lib/**")
+          .addResourceLocations("/resources/", "WEB-INF/lib/");
+        registry
          .addResourceHandler("/js/**")
          .addResourceLocations("/resources/", "WEB-INF/js/");
         registry

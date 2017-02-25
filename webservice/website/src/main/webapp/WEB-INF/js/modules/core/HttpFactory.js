@@ -25,9 +25,9 @@
 
             function login(email, password) {
                 var deferred = $q.defer();
-                var credentials = {email: email, password: password}
-                $http.post(Configuration.API_URL + '/login', credentials).then(function (response) {
-                    if (response.responseStatus.toLowerCase() == "success") {
+                var credentials = {userName: email, password: password}
+                $http.post('/login', credentials).then(function (response) {
+                    if (response.data.responseStatus.toLowerCase() == "success") {
                         loginResponse = response.data;
                         $localStorage.loginResponse = loginResponse;
                         deferred.resolve(response.data)
@@ -36,8 +36,9 @@
                         deferred.reject(response.data)
                     }
                 }, function (error) {
-                    deferred.reject(error);
+                    deferred.reject(error.data.data);
                 })
+                return deferred.promise;
             }
             return {
                 login: login,
@@ -118,5 +119,5 @@
         ];
     }
     var app = angular.module("CRNS");
-    app.provider("modules.core.HttpFactory", HttpProvider)
+    app.provider("modules.core.HttpFactory", HttpProvider);
 }());
