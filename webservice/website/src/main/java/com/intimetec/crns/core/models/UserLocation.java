@@ -9,43 +9,44 @@ import javax.persistence.Table;
 
 /**
  * Entity model class for User Locations table
+ * 
  * @author shiva.dixit
  */
 
 @Entity
-@Table(name="user_locations")
+@Table(name = "user_locations")
 public class UserLocation {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private long id;
 
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	private long userId;
-	
-	@Column(name="address_line1")
+
+	@Column(name = "address_line1")
 	private String addressLine1;
-	
-	@Column(name="address_line2")
+
+	@Column(name = "address_line2")
 	private String addressLine2;
-	
-	@Column(name="city")
+
+	@Column(name = "city")
 	private String city;
 
-	@Column(name="zip_code")
+	@Column(name = "zip_code")
 	private String zipCode;
-	
-	@Column(name="place_id")
+
+	@Column(name = "place_id")
 	private String placeId;
-	
-	@Column(name="lattitude")
+
+	@Column(name = "lattitude")
 	private String lattitude;
-	
-	@Column(name="longitude")
+
+	@Column(name = "longitude")
 	private String longitude;
-	
-	@Column(name="current_location")
+
+	@Column(name = "current_location")
 	private boolean currentLocation;
 
 	public long getId() {
@@ -127,19 +128,26 @@ public class UserLocation {
 	public void setCurrentLocation(boolean currentLocation) {
 		this.currentLocation = currentLocation;
 	}
-	
+
 	@Override
-    public String toString() {
-        return "UserLocation{" +
-                "id=" + id +
-                ", addressLine1=" + addressLine1 +
-                ", addressLine2=" + addressLine2 +
-                ", city=" + city +
-                ", zipCode=" + zipCode +
-                ", placeId=" + placeId +
-                ", lat=" + lattitude +
-                ", log=" + longitude +
-                ", currentLocation=" + currentLocation +
-                '}';
-    }
+	public String toString() {
+		return "UserLocation{" + "id=" + id + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2
+				+ ", city=" + city + ", zipCode=" + zipCode + ", placeId=" + placeId + ", lat=" + lattitude + ", log="
+				+ longitude + ", currentLocation=" + currentLocation + '}';
+	}
+
+	public UserLocation() {
+
+	}
+
+	public UserLocation(String stateShortName, String county, String route, String streetNumber, String zipCode,
+			String cityName, String lat, String lng, String placeId) {
+		this.addressLine1 = streetNumber;
+		this.addressLine2 = route;
+		this.city = cityName;
+		this.zipCode = zipCode;
+		this.lattitude = lat;
+		this.longitude = lng;
+		this.placeId = placeId;
+	}
 }

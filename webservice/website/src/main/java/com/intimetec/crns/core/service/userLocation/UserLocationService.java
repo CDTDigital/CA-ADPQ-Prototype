@@ -25,6 +25,6 @@ public interface UserLocationService {
 
 	void delete(UserLocation userLocation);
 	
-	
+	UserLocation getLocationDetails(String lat, String lng);
 
 }
