@@ -1,6 +1,6 @@
 // Ionic CRNS App
 angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstants', 'toaster'])
-.run(function($ionicPlatform, $rootScope, Constant) {
+.run(function($ionicPlatform, $rootScope, Constant, $http) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
     // (remove this to show the accessory bar above the keyboard for form inputs)
@@ -13,6 +13,13 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
       StatusBar.styleLightContent();
     }
   });
+
+    if (window.localStorage.getItem('loginData') == undefined || window.localStorage.getItem('loginData') == null) {
+        $rootScope.loginData = undefined;
+    } else {
+        $rootScope.loginData = angular.fromJson(window.localStorage.getItem('loginData'));
+        $http.defaults.headers.common['authToken']= $rootScope.loginData.authToken;
+    }
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       //console.log(toState);
@@ -75,5 +82,9 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+    if (localStorage.getItem('loginData') == undefined || localStorage.getItem('loginData') == null) {
+        $urlRouterProvider.otherwise('/login');
+    } else if(localStorage.getItem('accountSetup') == undefined) {
+        $urlRouterProvider.otherwise('/accountSetup');
+    } else $urlRouterProvider.otherwise('/app/dash');
 });

@@ -9,7 +9,7 @@ angular.module('CRNSMock').run(['$httpBackend', function($httpBackend) {
         data = angular.fromJson(data);
         for(var i=0; i < registerUserData.users.length; i++) {
             if(angular.fromJson(registerUserData.users[i]).userName == data.userName && angular.fromJson(registerUserData.users[i]).password == data.password) {
-                return [200, { 'responseStatus': 'SUCCESS', 'authToken': 'hGJGY23Fdf42sJYd34', 'setupAccount': false}];
+                return [200, { 'responseStatus': 'SUCCESS', 'authToken': 'hGJGY23Fdf42sJYd34', 'accountSetupDone': false}];
             }
         }
         return [200, { 'responseStatus': 'FAILURE', 'message': 'Incorrect Username or Password!'}];
@@ -22,8 +22,8 @@ angular.module('CRNSMock').run(['$httpBackend', function($httpBackend) {
         return [200, { 'responseStatus': 'SUCCESS', 'message': 'Registration Successful' }];
     });
 
-    $httpBackend.whenPOST(/.*\/mock.crns\/api\/setupAaccount/).respond(function() {
-        return [200];
+    $httpBackend.whenPOST(/.*\/mock.crns\/api\/setUpAccount/).respond(function(method, url, data, headers) {
+        return [200, { 'responseStatus': 'SUCCESS' }];
     });
 
     // All other http requests will pass through

@@ -4,6 +4,8 @@ angular.module('CRNSSrv')
             login: function(paramObj) {
                 var promise = $http.post(Constant.API_URL + 'login', paramObj)
                     .then(function(data, status, headers, config) {
+                        $http.defaults.headers.common['authToken']= data.data.authToken;
+                        localStorage.setItem('authToken', data.data.authToken);
                         return data;
                     });
                 return promise;

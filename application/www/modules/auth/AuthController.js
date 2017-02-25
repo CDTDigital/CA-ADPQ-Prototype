@@ -1,5 +1,5 @@
 angular.module('CRNSCtrl')
-.controller('AuthCtrl', ['$scope', '$ionicScrollDelegate', '$state', 'AuthServices', 'Notify', 'Constant', function($scope, $ionicScrollDelegate, $state, AuthServices, Notify, Constant) {
+.controller('AuthCtrl', ['$rootScope', '$scope', '$ionicScrollDelegate', '$state', 'AuthServices', 'Notify', 'Constant', function($rootScope, $scope, $ionicScrollDelegate, $state, AuthServices, Notify, Constant) {
     'use strict';
     // Open the Forgot password modal
     $scope.resetModels = function() {
@@ -53,7 +53,7 @@ angular.module('CRNSCtrl')
                     Notify.successToaster(resp.data.message);
                     $state.go('login');
                 } else {
-                    Notify.successToaster(resp.data.message);
+                    Notify.errorToaster(resp.data.message);
                 };
             });
         }
@@ -67,7 +67,10 @@ angular.module('CRNSCtrl')
     $scope.onTapLoginBtn = function() {
         AuthServices.login($scope.login).then(function(resp) {
             if(resp.data && resp.data.responseStatus == 'SUCCESS') {
-                $state.go('accountSetup');
+                $rootScope.loginData = resp.data;
+                window.localStorage.setItem('loginData', angular.toJson($rootScope.loginData));
+                if(!resp.data.accountSetupDone) $state.go('accountSetup');
+                else $state.go('app.dash');
             } else {
                 Notify.errorToaster(resp.data.message);
             };

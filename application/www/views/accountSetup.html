@@ -13,19 +13,19 @@
 
             <div class="registerLabel lBlueFontClr">Personal Information</div>
             <label class="item item-input extendInput">
-                <input type="text" placeholder="First Name" ng-model="information.firstName">
+                <input type="text" placeholder="First Name" ng-model="account.firstName">
             </label>
 
             <label class="item item-input extendInput marginTop5">
-                <input type="text" placeholder="Last Name" ng-model="information.lastName">
+                <input type="text" placeholder="Last Name" ng-model="account.lastName">
             </label>
 
             <label class="item item-input extendInput marginTop5">
-                <input type="number" placeholder="Phone Number" ng-model="information.phoneNumber">
+                <input type="number" placeholder="Mobile Number" ng-model="account.mobileNumber">
             </label>
 
             <div class="registerLabel lBlueFontClr marginTop5">Location</div>
-            <div class="locationLabel" ng-if="currentAddress.address != ''">{{currentAddress.address}}</div>
+            <div class="locationLabel" ng-model='account.address' ng-if="currentAddress.address != ''">{{account.address}}</div>
             <div class="marginTop5" ng-if="currentAddress.address == ''">
                 <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
                     Add
@@ -49,7 +49,7 @@
             <li class="item item-toggle trackToggleItem">
                 Current Location
                 <label class="toggle toggle-balanced trackToggle">
-                    <input type="checkbox">
+                    <input type="checkbox" ng-model="account.trackLocation">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
@@ -57,17 +57,17 @@
             </li>
 
             <div class="registerLabel lBlueFontClr marginTop5">Options for Notification</div>
-            <ion-checkbox ng-model="information.email">Email</ion-checkbox>
-            <ion-checkbox ng-model="information.sms">SMS</ion-checkbox>
-            <ion-checkbox ng-model="information.notification">Notifications</ion-checkbox>
+            <ion-checkbox ng-model="account.email">Email</ion-checkbox>
+            <ion-checkbox ng-model="account.sms">SMS</ion-checkbox>
+            <ion-checkbox ng-model="account.notification">Notifications</ion-checkbox>
 
 
         </div>
 
         <div class="row zeroPadding marginTop20">
             <div class="col zeroPadding">
-                <button class="button button-positive positiveBtn" ng-click="onTapProceedBtn()">
-                    Procced
+                <button class="button button-positive positiveBtn" ng-click="onTapContinueBtn()">
+                    Continue
                 </button>
             </div>
         </div>
