@@ -83,6 +83,15 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
         controller: 'DashboardCtrl'
       }
     }
+  })
+  .state('app.settings', {
+    url: '/settings',
+    views: {
+      'menuview': {
+        templateUrl: 'views/settings.html',
+        controller: 'SettingsCtrl'
+      }
+    }
   });
   // if none of the above states are matched, use this as the fallback
     if (localStorage.getItem('loginData') == undefined || localStorage.getItem('loginData') == null) {
