@@ -47,7 +47,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
                 Authentication authentication =  getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
                 
                 User authUser = ((CurrentUser) authentication.getPrincipal()).getUser();
-                if(!authUser.isStatus()){
+                if(!authUser.isEnabled()){
                 	throw new InternalAuthenticationServiceException("User Account is locked");
                 }
                 

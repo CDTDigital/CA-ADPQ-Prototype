@@ -39,6 +39,9 @@ public class Notification {
 	
 	@Column(name="zip_code")
 	private String zipCode;
+	
+	@Column(name="address")
+	private String address;
 
 	@Column(name="sent_time")
 	private Date sentTime;
@@ -92,6 +95,14 @@ public class Notification {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public Date getSentTime() {

@@ -75,13 +75,21 @@ public class UserServiceImpl implements UserService {
 	public User update(long id, User user) throws InvalidUserException {
 		Optional<User> userById = getUserById(id);
         if(userById.isPresent()) {
-        	userById.get().setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         	userById.get().setFirstName(user.getFirstName());
         	userById.get().setLastName(user.getLastName());
-        	userById.get().setEmail(user.getEmail());
-        	userById.get().setUserNotificationOptions(user.getUserNotificationOptions());
-        	userById.get().getUserNotificationOptions().setUserId(id);
-        	userById.get().setAccountSetupDone();
+        	if(user.getPassword()!= null) {
+        		userById.get().setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        	}
+        	if(user.getEmail()!= null) {
+        		userById.get().setEmail(user.getEmail());
+        	}
+        	if(user.getUserNotificationOptions()!= null) {
+        		userById.get().setUserNotificationOptions(user.getUserNotificationOptions());
+        	}
+        	if(userById.get().getUserNotificationOptions()!= null) {
+        		userById.get().getUserNotificationOptions().setUserId(userById.get().getId());
+            	userById.get().setAccountSetupDone();
+        	}
         	return userRepository.save(userById.get());
         } else {
         	throw new InvalidUserException("Supplied invalid userId to update.");
@@ -91,15 +99,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(String authToken, User user) throws InvalidUserException, InvalidAuthTokenException {
 		Optional<User> userById = getValidUserForAuthToken(authToken);
+		System.out.println("user from setProfile: "+user);
 		System.out.println("userById: "+userById);
         if(userById.isPresent()) {
-        	userById.get().setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         	userById.get().setFirstName(user.getFirstName());
         	userById.get().setLastName(user.getLastName());
-        	userById.get().setEmail(user.getEmail());
-        	userById.get().setUserNotificationOptions(user.getUserNotificationOptions());
-        	userById.get().getUserNotificationOptions().setUserId(userById.get().getId());
-        	userById.get().setAccountSetupDone();
+        	if(user.getPassword()!= null) {
+        		userById.get().setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        	}
+        	if(user.getEmail()!= null) {
+        		userById.get().setEmail(user.getEmail());
+        	}
+        	if(user.getUserNotificationOptions()!= null) {
+        		userById.get().setUserNotificationOptions(user.getUserNotificationOptions());
+        	}
+        	if(userById.get().getUserNotificationOptions()!= null) {
+        		userById.get().getUserNotificationOptions().setUserId(userById.get().getId());
+            	userById.get().setAccountSetupDone();
+        	}
         	return userRepository.save(userById.get());
         } else {
         	throw new InvalidUserException("Supplied invalid userId to update.");

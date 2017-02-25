@@ -34,6 +34,9 @@ public class User {
 
 	@Column(name="email")
 	private String email;
+	
+	@Column(name="monile_no")
+	private String mobileNo;
 
 	@Column(name="username")
 	private String userName;
@@ -41,8 +44,8 @@ public class User {
 	@Column(name="password")
 	private String password;
 
-	@Column(name="status")
-	private boolean status;
+	@Column(name="enabled")
+	private boolean enabled;
 
 	@JsonIgnore
 	@Column(name="role")
@@ -87,6 +90,14 @@ public class User {
 		this.email = email;
 	}
 
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -103,12 +114,12 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isStatus() {
-		return status;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
-	public void setStatus(boolean status) {
-		this.status = status;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public UserRole getUserRole() {
@@ -143,9 +154,14 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
                 ", username=" + userName +
-                ", email='" + email +
+                ", email=" + email +
+                ", mobileNo=" + mobileNo +
                 ", role=" + userRole +
+                ", password=" + password +
+                ", userNotificationOptions=" + userNotificationOptions +
                 '}';
     }
 }
