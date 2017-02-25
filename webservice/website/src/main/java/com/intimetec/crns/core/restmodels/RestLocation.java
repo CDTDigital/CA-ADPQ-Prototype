@@ -1,67 +1,35 @@
-package com.intimetec.crns.core.models;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package com.intimetec.crns.core.restmodels;
 
 /**
- * Entity model class for User Locations table
+ * Rest model class for User Locations table
  * @author shiva.dixit
  */
-
-@Entity
-@Table(name="user_locations")
-public class UserLocation {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
+public class RestLocation {
 	private long id;
-
-	@Column(name="user_id")
-	private long userId;
 	
-	@Column(name="address_line1")
 	private String addressLine1;
 	
-	@Column(name="address_line2")
 	private String addressLine2;
 	
-	@Column(name="city")
 	private String city;
 
-	@Column(name="zip_code")
 	private String zipCode;
 	
-	@Column(name="place_id")
 	private String placeId;
 	
-	@Column(name="lattitude")
 	private String lattitude;
 	
-	@Column(name="longitude")
 	private String longitude;
 	
-	@Column(name="current_location")
 	private boolean currentLocation;
+
 
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long l) {
-		this.id = l;
-	}
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getAddressLine1() {
@@ -130,8 +98,8 @@ public class UserLocation {
 	
 	@Override
     public String toString() {
-        return "UserLocation{" +
-                "id=" + id +
+        return "Location{" +
+        		", id=" + id +
                 ", addressLine1=" + addressLine1 +
                 ", addressLine2=" + addressLine2 +
                 ", city=" + city +
