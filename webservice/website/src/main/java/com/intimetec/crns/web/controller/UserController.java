@@ -308,8 +308,11 @@ public class UserController {
 	public Collection<RestUser> getUserCreatePage() {
 		Collection<RestUser> users = new ArrayList<RestUser>();
 		for(User user: userService.getAllUsers()){
-			userService.removeSensitiveInfo(user);
-			users.add(RestObjectToModelObjectMapper.UserToRestUser(user));
+			UserLocation userLocation = userLocationService.getProfileLocationByUserId(user.getId());
+			RestUser restUser = RestObjectToModelObjectMapper.UserToRestUser(user);
+			restUser.setLocation(RestObjectToModelObjectMapper.UserLocationToRestLocation(userLocation));
+			restUser.setPassword(null);
+			users.add(restUser);
 		}
 		return users;
 	}
