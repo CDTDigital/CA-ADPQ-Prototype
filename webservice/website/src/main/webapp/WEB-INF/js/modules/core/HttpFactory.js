@@ -9,14 +9,14 @@
             angular.extend(self, config);
         };
 
-        function HttpFactory($http, $log, $q, $localStorage) {
+        function HttpFactory($http, $log, $q, $sessionStorage) {
             function onInitialization() {
                 if (!self.baseUrl) {
                     $log.debug("Base Url is not provided in the angular constants");
                     return
                 }
 
-                $localStorage.$default({
+                $sessionStorage.$default({
                     loginResponse: {}
                 })
             }
@@ -29,7 +29,7 @@
                 $http.post('/login', credentials).then(function (response) {
                     if (response.data.responseStatus.toLowerCase() == "success") {
                         loginResponse = response.data;
-                        $localStorage.loginResponse = loginResponse;
+                        $sessionStorage.loginResponse = loginResponse;
                         deferred.resolve(response.data)
                     }
                     else {
@@ -37,12 +37,17 @@
                     }
                 }, function (error) {
                     deferred.reject(error.data.data);
-                })
+                });
                 return deferred.promise;
+            }
+
+            function isLoggedIn() {
+                return Object.keys($sessionStorage.loginResponse).length;
             }
             return {
                 login: login,
                 loginResponse: loginResponse,
+                isLoggedIn: isLoggedIn,
                 forgotPassword: function () {
                     var deferred = $q.defer();
                     $http.get(Configuration.API_URL + '/forgotPassword').then(function (response) {
@@ -114,7 +119,7 @@
             '$http',
             '$log',
             '$q',
-            '$localStorage',
+            '$sessionStorage',
             HttpFactory
         ];
     }
