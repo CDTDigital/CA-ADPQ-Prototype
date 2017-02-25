@@ -51,26 +51,15 @@ public class UserLocationServiceImpl implements UserLocationService {
 	}
 
 	@Override
-	public UserLocation getProfileLocationByUserId(long userId) {
+	public Optional<UserLocation> getProfileLocationByUserId(long userId) {
 		LOGGER.debug("Getting User's profile location by user id={}", userId);
-		for(UserLocation userLocation: getByUserId(userId)){
-			if(!userLocation.isCurrentLocation()){
-				return userLocation;
-			}
-		}
-		return null;
+		return userLocationRepository.findOneByUserIdAndCurrentLocation(userId, false);
 		
 	}
 
 	@Override
-	public UserLocation getCurrentLocationByUserId(long userId) {
-		LOGGER.debug("Getting User's profile location by user id={}", userId);
-		for(UserLocation userLocation: getByUserId(userId)){
-			if(userLocation.isCurrentLocation()){
-				return userLocation;
-			}
-		}
-		return null;
+	public Optional<UserLocation> getCurrentLocationByUserId(long userId) {
+		return userLocationRepository.findOneByUserIdAndCurrentLocation(userId, true);
 	}
 
 	@Override

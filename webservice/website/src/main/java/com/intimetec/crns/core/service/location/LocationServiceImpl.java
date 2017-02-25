@@ -5,10 +5,14 @@ package com.intimetec.crns.core.service.location;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intimetec.crns.core.config.google.GoogleApiConfig;
 import com.intimetec.crns.core.models.Location;
 import com.intimetec.crns.util.GenericService;
 
@@ -16,7 +20,11 @@ import com.intimetec.crns.util.GenericService;
  * @author harish.vaishnav
  *
  */
+@Service
 public class LocationServiceImpl implements LocationService {
+	
+	@Autowired
+	private GoogleApiConfig googleApiConfig;
 
 	/**
 	 * This service is used for fetching location details on the behalf of Latitude and Longitude.
@@ -24,7 +32,7 @@ public class LocationServiceImpl implements LocationService {
 	 */
 	@Override
 	public Location getLocationDetails(String latlng) {
-		String url  = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latlng+"&key=AIzaSyB6OlDwSijH738ENaKp4npwTd2XL2NlVus";
+		String url  = googleApiConfig.getUrl()+"?latlng="+latlng+"&key="+googleApiConfig.getKey();
 		String postal = null;
 		String country = null;
 		String stateShortName = null;
