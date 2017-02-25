@@ -1,5 +1,6 @@
 package com.intimetec.crns.core.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -37,7 +38,6 @@ public class User {
 	@Column(name="username")
 	private String userName;
 
-	@JsonIgnore
 	@Column(name="password")
 	private String password;
 
@@ -49,7 +49,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL )
 	@JoinColumn(name="user_id")
 	private UserNotificationOptions userNotificationOptions;
 	

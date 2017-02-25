@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
+import com.intimetec.crns.core.exceptions.InvalidUserException;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserRole;
 import com.intimetec.crns.core.service.user.UserService;
@@ -96,7 +97,7 @@ public class UserController {
         Optional<User> user = userService.getUserById(id);
         if(user.isPresent()) {
         	Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-        	response.put("data", user.get());
+        	response.put("data", userService.removeSensitiveInfo(user.get()));
         	return response;
         } else {
         	return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, String.format("User=%s not found", id));
@@ -113,13 +114,51 @@ public class UserController {
 			user = userService.getValidUserForAuthToken(authToken);
 			if(user.isPresent()) {
 	        	Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-	        	response.put("data", user.get());
+	        	response.put("data", userService.removeSensitiveInfo(user.get()));
 	        	return response;
 	        }
 		} catch (InvalidAuthTokenException e) {
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-		}
+		} catch (DataIntegrityViolationException e) {
+            LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate email", e);
+            return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Duplicate email address");
+        }
 		return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "User not found");
+    }
+    
+    @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
+    @RequestMapping(value = "/{id}/setProfile",  method = RequestMethod.POST)
+    public Map<String, Object> setProfileByID(@PathVariable Long id, @RequestBody User user) {
+        LOGGER.debug("Updating user page for user={}", id);
+        try {
+        	user = userService.update(id, user);
+        	Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+        	response.put("data", userService.removeSensitiveInfo(user));
+        	return response;
+		} catch (InvalidUserException e) {
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, String.format("User=%s not found", id));
+		} catch (DataIntegrityViolationException e) {
+            LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate email", e);
+            return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Duplicate email address");
+        }
+    }
+    
+    //Get Profile of User based on Auth Token
+    @RequestMapping(value = "/setProfile",  method = RequestMethod.POST)
+    public Map<String, Object> setProfile(HttpServletRequest request, @RequestBody User user) {
+    	String authToken = request.getHeader("authToken");
+    	LOGGER.debug("Updating user page for user={} with authToken", authToken);
+        try {
+        	user = userService.update(authToken, user);
+        	Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+        	response.put("data", userService.removeSensitiveInfo(user));
+        	return response;
+		} catch (InvalidUserException|InvalidAuthTokenException e) {
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, String.format("User=%s not found", authToken));
+		} catch (DataIntegrityViolationException e) {
+            LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate email", e);
+            return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Duplicate email address");
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

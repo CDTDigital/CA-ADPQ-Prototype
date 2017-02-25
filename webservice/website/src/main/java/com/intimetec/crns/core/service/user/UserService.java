@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
+import com.intimetec.crns.core.exceptions.InvalidUserException;
 import com.intimetec.crns.core.models.User;
 
 public interface UserService {
@@ -18,4 +19,10 @@ public interface UserService {
     User create(User user);
 	
 	Optional<User> getValidUserForAuthToken(String authToken) throws InvalidAuthTokenException;
+	
+	User update(long id, User user) throws InvalidUserException;
+	
+	User update(String authToken, User user) throws InvalidUserException, InvalidAuthTokenException;
+
+	User removeSensitiveInfo(User user);
 }

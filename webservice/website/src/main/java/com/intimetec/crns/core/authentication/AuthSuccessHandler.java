@@ -25,6 +25,7 @@ import com.intimetec.crns.core.models.CurrentUser;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserDevice;
 import com.intimetec.crns.core.models.UserRole;
+import com.intimetec.crns.core.service.user.UserService;
 import com.intimetec.crns.core.service.userdevice.UserDeviceServiceImpl;
 import com.intimetec.crns.util.ResponseMessage;
 
@@ -39,6 +40,8 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 	private final ObjectMapper mapper;
 	@Autowired
 	UserDeviceServiceImpl UserDeviceService;
+	@Autowired
+    private UserService userService;
 
 	@Autowired
 	AuthSuccessHandler(MappingJackson2HttpMessageConverter messageConverter) {
@@ -90,7 +93,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
 	private Map<String, Object> generateResponseMessage(User authUser, String authToken) {
 		Map<String, Object> responseMap = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-		responseMap.put("data", authUser);
+		responseMap.put("data", userService.removeSensitiveInfo(authUser));
 		responseMap.put("authToken", authToken);
 		return responseMap;
 	}

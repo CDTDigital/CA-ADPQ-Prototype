@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
+import com.intimetec.crns.core.exceptions.InvalidUserException;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserDevice;
 import com.intimetec.crns.core.repository.UserRepository;
@@ -64,10 +65,50 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> getValidUserForAuthToken(String authToken) throws InvalidAuthTokenException{
 		Optional<UserDevice> userDevice =  userDeviceService.getByAuthToken(authToken);
 		if(userDevice.isPresent()){
-			return getUserById(userDevice.get().getId());
+			return getUserById(userDevice.get().getUser().getId());
 		} else {
 			throw new InvalidAuthTokenException("Invalid Authentication Token Supplied");
 		}
 	}
+	
+	@Override
+	public User update(long id, User user) throws InvalidUserException {
+		Optional<User> userById = getUserById(id);
+        if(userById.isPresent()) {
+        	userById.get().setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        	userById.get().setFirstName(user.getFirstName());
+        	userById.get().setLastName(user.getLastName());
+        	userById.get().setEmail(user.getEmail());
+        	userById.get().setUserNotificationOptions(user.getUserNotificationOptions());
+        	userById.get().getUserNotificationOptions().setUserId(id);
+        	userById.get().setAccountSetupDone();
+        	return userRepository.save(userById.get());
+        } else {
+        	throw new InvalidUserException("Supplied invalid userId to update.");
+        }
+	}
 
+	@Override
+	public User update(String authToken, User user) throws InvalidUserException, InvalidAuthTokenException {
+		Optional<User> userById = getValidUserForAuthToken(authToken);
+		System.out.println("userById: "+userById);
+        if(userById.isPresent()) {
+        	userById.get().setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        	userById.get().setFirstName(user.getFirstName());
+        	userById.get().setLastName(user.getLastName());
+        	userById.get().setEmail(user.getEmail());
+        	userById.get().setUserNotificationOptions(user.getUserNotificationOptions());
+        	userById.get().getUserNotificationOptions().setUserId(userById.get().getId());
+        	userById.get().setAccountSetupDone();
+        	return userRepository.save(userById.get());
+        } else {
+        	throw new InvalidUserException("Supplied invalid userId to update.");
+        }
+	}
+	
+	@Override
+	public User removeSensitiveInfo(User user) {
+		user.setPassword(null);
+		return user;
+	}
 }
