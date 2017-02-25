@@ -3,6 +3,7 @@
  */
 package com.intimetec.crns.util;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,7 +23,9 @@ public class ResponseMessage {
 		Map<String, Object> responseMap = new LinkedHashMap<String, Object>();
 		responseMap.put("responseStatus", "FAILURE");
 		responseMap.put("statusCode", statusCode);
-		responseMap.put("message", message);
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("message", message);
+		responseMap.put("data", data);
 		return responseMap;
 	}
 }
