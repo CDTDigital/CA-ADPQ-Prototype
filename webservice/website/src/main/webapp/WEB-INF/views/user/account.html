@@ -76,25 +76,60 @@
 	</header>
 	<div class="container main-body-content">
 	  <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
-		<h3>Send Notifications</h3>
-	      <div class="sendForm">
-		    <div class="form-group row">
-			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 noSpace">
-			    <input class="form-control" type="text" value="" id="text-input" placeholder="Location">
-			  </div>
+		<h3>Account Information</h3>
+	      <div class="sendForm clearfix">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+				<h4>Personal Information</h4>
+				<div class="form-group row">
+					<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+						<input class="form-control" type="text" value="" id="text-input" placeholder="First Name">
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+						<input class="form-control" type="text" value="" id="text-input" placeholder="Last Name">
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+						<input class="form-control" type="text" value="" id="text-input" placeholder="Email" disabled="disabled">
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+						<input class="form-control" type="text" value="" id="text-input" placeholder="Location">
+					</div>
+				</div>
 			</div>
-			<div class="form-group row">
-			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 noSpace">
-			    <input class="form-control" type="text" value="" id="text-input" placeholder="Subject">
-			  </div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+				<h4>Login Information</h4>
+				<div class="form-group row">
+					<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+						<input class="form-control" type="text" value="" id="text-input" placeholder="Username" disabled="disabled">
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+						<input class="form-control" type="text" value="" id="text-input" placeholder="Password">
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+						<input class="form-control" type="text" value="" id="text-input" placeholder="Confirm Password">
+					</div>
+				</div>
 			</div>
-			<div class="form-group row">
-			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 noSpace">
-			    <textarea class="form-control" id="comments" placeholder="Message"></textarea>
-			  </div>
+			  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noSpace">
+				  <h4>Notification Setting</h4>
+				  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+					  <input type="checkbox" id="sms" value="checkbox"> <label for="">SMS</label>
+				  </div>
+				  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+					  <input type="checkbox" id="email" value="checkbox"> <label for="">Email</label>
+				  </div>
 			</div>
-			<div class="form-group">
-		      <button type="submit" class="buttonLink btn btn-primary">Publish</button>
+			<div class="form-group col-lg-11 noSpace">
+		      <button type="submit" class="buttonLink btn btn-primary pull-right">Save</button>
 			</div>
 		  </div>
 	  </div>
