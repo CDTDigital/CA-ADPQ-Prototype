@@ -44,7 +44,12 @@
             function signup(registerData) {
                 var deferred = $q.defer();
                 $http.post('/users/createUser', registerData).then(function (response) {
-                    deferred.resolve();
+                    if (response.data.responseStatus.toLowerCase() == "success"){
+                        deferred.resolve();
+                    }
+                    else {
+                        deferred.reject(response.data.data);
+                    }
                 }, function (error) {
                     deferred.reject(error);
                 });
