@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
+import com.intimetec.crns.core.exceptions.InvalidLocationCoordinatesException;
 import com.intimetec.crns.core.exceptions.InvalidUserException;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserLocation;
@@ -133,9 +134,8 @@ public class UserController {
 			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 			RestUser restUser = RestObjectToModelObjectMapper.UserToRestUser(user.get());
 			Optional<UserLocation> location = userLocationService.getProfileLocationByUserId(user.get().getId());
-			if(location.isPresent()) {
-				RestLocation restLocation = RestObjectToModelObjectMapper.UserLocationToRestLocation(
-						location.get());
+			if (location.isPresent()) {
+				RestLocation restLocation = RestObjectToModelObjectMapper.UserLocationToRestLocation(location.get());
 				restUser.setLocation(restLocation);
 			}
 			restUser.setPassword(null);
@@ -159,9 +159,9 @@ public class UserController {
 				Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 				RestUser restUser = RestObjectToModelObjectMapper.UserToRestUser(user.get());
 				Optional<UserLocation> location = userLocationService.getProfileLocationByUserId(user.get().getId());
-				if(location.isPresent()) {
-					RestLocation restLocation = RestObjectToModelObjectMapper.UserLocationToRestLocation(
-							location.get());
+				if (location.isPresent()) {
+					RestLocation restLocation = RestObjectToModelObjectMapper
+							.UserLocationToRestLocation(location.get());
 					restUser.setLocation(restLocation);
 				}
 				restUser.setPassword(null);
@@ -309,23 +309,23 @@ public class UserController {
 		}
 	}
 
-	//Get list of all Users
+	// Get list of all Users
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public Collection<RestUser> getUserCreatePage() {
 		Collection<RestUser> users = new ArrayList<RestUser>();
-		for(User user: userService.getAllUsers()){
+		for (User user : userService.getAllUsers()) {
 			Optional<UserLocation> userLocation = userLocationService.getProfileLocationByUserId(user.getId());
 			RestUser restUser = RestObjectToModelObjectMapper.UserToRestUser(user);
-			if(userLocation.isPresent())
+			if (userLocation.isPresent())
 				restUser.setLocation(RestObjectToModelObjectMapper.UserLocationToRestLocation(userLocation.get()));
 			restUser.setPassword(null);
 			users.add(restUser);
 		}
 		return users;
 	}
-	
-	//Get Profile location of User
+
+	// Get Profile location of User
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}/getProfileLocation", method = RequestMethod.GET)
 	public Map<String, Object> getProfileLocationByID(@PathVariable Long id) {
@@ -336,8 +336,7 @@ public class UserController {
 			response.put("data", location.get());
 			return response;
 		} else {
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					"User Location data not found");
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "User Location data not found");
 		}
 	}
 
@@ -364,13 +363,11 @@ public class UserController {
 						"User Location data not found");
 			}
 		} catch (InvalidAuthTokenException e) {
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					"User Location data not found");
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "User Location data not found");
 		}
 	}
-	
-	
-	//Get Current location of User based on User ID
+
+	// Get Current location of User based on User ID
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}/getCurrentLocation", method = RequestMethod.GET)
 	public Map<String, Object> getCurrentLocationByID(@PathVariable Long id) {
@@ -381,11 +378,10 @@ public class UserController {
 			response.put("data", location.get());
 			return response;
 		} else {
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					"User Location data not found");
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "User Location data not found");
 		}
 	}
-	
+
 	// Get current location of User based on Auth Token
 	@RequestMapping(value = "/getCurrentLocation", method = RequestMethod.GET)
 	public Map<String, Object> getCurrentLocation(HttpServletRequest request) {
@@ -409,56 +405,72 @@ public class UserController {
 						"User Location data not found");
 			}
 		} catch (InvalidAuthTokenException e) {
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					"User Location data not found");
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "User Location data not found");
 		}
 	}
-	
-	//Set Current location of User based on User ID
+
+	// Set Current location of User based on User ID
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
-	@RequestMapping(value = "/{id}/setCurrentLocation", method = RequestMethod.GET)
-	public Map<String, Object> setCurrentLocationByID(@PathVariable Long id, @RequestParam("lat") String lattitude, @RequestParam("long") String longitude) {
+	@RequestMapping(value = "/{id}/setCurrentLocation", method = RequestMethod.POST)
+	public Map<String, Object> setCurrentLocationByID(@PathVariable Long id, @RequestParam("lat") String lattitude,
+			@RequestParam("lng") String longitude) {
 		LOGGER.debug("Getting user notification options for user={}", id);
-		Optional<UserLocation> location = userLocationService.getCurrentLocationByUserId(id);
-		if (location.isPresent()) {
-			location.get().setCurrentLocation(true);
-			userLocationService.saveLocation(location.get(), lattitude, longitude);
-			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-			response.put("data", location.get());
-			return response;
+		Optional<UserLocation> optionalLocation = userLocationService.getCurrentLocationByUserId(id);
+		UserLocation location = null;
+		if (optionalLocation.isPresent()) {
+			location = optionalLocation.get();
 		} else {
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					"User Location data not found");
+			location = new UserLocation();
 		}
+		location.setCurrentLocation(true);
+		location.setUserId(id);
+		try {
+			location = userLocationService.saveLocation(location, lattitude, longitude);
+			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+			response.put("data", location);
+			return response;
+		} catch (InvalidLocationCoordinatesException e) {
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
+					e.getMessage());
+		}
+		
 	}
-	
-	//Set current location of User based on Auth Token
-	@RequestMapping(value = "/setCurrentLocation", method = RequestMethod.GET)
-	public Map<String, Object> setCurrentLocation(HttpServletRequest request, @RequestParam("lat") String lattitude, @RequestParam("lng") String longitude) {
+
+	// Set current location of User based on Auth Token
+	@RequestMapping(value = "/setCurrentLocation", method = RequestMethod.POST)
+	public Map<String, Object> setCurrentLocation(HttpServletRequest request, @RequestParam("lat") String lattitude,
+			@RequestParam("lng") String longitude) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting user notification options for user={}", authToken);
 		Optional<User> user;
 		try {
 			user = userService.getValidUserForAuthToken(authToken);
 			if (user.isPresent()) {
-				Optional<UserLocation> location = userLocationService.getCurrentLocationByUserId(user.get().getId());
-				if (location.isPresent()) {
-					location.get().setCurrentLocation(true);
-					userLocationService.saveLocation(location.get(), lattitude, longitude);
-					Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-					response.put("data", location.get());
-					return response;
+				Optional<UserLocation> optionalLocation = userLocationService
+						.getCurrentLocationByUserId(user.get().getId());
+				UserLocation location = null;
+				if (optionalLocation.isPresent()) {
+					location = optionalLocation.get();
 				} else {
+					location = new UserLocation();
+				}
+				location.setCurrentLocation(true);
+				location.setUserId(user.get().getId());
+				try {
+					location = userLocationService.saveLocation(location, lattitude, longitude);
+					Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+					response.put("data", location);
+					return response;
+				} catch (InvalidLocationCoordinatesException e) {
 					return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-							"User Location data not found");
+							e.getMessage());
 				}
 			} else {
 				return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
 						"User Location data not found");
 			}
 		} catch (InvalidAuthTokenException e) {
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					"User Location data not found");
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "User Location data not found");
 		}
 	}
 }

@@ -29,8 +29,8 @@ create table user_locations (
 	city NVARCHAR(100) NOT NULL,
 	zip_code NVARCHAR(100) NOT NULL,
 	place_id NVARCHAR(200) NOT NULL,
-	lattitude NVARCHAR(10) NOT NULL,
-	longitude NVARCHAR(10) NOT NULL,
+	lattitude NVARCHAR(30) NOT NULL,
+	longitude NVARCHAR(30) NOT NULL,
 	current_location BOOLEAN NOT NULL DEFAULT 0,
 	CONSTRAINT pk_user PRIMARY KEY (id),
 	CONSTRAINT fk_userInfo_userLogin FOREIGN KEY (user_id) REFERENCES user(user_id)

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
+import com.intimetec.crns.core.exceptions.InvalidLocationCoordinatesException;
 import com.intimetec.crns.core.models.UserLocation;
 
 public interface UserLocationService {
@@ -25,7 +26,7 @@ public interface UserLocationService {
 
 	void delete(UserLocation userLocation);
 	
-	UserLocation getLocationDetails(String lat, String lng);
+	UserLocation getLocationDetails(String lat, String lng) throws InvalidLocationCoordinatesException;
 
-	UserLocation saveLocation(UserLocation userLocation, String lattitude, String longitude);
+	UserLocation saveLocation(UserLocation userLocation, String lattitude, String longitude) throws InvalidLocationCoordinatesException;
 }
