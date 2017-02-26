@@ -1,8 +1,8 @@
 package com.intimetec.crns.util;
 
-public class GenericService {
+public class Utils {
 
-	public String removeParenthesis(String str)
+	public static String removeParenthesis(String str)
 	{
 		return str.replaceAll("[\\(\\)\\[\\]\\{\\}\"]", "");
 	}

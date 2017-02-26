@@ -15,11 +15,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intimetec.crns.core.config.google.GoogleApiConfig;
 import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
+import com.intimetec.crns.core.exceptions.InvalidLocationCoordinatesException;
 import com.intimetec.crns.core.models.UserDevice;
 import com.intimetec.crns.core.models.UserLocation;
 import com.intimetec.crns.core.repository.UserLocationRepository;
 import com.intimetec.crns.core.service.userdevice.UserDeviceService;
-import com.intimetec.crns.util.GenericService;
+import com.intimetec.crns.util.Utils;
 
 @Service
 public class UserLocationServiceImpl implements UserLocationService {
@@ -99,8 +100,8 @@ public class UserLocationServiceImpl implements UserLocationService {
 	 * @param: latlng
 	 */
 	@Override
-	public UserLocation getLocationDetails(String lat, String lng) {
-		String url  = googleApiConfig.getUrl()+"?latlng="+lat+","+lng+"&key="+googleApiConfig.getKey();
+	public UserLocation getLocationDetails(String lat, String lng) throws InvalidLocationCoordinatesException {
+		String url  = googleApiConfig.getUrl()+"?latlng="+lat+", "+lng+"&key="+googleApiConfig.getKey();
 		String postalCode = null;
 		String country = null;
 		String stateShortName = null;
@@ -108,6 +109,8 @@ public class UserLocationServiceImpl implements UserLocationService {
 		String route = null;
 		String streetNumber = null;
 		String placeId = null;
+		String lattitude = null;
+		String longitude = null;
 		
 		String county = null;
 		String cityName = null;
@@ -118,41 +121,48 @@ public class UserLocationServiceImpl implements UserLocationService {
 		try {
 		  JsonNode jsonData = mapper.readTree(result);
 		  JsonNode addressComponent = jsonData.get("results");
-		  JsonNode postalData = addressComponent.get(0).get("address_components");
-		  GenericService utilService=new GenericService();
-
-		  if(postalData.isArray()){
-			for(final JsonNode userNode : postalData) {
-
-				if(utilService.removeParenthesis(userNode.get("types").toString()).equalsIgnoreCase("country,political"))
-				      country =utilService.removeParenthesis( userNode.get("long_name").toString());
-
-				if(utilService.removeParenthesis(userNode.get("types").toString()).equalsIgnoreCase("administrative_area_level_1,political"))
-				      stateLongName = utilService.removeParenthesis( userNode.get("long_name").toString());
-
-				if(utilService.removeParenthesis(userNode.get("types").toString()).equalsIgnoreCase("administrative_area_level_1,political"))
-				      stateShortName = utilService.removeParenthesis( userNode.get("short_name").toString());
-
-				if(utilService.removeParenthesis(userNode.get("types").toString()).equalsIgnoreCase("administrative_area_level_2,political"))
-				      county = utilService.removeParenthesis( userNode.get("long_name").toString());
-
-				if(utilService.removeParenthesis(userNode.get("types").toString()).equalsIgnoreCase("route"))
-				      route = utilService.removeParenthesis( userNode.get("long_name").toString());
-
-				if(utilService.removeParenthesis(userNode.get("types").toString()).equalsIgnoreCase("street_number"))
-				      streetNumber = utilService.removeParenthesis( userNode.get("long_name").toString());
-
-				if(utilService.removeParenthesis(userNode.get("types").toString()).equalsIgnoreCase("locality,political"))
-				      cityName = utilService.removeParenthesis( userNode.get("long_name").toString());
-
-			    if(utilService.removeParenthesis(userNode.get("types").toString()).equalsIgnoreCase("postal_code"))
-			    	postalCode = utilService.removeParenthesis( userNode.get("long_name").toString());
-			    
-			    if(utilService.removeParenthesis(userNode.get("types").toString()).equalsIgnoreCase("street_address"))
-			    	placeId = utilService.removeParenthesis( userNode.get("place_id").toString());
-			 }
+		  if(addressComponent!=null && addressComponent.get(0)!=null) {
+			  JsonNode postalData = addressComponent.get(0).get("address_components");
+			  JsonNode geometryNode = addressComponent.get(0).get("geometry").get("location");
+			  placeId = addressComponent.get(0).get("place_id").textValue();
+	
+			  if(postalData.isArray()){
+				for(final JsonNode dataNode : postalData) {
+	
+					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("country,political"))
+					      country =Utils.removeParenthesis( dataNode.get("long_name").toString());
+	
+					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("administrative_area_level_1,political"))
+					      stateLongName = Utils.removeParenthesis( dataNode.get("long_name").toString());
+	
+					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("administrative_area_level_1,political"))
+					      stateShortName = Utils.removeParenthesis( dataNode.get("short_name").toString());
+	
+					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("administrative_area_level_2,political"))
+					      county = Utils.removeParenthesis( dataNode.get("long_name").toString());
+	
+					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("route"))
+					      route = Utils.removeParenthesis( dataNode.get("long_name").toString());
+	
+					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("street_number"))
+					      streetNumber = Utils.removeParenthesis( dataNode.get("long_name").toString());
+	
+					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("locality,political"))
+					      cityName = Utils.removeParenthesis( dataNode.get("long_name").toString());
+	
+				    if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("postal_code"))
+				    	postalCode = Utils.removeParenthesis( dataNode.get("long_name").toString());
+				 }
+			  }
+			  if(geometryNode!=null){
+				  lattitude = geometryNode.get("lat").asText();
+				  longitude = geometryNode.get("lng").asText();
+			  }
+			  location = new UserLocation(stateShortName, county, route, streetNumber, postalCode, cityName, lattitude, longitude, placeId);
 		  }
-		  location = new UserLocation(stateShortName, county, route, streetNumber, postalCode, cityName, lat, lng, placeId);
+		  else {
+			  throw new InvalidLocationCoordinatesException("Invalid location coordinates.");
+		  }
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -162,11 +172,11 @@ public class UserLocationServiceImpl implements UserLocationService {
 	}
 
 	@Override
-	public UserLocation saveLocation(UserLocation userLocation, String lattitude, String longitude) {
+	public UserLocation saveLocation(UserLocation userLocation, String lattitude, String longitude) throws InvalidLocationCoordinatesException {
 		UserLocation location = getLocationDetails(lattitude, longitude);
 		location.setCurrentLocation(userLocation.isCurrentLocation());
 		location.setId(userLocation.getId());
-		
+		location.setUserId(userLocation.getUserId());
 		return save(location);
 	}
 }
