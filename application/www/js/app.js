@@ -1,6 +1,6 @@
 // Ionic CRNS App
 angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstants', 'toaster'])
-.run(function($ionicPlatform, $rootScope, Constant) {
+.run(function($ionicPlatform, $rootScope, Constant, $http, AuthToken) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
     // (remove this to show the accessory bar above the keyboard for form inputs)
@@ -13,6 +13,13 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
       StatusBar.styleLightContent();
     }
   });
+
+    if (localStorage.getItem('loginData') == undefined || localStorage.getItem('loginData') == null) {
+        $rootScope.loginData = undefined;
+    } else {
+        $rootScope.loginData = angular.fromJson(localStorage.getItem('loginData'));
+        AuthToken.setAuthToken(localStorage.getItem('authToken'));
+    }
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       //console.log(toState);
@@ -34,16 +41,19 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
 
   .state('login', {
       url: '/login',
+      cache: 'false',
       templateUrl: 'views/login.html',
       controller: 'AuthCtrl'
   })
   .state('register', {
       url: '/register',
+      cache: 'false',
       templateUrl: 'views/registration.html',
       controller: 'AuthCtrl'
   })
   .state('forgot', {
       url: '/forgot',
+      cache: 'false',
       templateUrl: 'views/forgot.html',
       controller: 'AuthCtrl'
   })
@@ -73,7 +83,20 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
         controller: 'DashboardCtrl'
       }
     }
+  })
+  .state('app.settings', {
+    url: '/settings',
+    views: {
+      'menuview': {
+        templateUrl: 'views/settings.html',
+        controller: 'SettingsCtrl'
+      }
+    }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+    if (localStorage.getItem('loginData') == undefined || localStorage.getItem('loginData') == null) {
+        $urlRouterProvider.otherwise('/login');
+    } else if(localStorage.getItem('accountSetup') == undefined) {
+        $urlRouterProvider.otherwise('/accountSetup');
+    } else $urlRouterProvider.otherwise('/app/dash');
 });
