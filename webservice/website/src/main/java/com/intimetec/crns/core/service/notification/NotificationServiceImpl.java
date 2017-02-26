@@ -13,46 +13,57 @@ import org.springframework.stereotype.Service;
 import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.repository.NotificationRepository;
 
+/**
+ * @author shiva.dixit
+ */
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServiceImpl.class);
+	/**
+	 * To log the application messages.
+	 */
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+    		NotificationServiceImpl.class);
     
+    /**
+   	 * Instance of the class {@code NotificationRepository}.
+   	 */
     @Autowired
     private NotificationRepository notificationRepository;
 
     @Override
-    public Optional<Notification> getById(long id) {
+	public final Optional<Notification> getById(final long id) {
         LOGGER.debug("Getting Notification={}", id);
         return Optional.ofNullable(notificationRepository.findOne(id));
     }
 
 	@Override
-	public Collection<Notification> getBySentBy(long userId) {
+	public final Collection<Notification> getBySentBy(final long userId) {
 		LOGGER.debug("Getting Notifications based on who sent it ={}", userId);
         return notificationRepository.getBySentById(userId);
 	}
 
 	@Override
-	public Collection<Notification> getByCity(String city) {
+	public final Collection<Notification> getByCity(final String city) {
 		LOGGER.debug("Getting Notifications based on city ={}", city);
         return notificationRepository.getByCity(city);
 	}
 
 	@Override
-	public Collection<Notification> getByZipCode(String zipCode) {
+	public final Collection<Notification> getByZipCode(final String zipCode) {
 		LOGGER.debug("Getting Notifications based on zipCode ={}", zipCode);
         return notificationRepository.getByZipCode(zipCode);
 	}
 
 	@Override
-	public Collection<Notification> getAll() {
+	public final Collection<Notification> getAll() {
 		LOGGER.debug("Getting all notification");
-        return notificationRepository.findAll(new Sort(Direction.DESC, "sentTime"));
+        return notificationRepository.findAll(new Sort(
+        		Direction.DESC, "sentTime"));
 	}
 
 	@Override
-	public Notification save(Notification notification) {
+	public final Notification save(final Notification notification) {
 		LOGGER.debug("Saving all notification");
 		return notificationRepository.save(notification);
 	}

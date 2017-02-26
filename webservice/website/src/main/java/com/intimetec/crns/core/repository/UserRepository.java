@@ -9,11 +9,15 @@ import org.springframework.stereotype.Repository;
 
 import com.intimetec.crns.core.models.User;
 
+/**
+ * @author shiva.dixit
+ */
 @Repository("userRepository")
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneByEmail(String email);
     Optional<User> findOneByUserName(String userName);
     
-    @Query(value="Select u from User u where u.id IN (Select distinct ul.userId from UserLocation ul where ul.zipCode = ?1)")
+    @Query(value = "Select u from User where u.userId IN ("
+    		+ "Select distinct userId from UserLocations where zipCode = ?1)")
     Collection<User> findUserByZipCode(String zipCode);
 }

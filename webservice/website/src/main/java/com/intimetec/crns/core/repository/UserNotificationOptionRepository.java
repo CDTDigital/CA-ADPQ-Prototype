@@ -7,7 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.intimetec.crns.core.models.UserNotificationOptions;
 
+/**
+ * @author shiva.dixit
+ */
 @Repository
-public interface UserNotificationOptionRepository extends JpaRepository<UserNotificationOptions, Long> {
+public interface UserNotificationOptionRepository extends 
+JpaRepository<UserNotificationOptions, Long> {
     Optional<UserNotificationOptions> findOneByUserId(long userId);
 }

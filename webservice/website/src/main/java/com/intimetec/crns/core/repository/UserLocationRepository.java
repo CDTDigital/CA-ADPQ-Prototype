@@ -10,9 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import com.intimetec.crns.core.models.UserLocation;
 
+/**
+ * @author shiva.dixit
+ */
 @Repository("userLocationRepository")
 @Transactional
-public interface UserLocationRepository extends JpaRepository<UserLocation, Integer> {
+public interface UserLocationRepository extends JpaRepository<UserLocation, 
+Integer> {
 
 	Collection<UserLocation> findOneByUserId(long userId);
 	
@@ -20,5 +24,6 @@ public interface UserLocationRepository extends JpaRepository<UserLocation, Inte
 	
 	Collection<UserLocation> getByPlaceId(String placeId);
 	
-	Optional<UserLocation> findOneByUserIdAndCurrentLocation(long userId, boolean currentLocation);
+	Optional<UserLocation> findOneByUserIdAndCurrentLocation(long userId, 
+			boolean currentLocation);
 }

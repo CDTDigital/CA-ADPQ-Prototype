@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import com.intimetec.crns.core.models.Notification;
 
+/**
+ * @author shiva.dixit
+ */
 public interface NotificationService {
 	Optional<Notification> getById(long id);
 

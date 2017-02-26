@@ -1,7 +1,13 @@
 package com.intimetec.crns.core.models;
 
+/**
+ * Contains the roles of the user.
+ * 
+ * @author shiva.dixit
+ */
 public enum UserRole {
-    USER, ADMIN;
-	
-	
+	/**
+	 * The roles of the user.
+	 */
+	USER, ADMIN;
 }

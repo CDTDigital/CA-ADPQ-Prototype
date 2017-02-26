@@ -1,7 +1,3 @@
-/**
- * @author bincy.samuel
- *
- */
 package com.intimetec.crns.web;
 
 import org.apache.catalina.connector.Connector;
@@ -36,8 +32,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger1.annotations.EnableSwagger;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * @author shiva.dixit
+ */
 @SpringBootApplication
-@ComponentScan(basePackages ={"com.intimetec.crns"})
+@ComponentScan(basePackages = {"com.intimetec.crns"})
 @EnableAutoConfiguration
 @EnableSwagger // Enable swagger 1.2 spec
 @EnableSwagger2 // Enable swagger 2.0 spec

@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Entity model class for the User_Device table.
+ * Entity model class for the User Device table.
  * @author shiva.dixit
  */
 @Entity
@@ -89,7 +89,7 @@ public class UserDevice {
 	}
 
 	/**
-	 * @param id.
+	 * @param id the of the user device.
 	 */	
 	public final void setId(final int id) {
 		this.id = id;

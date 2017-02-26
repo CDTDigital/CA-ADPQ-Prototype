@@ -8,7 +8,7 @@ import com.intimetec.crns.core.models.UserNotificationOptions;
 import com.intimetec.crns.core.models.UserRole;
 
 /**
- * Rest model class for User table
+ * Rest model class for User table.
  * @author shiva.dixit
  */
 public class RestUser {

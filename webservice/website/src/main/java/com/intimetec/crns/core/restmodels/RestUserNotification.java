@@ -1,11 +1,8 @@
-/**
- * 
- */
 package com.intimetec.crns.core.restmodels;
 
 /**
  * 
- * Model class for User notifications
+ * Model class for User notifications.
  * @author shiva.dixit
  *
  */
@@ -39,7 +36,7 @@ public class RestUserNotification {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(final long userId) {
 		this.userId = userId;
 	}
 
@@ -47,17 +44,17 @@ public class RestUserNotification {
 		return read;
 	}
 
-	public void setRead(boolean read) {
+	public void setRead(final boolean read) {
 		this.read = read;
 	}
 	
 	@Override
-	public String toString() {
+	public final String toString() {
 		return "RestUserNotification{"
-				+"id: "+id
-				+", notification: "+notification
-				+", userId: "+userId
-				+", isRead: "+read;
+				+ "id: " + id
+				+ ", notification: " + notification
+				+ ", userId: " + userId
+				+ ", isRead: " + read;
 
 	}
 }

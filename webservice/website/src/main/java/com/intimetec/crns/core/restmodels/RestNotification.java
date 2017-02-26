@@ -3,7 +3,7 @@ package com.intimetec.crns.core.restmodels;
 import java.util.Date;
 
 /**
- * Rest model class for Notification
+ * Rest model class for the Notification table.
  * @author shiva.dixit
  */
 public class RestNotification {

@@ -8,8 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Entity model class for User Locations table
- * 
+ * Entity model class for User Locations table.
  * @author shiva.dixit
  */
 
@@ -17,129 +16,224 @@ import javax.persistence.Table;
 @Table(name = "user_locations")
 public class UserLocation {
 
+	/**
+	 * Id of the user_location.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private long id;
 
+	/**
+	 * Id of the User.
+	 */
 	@Column(name = "user_id")
 	private long userId;
 
+	/**
+	 * Address Line 1 of the User.
+	 */
 	@Column(name = "address_line1")
 	private String addressLine1;
 
+	/**
+	 * Address Line 2 of the User.
+	 */
 	@Column(name = "address_line2")
 	private String addressLine2;
 
+	/**
+	 * City of the User.
+	 */
 	@Column(name = "city")
 	private String city;
 
+	/**
+	 * Zip code of the User.
+	 */
 	@Column(name = "zip_code")
 	private String zipCode;
 
+	/**
+	 * Place Id of the User.
+	 */
 	@Column(name = "place_id")
 	private String placeId;
 
+	/**
+	 * Latitude of the User's location.
+	 */
 	@Column(name = "latitude")
 	private String latitude;
 
+	/**
+	 * Longitude of the User's location.
+	 */
 	@Column(name = "longitude")
 	private String longitude;
 
+	/**
+	 * Current location of the User.
+	 */
 	@Column(name = "current_location")
 	private boolean currentLocation;
 
-	public long getId() {
+	/**
+	 * @return id of the User location.
+	 */
+	public final long getId() {
 		return id;
 	}
 
-	public void setId(long l) {
+	/**
+	 * @param l of the User location.
+	 */
+	public final void setId(final long l) {
 		this.id = l;
 	}
 
-	public long getUserId() {
+	/**
+	 * @return id of the User.
+	 */
+	public final long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	/**
+	 * @param userId the id of the User.
+	 */
+	public final void setUserId(final long userId) {
 		this.userId = userId;
 	}
 
-	public String getAddressLine1() {
+	/**
+	 * @return the address line 1 of the User.
+	 */
+	public final String getAddressLine1() {
 		return addressLine1;
 	}
 
-	public void setAddressLine1(String addressLine1) {
+	/**
+	 * @param addressLine1 the address line 1 of the User.
+	 */
+	public final void setAddressLine1(final String addressLine1) {
 		this.addressLine1 = addressLine1;
 	}
 
-	public String getAddressLine2() {
+	/**
+	 * @return the address line 2 of the User.
+	 */
+	public final String getAddressLine2() {
 		return addressLine2;
 	}
 
-	public void setAddressLine2(String addressLine2) {
+	/**
+	 * @param addressLine2 the address line 2 of the User.
+	 */
+	public final void setAddressLine2(final String addressLine2) {
 		this.addressLine2 = addressLine2;
 	}
 
-	public String getCity() {
+	/**
+	 * @return the city of the User's location.
+	 */
+	public final String getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
+	/**
+	 * @param city the city of the User's location.
+	 */
+	public final void setCity(final String city) {
 		this.city = city;
 	}
 
-	public String getZipCode() {
+	/**
+	 * @return the zip code of the User's location.
+	 */
+	public final String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(String zipCode) {
+	/**
+	 * @param zipCode the zip code of the User's location.
+	 */
+	public final void setZipCode(final String zipCode) {
 		this.zipCode = zipCode;
 	}
 
-	public String getPlaceId() {
+	/**
+	 * @return the place id of the User's location.
+	 */
+	public final String getPlaceId() {
 		return placeId;
 	}
 
-	public void setPlaceId(String placeId) {
+	/**
+	 * @param placeId the place id of the User's location.
+	 */
+	public final void setPlaceId(final String placeId) {
 		this.placeId = placeId;
 	}
 
-	public String getLatitude() {
+	/**
+	 * @return the latitude of the User's location.
+	 */
+	public final String getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	/**
+	 * @param latitude the latitude of the User's location.
+	 */
+	public final void setLatitude(final String latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	/**
+	 * @return the longitude of the User's location.
+	 */
+	public final String getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	/**
+	 * @param longitude the longitude of the User's location.
+	 */
+	public final void setLongitude(final String longitude) {
 		this.longitude = longitude;
 	}
 
-	public boolean isCurrentLocation() {
+	/**
+	 * @return true if the given location is the current location of the User.
+	 */
+	public final boolean isCurrentLocation() {
 		return currentLocation;
 	}
 
-	public void setCurrentLocation(boolean currentLocation) {
+	/**
+	 * @param currentLocation true if it's the current location.
+	 */
+	public final void setCurrentLocation(final boolean currentLocation) {
 		this.currentLocation = currentLocation;
 	}
 
 	@Override
-	public String toString() {
-		return "UserLocation{" + "id=" + id + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2
-				+ ", city=" + city + ", zipCode=" + zipCode + ", placeId=" + placeId + ", lat=" + latitude + ", log="
-				+ longitude + ", currentLocation=" + currentLocation + '}';
+	public final String toString() {
+		return "UserLocation {" + "id=" + id + ", addressLine1=" + addressLine1
+				+ ", addressLine2=" + addressLine2 + ", city=" + city 
+				+ zipCode + ", placeId=" + placeId + ", " + "lat="
+				+ latitude + ", log=" + longitude + ", currentLocation=" 
+				+ currentLocation + '}';		
 	}
 
+	/**
+	 * Creating object of the class {@code UserLocation}.
+	 */
 	public UserLocation() {
 
 	}
-
+	
 	public UserLocation(String stateShortName, String county, String route, String streetNumber, String zipCode,
 			String cityName, String lat, String lng, String placeId) {
 		this.addressLine1 = streetNumber;
