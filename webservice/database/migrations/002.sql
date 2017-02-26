@@ -24,7 +24,7 @@ create table user (
 create table user_locations (
 	id INT NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
-	address_line1 NVARCHAR(100) NOT NULL,
+	address_line1 NVARCHAR(100),
 	address_line2 NVARCHAR(100),
 	city NVARCHAR(100) NOT NULL,
 	zip_code NVARCHAR(100) NOT NULL,
