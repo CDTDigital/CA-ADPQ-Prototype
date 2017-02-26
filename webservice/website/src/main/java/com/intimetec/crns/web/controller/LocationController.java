@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.intimetec.crns.core.exceptions.InvalidLocationCoordinatesException;
 import com.intimetec.crns.core.service.userLocation.UserLocationService;
 import com.intimetec.crns.util.ResponseMessage;
 
@@ -27,7 +28,12 @@ public class LocationController {
 			@RequestParam(value="lng") String longitude) {
 		LOGGER.info("Getting postal code");
 		Map<String, Object> responseMap = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-		responseMap.put("data", userlocationService.getLocationDetails(lattitude, longitude));
-		return responseMap;
+		try {
+			responseMap.put("data", userlocationService.getLocationDetails(lattitude, longitude));
+			return responseMap;
+		} catch (InvalidLocationCoordinatesException e) {
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
+					e.getMessage());
+		}
 	}
 }
