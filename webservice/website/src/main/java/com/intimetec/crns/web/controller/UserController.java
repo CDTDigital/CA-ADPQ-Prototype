@@ -417,10 +417,12 @@ public class UserController {
 	//Set Current location of User based on User ID
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}/setCurrentLocation", method = RequestMethod.GET)
-	public Map<String, Object> setCurrentLocationByID(@PathVariable Long id, @RequestParam("lat") String lattitude, @RequestParam("long") String longitute) {
+	public Map<String, Object> setCurrentLocationByID(@PathVariable Long id, @RequestParam("lat") String lattitude, @RequestParam("long") String longitude) {
 		LOGGER.debug("Getting user notification options for user={}", id);
 		Optional<UserLocation> location = userLocationService.getCurrentLocationByUserId(id);
 		if (location.isPresent()) {
+			location.get().setCurrentLocation(true);
+			userLocationService.saveLocation(location.get(), lattitude, longitude);
 			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 			response.put("data", location.get());
 			return response;
@@ -432,7 +434,7 @@ public class UserController {
 	
 	//Set current location of User based on Auth Token
 	@RequestMapping(value = "/setCurrentLocation", method = RequestMethod.GET)
-	public Map<String, Object> setCurrentLocation(HttpServletRequest request, @RequestParam("lat") String lattitude, @RequestParam("lng") String longitute) {
+	public Map<String, Object> setCurrentLocation(HttpServletRequest request, @RequestParam("lat") String lattitude, @RequestParam("lng") String longitude) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting user notification options for user={}", authToken);
 		Optional<User> user;
@@ -441,6 +443,8 @@ public class UserController {
 			if (user.isPresent()) {
 				Optional<UserLocation> location = userLocationService.getCurrentLocationByUserId(user.get().getId());
 				if (location.isPresent()) {
+					location.get().setCurrentLocation(true);
+					userLocationService.saveLocation(location.get(), lattitude, longitude);
 					Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 					response.put("data", location.get());
 					return response;

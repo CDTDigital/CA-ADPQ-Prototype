@@ -160,4 +160,13 @@ public class UserLocationServiceImpl implements UserLocationService {
 		} 
 	  return location;
 	}
+
+	@Override
+	public UserLocation saveLocation(UserLocation userLocation, String lattitude, String longitude) {
+		UserLocation location = getLocationDetails(lattitude, longitude);
+		location.setCurrentLocation(userLocation.isCurrentLocation());
+		location.setId(userLocation.getId());
+		
+		return save(location);
+	}
 }
