@@ -22,6 +22,7 @@ import com.intimetec.crns.core.exceptions.InvalidNotificatioException;
 import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.restmodels.RestNotification;
 import com.intimetec.crns.core.service.notification.NotificationService;
+import com.intimetec.crns.core.service.user.UserService;
 import com.intimetec.crns.util.ResponseMessage;
 import com.intimetec.crns.util.RestObjectToModelObjectMapper;
 
@@ -33,6 +34,8 @@ public class NotificationController {
 
 	@Autowired
 	private NotificationService notificationService;
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * Saving a notification published by Admin, after saving the same
@@ -47,9 +50,10 @@ public class NotificationController {
 	public Map<String, Object> sendNotification(@RequestBody Notification notification) {
 		LOGGER.debug("Processing notification to save and send");
 		try {
+			notification.setSentBy(userService.getUserById(notification.getSentBy().getId()).get());
 			notification = notificationService.save(notification);
 			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-			response.put("data", notification);
+			response.put("data", RestObjectToModelObjectMapper.NotificationToRestNotification(notification));
 			return response;
 		} catch (DataIntegrityViolationException e) {
 			LOGGER.warn("Exception occurred when trying to save the notification", e);
@@ -76,7 +80,7 @@ public class NotificationController {
 			response.put("data", notifications);
 			return response;
 		} catch (Exception e) {
-			LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate email", e);
+			LOGGER.warn("Exception occurred when trying to load notifications", e);
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Unable to load notification list");
 		}
 	}
@@ -102,7 +106,7 @@ public class NotificationController {
 				throw new InvalidNotificatioException();
 			}
 		} catch (Exception e) {
-			LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate email", e);
+			LOGGER.warn("Exception occurred when trying to load notification", e);
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
 					"Unable to load notification details");
 		}
