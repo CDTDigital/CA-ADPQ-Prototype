@@ -10,12 +10,8 @@
         };
 
         function HttpFactory($http, $log, $q, $sessionStorage) {
-            function onInitialization() {
-                if (!self.baseUrl) {
-                    $log.debug("Base Url is not provided in the angular constants");
-                    return
-                }
 
+            function onInitialization() {
                 $sessionStorage.$default({
                     loginResponse: {}
                 })
@@ -44,6 +40,19 @@
             function isLoggedIn() {
                 return Object.keys($sessionStorage.loginResponse).length;
             }
+
+            function signup(registerData) {
+                var deferred = $q.defer();
+                $http.post('/users/createUser', registerData).then(function (response) {
+                    deferred.resolve();
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+                return deferred.promise;
+            }
+            onInitialization();
+
             return {
                 login: login,
                 loginResponse: loginResponse,
@@ -57,14 +66,7 @@
                     })
                 },
 
-                signup: function () {
-                    var deferred = $q.defer();
-                    $http.get(Configuration.API_URL + '/signup').then(function (response) {
-                        deferred.resolve();
-                    }, function (error) {
-                        deferred.reject(error);
-                    })
-                },
+                signup: signup,
 
                 createAdmin: function () {
                     var deferred = $q.defer();

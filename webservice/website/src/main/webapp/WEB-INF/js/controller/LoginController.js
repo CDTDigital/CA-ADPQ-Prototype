@@ -14,9 +14,10 @@
             HttpFactory.login($scope.user.email, $scope.user.password).then(function (loginResponse) {
                 $scope.go('/home')
             }, function (error) {
-                toaster.pop('info', error.message);
+                toaster.pop('error', error.message);
             })
-        }
+        };
+
         onLoad();
     }
 

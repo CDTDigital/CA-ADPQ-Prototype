@@ -5713,3 +5713,7 @@ button.usa-menu-btn:hover div {
 .form-signin input.ng-invalid.ng-touched {
 	border: 2px solid red;
 }
+
+.sendForm input.ng-invalid.ng-touched {
+	border: 2px solid red;
+}

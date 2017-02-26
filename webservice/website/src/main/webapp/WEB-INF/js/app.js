@@ -20,6 +20,9 @@
         }).when('/login', {
             templateUrl: '/view/auth/login.html',
             controller: "LoginController"
+        }).when('/register', {
+            templateUrl: '/view/auth/registration.html',
+            controller: 'RegistrationController'
         }).when('/home', {
             templateUrl: '/view/auth/home.html',
             controller: "HomeController"
