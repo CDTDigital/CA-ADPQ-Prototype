@@ -109,7 +109,7 @@ public class UserLocationServiceImpl implements UserLocationService {
 		String route = null;
 		String streetNumber = null;
 		String placeId = null;
-		String lattitude = null;
+		String latitude = null;
 		String longitude = null;
 		
 		String county = null;
@@ -155,10 +155,10 @@ public class UserLocationServiceImpl implements UserLocationService {
 				 }
 			  }
 			  if(geometryNode!=null){
-				  lattitude = geometryNode.get("lat").asText();
+				  latitude = geometryNode.get("lat").asText();
 				  longitude = geometryNode.get("lng").asText();
 			  }
-			  location = new UserLocation(stateShortName, county, route, streetNumber, postalCode, cityName, lattitude, longitude, placeId);
+			  location = new UserLocation(stateShortName, county, route, streetNumber, postalCode, cityName, latitude, longitude, placeId);
 		  }
 		  else {
 			  throw new InvalidLocationCoordinatesException("Invalid location coordinates.");
@@ -172,8 +172,8 @@ public class UserLocationServiceImpl implements UserLocationService {
 	}
 
 	@Override
-	public UserLocation saveLocation(UserLocation userLocation, String lattitude, String longitude) throws InvalidLocationCoordinatesException {
-		UserLocation location = getLocationDetails(lattitude, longitude);
+	public UserLocation saveLocation(UserLocation userLocation, String latitude, String longitude) throws InvalidLocationCoordinatesException {
+		UserLocation location = getLocationDetails(latitude, longitude);
 		location.setCurrentLocation(userLocation.isCurrentLocation());
 		location.setId(userLocation.getId());
 		location.setUserId(userLocation.getUserId());

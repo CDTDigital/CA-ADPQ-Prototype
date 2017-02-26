@@ -28,5 +28,5 @@ public interface UserLocationService {
 	
 	UserLocation getLocationDetails(String lat, String lng) throws InvalidLocationCoordinatesException;
 
-	UserLocation saveLocation(UserLocation userLocation, String lattitude, String longitude) throws InvalidLocationCoordinatesException;
+	UserLocation saveLocation(UserLocation userLocation, String latitude, String longitude) throws InvalidLocationCoordinatesException;
 }

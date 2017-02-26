@@ -70,7 +70,7 @@ public class RestObjectToModelObjectMapper {
 			userLocation.setCity(restLocation.getCity());
 			userLocation.setZipCode(restLocation.getZipCode());
 			userLocation.setPlaceId(restLocation.getPlaceId());
-			userLocation.setLattitude(restLocation.getLattitude());
+			userLocation.setLatitude(restLocation.getLatitude());
 			userLocation.setLongitude(restLocation.getLongitude());
 			userLocation.setCurrentLocation(restLocation.isCurrentLocation());
 		}
@@ -86,7 +86,7 @@ public class RestObjectToModelObjectMapper {
 			restLocation.setCity(userLocation.getCity());
 			restLocation.setZipCode(userLocation.getZipCode());
 			restLocation.setPlaceId(userLocation.getPlaceId());
-			restLocation.setLattitude(userLocation.getLattitude());
+			restLocation.setLatitude(userLocation.getLatitude());
 			restLocation.setLongitude(userLocation.getLongitude());
 			restLocation.setCurrentLocation(userLocation.isCurrentLocation());
 		}

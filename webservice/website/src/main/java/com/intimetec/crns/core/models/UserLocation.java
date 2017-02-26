@@ -40,8 +40,8 @@ public class UserLocation {
 	@Column(name = "place_id")
 	private String placeId;
 
-	@Column(name = "lattitude")
-	private String lattitude;
+	@Column(name = "latitude")
+	private String latitude;
 
 	@Column(name = "longitude")
 	private String longitude;
@@ -105,12 +105,12 @@ public class UserLocation {
 		this.placeId = placeId;
 	}
 
-	public String getLattitude() {
-		return lattitude;
+	public String getLatitude() {
+		return latitude;
 	}
 
-	public void setLattitude(String lattitude) {
-		this.lattitude = lattitude;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 	public String getLongitude() {
@@ -132,7 +132,7 @@ public class UserLocation {
 	@Override
 	public String toString() {
 		return "UserLocation{" + "id=" + id + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2
-				+ ", city=" + city + ", zipCode=" + zipCode + ", placeId=" + placeId + ", lat=" + lattitude + ", log="
+				+ ", city=" + city + ", zipCode=" + zipCode + ", placeId=" + placeId + ", lat=" + latitude + ", log="
 				+ longitude + ", currentLocation=" + currentLocation + '}';
 	}
 
@@ -146,7 +146,7 @@ public class UserLocation {
 		this.addressLine2 = route;
 		this.city = cityName;
 		this.zipCode = zipCode;
-		this.lattitude = lat;
+		this.latitude = lat;
 		this.longitude = lng;
 		this.placeId = placeId;
 	}

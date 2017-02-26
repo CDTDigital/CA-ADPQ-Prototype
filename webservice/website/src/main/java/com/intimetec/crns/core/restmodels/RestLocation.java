@@ -17,7 +17,7 @@ public class RestLocation {
 	
 	private String placeId;
 	
-	private String lattitude;
+	private String latitude;
 	
 	private String longitude;
 	
@@ -72,12 +72,12 @@ public class RestLocation {
 		this.placeId = placeId;
 	}
 
-	public String getLattitude() {
-		return lattitude;
+	public String getLatitude() {
+		return latitude;
 	}
 
-	public void setLattitude(String lattitude) {
-		this.lattitude = lattitude;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 	public String getLongitude() {
@@ -105,7 +105,7 @@ public class RestLocation {
                 ", city=" + city +
                 ", zipCode=" + zipCode +
                 ", placeId=" + placeId +
-                ", lat=" + lattitude +
+                ", lat=" + latitude +
                 ", log=" + longitude +
                 ", currentLocation=" + currentLocation +
                 '}';

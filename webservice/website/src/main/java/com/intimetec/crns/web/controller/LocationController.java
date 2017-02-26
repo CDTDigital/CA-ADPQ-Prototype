@@ -24,12 +24,12 @@ public class LocationController {
 	private UserLocationService userlocationService;
 
 	@RequestMapping(value = "/location", method = RequestMethod.GET)
-	public Map<String, Object> getPostalCode(@RequestParam(value="lat") String lattitude,
+	public Map<String, Object> getPostalCode(@RequestParam(value="lat") String latitude,
 			@RequestParam(value="lng") String longitude) {
 		LOGGER.info("Getting postal code");
 		Map<String, Object> responseMap = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 		try {
-			responseMap.put("data", userlocationService.getLocationDetails(lattitude, longitude));
+			responseMap.put("data", userlocationService.getLocationDetails(latitude, longitude));
 			return responseMap;
 		} catch (InvalidLocationCoordinatesException e) {
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
