@@ -3,32 +3,15 @@
  */
 (function () {
 
-    function RegistrationController($scope, $timeout, HttpFactory, toaster) {
+    function RegistrationController($scope, $timeout, HttpFactory, toaster, GooglePlacesFactory) {
         function onInit() {
+            $scope.register = {};
+            var addressObj = {};
             var input = document.getElementById('location');
-            var autocomplete = new google.maps.places.Autocomplete(input);
-            autocomplete.addListener('place_changed', function (resp) {
-                var placeObject = autocomplete.getPlace();
-                var addressfields = placeObject.formatted_address.split(',');
-                var addressLine1 = addressfields[0];
-                var addressLine2 = "";
-                var city = addressfields[1];
-                var state = addressfields[2].split(" ")[1];
-                var zipCode = addressfields[2].split(" ")[2];
-                var lat = placeObject.geometry.location.lat();
-                var lon = placeObject.geometry.location.lng();
-                var placeId = placeObject.place_id;
-                $scope.location = {
-                    addressLine1: addressLine1,
-                    addressLine2: addressLine2,
-                    city: city,
-                    zipCode: zipCode,
-                    placeId: placeId,
-                    lattitude: lat,
-                    longitude: lon,
-                    currentLocation: false
-                }
-            })
+            var autocomplete = GooglePlacesFactory.initAutoComplete(input);
+            autocomplete.addListener('place_changed', function () {
+                $scope.register.location = GooglePlacesFactory.getLocationDetails()
+            });
         }
         $scope.submit = function () {
             if ($scope.register.password != $scope.confirmPassword) {
@@ -44,7 +27,7 @@
             }, function (error) {
                 toaster.pop('error', error.message);
             })
-        }
+        };
 
         onInit();
     }
@@ -55,6 +38,7 @@
             '$timeout',
             'modules.core.HttpFactory',
             'toaster',
+            'modules.google.GooglePlacesFactory',
             RegistrationController
         ];
     app.controller('RegistrationController', requires)
