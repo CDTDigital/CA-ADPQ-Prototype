@@ -261,7 +261,28 @@ input[type="text"], input[type="password"], input[type="number"], input[type="em
 }
 
 .bar.bar-stable {
-    border-color: #003366;
-    background-color: #003366;
-    background-image: linear-gradient(0deg, #003366, #003366 50%, transparent 50%);
+    border-color: #fff;
+    background-color: #fff;
+    background-image: linear-gradient(0deg, #fff, #fff 50%, transparent 50%);
+}
+
+.sideMenuHeader.bar {
+    height: 123px;
+    margin-top: 5px;
+}
+
+.sideMenuTop.has-header {
+    top: 134px;
+}
+
+.sideMenuLogo {
+    margin-left: 30px;
+}
+
+.sideItem.item {
+    padding: 12px 16px;
+}
+
+.item-icon-right .icon-accessory {
+    font-size: 24px;
 }

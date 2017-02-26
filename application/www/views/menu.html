@@ -4,25 +4,31 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">Menu</h1>
+    <ion-header-bar class="bar-stable sideMenuHeader">
+      <!--<h1 class="title">Menu</h1>-->
+      <img src="./img/logo.png" class="sideMenuLogo">
     </ion-header-bar>
-    <ion-content>
+    <ion-content class="sideMenuTop">
       <ion-list>
-        <ion-item menu-close ng-click="onTapSideMenu('home')">
+        <ion-item menu-close ng-click="onTapSideMenu('home')" class="sideItem item-icon-right">
           Home
+          <i class="icon ion-android-arrow-dropright icon-accessory"></i>
         </ion-item>
-        <ion-item menu-close ng-click="onTapSideMenu('notification')">
+        <ion-item menu-close ng-click="onTapSideMenu('notification')" class="sideItem item-icon-right">
           Notification
+          <i class="icon ion-android-arrow-dropright icon-accessory"></i>
         </ion-item>
-        <ion-item menu-close ng-click="onTapSideMenu('profile')">
+        <ion-item menu-close ng-click="onTapSideMenu('profile')" class="sideItem item-icon-right">
           Profile
+          <i class="icon ion-android-arrow-dropright icon-accessory"></i>
         </ion-item>
-        <ion-item menu-close ng-click="onTapSideMenu('settings')">
+        <ion-item menu-close ng-click="onTapSideMenu('settings')" class="sideItem item-icon-right">
           Settings
+          <i class="icon ion-android-arrow-dropright icon-accessory"></i>
         </ion-item>
-        <ion-item menu-close ng-click="onTapSideMenu('logout')">
+        <ion-item menu-close ng-click="onTapSideMenu('logout')" class="sideItem item-icon-right">
           Logout
+          <i class="icon ion-android-arrow-dropright icon-accessory"></i>
         </ion-item>
       </ion-list>
     </ion-content>
