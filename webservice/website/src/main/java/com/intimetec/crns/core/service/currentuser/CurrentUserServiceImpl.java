@@ -18,5 +18,17 @@ public class CurrentUserServiceImpl implements CurrentUserService {
         return currentUser != null
                 && (currentUser.getRole() == UserRole.ADMIN || (new Long(currentUser.getId())).equals(userId));
     }
-
+    
+    @Override
+    public boolean canAccessUserByRoles(CurrentUser currentUser, String[] roles) {
+        LOGGER.debug("Checking if user={} has access to user={}", currentUser, roles);
+        if(currentUser != null) {
+	        for(String role: roles){
+	        	if(currentUser.getRole().toString().equals(role)){
+	        		return true;
+	        	}
+	        }
+    	}
+        return false;
+    }
 }
