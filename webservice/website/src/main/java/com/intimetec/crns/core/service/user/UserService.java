@@ -25,4 +25,6 @@ public interface UserService {
 	User update(String authToken, User user) throws InvalidUserException, InvalidAuthTokenException;
 
 	User removeSensitiveInfo(User user);
+	
+	Collection<User> getUsersByZipCode(String zipCode);
 }

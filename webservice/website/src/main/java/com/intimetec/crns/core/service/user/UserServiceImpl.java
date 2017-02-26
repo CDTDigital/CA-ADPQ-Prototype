@@ -128,4 +128,10 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(null);
 		return user;
 	}
+
+	@Override
+	public Collection<User> getUsersByZipCode(String zipCode) {
+		LOGGER.debug("Getting all belongs to same location based on ZipCode {}", zipCode);
+        return userRepository.findUserByZipCode(zipCode);
+	}
 }

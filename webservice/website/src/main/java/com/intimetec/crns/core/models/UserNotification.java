@@ -3,14 +3,14 @@
  */
 package com.intimetec.crns.core.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,41 +24,41 @@ import javax.persistence.Table;
 @Table(name="user_notification")
 public class UserNotification {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue
 	@Column(name="user_notification_id")
-	private int id;
+	private long id;
 	
-	@Column(name="notification_id")
-	private int notificationId;
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.DETACH)
+	@JoinColumn(name="notification_id")
+	private Notification notification;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private User userId;
+	@Column(name="user_id")
+	private long userId;
 	
 	@Column(name="is_read")
 	private boolean read;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public int getNotificationId() {
-		return notificationId;
+	public Notification getNotification() {
+		return notification;
 	}
 
-	public void setNotificationId(int notificationId) {
-		this.notificationId = notificationId;
+	public void setNotification(Notification notification) {
+		this.notification = notification;
 	}
 
-	public User getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(User userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
@@ -68,5 +68,15 @@ public class UserNotification {
 
 	public void setRead(boolean read) {
 		this.read = read;
+	}
+	
+	@Override
+	public String toString() {
+		return "UserNotification{"
+				+"id: "+id
+				+", notification: "+notification
+				+", userId: "+userId
+				+", isRead: "+read;
+
 	}
 }

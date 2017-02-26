@@ -9,9 +9,11 @@ import java.util.Collection;
 import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserLocation;
+import com.intimetec.crns.core.models.UserNotification;
 import com.intimetec.crns.core.restmodels.RestLocation;
 import com.intimetec.crns.core.restmodels.RestNotification;
 import com.intimetec.crns.core.restmodels.RestUser;
+import com.intimetec.crns.core.restmodels.RestUserNotification;
 
 /**
  * @author shiva.dixit
@@ -109,5 +111,16 @@ public class RestObjectToModelObjectMapper {
 			restNotification.setValidThrough(notification.getValidThrough());
 		}
 		return restNotification;
+	}
+	
+	public static RestUserNotification UserNotificationToRestUserNotification(UserNotification userNotification) {
+		RestUserNotification restUserNotification = new RestUserNotification();
+		if (userNotification != null) {
+			restUserNotification.setId(userNotification.getId());
+			restUserNotification.setUserId(userNotification.getUserId());
+			restUserNotification.setNotification(NotificationToRestNotification(userNotification.getNotification()));
+			restUserNotification.setRead(userNotification.isRead());
+		}
+		return restUserNotification;
 	}
 }

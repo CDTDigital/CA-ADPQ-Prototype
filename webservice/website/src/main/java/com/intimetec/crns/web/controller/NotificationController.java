@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.intimetec.crns.core.exceptions.InvalidNotificatioException;
 import com.intimetec.crns.core.models.Notification;
+import com.intimetec.crns.core.models.UserNotification;
 import com.intimetec.crns.core.restmodels.RestNotification;
+import com.intimetec.crns.core.restmodels.RestUserNotification;
 import com.intimetec.crns.core.service.notification.NotificationService;
 import com.intimetec.crns.core.service.user.UserService;
+import com.intimetec.crns.core.service.usernotification.UserNotificationService;
 import com.intimetec.crns.util.ResponseMessage;
 import com.intimetec.crns.util.RestObjectToModelObjectMapper;
 
@@ -34,6 +38,8 @@ public class NotificationController {
 
 	@Autowired
 	private NotificationService notificationService;
+	@Autowired
+	private UserNotificationService userNotificationService;
 	@Autowired
 	private UserService userService;
 
@@ -66,7 +72,7 @@ public class NotificationController {
 	 * @param
 	 * @return
 	 */
-	@PreAuthorize("@currentUserServiceImpl.canAccessUserByRoles(principal, {'ADMIN', 'USER'})")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public Map<String, Object> getNotifications() {
 		LOGGER.debug("Getting all notifications {}");
@@ -109,6 +115,54 @@ public class NotificationController {
 			LOGGER.warn("Exception occurred when trying to load notification", e);
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
 					"Unable to load notification details");
+		}
+	}
+	
+	/**
+	 * Getting notification list for specific User based on supplied ID
+	 * @param id
+	 * @return
+	 */
+	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
+	@RequestMapping(value = "/userNotifications/{id}", method = RequestMethod.GET)
+	public Map<String, Object> getUserNotificationsByUserId(@PathVariable Long id) {
+		LOGGER.debug("Getting notification based on ID {}", id);
+		try {
+			ArrayList<RestUserNotification> notifications = new ArrayList<RestUserNotification>();
+			for(UserNotification notification: userNotificationService.getUserNotificationsByUserId(id)){
+				notifications.add(RestObjectToModelObjectMapper.UserNotificationToRestUserNotification(notification));
+			}
+			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+			response.put("data", notifications);
+			return response;
+		} catch (Exception e) {
+			LOGGER.warn("Exception occurred when trying to load notification", e);
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
+					"Unable to load notifications");
+		}
+	}
+	
+	/**
+	 * Getting notification list for specific User based on supplied ID
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/userNotifications", method = RequestMethod.GET)
+	public Map<String, Object> getUserNotifications(HttpServletRequest request) {
+		String authToken = request.getHeader("authToken");
+		LOGGER.debug("Getting notifications based on AuthToken {}", authToken);
+		try {
+			ArrayList<RestUserNotification> notifications = new ArrayList<RestUserNotification>();
+			for(UserNotification notification: userNotificationService.getUserNotificationsByAuthToken(authToken)){
+				notifications.add(RestObjectToModelObjectMapper.UserNotificationToRestUserNotification(notification));
+			}
+			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+			response.put("data", notifications);
+			return response;
+		} catch (Exception e) {
+			LOGGER.warn("Exception occurred when trying to load notification", e);
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
+					"Unable to load notifications");
 		}
 	}
 }
