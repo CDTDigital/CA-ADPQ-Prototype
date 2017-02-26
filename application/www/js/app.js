@@ -1,6 +1,6 @@
 // Ionic CRNS App
-angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstants', 'toaster'])
-.run(function($ionicPlatform, $rootScope, Constant, $http, AuthToken) {
+angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstants', 'toaster', 'CRNSPushManager'])
+.run(function($ionicPlatform, $rootScope, Constant, AuthToken, DeviceService, PushNotificationService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
     // (remove this to show the accessory bar above the keyboard for form inputs)
@@ -10,9 +10,23 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
     }
 
     if(window.StatusBar) {
-      StatusBar.styleLightContent();
+      StatusBar.styleDefault();
+      // StatusBar.styleLightContent();
     }
   });
+
+  // While testing in browser
+    if (!window.cordova) {
+        DeviceService.setDeviceInfo('boatapp879803586e6f354212fa50', 'HARISH_LAPTOP');
+    }
+
+    /* On device ready, init the push sevices */
+    document.addEventListener('deviceready', function() {
+        PushNotificationService.init().then(function() {
+            PushNotificationService.register();
+            PushNotificationService.notification();
+        });
+    });
 
     if (localStorage.getItem('loginData') == undefined || localStorage.getItem('loginData') == null) {
         $rootScope.loginData = undefined;
@@ -22,7 +36,7 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
     }
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      //console.log(toState);
+      // console.log(toState);
   });
 
   /* Toaster disappear listner */
@@ -33,6 +47,42 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
   /* It will go back to previous state */
   $rootScope.goBack = function() {
       history.back();
+  };
+
+  /**
+   * Call Notification Detail api
+   * @param {boolean} returnHome is true then on tap back it will return to home screen.
+   * @param {number} notificationId is query string param for Notification detail api.
+   */
+  function callOrderDetailAPI(returnHome, notificationId) {
+        // TO DO
+  };
+
+  /**
+   * On tap on 'Confirm' or 'Cancel' buttons from Notification dialog box.
+   * @param {number} buttonIndex is 2 means user tap on Confirm button to see the Notification detail.
+   * @param {number} notificationId is query string param for Notification detail api.
+   */
+  function onConfirmNotification(buttonIndex, notificationId) {
+        if (buttonIndex == 2) {
+            callOrderDetailAPI(false, notificationId);
+        }
+  };
+
+  $rootScope.onCRNSNotification = function(notification, foreground) {
+        console.log(notification);
+        if (foreground == 0) {
+            callOrderDetailAPI(true, notification.notificationId);
+        } else {
+            navigator.notification.confirm(
+                notification.message,
+                function(buttonIndex) {
+                    onConfirmNotification(buttonIndex, notification.notificationId);
+                },
+                notification.title,
+                ['Cancel', 'Ok']
+            );
+        };
   };
 })
 
