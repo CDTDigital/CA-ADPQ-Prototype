@@ -10,7 +10,7 @@ create table user (
 	first_name NVARCHAR(50) NULL,
 	last_name NVARCHAR(50) NULL,
 	email NVARCHAR(100) NOT NULL,
-	monile_no NVARCHAR(15) NULL,
+	mobile_no NVARCHAR(15) NULL,
 	username NVARCHAR(16) NOT NULL,
 	password NVARCHAR(100) NOT NULL,
 	enabled BINARY DEFAULT 1,
