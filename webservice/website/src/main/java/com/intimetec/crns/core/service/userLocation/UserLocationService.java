@@ -27,4 +27,5 @@ public interface UserLocationService {
 	
 	UserLocation getLocationDetails(String lat, String lng);
 
+	UserLocation saveLocation(UserLocation userLocation, String lattitude, String longitude);
 }
