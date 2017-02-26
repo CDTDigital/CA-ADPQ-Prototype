@@ -1,8 +1,11 @@
 package com.intimetec.crns.core.mail.services;
 
-import com.intimetec.crns.core.mail.commands.SendMailCommand;
+import java.util.Collection;
+
+import com.intimetec.crns.core.models.Notification;
+import com.intimetec.crns.core.models.User;
 
 public interface MailService 
 {
-	public void send(SendMailCommand command);
+	public void sendMailToUsers(Collection<User> users, Notification notification);
 }

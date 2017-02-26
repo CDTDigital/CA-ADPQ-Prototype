@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.intimetec.crns.core.exceptions.InvalidNotificatioException;
+import com.intimetec.crns.core.mail.services.MailService;
 import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.UserNotification;
 import com.intimetec.crns.core.restmodels.RestNotification;
@@ -39,9 +40,11 @@ public class NotificationController {
 	@Autowired
 	private NotificationService notificationService;
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private UserNotificationService userNotificationService;
 	@Autowired
-	private UserService userService;
+	private MailService mailService;
 
 	/**
 	 * Saving a notification published by Admin, after saving the same
@@ -58,6 +61,8 @@ public class NotificationController {
 		try {
 			notification.setSentBy(userService.getUserById(notification.getSentBy().getId()).get());
 			notification = notificationService.save(notification);
+			//Sending mail notification to Users - This will a asynchronous call 
+			mailService.sendMailToUsers(userService.getUsersByZipCode(notification.getZipCode()), notification);
 			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 			response.put("data", RestObjectToModelObjectMapper.NotificationToRestNotification(notification));
 			return response;

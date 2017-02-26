@@ -26,7 +26,7 @@ create table user_locations (
 	user_id INT NOT NULL,
 	address_line1 NVARCHAR(100),
 	address_line2 NVARCHAR(100),
-	city NVARCHAR(100) NOT NULL,
+	city NVARCHAR(100),
 	zip_code NVARCHAR(100) NOT NULL,
 	place_id NVARCHAR(200) NOT NULL,
 	latitude NVARCHAR(30) NOT NULL,

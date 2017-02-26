@@ -1,46 +1,74 @@
 package com.intimetec.crns.core.mail.services;
 
+import java.util.Collection;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
-import com.intimetec.crns.core.mail.commands.SendMailCommand;
+import com.intimetec.crns.core.config.MailConfig;
+import com.intimetec.crns.core.models.Notification;
+import com.intimetec.crns.core.models.User;
 
+@Service
 public class DefaultMailService implements MailService
 {
 	private final MailSender mailSender;
-	
-	public DefaultMailService(MailSender mailSender)
+	@Autowired
+	private MailConfig mailConfig;
+
+	public DefaultMailService(MailSender mailSender, MailConfig mailConfig)
 	{
 		this.mailSender = mailSender;
-	}
-
-	@Override
-	public void send(SendMailCommand command)
-	{
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(command.getTo());
-		message.setFrom(command.getFrom());
-		message.setSubject(command.getSubject());
-		message.setText(command.getBody());
-		
-		this.mailSender.send(message);		
+		this.mailConfig = mailConfig;
 	}
 	
-	/*@Override
-	public void send()
+	@Async
+	public void sendMailToUsers(Collection<User> users, Notification notification)
 	{
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("bincyysamuelissnt@gmail.com");
-		message.setReplyTo("bincyysamuelissnt@gmail.com");
-		message.setFrom("bincy.samuel@intimetec.com");
-		message.setCc("");
-		message.setBcc("");
-		message.setSentDate(null);
-		message.setSubject("Test");
-		message.setText("Sample");
+		Properties props = new Properties();
+		props.put("mail.smtp.host", mailConfig.getHost());
+		props.put("mail.smtp.socketFactory.port", mailConfig.getPort());
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", mailConfig.getPort());
+
+		Session session = Session.getDefaultInstance(props,
+			new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(mailConfig.getUserName(),mailConfig.getPassword());
+				}
+			});
+
 		
-		System.out.println(message);
-		this.mailSender.send(message);		
-		System.out.println("Success");
-	}*/
+		for(User user:users){
+			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendEmail()) {
+				try {
+
+					Message message = new MimeMessage(session);
+					message.setFrom(new InternetAddress("mailConfig.getUserName()"));
+					message.setRecipients(Message.RecipientType.TO,
+							InternetAddress.parse(user.getEmail()));
+					message.setSubject(notification.getSubject());
+					message.setText(notification.getMessage());
+
+					Transport.send(message);
+
+				} catch (MessagingException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+	}
 }

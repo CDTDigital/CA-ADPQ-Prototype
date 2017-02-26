@@ -20,9 +20,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.SocketUtils;
 
+import com.intimetec.crns.core.config.MailConfig;
 import com.intimetec.crns.core.config.google.GoogleApiConfig;
 
 import springfox.documentation.builders.PathSelectors;
@@ -45,6 +47,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 		@PropertySource(value = "classpath:/config/override.properties", name = "override2") })
 @EnableJpaRepositories("com.intimetec.crns.core.repository")
 @EntityScan("com.intimetec.crns.core.models") 
+@EnableAsync
 /**
  * The override.properties file is intentionally loaded twice. - The first time
  * is needed because it contains the value for environment.active, which is
@@ -71,9 +74,26 @@ public class Application extends SpringBootServletInitializer {
 	@Value("${google.api.apikey}")
 	private String googleApiKey;
 	
+	@Value("${spring.mail.host}")
+	private String mailHost;
+	
+	@Value("${spring.mail.port}")
+	private String mailPort;
+	
+	@Value("${spring.mail.username}")
+	private String mailUserName;
+	
+	@Value("${spring.mail.password}")
+	private String mailPassword;
+	
 	@Bean
 	public GoogleApiConfig getGoogleApiConfig(){
 		return new GoogleApiConfig(googleApiUrl, googleApiKey);
+	}
+	
+	@Bean
+	public MailConfig getMailConfig(){
+		return new MailConfig(mailHost, mailPort, mailUserName, mailPassword);
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -112,4 +132,6 @@ public class Application extends SpringBootServletInitializer {
 		connector.setPort(port());
 		return connector;
 	}
+	
+	
 }
