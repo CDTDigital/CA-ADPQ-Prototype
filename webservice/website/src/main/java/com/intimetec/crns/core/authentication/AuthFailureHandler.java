@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.intimetec.crns.core.authentication;
 
 import java.io.IOException;
@@ -27,27 +24,33 @@ import com.intimetec.crns.util.ResponseMessage;
  */
 @Component
 public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-
+	/**
+	 * Framework to parse JSON into Java objects.
+	 */ 
 	private final ObjectMapper mapper;
-
+	/**
+	 * @param messageConverter the converter to read and write JSON
+	 * using {@link ObjectMapper}
+	 */
 	@Autowired
-	AuthFailureHandler(MappingJackson2HttpMessageConverter messageConverter) {
+	AuthFailureHandler(final MappingJackson2HttpMessageConverter 
+			messageConverter) {
 		this.mapper = messageConverter.getObjectMapper();
 	}
 
 	@Override
-	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException exception) throws IOException, ServletException {
+	public final void onAuthenticationFailure(final HttpServletRequest request, 
+            final HttpServletResponse response,
+		    final AuthenticationException exception) throws IOException, 
+	       ServletException {
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-		Map<String, Object> responseMap = ResponseMessage.failureResponse(HttpServletResponse.SC_UNAUTHORIZED,
+		Map<String, Object> responseMap = ResponseMessage.failureResponse(
+				HttpServletResponse.SC_UNAUTHORIZED,
 				exception.getMessage());
-
 		PrintWriter writer = response.getWriter();
 		writer.write(mapper.writeValueAsString(responseMap));
 		writer.flush();
 	}
-	
-	
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.intimetec.crns.core.authentication;
 
 import java.io.PrintWriter;
@@ -35,22 +32,40 @@ import com.intimetec.crns.util.ResponseMessage;
  */
 @Component
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthSuccessHandler.class);
-
+	/**
+	 * To log the application messages. 
+	 */
+	private static final Logger LOGGER = LoggerFactory.
+			getLogger(AuthSuccessHandler.class);
+	/**
+	 * Framework to parse JSON into Java objects.
+	 */ 
 	private final ObjectMapper mapper;
+	/**
+	 * Instance of the {@link UserDeviceServiceImpl}.
+	 */ 
 	@Autowired
-	UserDeviceServiceImpl UserDeviceService;
+	private UserDeviceServiceImpl userDeviceService;
+	/**
+	 * Instance of the {@link UserService}.
+	 */ 
 	@Autowired
     private UserService userService;
-
+	/**
+	 * @param messageConverter the converter to read and write JSON
+	 * using {@link ObjectMapper}
+	 */ 
 	@Autowired
-	AuthSuccessHandler(MappingJackson2HttpMessageConverter messageConverter) {
+	AuthSuccessHandler(final MappingJackson2HttpMessageConverter 
+			messageConverter) {
 		this.mapper = messageConverter.getObjectMapper();
 	}
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws javax.servlet.ServletException, java.io.IOException {
+	public final void onAuthenticationSuccess(final HttpServletRequest request, 
+			final HttpServletResponse response,
+			final Authentication authentication) 
+			throws javax.servlet.ServletException, java.io.IOException {
 		LOGGER.debug("Inside Authentication Sucess Handler");
 		HttpSession session = request.getSession();
 		
@@ -66,9 +81,10 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 		//Generate authToke
 		String authToken = null;
         
-		if(currentUser.getDeviceInfo() != null && currentUser.getRole() == UserRole.USER){
-			
-			authToken = new BCryptPasswordEncoder().encode(authUser.getUserName()+System.currentTimeMillis());
+		if (currentUser.getDeviceInfo() != null && currentUser.
+				getRole() == UserRole.USER) {		
+			authToken = new BCryptPasswordEncoder().encode(authUser.
+					getUserName() + System.currentTimeMillis());
 			
 	        //Save Device Information
 	        UserDevice userDevice = new UserDevice(authUser, 
@@ -77,11 +93,12 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 	        		currentUser.getDeviceInfo().getDeviceToken(), 
 	        		authToken);
 	        
-	        UserDeviceService.save(userDevice);
+	        userDeviceService.save(userDevice);
 		}
 		
 		//Generate reponseMessage for Successful Login
-        Map<String, Object> responseMessage = generateResponseMessage(authUser, authToken);
+        Map<String, Object> responseMessage = generateResponseMessage(
+        		authUser, authToken);
 		
         //set our response to OK status
         response.setStatus(HttpServletResponse.SC_OK);
@@ -90,15 +107,28 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         //write response message in JSON format
         writeResponseMessage(response, responseMessage);
 	}
-
-	private Map<String, Object> generateResponseMessage(User authUser, String authToken) {
-		Map<String, Object> responseMap = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+	
+	/**
+	 * @param authUser User to authenticate
+	 * @param authToken Authentication token
+	 * @return responseMap
+	 */ 
+	private Map<String, Object> generateResponseMessage(
+			final User authUser, final String authToken) {
+		Map<String, Object> responseMap = ResponseMessage.successResponse(
+				HttpServletResponse.SC_OK);
 		responseMap.put("data", userService.removeSensitiveInfo(authUser));
 		responseMap.put("authToken", authToken);
 		return responseMap;
 	}
 
-	private void writeResponseMessage(HttpServletResponse response, Map<String, Object> responseMessage)
+	/**
+	 * @param response 
+	 * @param responseMessage 
+	 * @throws java.io.IOException If an input or output exception occurs
+	 */ 
+	private void writeResponseMessage(final HttpServletResponse response, 
+			final Map<String, Object> responseMessage)
 			throws java.io.IOException {
 		PrintWriter writer = response.getWriter();
 		writer.write(mapper.writeValueAsString(responseMessage));

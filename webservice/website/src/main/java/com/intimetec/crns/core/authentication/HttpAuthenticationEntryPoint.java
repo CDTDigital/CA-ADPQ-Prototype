@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.intimetec.crns.core.authentication;
 
 import java.io.IOException;
@@ -29,20 +26,31 @@ import com.intimetec.crns.util.ResponseMessage;
  */
 @Component
 public class HttpAuthenticationEntryPoint implements AuthenticationEntryPoint {
-	private static final Logger LOGGER = LoggerFactory.getLogger(HttpAuthenticationEntryPoint.class);	
-	
+	/**
+	 * To log the application messages. 
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(
+			HttpAuthenticationEntryPoint.class);	
+	/**
+	 * Framework to parse JSON into Java objects.
+	 */
 	private final ObjectMapper mapper;
-
+	/**
+	 * @param messageConverter the converter to read and write JSON
+	 * using {@link ObjectMapper}
+	 */
 	@Autowired
-	HttpAuthenticationEntryPoint(MappingJackson2HttpMessageConverter messageConverter) {
+	HttpAuthenticationEntryPoint(final MappingJackson2HttpMessageConverter 
+			messageConverter) {
 		this.mapper = messageConverter.getObjectMapper();
 	}
 	
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException authException) throws IOException {
+	public final void commence(final HttpServletRequest request, 
+			final HttpServletResponse response,
+            final AuthenticationException authException) throws IOException {
     	Enumeration<String> params = request.getAttributeNames();
-    	while(params.hasMoreElements()){
+    	while (params.hasMoreElements()) {
     		String param = params.nextElement();
         	LOGGER.debug(param, request.getAttribute(param));
     	}
@@ -50,7 +58,8 @@ public class HttpAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-		Map<String, Object> responseMap = ResponseMessage.failureResponse(HttpServletResponse.SC_UNAUTHORIZED,
+		Map<String, Object> responseMap = ResponseMessage.failureResponse(
+				HttpServletResponse.SC_UNAUTHORIZED,
 				authException.getMessage());
 
 		PrintWriter writer = response.getWriter();

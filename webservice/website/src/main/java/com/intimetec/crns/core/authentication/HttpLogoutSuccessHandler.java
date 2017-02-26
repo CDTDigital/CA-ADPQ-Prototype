@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.intimetec.crns.core.authentication;
 
 import java.io.IOException;
@@ -19,8 +16,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class HttpLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-            throws IOException {
+	public final void onLogoutSuccess(final HttpServletRequest request,
+			final HttpServletResponse response, 
+			final Authentication authentication) throws IOException {
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().flush();
     }

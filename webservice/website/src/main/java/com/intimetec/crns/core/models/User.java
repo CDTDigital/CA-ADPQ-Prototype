@@ -15,153 +15,259 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Entity model class for User table
+ * Entity model class for User table.
  * @author shiva.dixit
  */
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
+	/**
+	 * Id of the User.
+	 */
 	@Id
 	@GeneratedValue
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	private long id;
-
-	@Column(name="first_name")
+	
+	/**
+	 * First name of the User.
+	 */
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name="last_name")
+	/**
+	 * Last name of the User.
+	 */
+	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name="email")
+	/**
+	 * Email of the User.
+	 */
+	@Column(name = "email")
 	private String email;
-	
-	@Column(name="mobile_no")
+
+	/**
+	 * Mobile number of the User.
+	 */
+	@Column(name = "mobile_no")
 	private String mobileNo;
 
-	@Column(name="username")
+	/**
+	 * User name of the User.
+	 */
+	@Column(name = "username")
 	private String userName;
 
-	@Column(name="password")
+	/**
+	 * Password of the User.
+	 */
+	@Column(name = "password")
 	private String password;
 
-	@Column(name="enabled")
+	/**
+	 * Status of the User.
+	 */
+	@Column(name = "enabled")
 	private boolean enabled;
 
+	/**
+	 * Role of the User.
+	 */
 	@JsonIgnore
-	@Column(name="role")
+	@Column(name = "role")
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL )
-	@JoinColumn(name="user_id")
+	/**
+	 * Notification options for the User.
+	 */
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
 	private UserNotificationOptions userNotificationOptions;
-	
+
+	/**
+	 * Status of the Account set up.
+	 */
 	private boolean accountSetupDone = false;
 
-	public long getId() {
+	/**
+	 * @return id of the User.
+	 */
+	public final long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	/**
+	 * @param id the id of the User.
+	 */	
+	public final void setId(final long id) {
 		this.id = id;
 	}
 
-	public String getFirstName() {
+	/**
+	 * @return the first name of the User.
+	 */
+	public final String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	/**
+	 * @param firstName the first name of the User.
+	 */	
+	public final void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
+	/**
+	 * @return the last name of the User.
+	 */
+	public final String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	/**
+	 * @param lastName the last name of the User.
+	 */
+	public final void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
+	/**
+	 * @return the email of the User.
+	 */
+	public final String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	/**
+	 * @param email the email of the User.
+	 */
+	public final void setEmail(final String email) {
 		this.email = email;
 	}
 
-	public String getMobileNo() {
+	/**
+	 * @return the mobile number of the User.
+	 */
+	public final String getMobileNo() {
 		return mobileNo;
 	}
 
-	public void setMobileNo(String mobileNo) {
+	/**
+	 * @param mobileNo the mobile number of the User.
+	 */
+	public final void setMobileNo(final String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
-	public String getUserName() {
+	/**
+	 * @return the user name of the User.
+	 */
+	public final String getUserName() {
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	/**
+	 * @param userName the user name of the User.
+	 */
+	public final void setUserName(final String userName) {
 		this.userName = userName;
 	}
 
-	public String getPassword() {
+	/**
+	 * @return the password of the User.
+	 */
+	public final String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	/**
+	 * @param password the password of the User.
+	 */
+	public final void setPassword(final String password) {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
+	/**
+	 * @return the status of the User.
+	 * Returns true if the User is enabled.
+	 */
+	public final boolean isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	/**
+	 * @param enabled the status of the User.
+	 */
+	public final void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
-	public UserRole getUserRole() {
+	/**
+	 * @return the role of the User.
+	 */
+	public final UserRole getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(UserRole userRole) {
+	/**
+	 * @param userRole the role of the User.
+	 */
+	public final void setUserRole(final UserRole userRole) {
 		this.userRole = userRole;
 	}
 
-	public UserNotificationOptions getUserNotificationOptions() {
+	/**
+	 * @return the notification options for the User.
+	 */
+	public final UserNotificationOptions getUserNotificationOptions() {
 		return userNotificationOptions;
 	}
 
-	public void setUserNotificationOptions(UserNotificationOptions userNotificationOptions) {
+	/**
+	 * @param userNotificationOptions the notification options for the User.
+	 */
+	public final void setUserNotificationOptions(
+			final UserNotificationOptions userNotificationOptions) {
 		this.userNotificationOptions = userNotificationOptions;
 	}
-	
-	public boolean isAccountSetupDone(){
+
+	/**
+	 * @return the status of the account set up.
+	 * Returns true if the account has been set up.
+	 */
+	public final boolean isAccountSetupDone() {
 		return this.accountSetupDone;
 	}
 	
-	public void setAccountSetupDone(){
-		this.accountSetupDone = (userNotificationOptions == null) ? false : true;
+	/**
+	 * Method for the account set up.
+	 */
+	public final void setAccountSetupDone() {
+		this.accountSetupDone = (
+				userNotificationOptions == null) ? false : true;
 	}
 	
-	public User(){
+	/**
+	 * Creating object of the class{@code User}.
+	 */
+	public User() {
 		setAccountSetupDone();
 	}
 
 	@Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName=" + firstName +
-                ", lastName=" + lastName +
-                ", username=" + userName +
-                ", email=" + email +
-                ", mobileNo=" + mobileNo +
-                ", role=" + userRole +
-                ", password=" + password +
-                ", userNotificationOptions=" + userNotificationOptions +
-                '}';
+	public final String toString() {
+        return "User{" 
+               + "id=" + id 
+               + ", firstName=" + firstName 
+               + ", lastName=" + lastName 
+               + ", username=" + userName 
+               + ", email=" + email 
+               + ", mobileNo=" + mobileNo 
+               + ", role=" + userRole 
+               + ", password=" + password 
+               + ", userNotificationOptions=" + userNotificationOptions 
+               + '}';
     }
 }

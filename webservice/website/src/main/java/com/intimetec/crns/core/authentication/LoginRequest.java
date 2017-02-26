@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.intimetec.crns.core.authentication;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,50 +7,96 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@SuppressWarnings("checkstyle:hiddenfield")
 public class LoginRequest {
+	/**
+	 * User name of the User.
+	 */
 	private String userName;
+	/**
+	 * Password of the User.
+	 */
 	private String password;
+	/**
+	 * DeviceId of the User.
+	 */
 	private String deviceId;
+	/**
+	 * DeviceToken of the User.
+	 */
 	private String deviceToken;
+	/**
+	 * DeviceType of the User.
+	 */
 	private String deviceType;
 	
-	public String getUserName() {
+	/**
+	 * @return {@String} the user name of the User.
+	 */
+	public final String getUserName() {
 		return userName;
 	}
-	public void setUserName(String userName) {
+	/**
+	 * @param userName the user name of the User.
+	 */
+	public final void setUserName(final String userName) {
 		this.userName = userName;
 	}
-	public String getPassword() {
+	/**
+	 * @return {@String} the password of the User.
+	 */
+	public final String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
+	/**
+	 * @param password the password of the User.
+	 */
+	public final void setPassword(final String password) {
 		this.password = password;
 	}
+	/**
+	 * @return {@String} the password of the User.
+	 */
 	public String getDeviceId() {
 		return deviceId;
 	}
-	public void setDeviceId(String deviceId) {
+	/**
+	 * @param deviceId the deviceId of the User.
+	 */
+	public final void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
 	}
-	public String getDeviceToken() {
+	/**
+	 * @return {@String} the password of the User.
+	 */
+	public final String getDeviceToken() {
 		return deviceToken;
 	}
-	public void setDeviceToken(String deviceToken) {
+	/**
+	 * @param deviceToken the deviceToken of the User.
+	 */
+	public final void setDeviceToken(String deviceToken) {
 		this.deviceToken = deviceToken;
 	}
-	public String getDeviceType() {
+	/**
+	 * @return {@String} the password of the User.
+	 */
+	public final String getDeviceType() {
 		return deviceType;
 	}
-	public void setDeviceType(String deviceType) {
+	/**
+	 * @param deviceType the device type of the User.
+	 */
+	public final void setDeviceType(final String deviceType) {
 		this.deviceType = deviceType;
 	}
 	
 	@Override
-	public String toString(){
-		return "Username: "+userName
-				+", password: "+password
-				+", deviceId: "+deviceId
-				+", deviceToken: "+deviceToken
-				+", deviceType: "+deviceType;
+	public final String toString() {
+		return "Username: " + userName
+				+ ", password: " + password
+				+ ", deviceId: " + deviceId
+				+ ", deviceToken: " + deviceToken
+				+ ", deviceType: " + deviceType;
 	}
 }
