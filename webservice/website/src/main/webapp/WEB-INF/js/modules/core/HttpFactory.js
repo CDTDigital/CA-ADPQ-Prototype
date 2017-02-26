@@ -56,69 +56,26 @@
 
                 return deferred.promise;
             }
+
+            function getUserProfile() {
+                var deferred = $q.defer();
+                var id = $sessionStorage.loginResponse.data.id;
+                $http.get('/users/' + id).then(function (response) {
+                    deferred.resolve(response.data.data)
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+                return deferred.promise;
+            }
             onInitialization();
 
             return {
                 login: login,
                 loginResponse: loginResponse,
                 isLoggedIn: isLoggedIn,
-                forgotPassword: function () {
-                    var deferred = $q.defer();
-                    $http.get(Configuration.API_URL + '/forgotPassword').then(function (response) {
-                        deferred.resolve();
-                    }, function (error) {
-                        deferred.reject(error);
-                    })
-                },
-
                 signup: signup,
-
-                createAdmin: function () {
-                    var deferred = $q.defer();
-                    $http.post(Configuration.API_URL + '/users/createAdmin').then(function (response) {
-                        deferred.resolve();
-                    }, function (error) {
-                        deferred.reject(error);
-                    })
-                },
-
-                createUser: function () {
-                    var deferred = $q.defer();
-                    $http.post(Configuration.API_URL + '/users/createUser').then(function (response) {
-                        deferred.resolve();
-                    }, function (error) {
-                        deferred.reject(error);
-                    })
-                },
-
-                isEmailRegistered: function () {
-                    var deferred = $q.defer();
-                    $http.get(Configuration.API_URL + '/users/isEmailRegistered').then(function (response) {
-                        deferred.resolve();
-                    }, function (error) {
-                        deferred.reject(error);
-                    })
-                },
-
-                isUniqueUsername: function () {
-                    var deferred = $q.defer();
-                    $http.get(Configuration.API_URL + '/users/isUniqueUsername').then(function (response) {
-                        deferred.resolve();
-                    }, function (error) {
-                        deferred.reject(error);
-                    })
-                },
-
-                userList: function () {
-                    var deferred = $q.defer();
-                    $http.get(Configuration.API_URL + '/users/list').then(function (response) {
-                        deferred.resolve();
-                    }, function (error) {
-                        deferred.reject(error);
-                    });
-                }
-
-
+                getUserProfile: getUserProfile
             }
         }
 
