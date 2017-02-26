@@ -1,5 +1,6 @@
 package com.intimetec.crns.web.controller;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.intimetec.crns.core.exceptions.InvalidNotificatioException;
 import com.intimetec.crns.core.models.Notification;
+import com.intimetec.crns.core.restmodels.RestNotification;
 import com.intimetec.crns.core.service.notification.NotificationService;
 import com.intimetec.crns.util.ResponseMessage;
+import com.intimetec.crns.util.RestObjectToModelObjectMapper;
 
 @RequestMapping(value = "/notifications", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
@@ -31,10 +34,11 @@ public class NotificationController {
 	@Autowired
 	private NotificationService notificationService;
 
-	
 	/**
-	 * Saving a notification published by Admin, 
-	 * 		after saving the same notification will be sent to various users belongs to the same zip-code/postal-code
+	 * Saving a notification published by Admin, after saving the same
+	 * notification will be sent to various users belongs to the same
+	 * zip-code/postal-code
+	 * 
 	 * @param notification
 	 * @return
 	 */
@@ -63,9 +67,14 @@ public class NotificationController {
 	public Map<String, Object> getNotifications() {
 		LOGGER.debug("Getting all notifications {}");
 		try {
-				Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-				response.put("data", notificationService.getAll());
-				return response;
+			ArrayList<RestNotification> notifications = new ArrayList<RestNotification>();
+			for(Notification notification: notificationService.getAll()){
+				notification.getSentBy().setPassword(null);
+				notifications.add(RestObjectToModelObjectMapper.NotificationToRestNotification(notification));
+			}
+			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+			response.put("data", notifications);
+			return response;
 		} catch (Exception e) {
 			LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate email", e);
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Unable to load notification list");
@@ -74,6 +83,7 @@ public class NotificationController {
 
 	/**
 	 * Getting notification detail based on supplied ID
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -83,17 +93,18 @@ public class NotificationController {
 		LOGGER.debug("Getting notification based on ID {}", id);
 		try {
 			Optional<Notification> notification = notificationService.getById(id);
-			if(notification.isPresent()) {
+			if (notification.isPresent()) {
 				Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-				response.put("data", notification.get());
+				notification.get().getSentBy().setPassword(null);
+				response.put("data", RestObjectToModelObjectMapper.NotificationToRestNotification(notification.get()));
 				return response;
-			}
-			else {
+			} else {
 				throw new InvalidNotificatioException();
 			}
 		} catch (Exception e) {
 			LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate email", e);
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Unable to load notification details");
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
+					"Unable to load notification details");
 		}
 	}
 }

@@ -6,9 +6,11 @@ package com.intimetec.crns.util;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserLocation;
 import com.intimetec.crns.core.restmodels.RestLocation;
+import com.intimetec.crns.core.restmodels.RestNotification;
 import com.intimetec.crns.core.restmodels.RestUser;
 
 /**
@@ -89,5 +91,23 @@ public class RestObjectToModelObjectMapper {
 			restLocation.setCurrentLocation(userLocation.isCurrentLocation());
 		}
 		return restLocation;
+	}
+
+	public static RestNotification NotificationToRestNotification(Notification notification) {
+		RestNotification restNotification = new RestNotification();
+		if (notification != null) {
+			restNotification.setId(notification.getId());
+			restNotification.setAddress(notification.getAddress());
+			restNotification.setCity(notification.getCity());
+			restNotification.setZipCode(notification.getZipCode());
+			restNotification.setSubject(notification.getSubject());
+			restNotification.setMessage(notification.getMessage());
+			if(notification.getSentBy()!=null) {
+				restNotification.setUserInfo(notification.getSentBy().getFirstName(), notification.getSentBy().getLastName(), notification.getSentBy().getEmail());
+			}
+			restNotification.setSentTime(notification.getSentTime());
+			restNotification.setValidThrough(notification.getValidThrough());
+		}
+		return restNotification;
 	}
 }

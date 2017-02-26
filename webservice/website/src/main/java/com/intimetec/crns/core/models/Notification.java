@@ -2,6 +2,7 @@ package com.intimetec.crns.core.models;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,15 +24,16 @@ public class Notification {
 	 * Id of the notification.
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "notification_id")
-	private int id;
+
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="notification_id")
+	private long id;
 	
 	/**
 	 * User who will be sending the notification.
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "sent_by")
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.DETACH)
+	@JoinColumn(name="sent_by", referencedColumnName="user_id")
 	private User sentBy;
 	
 	/**
@@ -79,14 +81,14 @@ public class Notification {
 	/**
 	 * @return id.
 	 */
-	public final int getId() {
+	public final long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id of the notification.
 	 */
-	public final void setId(final int id) {
+	public final void setId(final long id) {
 		this.id = id;
 	}
 
