@@ -1,4 +1,4 @@
-package com.intimetec.crns.core.service.mail;
+package com.intimetec.crns.core.service.notification.mail;
 
 import java.util.Collection;
 

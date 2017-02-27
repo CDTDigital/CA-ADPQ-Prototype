@@ -21,4 +21,8 @@ public interface UserNotificationService {
 	Collection<UserNotification> getUserNotificationsByUserId(long id) throws InvalidUserException ;
 	
 	Collection<UserNotification> getUserNotificationsByAuthToken(String authToken) throws InvalidAuthTokenException, InvalidUserException ;
+	
+	Optional<UserNotification> getByAuthTokenAndNotificationId(String authToken, long notificationId) throws InvalidAuthTokenException, InvalidUserException ;
+	
+	void save(Collection<UserNotification> notifications);
 }

@@ -44,7 +44,7 @@ public class UserNotification {
 	 * Status of the notification whether it's read or unread.
 	 */
 	@Column(name = "is_read")
-	private boolean read;
+	private boolean read = false;
 
 	/**
 	 * @return Id.
@@ -109,6 +109,14 @@ public class UserNotification {
 				+ ", notification: " + notification
 				+ ", userId: " + userId
 				+ ", isRead: " + read;
-
+	}
+	
+	public UserNotification(){
+		
+	}
+	
+	public UserNotification(long userId, Notification notifcation){
+		this.userId = userId;
+		this.notification = notifcation;
 	}
 }

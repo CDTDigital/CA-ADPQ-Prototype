@@ -1,4 +1,4 @@
-package com.intimetec.crns.core.service.mail;
+package com.intimetec.crns.core.service.notification.mail;
 
 import java.util.Collection;
 import java.util.Properties;
@@ -12,7 +12,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +20,13 @@ import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.User;
 
 @Service
-public class DefaultMailService implements MailService
+public class MailServiceImpl implements MailService
 {
-	private final MailSender mailSender;
 	@Autowired
 	private MailConfig mailConfig;
 
-	public DefaultMailService(MailSender mailSender, MailConfig mailConfig)
+	public MailServiceImpl(MailConfig mailConfig)
 	{
-		this.mailSender = mailSender;
 		this.mailConfig = mailConfig;
 	}
 	

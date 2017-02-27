@@ -21,11 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.intimetec.crns.core.exceptions.InvalidNotificatioException;
 import com.intimetec.crns.core.models.Notification;
+import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserNotification;
 import com.intimetec.crns.core.restmodels.RestNotification;
 import com.intimetec.crns.core.restmodels.RestUserNotification;
-import com.intimetec.crns.core.service.mail.MailService;
 import com.intimetec.crns.core.service.notification.NotificationService;
+import com.intimetec.crns.core.service.notification.mail.MailService;
 import com.intimetec.crns.core.service.user.UserService;
 import com.intimetec.crns.core.service.usernotification.UserNotificationService;
 import com.intimetec.crns.util.ResponseMessage;
@@ -148,7 +149,7 @@ public class NotificationController {
 	}
 	
 	/**
-	 * Getting notification list for specific User based on supplied ID
+	 * Getting notification list for specific User based on supplied AuthToken
 	 * @param id
 	 * @return
 	 */
@@ -168,6 +169,35 @@ public class NotificationController {
 			LOGGER.warn("Exception occurred when trying to load notification", e);
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
 					"Unable to load notifications");
+		}
+	}
+	
+	/**
+	 * Marking notification state as read
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/userNotifications/{id}/read", method = RequestMethod.POST)
+	public Map<String, Object> readUserNotifications(HttpServletRequest request, @PathVariable Long id) {
+		String authToken = request.getHeader("authToken");
+		LOGGER.debug("Updating notification based on ID and supplied AuthToken {}", authToken);
+		try {
+			Optional<User> user = userService.getValidUserForAuthToken(authToken);
+			if(user.isPresent()){
+				Optional<UserNotification> userNotification  =userNotificationService.getByAuthTokenAndNotificationId(authToken, id);
+				if(userNotification.isPresent()){
+					userNotification.get().setRead(true);
+					Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+					response.put("data", RestObjectToModelObjectMapper.UserNotificationToRestUserNotification(userNotificationService.save(userNotification.get())));
+					return response;
+				}
+			}
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
+						"Supplied notification id is not correct");
+		} catch (Exception e) {
+			LOGGER.warn("Exception occurred when trying to load notification", e);
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
+					e.getMessage());
 		}
 	}
 }

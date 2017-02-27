@@ -78,4 +78,20 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 			throw new InvalidAuthTokenException("Invalid User data");
 		}
 	}
+	
+	@Override
+	public void save(Collection<UserNotification> notifications){
+		LOGGER.debug("Saving all user Notifications ={}",notifications);
+		userNotificationRepository.save(notifications);
+	}
+
+	@Override
+	public Optional<UserNotification> getByAuthTokenAndNotificationId(String authToken, long notificationId)
+			throws InvalidAuthTokenException, InvalidUserException {
+		Optional<User> user = userService.getValidUserForAuthToken(authToken);
+		if(user.isPresent())
+			return userNotificationRepository.getByUserIdAndNotificationId(user.get().getId(), notificationId);
+		else 
+			throw new InvalidUserException("Invalid Auth Token");
+	}
 }
