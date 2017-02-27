@@ -65,6 +65,19 @@ public class Notification {
 	 */
 	@Column(name = "address")
 	private String address;
+	
+	/**
+	 * Latitude of the User's location.
+	 */
+	@Column(name = "latitude")
+	private String latitude;
+
+	/**
+	 * Longitude of the User's location.
+	 */
+	@Column(name = "longitude")
+	private String longitude;
+
 
 	/**
 	 * Time when the notification will be sent.

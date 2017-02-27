@@ -10,11 +10,7 @@ create table user (
 	first_name NVARCHAR(50) NULL,
 	last_name NVARCHAR(50) NULL,
 	email NVARCHAR(100) NOT NULL,
-<<<<<<< HEAD
 	mobile_no NVARCHAR(15) NULL,
-=======
-	monile_no NVARCHAR(15) NULL,
->>>>>>> 2c79380fc91e212dfc90a6c2a9c5a23a667040fd
 	username NVARCHAR(16) NOT NULL,
 	password NVARCHAR(100) NOT NULL,
 	enabled BINARY DEFAULT 1,
@@ -33,11 +29,7 @@ create table user_locations (
 	city NVARCHAR(100),
 	zip_code NVARCHAR(100) NOT NULL,
 	place_id NVARCHAR(200) NOT NULL,
-<<<<<<< HEAD
 	latitude NVARCHAR(30) NOT NULL,
-=======
-	lattitude NVARCHAR(30) NOT NULL,
->>>>>>> 2c79380fc91e212dfc90a6c2a9c5a23a667040fd
 	longitude NVARCHAR(30) NOT NULL,
 	current_location BOOLEAN NOT NULL DEFAULT 0,
 	CONSTRAINT pk_user PRIMARY KEY (id),
@@ -77,6 +69,8 @@ create table notification (
 	city NVARCHAR(100) NOT NULL,
 	zip_code NVARCHAR(100) NOT NULL,
     address NVARCHAR(500) NOT NULL,
+	latitude NVARCHAR(30) NOT NULL,
+	longitude NVARCHAR(30) NOT NULL,
 	sent_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	valid_through TIMESTAMP NOT NULL,
 	CONSTRAINT pk_notification PRIMARY KEY (notification_id),
