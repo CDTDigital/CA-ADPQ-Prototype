@@ -30,6 +30,9 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
          .addResourceHandler("/js/**")
          .addResourceLocations("/resources/", "WEB-INF/js/");
         registry
+        .addResourceHandler("/fonts/**")
+        .addResourceLocations("/resources/", "WEB-INF/fonts/");
+        registry
         .addResourceHandler("/images/**")
         .addResourceLocations("/resources/", "WEB-INF/images/");
         

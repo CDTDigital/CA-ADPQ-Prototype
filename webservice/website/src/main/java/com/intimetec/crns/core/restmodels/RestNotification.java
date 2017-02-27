@@ -118,6 +118,34 @@ public class RestNotification {
 		this.address = address;
 	}
 
+	/**
+	 * @return the latitude of the Notification's location.
+	 */
+	public final String getLatitude() {
+		return latitude;
+	}
+
+	/**
+	 * @param latitude the latitude of the Notification's location.
+	 */
+	public final void setLatitude(final String latitude) {
+		this.latitude = latitude;
+	}
+	
+	/**
+	 * @return the longitude of the Notification's location.
+	 */
+	public final String getLongitude() {
+		return longitude;
+	}
+
+	/**
+	 * @param longitude the longitude of the Notification's location.
+	 */
+	public final void setLongitude(final String longitude) {
+		this.longitude = longitude;
+	}
+	
 	public Date getSentTime() {
 		return sentTime;
 	}

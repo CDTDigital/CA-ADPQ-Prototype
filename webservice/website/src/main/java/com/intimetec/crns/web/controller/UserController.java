@@ -192,12 +192,16 @@ public class UserController {
 			RestLocation location = restUser.getLocation();
 			UserLocation userLocation = RestObjectToModelObjectMapper.RestLocationToUserLocation(location);
 			userLocation.setUserId(user.getId());
+			Optional<UserLocation> profileLocation = userLocationService.getProfileLocationByUserId(user.getId());
+			if(profileLocation.isPresent()){
+				userLocation.setId(profileLocation.get().getId());
+			}
 			userLocation = userLocationService.save(userLocation);
 			Map<String, Object> responseMap = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 			userService.removeSensitiveInfo(user);
 			restUser = RestObjectToModelObjectMapper.UserToRestUser(user);
 			restUser.setLocation(RestObjectToModelObjectMapper.UserLocationToRestLocation(userLocation));
-			responseMap.put("data", RestObjectToModelObjectMapper.UserToRestUser(user));
+			responseMap.put("data", restUser);
 			return responseMap;
 		} catch (InvalidUserException e) {
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
@@ -218,10 +222,15 @@ public class UserController {
 			RestLocation location = restUser.getLocation();
 			UserLocation userLocation = RestObjectToModelObjectMapper.RestLocationToUserLocation(location);
 			userLocation.setUserId(user.getId());
+			Optional<UserLocation> profileLocation = userLocationService.getProfileLocationByUserId(user.getId());
+			if(profileLocation.isPresent()){
+				userLocation.setId(profileLocation.get().getId());
+			}
 			userLocation = userLocationService.save(userLocation);
-			restUser.setLocation(RestObjectToModelObjectMapper.UserLocationToRestLocation(userLocation));
 			Map<String, Object> responseMessage = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 			userService.removeSensitiveInfo(user);
+			restUser = RestObjectToModelObjectMapper.UserToRestUser(user);
+			restUser.setLocation(RestObjectToModelObjectMapper.UserLocationToRestLocation(userLocation));
 			responseMessage.put("data", restUser);
 			return responseMessage;
 		} catch (InvalidUserException | InvalidAuthTokenException e) {

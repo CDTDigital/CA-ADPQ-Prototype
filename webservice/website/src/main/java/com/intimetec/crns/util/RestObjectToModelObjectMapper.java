@@ -100,6 +100,8 @@ public class RestObjectToModelObjectMapper {
 		if (notification != null) {
 			restNotification.setId(notification.getId());
 			restNotification.setAddress(notification.getAddress());
+			restNotification.setLatitude(notification.getLatitude());
+			restNotification.setLongitude(notification.getLongitude());
 			restNotification.setCity(notification.getCity());
 			restNotification.setZipCode(notification.getZipCode());
 			restNotification.setSubject(notification.getSubject());

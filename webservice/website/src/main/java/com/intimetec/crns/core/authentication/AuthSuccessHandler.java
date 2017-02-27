@@ -81,19 +81,18 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 		//Generate authToke
 		String authToken = null;
         
-		if (currentUser.getDeviceInfo() != null && currentUser.
-				getRole() == UserRole.USER) {		
-			authToken = new BCryptPasswordEncoder().encode(authUser.
-					getUserName() + System.currentTimeMillis());
-			
-	        //Save Device Information
-	        UserDevice userDevice = new UserDevice(authUser, 
-	        		currentUser.getDeviceInfo().getDeviceId(), 
-	        		currentUser.getDeviceInfo().getDeviceType(), 
-	        		currentUser.getDeviceInfo().getDeviceToken(), 
-	        		authToken);
-	        
-	        userDeviceService.save(userDevice);
+		if (currentUser.getDeviceInfo() != null && currentUser.getRole() == UserRole.USER) {
+				authToken = new BCryptPasswordEncoder().encode(authUser.
+						getUserName() + System.currentTimeMillis());
+				
+		        //Save Device Information
+		        UserDevice userDevice = new UserDevice(authUser, 
+		        		currentUser.getDeviceInfo().getDeviceId(), 
+		        		currentUser.getDeviceInfo().getDeviceType(), 
+		        		currentUser.getDeviceInfo().getDeviceToken(), 
+		        		authToken);
+		        
+		        userDeviceService.save(userDevice);
 		}
 		
 		//Generate reponseMessage for Successful Login

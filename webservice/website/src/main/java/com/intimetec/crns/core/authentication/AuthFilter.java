@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intimetec.crns.core.models.CurrentUser;
 import com.intimetec.crns.core.models.User;
+import com.intimetec.crns.core.models.UserRole;
 
 /**
  * @author shiva.dixit
@@ -66,6 +67,11 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 				if (!authUser.isEnabled()) {
 					throw new InternalAuthenticationServiceException(
 							"User Account is locked");
+				}
+				
+				if (loginRequest.getDeviceId() != null && authUser.getUserRole() == UserRole.ADMIN) {
+					throw new InternalAuthenticationServiceException(
+							"Please user Web application for adminitrative purpose.");
 				}
 
 				if (loginRequest.getDeviceId() != null && !loginRequest.
