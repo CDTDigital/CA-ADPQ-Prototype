@@ -14,7 +14,7 @@
 	</parent>
 
 	<build>
-		<finalName>website</finalName>
+		<finalName>ROOT</finalName>
 	</build>
 
 	<dependencies>
