@@ -8,10 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.intimetec.crns.core.models.Notification;
+import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.repository.NotificationRepository;
+import com.intimetec.crns.core.service.notification.mail.MailService;
+import com.intimetec.crns.core.service.user.UserService;
 
 /**
  * @author shiva.dixit
@@ -19,6 +23,11 @@ import com.intimetec.crns.core.repository.NotificationRepository;
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
+	@Autowired
+	private MailService mailService;
+	@Autowired
+	private UserService userService;
+	
 	/**
 	 * To log the application messages.
 	 */
@@ -68,4 +77,14 @@ public class NotificationServiceImpl implements NotificationService {
 		return notificationRepository.save(notification);
 	}
 
+	@Override
+	@Async
+    public void sendNotification(Notification notification){
+		Collection<User> users = userService.getUsersByZipCode(notification.getZipCode());
+		for(User user:users){
+			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendEmail()) {
+				mailService.sendMailToUsers(user, notification);
+			}
+		}
+	}
 }

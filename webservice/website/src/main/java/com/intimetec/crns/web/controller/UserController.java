@@ -188,9 +188,10 @@ public class UserController {
 			UserLocation userLocation = RestObjectToModelObjectMapper.RestLocationToUserLocation(location);
 			userLocation.setUserId(user.getId());
 			userLocation = userLocationService.save(userLocation);
-			restUser.setLocation(RestObjectToModelObjectMapper.UserLocationToRestLocation(userLocation));
 			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 			userService.removeSensitiveInfo(user);
+			restUser = RestObjectToModelObjectMapper.UserToRestUser(user);
+			restUser.setLocation(RestObjectToModelObjectMapper.UserLocationToRestLocation(userLocation));
 			response.put("data", RestObjectToModelObjectMapper.UserToRestUser(user));
 			return response;
 		} catch (InvalidUserException e) {

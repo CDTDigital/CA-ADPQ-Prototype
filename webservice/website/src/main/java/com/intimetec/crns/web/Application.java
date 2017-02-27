@@ -114,7 +114,7 @@ public class Application extends SpringBootServletInitializer {
 	    ApiInfo apiInfo = new ApiInfo("California Residents Notification Service", "Description of APIs.", "API TOS", "Terms of service", new Contact("InTimeTec", "http://intimetec.com/", "shiva.dixit@intimetec.com"), "License of API", "API license URL");
 	    return apiInfo;
 	}
-	@Bean
+	/*@Bean
 	public Integer port() {
 		return SocketUtils.findAvailableTcpPort();
 	}
@@ -130,7 +130,7 @@ public class Application extends SpringBootServletInitializer {
 		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
 		connector.setPort(port());
 		return connector;
-	}
+	}*/
 	
 	
 }

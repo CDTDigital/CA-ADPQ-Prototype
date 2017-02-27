@@ -18,6 +18,6 @@ public class FCMServiceImpl implements FCMService
 	{
 		String url  = "https://fcm.googleapis.com/fcm/send";
 		RestTemplate restTemplate= new RestTemplate();
-		String result = restTemplate.getForObject(url.toString(), String.class);
+	//	String result = restTemplate.
 	}
 }

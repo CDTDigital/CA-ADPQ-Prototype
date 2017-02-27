@@ -20,4 +20,6 @@ public interface NotificationService {
     Collection<Notification> getAll();
 
     Notification save(Notification notification);
+    
+    void sendNotification(Notification notification);
 }

@@ -1,6 +1,5 @@
 package com.intimetec.crns.core.service.notification.mail;
 
-import java.util.Collection;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -31,7 +30,7 @@ public class MailServiceImpl implements MailService
 	}
 	
 	@Async
-	public void sendMailToUsers(Collection<User> users, Notification notification)
+	public void sendMailToUsers(User user, Notification notification)
 	{
 		Properties props = new Properties();
 		props.put("mail.smtp.host", mailConfig.getHost());
@@ -48,24 +47,19 @@ public class MailServiceImpl implements MailService
 				}
 			});
 
-		
-		for(User user:users){
-			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendEmail()) {
-				try {
+		try {
 
-					Message message = new MimeMessage(session);
-					message.setFrom(new InternetAddress("mailConfig.getUserName()"));
-					message.setRecipients(Message.RecipientType.TO,
-							InternetAddress.parse(user.getEmail()));
-					message.setSubject(notification.getSubject());
-					message.setText(notification.getMessage());
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("mailConfig.getUserName()"));
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(user.getEmail()));
+			message.setSubject(notification.getSubject());
+			message.setText(notification.getMessage());
 
-					Transport.send(message);
+			Transport.send(message);
 
-				} catch (MessagingException e) {
-					throw new RuntimeException(e);
-				}
-			}
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }

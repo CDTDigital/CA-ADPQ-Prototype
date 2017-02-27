@@ -26,7 +26,6 @@ import com.intimetec.crns.core.models.UserNotification;
 import com.intimetec.crns.core.restmodels.RestNotification;
 import com.intimetec.crns.core.restmodels.RestUserNotification;
 import com.intimetec.crns.core.service.notification.NotificationService;
-import com.intimetec.crns.core.service.notification.mail.MailService;
 import com.intimetec.crns.core.service.user.UserService;
 import com.intimetec.crns.core.service.usernotification.UserNotificationService;
 import com.intimetec.crns.util.ResponseMessage;
@@ -44,8 +43,6 @@ public class NotificationController {
 	private UserService userService;
 	@Autowired
 	private UserNotificationService userNotificationService;
-	@Autowired
-	private MailService mailService;
 
 	/**
 	 * Saving a notification published by Admin, after saving the same
@@ -63,7 +60,7 @@ public class NotificationController {
 			notification.setSentBy(userService.getUserById(notification.getSentBy().getId()).get());
 			notification = notificationService.save(notification);
 			//Sending mail notification to Users - This will a asynchronous call 
-			mailService.sendMailToUsers(userService.getUsersByZipCode(notification.getZipCode()), notification);
+			notificationService.sendNotification(notification);
 			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 			response.put("data", RestObjectToModelObjectMapper.NotificationToRestNotification(notification));
 			return response;
