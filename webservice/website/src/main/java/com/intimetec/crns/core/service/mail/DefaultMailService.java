@@ -1,4 +1,4 @@
-package com.intimetec.crns.core.mail.services;
+package com.intimetec.crns.core.service.mail;
 
 import java.util.Collection;
 import java.util.Properties;

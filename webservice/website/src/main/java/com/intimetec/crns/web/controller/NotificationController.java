@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.intimetec.crns.core.exceptions.InvalidNotificatioException;
-import com.intimetec.crns.core.mail.services.MailService;
 import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.UserNotification;
 import com.intimetec.crns.core.restmodels.RestNotification;
 import com.intimetec.crns.core.restmodels.RestUserNotification;
+import com.intimetec.crns.core.service.mail.MailService;
 import com.intimetec.crns.core.service.notification.NotificationService;
 import com.intimetec.crns.core.service.user.UserService;
 import com.intimetec.crns.core.service.usernotification.UserNotificationService;
