@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -54,13 +53,10 @@ public class HttpAuthenticationEntryPoint implements AuthenticationEntryPoint {
     		String param = params.nextElement();
         	LOGGER.debug(param, request.getAttribute(param));
     	}
-    	       
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
 		Map<String, Object> responseMap = ResponseMessage.failureResponse(
 				HttpServletResponse.SC_UNAUTHORIZED,
-				authException.getMessage());
+				authException.getMessage(), response);
 
 		PrintWriter writer = response.getWriter();
 		writer.write(mapper.writeValueAsString(responseMap));

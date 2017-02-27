@@ -25,7 +25,7 @@ public class LocationController {
 
 	@RequestMapping(value = "/location", method = RequestMethod.GET)
 	public Map<String, Object> getPostalCode(@RequestParam(value="lat") String latitude,
-			@RequestParam(value="lng") String longitude) {
+			@RequestParam(value="lng") String longitude, HttpServletResponse response) {
 		LOGGER.info("Getting postal code");
 		Map<String, Object> responseMap = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 		try {
@@ -33,7 +33,7 @@ public class LocationController {
 			return responseMap;
 		} catch (InvalidLocationCoordinatesException e) {
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					e.getMessage());
+					e.getMessage(), response);
 		}
 	}
 }

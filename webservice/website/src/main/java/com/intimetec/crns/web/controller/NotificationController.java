@@ -54,19 +54,19 @@ public class NotificationController {
 	 */
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
-	public Map<String, Object> sendNotification(@RequestBody Notification notification) {
+	public Map<String, Object> sendNotification(@RequestBody Notification notification, HttpServletResponse response) {
 		LOGGER.debug("Processing notification to save and send");
 		try {
 			notification.setSentBy(userService.getUserById(notification.getSentBy().getId()).get());
 			notification = notificationService.save(notification);
 			//Sending mail notification to Users - This will a asynchronous call 
 			notificationService.sendNotification(notification);
-			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-			response.put("data", RestObjectToModelObjectMapper.NotificationToRestNotification(notification));
-			return response;
+			Map<String, Object> responseMessage = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+			responseMessage.put("data", RestObjectToModelObjectMapper.NotificationToRestNotification(notification));
+			return responseMessage;
 		} catch (DataIntegrityViolationException e) {
 			LOGGER.warn("Exception occurred when trying to save the notification", e);
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Not valid inputs");
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Not valid inputs", response);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class NotificationController {
 	 */
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public Map<String, Object> getNotifications() {
+	public Map<String, Object> getNotifications(HttpServletResponse response) {
 		LOGGER.debug("Getting all notifications {}");
 		try {
 			ArrayList<RestNotification> notifications = new ArrayList<RestNotification>();
@@ -85,12 +85,12 @@ public class NotificationController {
 				notification.getSentBy().setPassword(null);
 				notifications.add(RestObjectToModelObjectMapper.NotificationToRestNotification(notification));
 			}
-			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-			response.put("data", notifications);
-			return response;
+			Map<String, Object> responseMessage = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+			responseMessage.put("data", notifications);
+			return responseMessage;
 		} catch (Exception e) {
 			LOGGER.warn("Exception occurred when trying to load notifications", e);
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Unable to load notification list");
+			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "Unable to load notification list", response);
 		}
 	}
 
@@ -102,22 +102,22 @@ public class NotificationController {
 	 */
 	@PreAuthorize("@currentUserServiceImpl.canAccessUserByRoles(principal, {'ADMIN', 'USER'})")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Map<String, Object> getNotification(@PathVariable Long id) {
+	public Map<String, Object> getNotification(@PathVariable Long id, HttpServletResponse response) {
 		LOGGER.debug("Getting notification based on ID {}", id);
 		try {
 			Optional<Notification> notification = notificationService.getById(id);
 			if (notification.isPresent()) {
-				Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+				Map<String, Object> responseMessage = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 				notification.get().getSentBy().setPassword(null);
-				response.put("data", RestObjectToModelObjectMapper.NotificationToRestNotification(notification.get()));
-				return response;
+				responseMessage.put("data", RestObjectToModelObjectMapper.NotificationToRestNotification(notification.get()));
+				return responseMessage;
 			} else {
 				throw new InvalidNotificatioException();
 			}
 		} catch (Exception e) {
 			LOGGER.warn("Exception occurred when trying to load notification", e);
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					"Unable to load notification details");
+					"Unable to load notification details", response);
 		}
 	}
 	
@@ -128,20 +128,20 @@ public class NotificationController {
 	 */
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/userNotifications/{id}", method = RequestMethod.GET)
-	public Map<String, Object> getUserNotificationsByUserId(@PathVariable Long id) {
+	public Map<String, Object> getUserNotificationsByUserId(@PathVariable Long id, HttpServletResponse response) {
 		LOGGER.debug("Getting notification based on ID {}", id);
 		try {
 			ArrayList<RestUserNotification> notifications = new ArrayList<RestUserNotification>();
 			for(UserNotification notification: userNotificationService.getUserNotificationsByUserId(id)){
 				notifications.add(RestObjectToModelObjectMapper.UserNotificationToRestUserNotification(notification));
 			}
-			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-			response.put("data", notifications);
-			return response;
+			Map<String, Object> responseMessage = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+			responseMessage.put("data", notifications);
+			return responseMessage;
 		} catch (Exception e) {
 			LOGGER.warn("Exception occurred when trying to load notification", e);
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					"Unable to load notifications");
+					"Unable to load notifications", response);
 		}
 	}
 	
@@ -151,7 +151,7 @@ public class NotificationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/userNotifications", method = RequestMethod.GET)
-	public Map<String, Object> getUserNotifications(HttpServletRequest request) {
+	public Map<String, Object> getUserNotifications(HttpServletRequest request, HttpServletResponse response) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting notifications based on AuthToken {}", authToken);
 		try {
@@ -159,13 +159,13 @@ public class NotificationController {
 			for(UserNotification notification: userNotificationService.getUserNotificationsByAuthToken(authToken)){
 				notifications.add(RestObjectToModelObjectMapper.UserNotificationToRestUserNotification(notification));
 			}
-			Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-			response.put("data", notifications);
-			return response;
+			Map<String, Object> responseMessage = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+			responseMessage.put("data", notifications);
+			return responseMessage;
 		} catch (Exception e) {
 			LOGGER.warn("Exception occurred when trying to load notification", e);
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					"Unable to load notifications");
+					"Unable to load notifications", response);
 		}
 	}
 	
@@ -175,7 +175,7 @@ public class NotificationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/userNotifications/{id}/read", method = RequestMethod.POST)
-	public Map<String, Object> readUserNotifications(HttpServletRequest request, @PathVariable Long id) {
+	public Map<String, Object> readUserNotifications(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Updating notification based on ID and supplied AuthToken {}", authToken);
 		try {
@@ -184,17 +184,17 @@ public class NotificationController {
 				Optional<UserNotification> userNotification  =userNotificationService.getByAuthTokenAndNotificationId(authToken, id);
 				if(userNotification.isPresent()){
 					userNotification.get().setRead(true);
-					Map<String, Object> response = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
-					response.put("data", RestObjectToModelObjectMapper.UserNotificationToRestUserNotification(userNotificationService.save(userNotification.get())));
-					return response;
+					Map<String, Object> responseMessage = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+					responseMessage.put("data", RestObjectToModelObjectMapper.UserNotificationToRestUserNotification(userNotificationService.save(userNotification.get())));
+					return responseMessage;
 				}
 			}
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-						"Supplied notification id is not correct");
+						"Supplied notification id is not correct", response);
 		} catch (Exception e) {
 			LOGGER.warn("Exception occurred when trying to load notification", e);
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
-					e.getMessage());
+					e.getMessage(), response);
 		}
 	}
 }
