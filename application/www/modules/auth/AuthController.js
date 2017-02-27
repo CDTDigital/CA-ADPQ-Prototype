@@ -1,5 +1,5 @@
 angular.module('CRNSCtrl')
-.controller('AuthCtrl', ['$rootScope', '$scope', '$ionicScrollDelegate', '$state', 'AuthServices', 'Notify', 'Constant', function($rootScope, $scope, $ionicScrollDelegate, $state, AuthServices, Notify, Constant) {
+.controller('AuthCtrl', ['$rootScope', '$scope', '$ionicScrollDelegate', '$state', 'AuthServices', 'Notify', 'Constant', 'DeviceService', function($rootScope, $scope, $ionicScrollDelegate, $state, AuthServices, Notify, Constant, DeviceService) {
     'use strict';
     // Open the Forgot password modal
     $scope.resetModels = function() {
@@ -49,12 +49,13 @@ angular.module('CRNSCtrl')
             Notify.errorToaster('Password and Confirm Password are mismatch!');
         } else {
             AuthServices.register($scope.register).then(function(resp) {
+                console.log(resp);
                 if(resp.data && resp.data.responseStatus == 'SUCCESS') {
-                    Notify.successToaster(resp.data.message);
+                    Notify.successToaster('Registration Successful!');
                     $state.go('login');
-                } else {
-                    Notify.errorToaster(resp.data.message);
                 };
+            }, function(resp) {
+                Notify.errorToaster(resp.data.data.message);
             });
         }
     };
@@ -65,16 +66,31 @@ angular.module('CRNSCtrl')
 
     // Perform the login action when the user submits the login form
     $scope.onTapLoginBtn = function() {
-        AuthServices.login($scope.login).then(function(resp) {
-            if(resp.data && resp.data.responseStatus == 'SUCCESS') {
-                $rootScope.loginData = resp.data;
-                window.localStorage.setItem('loginData', angular.toJson($rootScope.loginData));
-                if(!resp.data.accountSetupDone) $state.go('accountSetup');
-                else $state.go('app.dash');
-            } else {
-                Notify.errorToaster(resp.data.message);
-            };
-        });
+        if($scope.login.userName == '' || $scope.login.password == '') {
+            Notify.errorToaster('Please fill Username and Password!');
+        } else {
+            var tmpDeviceInfo = DeviceService.getDeviceInfo();
+            $scope.login.deviceId = tmpDeviceInfo.deviceId;
+            $scope.login.deviceType = tmpDeviceInfo.deviceType;
+            $scope.login.deviceToken = tmpDeviceInfo.deviceToken;
+            AuthServices.login($scope.login).then(function(resp) {
+                if (resp.data && resp.data.responseStatus == 'SUCCESS') {
+                    var tempObj = {
+                        email: resp.data.data.email,
+                        userName: resp.data.data.userName,
+                        authToken: resp.data.authToken,
+                        accountSetupDone: resp.data.data.accountSetupDone,
+                    };
+
+                    $rootScope.loginData = tempObj;
+                    window.localStorage.setItem('loginData', angular.toJson($rootScope.loginData));
+                    if (!$rootScope.loginData.accountSetupDone) $state.go('accountSetup');
+                    else $state.go('app.dash');
+                };
+            }, function() {
+                Notify.errorToaster('Incorrect Username or Password!');
+            });
+        }
     };
 
     $scope.resetModels();

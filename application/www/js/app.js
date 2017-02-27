@@ -1,6 +1,6 @@
 // Ionic CRNS App
-angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstants', 'toaster', 'CRNSPushManager'])
-.run(function($ionicPlatform, $rootScope, Constant, AuthToken, DeviceService, PushNotificationService) {
+angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstants', 'toaster', 'CRNSPushManager', 'CRNSInterceptor'])
+.run(function($ionicPlatform, $rootScope, Constant, AuthToken, DeviceService, PushNotificationService, $ionicLoading) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
     // (remove this to show the accessory bar above the keyboard for form inputs)
@@ -17,7 +17,7 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
 
   // While testing in browser
     if (!window.cordova) {
-        DeviceService.setDeviceInfo('boatapp879803586e6f354212fa50', 'HARISH_LAPTOP');
+        DeviceService.setDeviceInfo('879803586eCRNSAPP6f354212fa50', 'HARISH_LAPTOP');
     }
 
     /* On device ready, init the push sevices */
@@ -35,19 +35,32 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
         AuthToken.setAuthToken(localStorage.getItem('authToken'));
     }
 
-  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       // console.log(toState);
-  });
+    });
 
-  /* Toaster disappear listner */
-  $rootScope.$on('toasterDisappear', function(e) {
-      Constant.IS_TOASTER = true;
-  });
+    $rootScope.$on('httpCallStarted', function(e) {
+        console.log('httpCallStarted');
+        $ionicLoading.show({
+            template: '<ion-spinner icon="spiral"></ion-spinner>'
+        });
+    });
 
-  /* It will go back to previous state */
-  $rootScope.goBack = function() {
-      history.back();
-  };
+
+    $rootScope.$on('httpCallCompleted', function(e) {
+        console.log('httpCallCompleted');
+        $ionicLoading.hide();
+    });
+
+    /* Toaster disappear listner */
+    $rootScope.$on('toasterDisappear', function(e) {
+        Constant.IS_TOASTER = true;
+    });
+
+    /* It will go back to previous state */
+    $rootScope.goBack = function() {
+        history.back();
+    };
 
   /**
    * Call Notification Detail api
@@ -139,7 +152,16 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
     views: {
       'menuview': {
         templateUrl: 'views/settings.html',
-        controller: 'SettingsCtrl'
+        controller: 'SettingsCtrl',
+         resolve: {
+              fetch: function(SettingsServices) {
+                  if (SettingsServices.getCurrentSettings() == undefined) {
+                      return SettingsServices.getSettings().then(function(resp) {
+                          return resp;
+                      });
+                  } else return SettingsServices.getCurrentSettings();
+              }
+         }
       }
     }
   });

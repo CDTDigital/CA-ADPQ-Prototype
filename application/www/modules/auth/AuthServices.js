@@ -18,22 +18,32 @@ angular.module('CRNSSrv')
             $http.defaults.headers.common['authToken']= null;
         };
     }])
-    .factory('AuthServices', ['$http', 'Constant', 'AuthToken', function($http, Constant, AuthToken) {
+    .factory('AuthServices', ['$rootScope', '$http', 'Constant', 'AuthToken', '$q', function($rootScope, $http, Constant, AuthToken, $q) {
         return {
             login: function(paramObj) {
-                var promise = $http.post(Constant.API_URL + 'login', paramObj)
+                $rootScope.$broadcast('httpCallStarted');
+                var defered = $q.defer();
+                $http.post(Constant.API_URL + 'login', paramObj)
                     .then(function(data, status, headers, config) {
+                        $rootScope.$broadcast('httpCallCompleted');
                         AuthToken.setAuthToken(data.data.authToken);
-                        return data;
-                    });
-                return promise;
+                        return defered.resolve(data);
+                    }, function(data, status, headers, config) {
+                        return defered.reject(data);
+                 });
+                return defered.promise;
             },
             register: function(paramObj) {
-                var promise = $http.post(Constant.API_URL + 'register', paramObj)
+                $rootScope.$broadcast('httpCallStarted');
+                var defered = $q.defer();
+                $http.post(Constant.API_URL + 'users/createUser', paramObj)
                     .then(function(data, status, headers, config) {
-                        return data;
-                    });
-                return promise;
+                        $rootScope.$broadcast('httpCallCompleted');
+                        return defered.resolve(data);
+                    }, function(data, status, headers, config) {
+                        return defered.reject(data);
+                });
+                return defered.promise;
             }
         };
     }]);

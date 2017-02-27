@@ -34,7 +34,7 @@
     "angular/controller-as-route": 0,
     "angular/controller-name": [2,"/[A-Z].*Ctrl/"],
     // See http://www.codelord.net/2015/09/24/$q-dot-defer-youre-doing-it-wrong/
-    "angular/deferred": 2,
+    "angular/deferred": 0,
     "angular/definedundefined": 0,
     "angular/di": [2, "array"],
     "angular/di-unused": 2,

@@ -3,13 +3,21 @@ angular.module('CRNSSrv')
         var accountData = {
             firstName: '',
             lastName: '',
-            mobileNumber: '',
-            address: '',
-            trackLocation: true,
-            email: true,
-            sms: true,
-            notification: true,
-            placeId: ''
+            mobileNo: '',
+            location: {
+                addressLine1: '',
+                latitude: '',
+                longitude: '',
+                placeId: '',
+                city: '',
+                zipCode: ''
+            },
+            userNotificationOptions: {
+                liveLocationTracking: false,
+                sendEmail: true,
+                sendSms: true,
+                sendPushNotification: false
+            }
         };
 
         this.setCurrentData = function(data) {
@@ -20,14 +28,19 @@ angular.module('CRNSSrv')
             return accountData;
         };
     }])
-    .factory('AccountServices', ['$http', 'Constant', function($http, Constant) {
+    .factory('AccountServices', ['$rootScope', '$http', 'Constant', '$q', function($rootScope, $http, Constant, $q) {
         return {
             setUpAccount: function(paramObj) {
-                var promise = $http.post(Constant.API_URL + 'setUpAccount', paramObj)
+                $rootScope.$broadcast('httpCallStarted');
+                var defered = $q.defer();
+                $http.post(Constant.API_URL + 'users/setProfile', paramObj)
                     .then(function(data, status, headers, config) {
-                        return data;
-                    });
-                return promise;
+                        $rootScope.$broadcast('httpCallCompleted');
+                        return defered.resolve(data);
+                    }, function(data, status, headers, config) {
+                        return defered.reject(data);
+                });
+                return defered.promise;
             }
         };
     }]);

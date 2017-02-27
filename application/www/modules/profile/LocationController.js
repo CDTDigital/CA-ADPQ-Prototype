@@ -47,7 +47,12 @@ angular.module('CRNSCtrl')
         if (status === google.maps.GeocoderStatus.OK) {
             console.log(results);
             if(results[0].address_components) {
-                var tempObj = {address: results[0].formatted_address, placeId: results[0].place_id};
+                var tempObj = {
+                    address: results[0].formatted_address,
+                    placeId: results[0].place_id,
+                    latitude: results[0].geometry.location.lat(),
+                    longitude: results[0].geometry.location.lng()
+                };
                 GoogleMapService.setLocationAddress(tempObj);
                 $rootScope.goBack();
             }

@@ -286,3 +286,11 @@ input[type="text"], input[type="password"], input[type="number"], input[type="em
 .item-icon-right .icon-accessory {
     font-size: 24px;
 }
+
+.spinner svg g g path {
+    stroke: #fff;
+}
+
+.list-inset .item.item-input input {
+    padding-right: 4px;
+}

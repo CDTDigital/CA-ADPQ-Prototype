@@ -12,7 +12,7 @@
             <li class="item item-toggle settingTrackToggle">
                 Track Location
                 <label class="toggle toggle-balanced sTrackToggle">
-                    <input type="checkbox" ng-model="settings.trackLocation">
+                    <input type="checkbox" ng-model="settings.liveLocationTracking" ng-change="onChangeUpdate()">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
@@ -22,7 +22,7 @@
             <li class="item item-toggle settingTrackToggle">
                 Email
                 <label class="toggle toggle-balanced sTrackToggle">
-                    <input type="checkbox" ng-model="account.email">
+                    <input type="checkbox" ng-model="settings.sendEmail" ng-change="onChangeUpdate()">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
@@ -32,7 +32,7 @@
             <li class="item item-toggle settingTrackToggle">
                 SMS
                 <label class="toggle toggle-balanced sTrackToggle">
-                    <input type="checkbox" ng-model="account.sms">
+                    <input type="checkbox" ng-model="settings.sendSms" ng-change="onChangeUpdate()">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
@@ -43,7 +43,7 @@
             <li class="item item-toggle settingTrackToggle">
                 Notifications
                 <label class="toggle toggle-balanced sTrackToggle">
-                    <input type="checkbox" ng-model="account.notifications">
+                    <input type="checkbox" ng-model="settings.sendPushNotification" ng-change="onChangeUpdate()">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
