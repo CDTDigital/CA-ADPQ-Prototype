@@ -56,7 +56,7 @@ public class UserNotificationOptionsServiceImpl implements UserNotificationOptio
 	@Override
 	public UserNotificationOptions saveNotificationOptionsByUserId(long userId,
 			UserNotificationOptions userNotificationOptions) throws InvalidUserException {
-		if(getById(userId).isPresent()){
+		if(userService.getUserById(userId).isPresent()){
 			userNotificationOptions.setUserId(userId);
 			return save(userNotificationOptions);
 		} else {
