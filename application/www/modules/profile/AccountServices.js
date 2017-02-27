@@ -28,18 +28,19 @@ angular.module('CRNSSrv')
             return accountData;
         };
     }])
-    .factory('AccountServices', ['$rootScope', '$http', 'Constant', function($rootScope, $http, Constant) {
+    .factory('AccountServices', ['$rootScope', '$http', 'Constant', '$q', function($rootScope, $http, Constant, $q) {
         return {
             setUpAccount: function(paramObj) {
                 $rootScope.$broadcast('httpCallStarted');
-                var promise = $http.post(Constant.API_URL + 'users/setProfile', paramObj)
+                var defered = $q.defer();
+                $http.post(Constant.API_URL + 'users/setProfile', paramObj)
                     .then(function(data, status, headers, config) {
                         $rootScope.$broadcast('httpCallCompleted');
-                        return data;
+                        return defered.resolve(data);
                     }, function(data, status, headers, config) {
-                        return data;
-                    });
-                return promise;
+                        return defered.reject(data);
+                });
+                return defered.promise;
             }
         };
     }]);

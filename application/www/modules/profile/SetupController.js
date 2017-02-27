@@ -37,9 +37,9 @@ angular.module('CRNSCtrl')
                 if(resp.data && resp.data.responseStatus == 'SUCCESS') {
                     localStorage.setItem('accountSetup', true);
                     $state.go('app.dash');
-                } else {
-                    Notify.errorToaster(resp.data.message);
                 };
+            }, function(resp) {
+                Notify.errorToaster(resp.data.message);
             });
         }
     };

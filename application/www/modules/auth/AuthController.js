@@ -53,9 +53,9 @@ angular.module('CRNSCtrl')
                 if(resp.data && resp.data.responseStatus == 'SUCCESS') {
                     Notify.successToaster('Registration Successful!');
                     $state.go('login');
-                } else {
-                    Notify.errorToaster(resp.data.data.message);
                 };
+            }, function(resp) {
+                Notify.errorToaster(resp.data.data.message);
             });
         }
     };
@@ -86,9 +86,9 @@ angular.module('CRNSCtrl')
                     window.localStorage.setItem('loginData', angular.toJson($rootScope.loginData));
                     if (!$rootScope.loginData.accountSetupDone) $state.go('accountSetup');
                     else $state.go('app.dash');
-                } else {
-                    Notify.errorToaster('Incorrect Username or Password!');
                 };
+            }, function() {
+                Notify.errorToaster('Incorrect Username or Password!');
             });
         }
     };

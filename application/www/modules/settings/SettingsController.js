@@ -10,7 +10,6 @@ angular.module('CRNSCtrl')
         };
 
         $scope.onChangeUpdate = function() {
-            console.log($scope.settings);
             SettingsServices.setSettings($scope.settings);
         };
     }]);

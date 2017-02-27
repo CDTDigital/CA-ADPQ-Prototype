@@ -35,14 +35,15 @@ angular.module('CRNSSrv')
             },
             register: function(paramObj) {
                 $rootScope.$broadcast('httpCallStarted');
-                var promise = $http.post(Constant.API_URL + 'users/createUser', paramObj)
+                var defered = $q.defer();
+                $http.post(Constant.API_URL + 'users/createUser', paramObj)
                     .then(function(data, status, headers, config) {
                         $rootScope.$broadcast('httpCallCompleted');
-                        return data;
+                        return defered.resolve(data);
                     }, function(data, status, headers, config) {
-                        return data;
-                    });
-                return promise;
+                        return defered.reject(data);
+                });
+                return defered.promise;
             }
         };
     }]);
