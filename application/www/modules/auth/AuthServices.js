@@ -18,19 +18,20 @@ angular.module('CRNSSrv')
             $http.defaults.headers.common['authToken']= null;
         };
     }])
-    .factory('AuthServices', ['$rootScope', '$http', 'Constant', 'AuthToken', function($rootScope, $http, Constant, AuthToken) {
+    .factory('AuthServices', ['$rootScope', '$http', 'Constant', 'AuthToken', '$q', function($rootScope, $http, Constant, AuthToken, $q) {
         return {
             login: function(paramObj) {
                 $rootScope.$broadcast('httpCallStarted');
-                var promise = $http.post(Constant.API_URL + 'login', paramObj)
+                var defered = $q.defer();
+                $http.post(Constant.API_URL + 'login', paramObj)
                     .then(function(data, status, headers, config) {
                         $rootScope.$broadcast('httpCallCompleted');
                         AuthToken.setAuthToken(data.data.authToken);
-                        return data;
+                        return defered.resolve(data);
                     }, function(data, status, headers, config) {
-                        return data;
-                    });
-                return promise;
+                        return defered.reject(data);
+                 });
+                return defered.promise;
             },
             register: function(paramObj) {
                 $rootScope.$broadcast('httpCallStarted');

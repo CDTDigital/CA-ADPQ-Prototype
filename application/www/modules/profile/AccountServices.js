@@ -9,14 +9,14 @@ angular.module('CRNSSrv')
                 latitude: '',
                 longitude: '',
                 placeId: '',
-                city: 'Sacramento',
-                zipCode: '95837'
+                city: '',
+                zipCode: ''
             },
             userNotificationOptions: {
-                liveLocationTracking: true,
+                liveLocationTracking: false,
                 sendEmail: true,
                 sendSms: true,
-                sendPushNotification: true
+                sendPushNotification: false
             }
         };
 

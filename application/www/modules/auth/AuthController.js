@@ -69,9 +69,10 @@ angular.module('CRNSCtrl')
         if($scope.login.userName == '' || $scope.login.password == '') {
             Notify.errorToaster('Please fill Username and Password!');
         } else {
-            $scope.login.deviceId = DeviceService.getDeviceInfo().deviceId;
-            $scope.login.deviceType = DeviceService.getDeviceInfo().deviceType;
-            $scope.login.deviceToken = DeviceService.getDeviceInfo().deviceToken;
+            var tmpDeviceInfo = DeviceService.getDeviceInfo();
+            $scope.login.deviceId = tmpDeviceInfo.deviceId;
+            $scope.login.deviceType = tmpDeviceInfo.deviceType;
+            $scope.login.deviceToken = tmpDeviceInfo.deviceToken;
             AuthServices.login($scope.login).then(function(resp) {
                 if (resp.data && resp.data.responseStatus == 'SUCCESS') {
                     var tempObj = {
@@ -87,8 +88,7 @@ angular.module('CRNSCtrl')
                     else $state.go('app.dash');
                 } else {
                     Notify.errorToaster('Incorrect Username or Password!');
-                }
-                ;
+                };
             });
         }
     };
