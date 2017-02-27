@@ -1,6 +1,5 @@
 package com.intimetec.crns.web;
 
-import org.apache.catalina.connector.Connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,8 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +15,6 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.SocketUtils;
 
 import com.intimetec.crns.core.config.MailConfig;
 import com.intimetec.crns.core.config.google.GoogleApiConfig;
@@ -114,6 +110,7 @@ public class Application extends SpringBootServletInitializer {
 	    ApiInfo apiInfo = new ApiInfo("California Residents Notification Service", "Description of APIs.", "API TOS", "Terms of service", new Contact("InTimeTec", "http://intimetec.com/", "shiva.dixit@intimetec.com"), "License of API", "API license URL");
 	    return apiInfo;
 	}
+	
 	/*@Bean
 	public Integer port() {
 		return SocketUtils.findAvailableTcpPort();
@@ -131,6 +128,4 @@ public class Application extends SpringBootServletInitializer {
 		connector.setPort(port());
 		return connector;
 	}*/
-	
-	
 }
