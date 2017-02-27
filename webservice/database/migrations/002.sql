@@ -66,7 +66,7 @@ create table notification (
 	sent_by INT NOT NULL,
 	subject NVARCHAR(100) NOT NULL, 
 	message NVARCHAR(1000) NOT NULL,
-	city NVARCHAR(100) NOT NULL,
+	city NVARCHAR(100),
 	zip_code NVARCHAR(100) NOT NULL,
     address NVARCHAR(500) NOT NULL,
 	latitude NVARCHAR(30) NOT NULL,
