@@ -1,6 +1,6 @@
 'use strict';
 angular.module('CRNSCtrl')
-.controller('LocationCtrl', ['$scope', 'GoogleMapService', '$rootScope', function($scope, GoogleMapService, $rootScope) {
+.controller('LocationCtrl', ['$scope', 'GoogleMapService', '$rootScope', 'Notify', function($scope, GoogleMapService, $rootScope, Notify) {
     $scope.location = {search: ''};
     $scope.isMapVisible = false;
     $scope.locResults = [];
@@ -10,8 +10,9 @@ angular.module('CRNSCtrl')
         var resComp = document.getElementById('resComponent');
         if (input!='') {
             if($scope.isMapVisible) $scope.isMapVisible = false;
-
-            GoogleMapService.getSearchPredictions(input, $scope.locPredictionsCallback);
+            // For specific California locations.
+            var cInput = input + ' california';
+            GoogleMapService.getSearchPredictions(cInput, $scope.locPredictionsCallback);
             if(resComp != undefined && resComp.childElementCount>0) {
                 resComp.style.display = 'block';
             }
@@ -47,13 +48,25 @@ angular.module('CRNSCtrl')
         if (status === google.maps.GeocoderStatus.OK) {
             console.log(results);
             if(results[0].address_components) {
-                var tempObj = {
-                    address: results[0].formatted_address,
-                    placeId: results[0].place_id,
-                    latitude: results[0].geometry.location.lat(),
-                    longitude: results[0].geometry.location.lng()
-                };
-                GoogleMapService.setLocationAddress(tempObj);
+                var zipCode = '';
+                for(var i=0; i< results[0].address_components.length; i++) {
+                    if(results[0].address_components[i].types[0] == 'postal_code') {
+                        zipCode = results[0].address_components[i].long_name;
+                    }
+                }
+
+                if(zipCode == '') {
+                    Notify.errorToaster('Zip code is not available. Please choose another location!');
+                } else {
+                    var tempObj = {
+                        address: results[0].formatted_address,
+                        placeId: results[0].place_id,
+                        latitude: results[0].geometry.location.lat(),
+                        longitude: results[0].geometry.location.lng(),
+                        zipCode: zipCode
+                    };
+                    GoogleMapService.setLocationAddress(tempObj);
+                }
                 $rootScope.goBack();
             }
         } else {

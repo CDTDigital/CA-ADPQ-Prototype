@@ -80,7 +80,7 @@ angular.module('CRNSSrv')
         this.getLocationAddress = function() {
             var lData = angular.fromJson(localStorage.getItem('locationData'));
             if(lData == undefined || lData == null) {
-                return {address: '', placeId: '', latitude: '', longitude: ''};
+                return {address: '', placeId: '', latitude: '', longitude: '', zipCode: ''};
             } else return lData;
         };
     }]);
