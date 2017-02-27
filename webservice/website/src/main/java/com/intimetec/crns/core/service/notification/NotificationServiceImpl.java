@@ -15,6 +15,7 @@ import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.repository.NotificationRepository;
 import com.intimetec.crns.core.service.notification.mail.MailService;
+import com.intimetec.crns.core.service.notification.pushnotification.fcm.FCMService;
 import com.intimetec.crns.core.service.user.UserService;
 
 /**
@@ -25,6 +26,8 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private FCMService fcmService;
 	@Autowired
 	private UserService userService;
 	
@@ -83,6 +86,9 @@ public class NotificationServiceImpl implements NotificationService {
 		Collection<User> users = userService.getUsersByZipCode(notification.getZipCode());
 		for(User user:users){
 			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendEmail()) {
+				mailService.sendMailToUsers(user, notification);
+			}
+			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendPushNotification()) {
 				mailService.sendMailToUsers(user, notification);
 			}
 		}
