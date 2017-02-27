@@ -5709,3 +5709,11 @@ button.usa-menu-btn:hover div {
 .marginTop100 {
 	margin-top: 100px;
 }
+
+.form-signin input.ng-invalid.ng-touched {
+	border: 2px solid red;
+}
+
+.sendForm input.ng-invalid.ng-touched {
+	border: 2px solid red;
+}

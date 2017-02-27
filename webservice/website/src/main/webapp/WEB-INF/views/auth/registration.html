@@ -1,0 +1,57 @@
+<div class="container main-body-content">
+    <toaster-container toaster-options="{'time-out': 1000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        <h3>Registration</h3>
+        <div class="sendForm clearfix">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+                <h4>Personal Information</h4>
+                <div class="form-group row">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                        <input class="form-control" type="text" ng-model="register.firstName" id="firstName" placeholder="First Name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                        <input class="form-control" type="text" ng-model="register.lastName" id="lastName" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                        <input class="form-control"  type="email" ng-model="register.email" id="email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                        <input class="form-control" type="text" id="location" placeholder="Location" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                        <input class="form-control" type="text" ng-model="register.mobileNo" id="mobileNo" placeholder="mobile" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+                <h4>Login Information</h4>
+                <div class="form-group row">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                        <input class="form-control" type="text" ng-model="register.userName" id="userName" placeholder="Username" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                        <input class="form-control" type="password" ng-model="register.password" id="password" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                        <input class="form-control" type="password" ng-model="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-lg-5 noSpace marginTop100">
+                <button type="submit" class="buttonLink btn btn-primary pull-right" ng-click="submit()">Register</button>
+            </div>
+        </div>
+    </div>
+</div>
