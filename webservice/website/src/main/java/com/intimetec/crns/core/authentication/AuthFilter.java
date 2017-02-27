@@ -75,22 +75,6 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 							loginRequest.getDeviceType(), 
 							loginRequest.getDeviceToken());
 				}
-				/*
-				 * if(authUser.getUserRole().equals(UserRole.USER)) {
-				 * ((CurrentUser)authentication.getPrincipal()).setDeviceInfo(
-				 * loginRequest.getDeviceId(), loginRequest.getDeviceType(),
-				 * loginRequest.getDeviceToken()); } else { LOGGER.info(
-				 * "Invalid Login: User Role - "+authUser.getUserRole()+
-				 * ", Device ID: " +loginRequest.getDeviceId()); throw new
-				 * InternalAuthenticationServiceException(
-				 * "Invalid login request"); } } else
-				 * if(!authUser.getUserRole().equals(UserRole.ADMIN)) {
-				 * LOGGER.info("Invalid Login: User Role - "
-				 * +authUser.getUserRole()+", Device ID: "
-				 * +loginRequest.getDeviceId()); throw new
-				 * InternalAuthenticationServiceException(
-				 * "Invalid login request"); }
-				 */
 				return authentication;
 			}
 		} catch (IOException ex) {

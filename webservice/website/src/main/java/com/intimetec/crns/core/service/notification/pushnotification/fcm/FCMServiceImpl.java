@@ -16,7 +16,7 @@ public class FCMServiceImpl implements FCMService
 	@Async
 	public void sendNotification(Collection<UserDevice> devices, Notification notification)
 	{
-		String url  = "https://fcm.googleapis.com/fcm/send";
+		String url  = "";
 		RestTemplate restTemplate= new RestTemplate();
 	//	String result = restTemplate.
 	}

@@ -7,22 +7,59 @@ import java.util.Date;
  * @author shiva.dixit
  */
 public class RestNotification {
+	/**
+	 * Id of the notification.
+	 */
 	private long id;
 	
+	/**
+	 * User who will be sending the notification.
+	 */
 	private User sentBy;
 	
+	/**
+	 * Subject of the notification.
+	 */
 	private String subject;
 
+	/**
+	 * Message to be sent in the notification.
+	 */
 	private String message;
 	
+	/**
+	 * City where the notification will be sent.
+	 */
 	private String city;
 	
+	/**
+	 * Zip code on whose basis the notification will be sent.
+	 */
 	private String zipCode;
 	
+	/**
+	 * Address where the notification will be sent.
+	 */
 	private String address;
+	
+	/**
+	 * Latitude of the User's location.
+	 */
+	private String latitude;
 
+	/**
+	 * Longitude of the User's location.
+	 */
+	private String longitude;
+
+	/**
+	 * Time when the notification will be sent.
+	 */
 	private Date sentTime;
 	
+	/**
+	 * The Date and time till when the notification is valid.
+	 */
 	private Date validThrough;
 
 	public long getId() {

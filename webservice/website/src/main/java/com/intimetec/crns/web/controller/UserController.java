@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -476,5 +478,10 @@ public class UserController {
 		} catch (InvalidAuthTokenException e) {
 			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST, "User Location data not found", response);
 		}
+	}
+	
+	@RequestMapping(value = "checkUserLogin", method = RequestMethod.GET)
+	public Authentication getLoggedInUser(){
+		return SecurityContextHolder.getContext().getAuthentication();
 	}
 }
