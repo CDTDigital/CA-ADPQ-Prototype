@@ -21,18 +21,18 @@
             </label>
 
             <label class="item item-input extendInput marginTop5">
-                <input type="number" placeholder="Mobile Number" ng-model="account.mobileNumber">
+                <input type="number" placeholder="Mobile Number" ng-model="account.mobileNo">
             </label>
 
             <div class="registerLabel lBlueFontClr marginTop5">Location</div>
-            <div class="locationLabel" ng-model='account.address' ng-if="currentAddress.address != ''">{{account.address}}</div>
-            <div class="marginTop5" ng-if="currentAddress.address == ''">
+            <div class="locationLabel" ng-model='account.location.addressLine1' ng-if="account.location.addressLine1 != ''">{{account.location.addressLine1}}</div>
+            <div class="marginTop5" ng-if="account.location.addressLine1 == ''">
                 <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
                     Add
                 </button>
             </div>
 
-            <div class="row zeroPadding marginTop5"  ng-if="currentAddress.address != ''">
+            <div class="row zeroPadding marginTop5"  ng-if="account.location.addressLine1 != ''">
                 <div class="col zeroPadding alignRight btnMarRight">
                     <button class="button button-full button-assertive delBtn" ng-click="onTapDeleteLocation()">
                         Delete
@@ -49,7 +49,7 @@
             <li class="item item-toggle trackToggleItem">
                 Current Location
                 <label class="toggle toggle-balanced trackToggle">
-                    <input type="checkbox" ng-model="account.trackLocation">
+                    <input type="checkbox" ng-model="account.userNotificationOptions.liveLocationTracking">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
@@ -57,9 +57,9 @@
             </li>
 
             <div class="registerLabel lBlueFontClr marginTop5">Options for Notification</div>
-            <ion-checkbox ng-model="account.email">Email</ion-checkbox>
-            <ion-checkbox ng-model="account.sms">SMS</ion-checkbox>
-            <ion-checkbox ng-model="account.notification">Notifications</ion-checkbox>
+            <ion-checkbox ng-model="account.userNotificationOptions.sendEmail">Email</ion-checkbox>
+            <ion-checkbox ng-model="account.userNotificationOptions.sendSms">SMS</ion-checkbox>
+            <ion-checkbox ng-model="account.userNotificationOptions.sendPushNotification">Notifications</ion-checkbox>
 
 
         </div>

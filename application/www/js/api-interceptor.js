@@ -2,7 +2,7 @@
  * Created by Harish Patidar on 2/16/17.
  */
 // Intercepting HTTP calls with AngularJS.
-angular.module('CRNS.Interceptor', [])
+angular.module('CRNSInterceptor')
     .config(function($provide, $httpProvider) {
         // Intercept http calls.
         $provide.factory('CRNSInterceptor', function($q, $rootScope) {
@@ -27,6 +27,7 @@ angular.module('CRNS.Interceptor', [])
 
                 // On response failture
                 responseError: function(rejection) {
+                    $rootScope.$broadcast('httpCallCompleted');
                     var defer = $q.defer();
                     console.log(rejection);
 

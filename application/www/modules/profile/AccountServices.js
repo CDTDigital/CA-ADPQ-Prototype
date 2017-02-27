@@ -3,13 +3,21 @@ angular.module('CRNSSrv')
         var accountData = {
             firstName: '',
             lastName: '',
-            mobileNumber: '',
-            address: '',
-            trackLocation: true,
-            email: true,
-            sms: true,
-            notification: true,
-            placeId: ''
+            mobileNo: '',
+            location: {
+                addressLine1: '',
+                latitude: '',
+                longitude: '',
+                placeId: '',
+                city: 'Sacramento',
+                zipCode: '95837'
+            },
+            userNotificationOptions: {
+                liveLocationTracking: true,
+                sendEmail: true,
+                sendSms: true,
+                sendPushNotification: true
+            }
         };
 
         this.setCurrentData = function(data) {
@@ -20,11 +28,15 @@ angular.module('CRNSSrv')
             return accountData;
         };
     }])
-    .factory('AccountServices', ['$http', 'Constant', function($http, Constant) {
+    .factory('AccountServices', ['$rootScope', '$http', 'Constant', function($rootScope, $http, Constant) {
         return {
             setUpAccount: function(paramObj) {
-                var promise = $http.post(Constant.API_URL + 'setUpAccount', paramObj)
+                $rootScope.$broadcast('httpCallStarted');
+                var promise = $http.post(Constant.API_URL + 'users/setProfile', paramObj)
                     .then(function(data, status, headers, config) {
+                        $rootScope.$broadcast('httpCallCompleted');
+                        return data;
+                    }, function(data, status, headers, config) {
                         return data;
                     });
                 return promise;
