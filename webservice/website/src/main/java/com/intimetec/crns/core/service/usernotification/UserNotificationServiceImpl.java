@@ -65,7 +65,7 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 	@Override
 	public Collection<UserNotification> getUserNotificationsByUserId(long userId) throws InvalidUserException {
 		LOGGER.debug("Getting user Notifications by user id={}",userId);
-		return userNotificationRepository.findNotificationsByUserId(userId);
+		return userNotificationRepository.getByUserId(userId);
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class UserNotificationServiceImpl implements UserNotificationService {
     	if(user.isPresent()){
 			return getUserNotificationsByUserId(user.get().getId());
 		} else {
-			throw new InvalidAuthTokenException("Invalid User data");
+			throw new InvalidAuthTokenException("Invalid Auth Token");
 		}
 	}
 	

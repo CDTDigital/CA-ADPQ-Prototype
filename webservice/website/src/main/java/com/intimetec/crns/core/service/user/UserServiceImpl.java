@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService {
         if(userById.isPresent()) {
         	userById.get().setFirstName(user.getFirstName());
         	userById.get().setLastName(user.getLastName());
+        	userById.get().setMobileNo(user.getMobileNo());
         	if(user.getPassword()!= null) {
         		userById.get().setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         	}
@@ -104,6 +105,7 @@ public class UserServiceImpl implements UserService {
         if(userById.isPresent()) {
         	userById.get().setFirstName(user.getFirstName());
         	userById.get().setLastName(user.getLastName());
+        	userById.get().setMobileNo(user.getMobileNo());
         	if(user.getPassword()!= null) {
         		userById.get().setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         	}

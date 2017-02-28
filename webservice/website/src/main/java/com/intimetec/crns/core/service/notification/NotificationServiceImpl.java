@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 
 import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.User;
+import com.intimetec.crns.core.models.UserNotification;
 import com.intimetec.crns.core.repository.NotificationRepository;
 import com.intimetec.crns.core.service.notification.mail.MailService;
 import com.intimetec.crns.core.service.notification.pushnotification.fcm.FCMService;
 import com.intimetec.crns.core.service.user.UserService;
+import com.intimetec.crns.core.service.usernotification.UserNotificationService;
 
 /**
  * @author shiva.dixit
@@ -30,6 +32,8 @@ public class NotificationServiceImpl implements NotificationService {
 	private FCMService fcmService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserNotificationService userNotificationService;
 	
 	/**
 	 * To log the application messages.
@@ -85,6 +89,7 @@ public class NotificationServiceImpl implements NotificationService {
     public void sendNotification(Notification notification){
 		Collection<User> users = userService.getUsersByZipCode(notification.getZipCode());
 		for(User user:users){
+			userNotificationService.save(new UserNotification(user.getId(), notification));
 			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendEmail()) {
 				mailService.sendMailToUsers(user, notification);
 			}

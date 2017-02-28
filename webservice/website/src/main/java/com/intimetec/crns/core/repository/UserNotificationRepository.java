@@ -23,9 +23,9 @@ JpaRepository<UserNotification, Long> {
     Collection<UserNotification> getByNotificationId(long notificationId);
     Optional<UserNotification> getByUserIdAndNotificationId(long userId, long id);
     
-    @Query(value = "Select n From UserNotification n where n.id IN ("
-    		+ "Select un.notification.id from UserNotification un where "
+   /* @Query(value = "Select n From UserNotification n where n.id IN ("
+    		+ "Select un.NotificationId from UserNotification un where "
     		+ "un.userId =?1 ) ")
-    Collection<UserNotification> findNotificationsByUserId(long userId);
+    Collection<UserNotification> findNotificationsByUserId(long userId);*/
     
 }

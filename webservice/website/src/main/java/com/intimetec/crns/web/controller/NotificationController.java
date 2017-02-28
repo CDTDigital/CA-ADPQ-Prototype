@@ -184,6 +184,7 @@ public class NotificationController {
 				Optional<UserNotification> userNotification  =userNotificationService.getByAuthTokenAndNotificationId(authToken, id);
 				if(userNotification.isPresent()){
 					userNotification.get().setRead(true);
+					userNotificationService.save(userNotification.get());
 					Map<String, Object> responseMessage = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
 					responseMessage.put("data", RestObjectToModelObjectMapper.UserNotificationToRestUserNotification(userNotificationService.save(userNotification.get())));
 					return responseMessage;
