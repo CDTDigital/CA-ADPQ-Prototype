@@ -3,7 +3,6 @@ package com.intimetec.crns.core.restmodels;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.intimetec.crns.core.models.UserNotificationOptions;
 import com.intimetec.crns.core.models.UserRole;
 
@@ -28,7 +27,6 @@ public class RestUser {
 
 	private boolean enabled;
 
-	@JsonIgnore
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 	
