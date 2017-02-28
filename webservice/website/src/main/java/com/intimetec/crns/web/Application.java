@@ -36,10 +36,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAutoConfiguration
 @EnableSwagger // Enable swagger 1.2 spec
 @EnableSwagger2 // Enable swagger 2.0 spec
-@PropertySources({ @PropertySource(value = "classpath:/core/application.properties", name = "application"),
-		@PropertySource(value = "classpath:/config/override.properties", name = "override1"),
-		@PropertySource(value = "classpath:/environments/${environment.active}.properties"),
-		@PropertySource(value = "classpath:/config/override.properties", name = "override2") })
+@PropertySources({ @PropertySource(value = 
+"classpath:/core/application.properties", name = "application"),
+		@PropertySource(value = "classpath:/config/override.properties", 
+		name = "override1"),
+		@PropertySource(value = "classpath:/environments/"
+				+ "${environment.active}.properties"),
+		@PropertySource(value = "classpath:/config/"
+				+ "override.properties", name = "override2") })
 @EnableJpaRepositories("com.intimetec.crns.core.repository")
 @EntityScan("com.intimetec.crns.core.models") 
 @EnableAsync
@@ -61,42 +65,79 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * context/annotation/PropertySource.html
  */
 public class Application extends SpringBootServletInitializer {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+	/**
+	 * To log the application messages. 
+	 */
+	private static final Logger LOGGER = 
+			LoggerFactory.getLogger(Application.class);
 	
+	/**
+	 * URL of the Google API. 
+	 */
 	@Value("${google.api.url}")
 	private String googleApiUrl;
 	
+	/**
+	 * Key of the Google API . 
+	 */
 	@Value("${google.api.apikey}")
 	private String googleApiKey;
 	
+	/**
+	 * The mail host. 
+	 */
 	@Value("${spring.mail.host}")
 	private String mailHost;
 	
+	/**
+	 * Port of the Mail. 
+	 */
 	@Value("${spring.mail.port}")
 	private String mailPort;
 	
+	/**
+	 * User name of the mail. 
+	 */
 	@Value("${spring.mail.username}")
 	private String mailUserName;
 	
+	/**
+	 * Password of the mail. 
+	 */
 	@Value("${spring.mail.password}")
 	private String mailPassword;
 	
+	/**
+	 * @return configurations of the Google API.
+	 */
 	@Bean
-	public GoogleApiConfig getGoogleApiConfig(){
+	public GoogleApiConfig getGoogleApiConfig() {
 		return new GoogleApiConfig(googleApiUrl, googleApiKey);
 	}
 	
+	/**
+	 * @return the mail configurations.
+	 */
 	@Bean
-	public MailConfig getMailConfig(){
+	public MailConfig getMailConfig() {
 		return new MailConfig(mailHost, mailPort, mailUserName, mailPassword);
 	}
 
-	public static void main(String[] args) throws Exception {
-		LOGGER.debug("Admin credentials: demo.crns@gmail.com/crnsadmin ["+new BCryptPasswordEncoder().encode("crnsadmin")+"]");
-		LOGGER.debug("User credentials: crns.demouser@gmail.com/crnsuser ["+new BCryptPasswordEncoder().encode("crnsuser")+"]");
+	/**
+	 * @param args       the argument.
+	 * @throws Exception If any exception occurred.
+	 */
+	public static void main(final String[] args) throws Exception {
+		LOGGER.debug("Admin credentials: demo.crns@gmail.com/crnsadmin "
+				+ "[" + new BCryptPasswordEncoder().encode("crnsadmin") + "]");
+		LOGGER.debug("User credentials: crns.demouser@gmail.com/crnsuser "
+				+ "[" + new BCryptPasswordEncoder().encode("crnsuser") + "]");
 		SpringApplication.run(Application.class, args);
 	}
 	
+	/**
+	 * Docket bean to control the endpoints exposed by Swagger.
+	 */
 	@Bean
 	public Docket api() {
 	    return new Docket(DocumentationType.SWAGGER_2).select()
@@ -106,8 +147,16 @@ public class Application extends SpringBootServletInitializer {
 	            .apiInfo(apiInfo());
 	}
 
+	/**
+	 * {@code ApiInfo} class that contains custom information about the API.
+	 * @return apiInfo.
+	 */
 	private ApiInfo apiInfo() {
-	    ApiInfo apiInfo = new ApiInfo("California Residents Notification Service", "Description of APIs.", "API TOS", "Terms of service", new Contact("InTimeTec", "http://intimetec.com/", "shiva.dixit@intimetec.com"), "License of API", "API license URL");
+	    ApiInfo apiInfo = new ApiInfo("California Residents Notification"
+	    		+ " Service", "Description of APIs.", "API TOS", 
+	    		"Terms of service", new Contact("InTimeTec", 
+	    		"http://intimetec.com/", "shiva.dixit@intimetec.com"),
+	    		"License of API", "API license URL");
 	    return apiInfo;
 	}
 	
@@ -118,13 +167,15 @@ public class Application extends SpringBootServletInitializer {
 
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
-		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
+		TomcatEmbeddedServletContainerFactory tomcat = 
+				new TomcatEmbeddedServletContainerFactory();
 		tomcat.addAdditionalTomcatConnectors(createStandardConnector());
 		return tomcat;
 	}
 
 	private Connector createStandardConnector() {
-		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+		Connector connector = new Connector(
+				"org.apache.coyote.http11.Http11NioProtocol");
 		connector.setPort(port());
 		return connector;
 	}*/

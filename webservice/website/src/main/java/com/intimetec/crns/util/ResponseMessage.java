@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.intimetec.crns.util;
 
 import java.util.HashMap;
@@ -16,14 +13,26 @@ import org.springframework.http.MediaType;
  *
  */
 public class ResponseMessage {
-	public static Map<String, Object> successResponse(int statusCode){
+	
+	/**
+	 * @param statusCode the status code.
+	 * @return Returns the success response message.
+	 */
+	public static Map<String, Object> successResponse(final int statusCode) {
 		Map<String, Object> responseMap = new LinkedHashMap<String, Object>();
 		responseMap.put("responseStatus", "SUCCESS");
 		responseMap.put("statusCode", statusCode);
 		return responseMap;
 	}
 	
-	public static Map<String, Object> failureResponse(int statusCode, String message, HttpServletResponse response){
+	/**
+	 * @param statusCode the status code.
+	 * @param message    the response message.
+	 * @param response   the HTTP servlet response.
+	 * @return Returns the failure response message.
+	 */
+	public static Map<String, Object> failureResponse(final int statusCode, 
+			final String message, final HttpServletResponse response) {
 		Map<String, Object> responseMap = new LinkedHashMap<String, Object>();
 		responseMap.put("responseStatus", "FAILURE");
 		responseMap.put("statusCode", statusCode);

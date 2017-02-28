@@ -22,10 +22,19 @@ import com.intimetec.crns.core.repository.UserLocationRepository;
 import com.intimetec.crns.core.service.userdevice.UserDeviceService;
 import com.intimetec.crns.util.Utils;
 
+/**
+ * Implementation class for {@link UserLocationService}.
+ * @author In Time Tec
+ */
+
 @Service
 public class UserLocationServiceImpl implements UserLocationService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserLocationServiceImpl.class);
+	/**
+	 * To log the application messages. 
+	 */
+	private static final Logger LOGGER = 
+			LoggerFactory.getLogger(UserLocationServiceImpl.class);
 	@Autowired
 	private UserLocationRepository userLocationRepository;
 	@Autowired
@@ -86,7 +95,6 @@ public class UserLocationServiceImpl implements UserLocationService {
 
 	@Override
 	public UserLocation save(UserLocation userLocation) {
-		System.out.println("Location to save: "+userLocation);
 		return userLocationRepository.save(userLocation);
 	}
 
@@ -158,7 +166,7 @@ public class UserLocationServiceImpl implements UserLocationService {
 				  latitude = geometryNode.get("lat").asText();
 				  longitude = geometryNode.get("lng").asText();
 			  }
-			  location = new UserLocation(stateShortName, county, route, streetNumber, postalCode, cityName, latitude, longitude, placeId);
+			  location = new UserLocation(route, streetNumber, postalCode, cityName, latitude, longitude, placeId);
 		  }
 		  else {
 			  throw new InvalidLocationCoordinatesException("Invalid location coordinates.");

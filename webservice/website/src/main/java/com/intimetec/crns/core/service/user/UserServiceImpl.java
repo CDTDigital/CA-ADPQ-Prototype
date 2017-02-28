@@ -42,7 +42,6 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public Optional<User> getUserByUserName(String userName) {
-        System.out.println("Getting user by username={}"+ userName);
         LOGGER.debug("Getting user by username={}"+ userName);
         Optional<User> user= userRepository.findOneByUserName(userName);
        return user;
@@ -100,8 +99,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(String authToken, User user) throws InvalidUserException, InvalidAuthTokenException {
 		Optional<User> userById = getValidUserForAuthToken(authToken);
-		System.out.println("user from setProfile: "+user);
-		System.out.println("userById: "+userById);
         if(userById.isPresent()) {
         	userById.get().setFirstName(user.getFirstName());
         	userById.get().setLastName(user.getLastName());

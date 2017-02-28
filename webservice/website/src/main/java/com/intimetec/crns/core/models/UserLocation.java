@@ -234,8 +234,19 @@ public class UserLocation {
 
 	}
 	
-	public UserLocation(String stateShortName, String county, String route, String streetNumber, String zipCode,
-			String cityName, String lat, String lng, String placeId) {
+	/**
+	 * Creating object of the class {@code UserLocation}.
+	 * @param streetNumber    the address Line1 of the User.
+	 * @param route           the address Line2 of the User.
+	 * @param cityName 	      the city of the User.
+	 * @param zipCode         the zip code of the User.
+	 * @param lat             the latitude of the User's location.
+	 * @param lng             the longitude of the User's location.
+	 * @param placeId         the place id of the User's location.
+	 */
+	public UserLocation(final String streetNumber, final String route, 
+			final String cityName, final String zipCode, final String lat, 
+			final String lng, final String placeId) {
 		this.addressLine1 = streetNumber;
 		this.addressLine2 = route;
 		this.city = cityName;

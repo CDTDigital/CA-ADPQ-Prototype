@@ -54,7 +54,6 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 				ObjectMapper mapper = new ObjectMapper();
 				LoginRequest loginRequest = mapper.readValue(parsedReq, 
 						LoginRequest.class);
-				System.out.println("Login Request: " + loginRequest);
 				LOGGER.debug("Login Request: " + loginRequest);
 				request.getSession().setAttribute("loginRequest", loginRequest);
 				Authentication authentication = getAuthenticationManager()

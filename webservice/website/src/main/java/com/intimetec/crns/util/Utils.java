@@ -1,9 +1,16 @@
 package com.intimetec.crns.util;
 
+/**
+ * @author In Time Tec
+ */
 public class Utils {
 
-	public static String removeParenthesis(String str)
-	{
+	/**
+	 * Method to remove the parenthesis.
+	 * @param str   the String.
+	 * @return      the resultant String.
+	 */
+	public static String removeParenthesis(final String str) {
 		return str.replaceAll("[\\(\\)\\[\\]\\{\\}\"]", "");
 	}
 }

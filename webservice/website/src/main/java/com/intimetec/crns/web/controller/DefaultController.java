@@ -6,13 +6,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * @author shiva.dixit
+ */
 @Controller
 @RequestMapping(value = "/")
 public class DefaultController {
-	
+
+	/**
+	 * @return the default index.html page.
+	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
-    @ApiOperation(value = "Get Login Page", notes = "Default page for application that is Login Page")
-	String index() {
+	@ApiOperation(value = "Get Login Page", notes = 
+	"Default page for application that is Login Page")
+	final String index() {
 		return "index";
 	}
 }

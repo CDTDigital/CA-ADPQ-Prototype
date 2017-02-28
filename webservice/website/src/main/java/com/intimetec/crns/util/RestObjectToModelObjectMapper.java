@@ -21,7 +21,11 @@ import com.intimetec.crns.core.restmodels.RestUserNotification;
  */
 public class RestObjectToModelObjectMapper {
 
-	public static User RestUserToUser(RestUser restUser) {
+	/**
+	 * @param restUser the rest user.
+	 * @return Returns the model object.
+	 */
+	public static User restUserToUser(final RestUser restUser) {
 		User user = new User();
 		if (user != null) {
 			user.setId(restUser.getId());
@@ -32,7 +36,8 @@ public class RestObjectToModelObjectMapper {
 			user.setUserName(restUser.getUserName());
 			user.setPassword(restUser.getPassword());
 			user.setUserRole(restUser.getUserRole());
-			user.setUserNotificationOptions(restUser.getUserNotificationOptions());
+			user.setUserNotificationOptions(restUser.
+					getUserNotificationOptions());
 		}
 		return user;
 	}
@@ -50,7 +55,8 @@ public class RestObjectToModelObjectMapper {
 			restUser.setUserRole(user.getUserRole());
 			restUser.setEnabled(user.isEnabled());
 			restUser.setAccountSetupDone();
-			restUser.setUserNotificationOptions(user.getUserNotificationOptions());
+			restUser.setUserNotificationOptions(user.
+					getUserNotificationOptions());
 		}
 		return restUser;
 	}
@@ -107,7 +113,8 @@ public class RestObjectToModelObjectMapper {
 			restNotification.setSubject(notification.getSubject());
 			restNotification.setMessage(notification.getMessage());
 			if(notification.getSentBy()!=null) {
-				restNotification.setUserInfo(notification.getSentBy().getFirstName(), notification.getSentBy().getLastName(), notification.getSentBy().getEmail());
+				restNotification.setUserInfo(notification.getSentBy().getFirstName(), 
+						notification.getSentBy().getLastName(), notification.getSentBy().getEmail());
 			}
 			restNotification.setSentTime(notification.getSentTime());
 			restNotification.setValidThrough(notification.getValidThrough());

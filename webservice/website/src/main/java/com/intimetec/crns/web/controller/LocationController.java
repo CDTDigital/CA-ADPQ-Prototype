@@ -16,23 +16,46 @@ import com.intimetec.crns.core.exceptions.InvalidLocationCoordinatesException;
 import com.intimetec.crns.core.service.userLocation.UserLocationService;
 import com.intimetec.crns.util.ResponseMessage;
 
+/**
+ * @author shiva.dixit
+ */
 @RestController
 public class LocationController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(LocationController.class);
+	/**
+	 * To log the application messages. 
+	 */
+	private static final Logger LOGGER = 
+			LoggerFactory.getLogger(LocationController.class);
+	
+	/**
+	 * Instance of the class {@code UserLocationService}. 
+	 */
 	@Autowired
 	private UserLocationService userlocationService;
 
+	/**
+	 * Instance of the class {@code UserLocationService}. 
+	 * @param latitude  the latitude of the location.
+	 * @param longitude the longitude of the location.
+	 * @param response  the HTTP response.
+	 * @return returns  the response.
+	 */
 	@RequestMapping(value = "/location", method = RequestMethod.GET)
-	public Map<String, Object> getPostalCode(@RequestParam(value="lat") String latitude,
-			@RequestParam(value="lng") String longitude, HttpServletResponse response) {
+	public final Map<String, Object> getPostalCode(@RequestParam(
+			value = "lat") final String latitude,
+			@RequestParam(value = "lng") final String longitude, 
+			final HttpServletResponse response) {
 		LOGGER.info("Getting postal code");
-		Map<String, Object> responseMap = ResponseMessage.successResponse(HttpServletResponse.SC_OK);
+		Map<String, Object> responseMap = ResponseMessage.successResponse(
+				HttpServletResponse.SC_OK);
 		try {
-			responseMap.put("data", userlocationService.getLocationDetails(latitude, longitude));
+			responseMap.put("data", userlocationService.getLocationDetails(
+					latitude, longitude));
 			return responseMap;
 		} catch (InvalidLocationCoordinatesException e) {
-			return ResponseMessage.failureResponse(HttpServletResponse.SC_BAD_REQUEST,
+			return ResponseMessage.failureResponse(
+					HttpServletResponse.SC_BAD_REQUEST,
 					e.getMessage(), response);
 		}
 	}
