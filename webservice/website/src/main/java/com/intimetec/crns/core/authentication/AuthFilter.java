@@ -34,8 +34,8 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 	       getLogger(AuthFilter.class);
 
 	@Override
-	public final Authentication attemptAuthentication(final HttpServletRequest 
-			request, final HttpServletResponse response)
+	public final Authentication attemptAuthentication(HttpServletRequest 
+			request, HttpServletResponse response)
 			throws AuthenticationException {
 		if (!request.getMethod().equals("POST")) {
 			throw new AuthenticationServiceException(
@@ -93,7 +93,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 	@Autowired
 	@Override
 	public final void setAuthenticationManager(
-			 final AuthenticationManager authenticationManager) {
+			 AuthenticationManager authenticationManager) {
 		super.setAuthenticationManager(authenticationManager);
 	}
 }

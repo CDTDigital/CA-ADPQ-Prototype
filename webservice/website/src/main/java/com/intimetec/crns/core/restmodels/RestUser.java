@@ -236,19 +236,16 @@ public class RestUser {
 		return this.accountSetupDone;
 	}
 	
-	/**
-	 * Method for the account set up.
-	 */
 	public final void setAccountSetupDone() {
 		this.accountSetupDone = (
 				userNotificationOptions == null) ? false : true;
 	}
 	
 	/**
-	 * Creating object of the class{@code RestUser}.
+	 * Method for the account set up.
 	 */
-	public RestUser() {
-		setAccountSetupDone();
+	public boolean setAccountSetupDone(boolean accountSetupDone){
+		return this.accountSetupDone = accountSetupDone;
 	}
 
 	@Override

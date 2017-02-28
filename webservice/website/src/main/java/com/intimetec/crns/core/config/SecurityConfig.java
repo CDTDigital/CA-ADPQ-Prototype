@@ -102,14 +102,17 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 	@Override
-    protected void configure(final HttpSecurity http) throws Exception {  
+    protected void configure(HttpSecurity http) throws Exception {  
 		http.csrf().disable()
         .authorizeRequests()
         .antMatchers("/**", "/users/signup").permitAll()
-        .antMatchers("/*", "/lib/**", "/fonts/**", "/images/**", "/css/**", "/js/**", "/swagger-ui.html").permitAll()
+        .antMatchers("/swagger-ui.html", "/webjars/**").fullyAuthenticated()
+        .antMatchers("/view/**", "/lib/**", "/fonts/**", "/images/**", "/css/**", "/js/**", "/swagger-ui.html").permitAll()
         .antMatchers("/images/favicon.ico").permitAll()
         .antMatchers("/login").permitAll()
         .anyRequest().authenticated()
+        .and()
+        .cors()
         .and()
         .exceptionHandling()
         .authenticationEntryPoint(authenticationEntryPoint)
@@ -133,13 +136,13 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 	
 	@Override
-	public void configure(final AuthenticationManagerBuilder auth) 
+	public void configure(AuthenticationManagerBuilder auth) 
 			throws Exception {
 		auth.authenticationProvider(authProvider);
 	}
 	
 	@Override
-    public void configure(final WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", 
         		"/swagger-resources", "/configuration/security", 
         		"/swagger-ui.html", "/webjars/**");

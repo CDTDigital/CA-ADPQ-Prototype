@@ -103,10 +103,10 @@ public class UserServiceImpl implements UserService {
         	userById.get().setFirstName(user.getFirstName());
         	userById.get().setLastName(user.getLastName());
         	userById.get().setMobileNo(user.getMobileNo());
-        	if(user.getPassword()!= null) {
+        	if(user.getPassword()!= null && !user.getPassword().isEmpty()) {
         		userById.get().setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         	}
-        	if(user.getEmail()!= null) {
+        	if(user.getEmail()!= null  && !user.getEmail().isEmpty()) {
         		userById.get().setEmail(user.getEmail());
         	}
         	if(user.getUserNotificationOptions()!= null) {

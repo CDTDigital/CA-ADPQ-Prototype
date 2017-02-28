@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +35,8 @@ import com.intimetec.crns.util.RestObjectToModelObjectMapper;
 /**
  * @author In Time Tec
  */
-@RequestMapping(value = "/notifications", 
-produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(maxAge = 3600)
+@RequestMapping(value = "/notifications", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class NotificationController {
 

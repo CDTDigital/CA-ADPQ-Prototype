@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ import com.intimetec.crns.core.models.UserNotificationOptions;
 import com.intimetec.crns.core.models.UserRole;
 import com.intimetec.crns.core.restmodels.RestLocation;
 import com.intimetec.crns.core.restmodels.RestUser;
+import com.intimetec.crns.core.service.currentuser.CurrentUserService;
 import com.intimetec.crns.core.service.user.UserService;
 import com.intimetec.crns.core.service.userLocation.UserLocationService;
 import com.intimetec.crns.core.service.usernotification.UserNotificationOptionsService;
@@ -44,6 +46,7 @@ import com.intimetec.crns.util.RestObjectToModelObjectMapper;
  * 
  * @author In Time Tec
  */
+@CrossOrigin(maxAge = 3600)
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class UserController {
@@ -57,6 +60,8 @@ public class UserController {
 	/**
 	 * Instance of the class {@link UserService}. 
 	 */
+	@Autowired
+	private CurrentUserService currentUserService;
 	@Autowired
 	private UserService userService;
 	

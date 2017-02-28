@@ -89,6 +89,7 @@ public class User {
 	/**
 	 * Status of the Account set up.
 	 */
+	@Column(name="account_setup_done")
 	private boolean accountSetupDone = false;
 
 	/**

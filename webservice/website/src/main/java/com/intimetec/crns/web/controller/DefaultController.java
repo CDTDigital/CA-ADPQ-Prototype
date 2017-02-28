@@ -1,6 +1,7 @@
 package com.intimetec.crns.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 /**
  * @author shiva.dixit
  */
+@CrossOrigin(maxAge = 3600)
 @Controller
 @RequestMapping(value = "/")
 public class DefaultController {

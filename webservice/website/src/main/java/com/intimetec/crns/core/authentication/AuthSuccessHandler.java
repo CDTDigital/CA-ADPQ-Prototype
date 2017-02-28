@@ -62,9 +62,9 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 	}
 
 	@Override
-	public final void onAuthenticationSuccess(final HttpServletRequest request, 
-			final HttpServletResponse response,
-			final Authentication authentication) 
+	public final void onAuthenticationSuccess(HttpServletRequest request, 
+			HttpServletResponse response,
+			Authentication authentication) 
 			throws javax.servlet.ServletException, java.io.IOException {
 		LOGGER.debug("Inside Authentication Sucess Handler");
 		HttpSession session = request.getSession();
@@ -102,6 +102,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         //set our response to OK status
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setHeader("JSESSIONID", session.getId());
 		
         //write response message in JSON format
         writeResponseMessage(response, responseMessage);
@@ -113,7 +114,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 	 * @return responseMap
 	 */ 
 	private Map<String, Object> generateResponseMessage(
-			final User authUser, final String authToken) {
+			User authUser, String authToken) {
 		Map<String, Object> responseMap = ResponseMessage.successResponse(
 				HttpServletResponse.SC_OK);
 		responseMap.put("data", userService.removeSensitiveInfo(authUser));
@@ -126,8 +127,8 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 	 * @param responseMessage 
 	 * @throws java.io.IOException If an input or output exception occurs
 	 */ 
-	private void writeResponseMessage(final HttpServletResponse response, 
-			final Map<String, Object> responseMessage)
+	private void writeResponseMessage(HttpServletResponse response, 
+			Map<String, Object> responseMessage)
 			throws java.io.IOException {
 		PrintWriter writer = response.getWriter();
 		writer.write(mapper.writeValueAsString(responseMessage));
