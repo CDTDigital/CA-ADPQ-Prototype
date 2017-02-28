@@ -54,7 +54,7 @@ public class RestObjectToModelObjectMapper {
 			restUser.setPassword(user.getPassword());
 			restUser.setUserRole(user.getUserRole());
 			restUser.setEnabled(user.isEnabled());
-			restUser.setAccountSetupDone();
+			restUser.setAccountSetupDone(user.isAccountSetupDone());
 			restUser.setUserNotificationOptions(user.
 					getUserNotificationOptions());
 		}

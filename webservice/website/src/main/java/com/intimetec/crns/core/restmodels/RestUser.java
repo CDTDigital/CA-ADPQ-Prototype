@@ -236,11 +236,6 @@ public class RestUser {
 		return this.accountSetupDone;
 	}
 	
-	public final void setAccountSetupDone() {
-		this.accountSetupDone = (
-				userNotificationOptions == null) ? false : true;
-	}
-	
 	/**
 	 * Method for the account set up.
 	 */
