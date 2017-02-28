@@ -1,5 +1,5 @@
 // Ionic CRNS App
-angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstants', 'toaster', 'CRNSPushManager', 'CRNSInterceptor'])
+angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaster', 'CRNSPushManager', 'CRNSInterceptor', 'CRNSFilters', 'CRNSDirective'])
 .run(function($ionicPlatform, $rootScope, Constant, AuthToken, DeviceService, PushNotificationService, $ionicLoading) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
@@ -144,6 +144,38 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSMock', 'CRNSConstan
       'menuview': {
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl'
+      }
+    }
+  })
+  .state('app.list', {
+    url: '/list',
+    views: {
+      'menuview': {
+        templateUrl: 'views/notificationList.html',
+        controller: 'NotificationListCtrl',
+        resolve: {
+          fetch: function(NotificationServices) {
+            return NotificationServices.getNotificationList().then(function(resp) {
+              return resp;
+            });
+          }
+        }
+      }
+    }
+  })
+  .state('app.detail', {
+    url: '/detail/:id',
+    views: {
+      'menuview': {
+        templateUrl: 'views/notificationDetail.html',
+        controller: 'NotificationDetailCtrl',
+        resolve: {
+          fetch: function(NotificationServices, $stateParams) {
+            return NotificationServices.readNotification($stateParams.id).then(function(resp) {
+              return resp;
+            });
+          }
+        }
       }
     }
   })

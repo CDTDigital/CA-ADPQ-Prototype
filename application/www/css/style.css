@@ -294,3 +294,35 @@ input[type="text"], input[type="password"], input[type="number"], input[type="em
 .list-inset .item.item-input input {
     padding-right: 4px;
 }
+
+/* Notification */
+
+.notification .subtext,
+.nDetail .sent {
+    color: #003366;
+}
+
+.notification .sentBy,
+.nDetail .sentBy {
+    color: #ff8c00;
+}
+
+.nDetail .expire {
+    color: #981b1e;
+}
+
+.notification .description {
+    font-size: 12px;
+    white-space: normal;
+    word-wrap: normal;
+    color: #000;
+}
+
+.nDetail .description {
+    padding-top: 20px;
+    color: #000;
+}
+
+.notification .read {
+    background-color: #e7e7e7;
+}
