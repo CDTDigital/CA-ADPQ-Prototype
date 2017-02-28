@@ -1,5 +1,9 @@
 angular.module('CRNSCtrl')
-.controller('NotificationListCtrl', [function() {
-    'use strict';
-    // To Do
+.controller('NotificationListCtrl', ['$scope', '$state', 'NotificationServices', function($scope, $state, NotificationServices) {
+  $scope.listItems = NotificationServices.notificationList.data.data;
+
+  $scope.openDetail = function(item) {
+    NotificationServices.setNotificationDetail(item);
+    $state.go('app.detail', {id: item.notification.id});
+  };
 }]);

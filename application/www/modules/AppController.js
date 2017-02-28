@@ -14,8 +14,8 @@ angular.module('CRNSCtrl')
             $state.go('login');
         } else if(type == 'settings') {
             $state.go('app.settings');
-        } else if(type == 'home') {
-            $state.go('app.dash');
+        } else if(type == 'notification') {
+            $state.go('app.list');
         }
     };
 }])

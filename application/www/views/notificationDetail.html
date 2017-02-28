@@ -1,0 +1,22 @@
+<ion-view>
+    <ion-header-bar class="bar-positive">
+        <button class="button button-icon button-clear ion-ios-arrow-back" ng-click="goBack()"></button>
+        <h1 class="title">Notification Detail</h1>
+    </ion-header-bar>
+
+    <ion-content class="nDetail">
+        <div id="map-container" class="" style="height: 190px;" ng-show="mapObjects.length > 0">
+            <map-directive marker-click='false' zoom-level='12' map-data='mapObjects'></map-directive>
+        </div>
+        <div class="detailContainer padding25">
+            <h3>{{detailObj.notification.subject}}</h3>
+            <h6>Sent at: <span class="sent">{{detailObj.notification.sentTime | date:'MMM dd, yyyy HH:mm'}}</span></h6>
+            <h6>Expire by: <span class="expire">{{detailObj.notification.validThrough | date:'MMM dd, yyyy HH:mm'}}</span></h6>
+            <h5 class="sentBy">{{detailObj.notification.sentBy.firstName}}</h5>
+            <p class="description">
+                {{detailObj.notification.message}}
+            </p>
+        </div>
+    </ion-content>
+</ion-view>
+
