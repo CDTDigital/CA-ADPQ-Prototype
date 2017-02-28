@@ -8,6 +8,7 @@ angular.module('CRNSCtrl')
         $scope.account.location.placeId = tempData.placeId;
         $scope.account.location.latitude = tempData.latitude;
         $scope.account.location.longitude = tempData.longitude;
+        $scope.account.location.zipCode = tempData.zipCode;
     };
 
     $scope.fetchCurrentLocationData();
@@ -20,7 +21,7 @@ angular.module('CRNSCtrl')
 
     /* It will delete the added location and clear the view */
     $scope.onTapDeleteLocation = function() {
-        GoogleMapService.setLocationAddress({address: '', placeId: '', latitude: '', longitude: ''});
+        GoogleMapService.setLocationAddress({address: '', placeId: '', latitude: '', longitude: '', zipCode: ''});
         $scope.fetchCurrentLocationData();
     };
 
