@@ -26,7 +26,7 @@ public class LocationController {
 	/**
 	 * To log the application messages. 
 	 */
-	private static final Logger LOGGER = 
+	private static Logger LOGGER = 
 			LoggerFactory.getLogger(LocationController.class);
 	
 	/**
@@ -43,10 +43,10 @@ public class LocationController {
 	 * @return returns  the response.
 	 */
 	@RequestMapping(value = "/location", method = RequestMethod.GET)
-	public final Map<String, Object> getPostalCode(@RequestParam(
-			value = "lat") final String latitude,
-			@RequestParam(value = "lng") final String longitude, 
-			final HttpServletResponse response) {
+	public Map<String, Object> getPostalCode(@RequestParam(
+			value = "lat") String latitude,
+			@RequestParam(value = "lng") String longitude, 
+			HttpServletResponse response) {
 		LOGGER.info("Getting postal code");
 		Map<String, Object> responseMap = ResponseMessage.successResponse(
 				HttpServletResponse.SC_OK);

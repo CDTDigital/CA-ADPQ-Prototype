@@ -43,7 +43,7 @@ public class NotificationController {
 	/**
 	 * To log the application messages. 
 	 */
-	private static final Logger LOGGER = 
+	private static Logger LOGGER = 
 			LoggerFactory.getLogger(NotificationController.class);
 
 	/**
@@ -75,9 +75,9 @@ public class NotificationController {
 	 */
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
-	public final Map<String, Object> sendNotification(
+	public Map<String, Object> sendNotification(
 			@RequestBody Notification notification, 
-			final HttpServletResponse response) {
+			HttpServletResponse response) {
 		LOGGER.debug("Processing notification to save and send");
 		try {
 			notification.setSentBy(userService.getUserById(
@@ -107,8 +107,8 @@ public class NotificationController {
 	 */
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public final Map<String, Object> getNotifications(
-			final HttpServletResponse response) {
+	public Map<String, Object> getNotifications(
+			HttpServletResponse response) {
 		LOGGER.debug("Getting all notifications {}");
 		try {
 			ArrayList<RestNotification> notifications = 
@@ -141,8 +141,8 @@ public class NotificationController {
 	@PreAuthorize("@currentUserServiceImpl."
 			+ "canAccessUserByRoles(principal, {'ADMIN', 'USER'})")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public final Map<String, Object> getNotification(
-			@PathVariable final Long id, final HttpServletResponse response) {
+	public Map<String, Object> getNotification(
+			@PathVariable Long id, HttpServletResponse response) {
 		LOGGER.debug("Getting notification based on ID {}", id);
 		try {
 			Optional<Notification> notification = notificationService.
@@ -176,8 +176,8 @@ public class NotificationController {
 			+ "principal, #id)")
 	@RequestMapping(value = "/userNotifications/{id}", 
 	method = RequestMethod.GET)
-	public final Map<String, Object> getUserNotificationsByUserId(
-			@PathVariable final Long id, final HttpServletResponse response) {
+	public Map<String, Object> getUserNotificationsByUserId(
+			@PathVariable Long id, HttpServletResponse response) {
 		LOGGER.debug("Getting notification based on ID {}", id);
 		try {
 			ArrayList<RestUserNotification> notifications = 
@@ -207,9 +207,9 @@ public class NotificationController {
 	 * @return          the notification list.
 	 */
 	@RequestMapping(value = "/userNotifications", method = RequestMethod.GET)
-	public final Map<String, Object> getUserNotifications(
-			final HttpServletRequest request, 
-			final HttpServletResponse response) {
+	public Map<String, Object> getUserNotifications(
+			HttpServletRequest request, 
+			HttpServletResponse response) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting notifications based on AuthToken {}", authToken);
 		try {
@@ -242,10 +242,10 @@ public class NotificationController {
 	 */
 	@RequestMapping(value = "/userNotifications/{id}/read", 
 			method = RequestMethod.POST)
-	public final Map<String, Object> readUserNotifications(
-			final HttpServletRequest request, 
-			final HttpServletResponse response, 
-			@PathVariable final Long id) {
+	public Map<String, Object> readUserNotifications(
+			HttpServletRequest request, 
+			HttpServletResponse response, 
+			@PathVariable Long id) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Updating notification based on ID and "
 				+ "supplied AuthToken {}", authToken);

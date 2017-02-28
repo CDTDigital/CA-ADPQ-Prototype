@@ -35,7 +35,6 @@ import com.intimetec.crns.core.models.UserNotificationOptions;
 import com.intimetec.crns.core.models.UserRole;
 import com.intimetec.crns.core.restmodels.RestLocation;
 import com.intimetec.crns.core.restmodels.RestUser;
-import com.intimetec.crns.core.service.currentuser.CurrentUserService;
 import com.intimetec.crns.core.service.user.UserService;
 import com.intimetec.crns.core.service.userLocation.UserLocationService;
 import com.intimetec.crns.core.service.usernotification.UserNotificationOptionsService;
@@ -54,14 +53,12 @@ public class UserController {
 	/**
 	 * To log the application messages. 
 	 */
-	private static final Logger LOGGER = 
+	private static Logger LOGGER = 
 			LoggerFactory.getLogger(UserController.class);
 	
 	/**
 	 * Instance of the class {@link UserService}. 
 	 */
-	@Autowired
-	private CurrentUserService currentUserService;
 	@Autowired
 	private UserService userService;
 	
@@ -87,9 +84,9 @@ public class UserController {
 	 */
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/createAdmin", method = RequestMethod.POST)
-	public final Map<String, Object> createAdmin(
-			final HttpServletResponse response, 
-			@RequestBody final RestUser restUser)  
+	public Map<String, Object> createAdmin(
+			HttpServletResponse response, 
+			@RequestBody RestUser restUser)  
 				throws IOException, ServletException {
 		restUser.setUserRole(UserRole.ADMIN);
 		LOGGER.debug("Processing Admin user creation");
@@ -121,9 +118,9 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/createUser",
 			method = RequestMethod.POST)
-	public final Map<String, Object> createUser(
-			final HttpServletResponse response, 
-			@RequestBody final RestUser restUser) {
+	public Map<String, Object> createUser(
+			HttpServletResponse response, 
+			@RequestBody RestUser restUser) {
 		restUser.setUserRole(UserRole.USER);
 		LOGGER.debug("Processing user creation\n" + restUser);
 		try {
@@ -153,9 +150,9 @@ public class UserController {
 	 * @return                   the response.
 	 */
 	@RequestMapping(value = "/isUniqueUsername", method = RequestMethod.GET)
-	public final Map<String, Object> isUniqueUsername(
-			final HttpServletResponse response, 
-			@RequestParam final String userName) {
+	public Map<String, Object> isUniqueUsername(
+			HttpServletResponse response, 
+			@RequestParam String userName) {
 		LOGGER.debug("Processing request for unique user name verification");
 		try {
 			if (userService.getUserByUserName(userName).isPresent()) {
@@ -180,9 +177,9 @@ public class UserController {
 	 * @return            the response.
 	 */
 	@RequestMapping(value = "/isEmailRegistered", method = RequestMethod.GET)
-	public final Map<String, Object> isEmailRegistered(
-			final HttpServletResponse response,
-			@RequestParam final String email) {
+	public Map<String, Object> isEmailRegistered(
+			HttpServletResponse response,
+			@RequestParam String email) {
 		LOGGER.debug("Processing user creation");
 		try {
 			if (userService.getUserByEmail(email).isPresent()) {
@@ -206,9 +203,9 @@ public class UserController {
 	 */
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public final Map<String, Object> getProfileByID(
-			final HttpServletResponse response, 
-			@PathVariable final Long id) {
+	public Map<String, Object> getProfileByID(
+			HttpServletResponse response, 
+			@PathVariable Long id) {
 		LOGGER.debug("Getting user page for user={}", id);
 		Optional<User> user = userService.getUserById(id);
 		if (user.isPresent()) {
@@ -240,9 +237,9 @@ public class UserController {
 	 * @return            the response.
 	 */
 	@RequestMapping(value = "/getProfile", method = RequestMethod.GET)
-	public final Map<String, Object> getProfile(
-			final HttpServletRequest request, 
-			final HttpServletResponse response) {
+	public Map<String, Object> getProfile(
+			HttpServletRequest request, 
+			HttpServletResponse response) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting user page based on Auth Token:", authToken);
 		Optional<User> user;
@@ -287,9 +284,9 @@ public class UserController {
 	 */
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
-	public final Map<String, Object> setProfileByID(@PathVariable final Long id,
+	public Map<String, Object> setProfileByID(@PathVariable Long id,
 			@RequestBody RestUser restUser, 
-			final HttpServletResponse response) {
+			HttpServletResponse response) {
 		LOGGER.debug("Updating user page for user={}", id);
 		try {
 			User user = userService.update(id, RestObjectToModelObjectMapper.
@@ -331,9 +328,9 @@ public class UserController {
 	 * @return            the response.
 	 */
 	@RequestMapping(value = "/setProfile", method = RequestMethod.POST)
-	public final Map<String, Object> setProfile(
-			final HttpServletRequest request,
-			final HttpServletResponse response, 
+	public Map<String, Object> setProfile(
+			HttpServletRequest request,
+			HttpServletResponse response, 
 			@RequestBody RestUser restUser) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Updating user page for user={} with authToken",
@@ -377,8 +374,8 @@ public class UserController {
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}/getNotificationOptions", 
 	method = RequestMethod.GET)
-	public final Map<String, Object> getNotificationOptionsByID(
-			final HttpServletResponse response, @PathVariable final Long id) {
+	public Map<String, Object> getNotificationOptionsByID(
+			HttpServletResponse response, @PathVariable Long id) {
 		LOGGER.debug("Getting user notification options for user={}", id);
 		Optional<UserNotificationOptions> options = 
 				userNotificationOptionsService.getByUserId(id);
@@ -402,9 +399,9 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/getNotificationOptions", method = 
 			RequestMethod.GET)
-	public final Map<String, Object> getNotificationOptions(
-			final HttpServletRequest request, 
-			final HttpServletResponse response) {
+	public Map<String, Object> getNotificationOptions(
+			HttpServletRequest request, 
+			HttpServletResponse response) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting user notification options for user={}", 
 				authToken);
@@ -438,10 +435,10 @@ public class UserController {
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}/setNotificationOptions", 
 	method = RequestMethod.POST)
-	public final Map<String, Object> setNotificationOptionsByID(
-			@PathVariable final Long id,
+	public Map<String, Object> setNotificationOptionsByID(
+			@PathVariable Long id,
 			@RequestBody UserNotificationOptions options, 
-			final HttpServletResponse response) {
+			HttpServletResponse response) {
 		LOGGER.debug("Getting user notification options for user={}", id);
 		try {
 			options = userNotificationOptionsService.
@@ -472,10 +469,10 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/setNotificationOptions", method = 
 			RequestMethod.POST)
-	public final Map<String, Object> setNotificationOptions(
-			final HttpServletRequest request,
+	public Map<String, Object> setNotificationOptions(
+			HttpServletRequest request,
 			@RequestBody UserNotificationOptions options, 
-			final HttpServletResponse response) {
+			HttpServletResponse response) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting user notification options for user={}", 
 				authToken);
@@ -505,7 +502,7 @@ public class UserController {
 	 */
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public final Collection<RestUser> getUserCreatePage() {
+	public Collection<RestUser> getUserCreatePage() {
 		Collection<RestUser> users = new ArrayList<RestUser>();
 		for (User user : userService.getAllUsers()) {
 			Optional<UserLocation> userLocation = userLocationService.
@@ -531,9 +528,9 @@ public class UserController {
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}/getProfileLocation",
 	method = RequestMethod.GET)
-	public final Map<String, Object> getProfileLocationByID(
-			@PathVariable final Long id, 
-			final HttpServletResponse response) {
+	public Map<String, Object> getProfileLocationByID(
+			@PathVariable Long id, 
+			HttpServletResponse response) {
 		LOGGER.debug("Getting user notification options for user={}", id);
 		Optional<UserLocation> location = userLocationService.
 				getProfileLocationByUserId(id);
@@ -555,9 +552,9 @@ public class UserController {
 	 * @return            the response.
 	 */
 	@RequestMapping(value = "/getProfileLocation", method = RequestMethod.GET)
-	public final Map<String, Object> getProfileLocation(
-			final HttpServletRequest request, 
-			final HttpServletResponse response) {
+	public Map<String, Object> getProfileLocation(
+			HttpServletRequest request, 
+			HttpServletResponse response) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting user notification options for user={}", 
 				authToken);
@@ -597,8 +594,8 @@ public class UserController {
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}/getCurrentLocation", 
 	method = RequestMethod.GET)
-	public final Map<String, Object> getCurrentLocationByID(
-			@PathVariable final Long id, final HttpServletResponse response) {
+	public Map<String, Object> getCurrentLocationByID(
+			@PathVariable Long id, HttpServletResponse response) {
 		LOGGER.debug("Getting user notification options for user={}", id);
 		Optional<UserLocation> location = userLocationService.
 				getCurrentLocationByUserId(id);
@@ -621,9 +618,9 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/getCurrentLocation", 
 			method = RequestMethod.GET)
-	public final Map<String, Object> getCurrentLocation(
-			final HttpServletRequest request, 
-			final HttpServletResponse response) {
+	public Map<String, Object> getCurrentLocation(
+			HttpServletRequest request, 
+			HttpServletResponse response) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting user notification options for user={}",
 				authToken);
@@ -665,11 +662,11 @@ public class UserController {
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
 	@RequestMapping(value = "/{id}/setCurrentLocation",
 	method = RequestMethod.POST)
-	public final Map<String, Object> setCurrentLocationByID(
-			@PathVariable final Long id, 
-			@RequestParam("lat") final String latitude,
-			@RequestParam("lng") final String longitude, 
-			final HttpServletResponse response) {
+	public Map<String, Object> setCurrentLocationByID(
+			@PathVariable Long id, 
+			@RequestParam("lat") String latitude,
+			@RequestParam("lng") String longitude, 
+			HttpServletResponse response) {
 		LOGGER.debug("Getting user notification options for user={}", id);
 		Optional<UserLocation> optionalLocation = userLocationService.
 				getCurrentLocationByUserId(id);
@@ -705,11 +702,11 @@ public class UserController {
 	 * @return            the response.
 	 */
 	@RequestMapping(value = "/setCurrentLocation", method = RequestMethod.POST)
-	public final Map<String, Object> setCurrentLocation(
-			final HttpServletRequest request, 
-			final HttpServletResponse response,
-			@RequestParam("lat") final String latitude,
-			@RequestParam("lng") final String longitude) {
+	public Map<String, Object> setCurrentLocation(
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@RequestParam("lat") String latitude,
+			@RequestParam("lng") String longitude) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting user notification options for user={}", 
 				authToken);
@@ -755,7 +752,7 @@ public class UserController {
 	 * @return the authentication.
 	 */	
 	@RequestMapping(value = "checkUserLogin", method = RequestMethod.GET)
-	public final Authentication getLoggedInUser() {
+	public Authentication getLoggedInUser() {
 		return SecurityContextHolder.getContext().getAuthentication();
 	}
 }

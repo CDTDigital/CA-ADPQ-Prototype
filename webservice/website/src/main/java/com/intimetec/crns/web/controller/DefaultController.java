@@ -21,7 +21,7 @@ public class DefaultController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ApiOperation(value = "Get Login Page", notes = 
 	"Default page for application that is Login Page")
-	final String index() {
+	String index() {
 		return "index";
 	}
 }
