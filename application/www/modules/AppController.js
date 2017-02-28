@@ -16,6 +16,10 @@ angular.module('CRNSCtrl')
             $state.go('app.settings');
         } else if(type == 'notification') {
             $state.go('app.list');
+        } else if(type == 'home') {
+            $state.go('app.dash');
+        } else if(type == 'profile') {
+            $state.go('app.profile');
         }
     };
 }])

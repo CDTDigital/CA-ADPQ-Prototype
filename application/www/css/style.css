@@ -326,3 +326,13 @@ input[type="text"], input[type="password"], input[type="number"], input[type="em
 .notification .read {
     background-color: #e7e7e7;
 }
+}
+
+/* Profile */
+.grayRow {
+    height: 1px;
+    width: 100%;
+    background: #dddddd;
+    margin-top: 34px;
+    padding: 0px 0px;
+}

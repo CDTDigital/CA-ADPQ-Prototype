@@ -85,7 +85,10 @@ angular.module('CRNSCtrl')
                     $rootScope.loginData = tempObj;
                     window.localStorage.setItem('loginData', angular.toJson($rootScope.loginData));
                     if (!$rootScope.loginData.accountSetupDone) $state.go('accountSetup');
-                    else $state.go('app.list');
+                    else {
+                        localStorage.setItem('accountSetup', true);
+                        $state.go('app.list');
+                    }
                 };
             }, function() {
                 Notify.errorToaster('Incorrect Username or Password!');

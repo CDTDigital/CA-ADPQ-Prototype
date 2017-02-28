@@ -15,6 +15,7 @@ angular.module('CRNSSrv')
             localStorage.removeItem('authToken');
             localStorage.removeItem('loginData');
             localStorage.removeItem('accountSetup');
+            localStorage.removeItem('locationData');
             $http.defaults.headers.common['authToken']= null;
         };
     }])
