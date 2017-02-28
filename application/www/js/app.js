@@ -181,6 +181,7 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
   })
   .state('app.settings', {
     url: '/settings',
+    cache: 'false',
     views: {
       'menuview': {
         templateUrl: 'views/settings.html',
@@ -196,11 +197,30 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
          }
       }
     }
+  })
+  .state('app.profile', {
+    url: '/profile',
+    cache: 'false',
+    views: {
+        'menuview': {
+            templateUrl: 'views/profile.html',
+            controller: 'ProfileCtrl',
+            resolve: {
+                fetch: function(AccountServices, AccountData) {
+                    if (!AccountData.isProfileSetup()) {
+                        return AccountServices.getUserProfile().then(function(resp) {
+                            return resp;
+                        });
+                    } else return '';
+                }
+            }
+        }
+    }
   });
   // if none of the above states are matched, use this as the fallback
     if (localStorage.getItem('loginData') == undefined || localStorage.getItem('loginData') == null) {
         $urlRouterProvider.otherwise('/login');
     } else if(localStorage.getItem('accountSetup') == undefined) {
         $urlRouterProvider.otherwise('/accountSetup');
-    } else $urlRouterProvider.otherwise('/app/dash');
+    } else $urlRouterProvider.otherwise('/app/list');
 });

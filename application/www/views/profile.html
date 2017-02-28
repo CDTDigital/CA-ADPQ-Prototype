@@ -1,0 +1,66 @@
+<ion-view>
+
+    <ion-header-bar class="bar-positive">
+        <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()"></button>
+        <h1 class="title">Profile</h1>
+    </ion-header-bar>
+
+    <ion-content has-bouncing="false" class="padding25 alignCenter has-header paddingTop10">
+
+        <!-- <img src="./img/logo.png" class="marginTop30">-->
+
+        <div class="list list-inset alignLeft margin10">
+
+            <div class="registerLabel lBlueFontClr">Personal Information</div>
+            <label class="item item-input extendInput">
+                <input type="text" placeholder="First Name" ng-model="profile.firstName">
+            </label>
+
+            <label class="item item-input extendInput marginTop5">
+                <input type="text" placeholder="Last Name" ng-model="profile.lastName">
+            </label>
+
+            <label class="item item-input extendInput marginTop5">
+                <input type="number" placeholder="Mobile Number" ng-model="profile.mobileNumber">
+            </label>
+
+            <label class="item item-input extendInput marginTop5">
+                <input type="email" placeholder="Email" ng-model="profile.email">
+            </label>
+
+            <label class="item item-input extendInput marginTop5">
+                <input type="password" placeholder="Password" ng-model="profile.password">
+            </label>
+
+            <div class="registerLabel lBlueFontClr marginTop5">Location</div>
+            <div class="locationLabel" ng-model='profile.location.addressLine1' ng-if="profile.location.addressLine1 != ''">{{profile.location.addressLine1}}</div>
+            <div class="marginTop5" ng-if="profile.location.addressLine1 == ''">
+                <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
+                    Add
+                </button>
+            </div>
+
+            <div class="row zeroPadding marginTop5"  ng-if="profile.location.addressLine1 != ''">
+                <!--<div class="col zeroPadding alignRight btnMarRight">
+                    <button class="button button-full button-assertive delBtn" ng-click="onTapDeleteLocation()">
+                        Delete
+                    </button>
+                </div>-->
+                <div class="col zeroPadding alignLeft btnMarLeft">
+                    <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
+                        Edit Location
+                    </button>
+                </div>
+            </div>
+
+            <div class="grayRow"></div>
+            <div class="marginTop30">
+                    <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
+                        Update
+                    </button>
+            </div>
+
+        </div>
+
+    </ion-content>
+</ion-view>

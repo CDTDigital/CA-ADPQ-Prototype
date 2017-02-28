@@ -29,12 +29,11 @@ angular.module('CRNSCtrl')
     $scope.onTapContinueBtn = function() {
         if($scope.account.firstName == '' || $scope.account.lastName == '' || $scope.account.mobileNumber == '') {
             Notify.errorToaster('Please fill all the input fields!');
-        } else if($scope.account.address == '') {
+        } else if($scope.account.location.addressLine1 == '') {
             Notify.errorToaster('Please add your location for getting the notifications!');
         } else {
-            $scope.account.mobileNo = String($scope.account.mobileNo);
+            $scope.account.mobileNo = String($scope.account.mobileNumber);
             AccountServices.setUpAccount($scope.account).then(function(resp) {
-                console.log(resp);
                 if(resp.data && resp.data.responseStatus == 'SUCCESS') {
                     localStorage.setItem('accountSetup', true);
                     $state.go('app.dash');

@@ -1,9 +1,9 @@
 angular.module('CRNSSrv')
-    .service('AccountData', [function() {
+    .service('AccountData', ['GoogleMapService', function(GoogleMapService) {
         var accountData = {
             firstName: '',
             lastName: '',
-            mobileNo: '',
+            mobileNumber: '',
             location: {
                 addressLine1: '',
                 latitude: '',
@@ -20,6 +20,22 @@ angular.module('CRNSSrv')
             }
         };
 
+        var profileData = {
+            firstName: '',
+            lastName: '',
+            mobileNumber: '',
+            email: '',
+            password: '',
+            location: {
+                addressLine1: '',
+                latitude: '',
+                longitude: '',
+                placeId: '',
+                city: '',
+                zipCode: ''
+            }
+        };
+
         this.setCurrentData = function(data) {
             accountData = data;
         };
@@ -27,8 +43,31 @@ angular.module('CRNSSrv')
         this.getCurrentData = function(msg) {
             return accountData;
         };
+
+        this.setUserProfileData = function(data) {
+            profileData.firstName = data.firstName;
+            profileData.lastName = data.lastName;
+            profileData.mobileNumber = Number(data.mobileNo);
+            profileData.email = data.email;
+            profileData.password = (data.password == null || data.password == '') ? '*******' : data.password,
+            profileData.location.addressLine1 = data.location.addressLine1;
+            profileData.location.latitude = data.location.latitude;
+            profileData.location.longitude = data.location.longitude;
+            profileData.location.placeId = data.location.placeId;
+            profileData.location.zipCode = data.location.zipCode;
+
+            GoogleMapService.setLocationAddress({address: data.location.addressLine1, placeId: data.location.placeId, latitude: data.location.latitude, longitude: data.location.longitude, zipCode: data.location.zipCode});
+        };
+
+        this.getUserProfileData = function() {
+            return profileData;
+        };
+
+        this.isProfileSetup = function() {
+            return (profileData.firstName != '');
+        };
     }])
-    .factory('AccountServices', ['$rootScope', '$http', 'Constant', '$q', function($rootScope, $http, Constant, $q) {
+    .factory('AccountServices', ['$rootScope', '$http', 'Constant', '$q', 'AccountData', function($rootScope, $http, Constant, $q, AccountData) {
         return {
             setUpAccount: function(paramObj) {
                 $rootScope.$broadcast('httpCallStarted');
@@ -40,6 +79,19 @@ angular.module('CRNSSrv')
                     }, function(data, status, headers, config) {
                         return defered.reject(data);
                 });
+                return defered.promise;
+            },
+            getUserProfile: function() {
+                $rootScope.$broadcast('httpCallStarted');
+                var defered = $q.defer();
+                $http.get(Constant.API_URL + 'users/getProfile')
+                    .then(function(data, status, headers, config) {
+                        $rootScope.$broadcast('httpCallCompleted');
+                        AccountData.setUserProfileData(data.data.data);
+                        return defered.resolve(data);
+                    }, function(data, status, headers, config) {
+                        return defered.reject(data);
+                    });
                 return defered.promise;
             }
         };
