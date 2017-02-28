@@ -3,17 +3,21 @@
  */
 (function () {
 
-    function LoginController($scope, HttpFactory, toaster) {
+    function LoginController($scope, $rootScope, HttpFactory, toaster) {
         function onLoad() {
             if (HttpFactory.isLoggedIn()) {
-                $scope.go('/home')
+                $scope.go('/account')
             }
         }
 
         $scope.submitLogin = function () {
+            $scope.isLoading = true;
             HttpFactory.login($scope.user.email, $scope.user.password).then(function (loginResponse) {
-                $scope.go('/home')
+                //$rootScope.isLoggedIn = true;
+                //$rootScope.user_role = "USER";
+                $scope.go('/account')
             }, function (error) {
+                $scope.isLoading = false;
                 toaster.pop('error', error.message);
             })
         };
@@ -24,6 +28,7 @@
     var app = angular.module('CRNS'),
         requires = [
             '$scope',
+            '$rootScope',
             'modules.core.HttpFactory',
             'toaster',
             LoginController
