@@ -5734,3 +5734,8 @@ button.usa-menu-btn:hover div {
 	overflow: hidden;
 	cursor: pointer
 }
+
+.prediction {
+	height: initial;
+	margin-bottom: 0px;
+}

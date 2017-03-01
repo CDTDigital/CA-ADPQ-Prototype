@@ -32,12 +32,8 @@
         //    }
         //})
 
-        $scope.viewNotificationList = function (role) {
-            HttpFactory.getNotificationList(role).then(function (list) {
-                $rootScope.go('/history')
-            }, function () {
-
-            })
+        $scope.viewNotificationList = function () {
+            $rootScope.go('/history')
         }
     }
 
