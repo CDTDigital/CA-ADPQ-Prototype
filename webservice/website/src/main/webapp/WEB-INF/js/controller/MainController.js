@@ -14,26 +14,23 @@
             $window.location.reload();
         };
 
-        //$rootScope.changeLoginStatus = function() {
-        //    $scope.isLoggedIn = true
-        //};
-
         $scope.logout = function () {
             Object.keys($sessionStorage.loginResponse).forEach(function (key) {
                 delete $sessionStorage.loginResponse[key];
             });
             $rootScope.isLoggedIn = false;
+
             $rootScope.go('/login');
         };
-        //$rootScope.$on('$locationChangeStart', function () {
-        //    if (Object.keys($sessionStorage.loginResponse).length > 0) {
-        //        $rootScope.isLoggedIn = true;
-        //        $rootScope.loginResponse = $sessionStorage.loginResponse
-        //    }
-        //})
 
         $scope.viewNotificationList = function () {
             $rootScope.go('/history')
+        }
+
+        $scope.toNotfiPage = function () {
+            if ($rootScope.isLoggedIn) {
+                $rootScope.go('/history');
+            }
         }
     }
 

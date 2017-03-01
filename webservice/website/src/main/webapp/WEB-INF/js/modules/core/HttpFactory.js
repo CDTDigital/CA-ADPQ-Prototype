@@ -110,6 +110,17 @@
                 return deferred.promise;
             }
 
+            function getUserList() {
+                var deferred = $q.defer();
+                $http.get(self.baseUrl + '/users/list').then(function (response) {
+                    deferred.resolve(response.data);
+                }, function (error) {
+                    deferred.reject(error)
+                });
+
+                return deferred.promise;
+            }
+
             function getUserRole() {
                 return $sessionStorage.loginResponse.data.role;
             }
@@ -128,7 +139,8 @@
                 signup: signup,
                 getUserProfile: getUserProfile,
                 setUserProfile: setUserProfile,
-                pushNotification: pushNotification
+                pushNotification: pushNotification,
+                getUserList:getUserList
             }
         }
 

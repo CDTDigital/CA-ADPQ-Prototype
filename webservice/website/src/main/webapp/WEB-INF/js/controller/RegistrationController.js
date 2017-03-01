@@ -32,7 +32,7 @@
                     addressObj[elem.types[0]] = elem.long_name
                 });
                 return  {
-                    addressLine1: addressObj.street_number,
+                    addressLine1: loc.formatted_address,
                     addressLine2: addressObj.route,
                     city: addressObj.locality,
                     zipCode: addressObj.postal_code,

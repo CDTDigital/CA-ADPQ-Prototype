@@ -11,7 +11,7 @@
             HttpFactory.getNotificationList().then(function (list) {
                 $scope.notificationList = list;
             });
-
+            $scope.role = HttpFactory.getUserRole();
             //var not = $filter('filternot')($scope.notificationList, "push");
         }
         onInit()

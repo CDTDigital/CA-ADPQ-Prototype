@@ -23,7 +23,6 @@
     <script src="/lib/angular-sanitize.min.js"></script>
     <script src="/lib/angular-touch.min.js"></script>
     <script src="/lib/angular-animate.min.js"></script>
-    <script src="/lib/angular-cookies.min.js"></script>
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTOqratY641IYya28VEHtCQQl994mrAs&libraries=places"></script>
     <script src="/lib/angularjs-google-maps.js"></script>
@@ -32,8 +31,9 @@
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jPushMenu.js"></script>
     <script src="/js/nav.min.js"></script>
+    <script src="/js/jPushMenu.js"></script>
+
 
     <!--<script src="js/styleguide.js"></script>-->
     <script src="/js/uswds.min.js"></script>
@@ -46,12 +46,10 @@
     <script src="/js/controller/AccountController.js"></script>
     <script src="/js/controller/HistoryController.js"></script>
     <script src="/js/controller/MessageController.js"></script>
-    <!--<script src="/js/controller/GooglePredictionListController.js"></script>-->
-    <script src="/js/directives/loginError.js"></script>
+    <script src="/js/controller/UserController.js"></script>
     <script src="/js/directives/googlePredictionList.js"></script>
     <script src="/js/modules/google/GConfiguration.js"></script>
     <script src="/js/modules/google/GooglePlacesFactory.js"></script>
-    <script src="/js/filters/filternotification.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
 
 
@@ -62,7 +60,7 @@
 
         <div class="usa-navbar">
             <div class="usa-logo" id="logo">
-                <em class="usa-logo-text"> <a href accesskey="1" ng-click="go('/')"
+                <em class="usa-logo-text"> <a href accesskey="1" ng-click="toNotfiPage()"
                                               title="Home" aria-label="Home"> <img src="/images/logo.png"
                                                                                    alt="CRNS"> <span>California Residents Notification
 								Service</span>
@@ -73,42 +71,16 @@
     </div>
     <nav role="navigation" class="usa-nav" ng-if="isLoggedIn">
         <div class="usa-nav-inner">
-            <button class="usa-nav-close">
-                <img src="/images/close.svg" alt="close">
-            </button>
-            <ul class="usa-nav-primary usa-accordion">
-                <li ng-if="loginResponse.data.role == 'ADMIN'">
-                    <button class="usa-accordion-button usa-nav-link" aria-expanded="false"
-                            aria-controls="side-nav-1">
-                        <span>Notification</span>
-                    </button>
-                    <ul id="side-nav-1" class="usa-nav-submenu">
-                        <li>
-                            <a href="#">Send Notification</a>
-                        </li>
-                        <li>
-                            <a href ng-click="viewNotificationList(loginResponse.data.role)">Notification List</a>
-                        </li>
-                    </ul>
-                </li>
-                <li ng-if="loginResponse.data.role == 'ADMIN'">
-                    <a class="usa-nav-link" href="#">
-                        <span>User List</span>
-                    </a>
-                </li>
-                <li ng-if="loginResponse.data.role == 'USER'">
-                    <a class="usa-nav-link" href ng-click="viewNotificationList(loginResponse.data.role)">
-                        <span>Notification List</span>
-                    </a>
-                </li>
-            </ul>
             <div class="usa-nav-secondary">
                 <ul class="usa-unstyled-list usa-nav-secondary-links">
-                    <li class="hidden-sm hidden-xs">
-                        <a href="#">Welcome John</a>
+                    <li class="hidden-sm hidden-xs" style="margin-right: 50px;" ng-if="loginResponse.data.role == 'ADMIN'">
+                        <a href ng-click="go('/usersList')"><img ng-src="/images/userList.png" title="User List"></a>
+                    </li>
+                    <li class="hidden-sm hidden-xs" style="margin-right: 50px;">
+                        <a href ng-click="go('/account')"><img ng-src="/images/account.png" title="Profile"></a>
                     </li>
                     <li>
-                        <a href ng-click="logout()">Logout</a>
+                        <a href ng-click="logout()"><img ng-src="/images/logout.png" title="Logout"></a>
                     </li>
                 </ul>
             </div>

@@ -6,17 +6,13 @@
         function onInit() {
             HttpFactory.getUserProfile().then(function (userData) {
                 $scope.account = userData;
-                if ($scope.account.location.placeId) {
+                if ($scope.account.location) {
                     var place = GooglePlacesFactory.getPlaceInformation($scope.account.location.placeId, function (result,status) {
                         if (status === google.maps.GeocoderStatus.OK) {
                             $scope.name = result[0].formatted_address;
                             $scope.$apply();
                         }
                     });
-                    //$scope.selectedLocation = $scope.account.location.addressLine1 + ', ' +
-                    //    $scope.account.location.addressLine2 + ', ' +
-                    //    $scope.account.location.city + ', ' +
-                    //    $scope.account.location.zipCode;
                 }
             }, function (error) {
                 toaster.pop('error', error.message);
