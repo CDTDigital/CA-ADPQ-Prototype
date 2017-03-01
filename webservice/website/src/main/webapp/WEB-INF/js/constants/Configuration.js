@@ -4,6 +4,6 @@
 (function () {
     var app = angular.module("CRNS");
     app.constant("Configuration", {
-        API_URL: "http://localhost:8080"
+        API_URL: ""
     })
 }());

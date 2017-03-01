@@ -18,13 +18,17 @@
             }
 
             var loginResponse = {};
+            var notificationList = {};
 
             function login(email, password) {
                 var deferred = $q.defer();
-                var credentials = {userName: email, password: password}
-                $http.post('/login', credentials).then(function (response) {
+                var credentials = {userName: email, password: password};
+
+                $http.post(self.baseUrl + '/login', credentials).then(function (response) {
+                    console.log($http.defaults.headers.common.cookie);
                     if (response.data.responseStatus.toLowerCase() == "success") {
                         loginResponse = response.data;
+                        //loginResponse.data.role = "ADMIN";
                         $sessionStorage.loginResponse = loginResponse;
                         deferred.resolve(response.data)
                     }
@@ -43,7 +47,7 @@
 
             function signup(registerData) {
                 var deferred = $q.defer();
-                $http.post('/users/createUser', registerData).then(function (response) {
+                $http.post(self.baseUrl + '/users/createUser', registerData).then(function (response) {
                     if (response.data.responseStatus.toLowerCase() == "success"){
                         deferred.resolve();
                     }
@@ -60,8 +64,34 @@
             function getUserProfile() {
                 var deferred = $q.defer();
                 var id = $sessionStorage.loginResponse.data.id;
-                $http.get('/users/' + id).then(function (response) {
+                $http.get(self.baseUrl + '/users/' + id).then(function (response) {
                     deferred.resolve(response.data.data)
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+                return deferred.promise;
+            }
+
+            function setUserProfile(updatedData) {
+                var deferred = $q.defer();
+                var id = $sessionStorage.loginResponse.data.id;
+                $http.post(self.baseUrl + '/users/' + id, updatedData).then(function (response) {
+                    deferred.resolve(response.data.data)
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+                return deferred.promise;
+            }
+
+            function getNotificationList(role) {
+                var deferred = $q.defer();
+                var id = $sessionStorage.loginResponse.data.id;
+                queryUrl = role == "USER" ? self.baseUrl + '/notifications/userNotifications/' + id : self.baseUrl + "/notifications/list";
+                $http.get(queryUrl).then(function (response) {
+                    deferred.resolve(response.data.data);
+                    notificationList = response.data.data;
                 }, function (error) {
                     deferred.reject(error);
                 });
@@ -73,9 +103,12 @@
             return {
                 login: login,
                 loginResponse: loginResponse,
+                notificationList: notificationList,
+                getNotificationList: getNotificationList,
                 isLoggedIn: isLoggedIn,
                 signup: signup,
-                getUserProfile: getUserProfile
+                getUserProfile: getUserProfile,
+                setUserProfile: setUserProfile
             }
         }
 

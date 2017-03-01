@@ -13,22 +13,27 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <!-- Custom StyleSheets -->
-    <link href="//fast.fonts.net/cssapi/8476b357-99c7-4a18-9347-449c4773185a.css" rel="stylesheet"/>
+    <!--<link href="//fast.fonts.net/cssapi/8476b357-99c7-4a18-9347-449c4773185a.css" rel="stylesheet"/>-->
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet"/>
     <!-- scripts -->
     <script src="/lib/angular.min.js"></script>
     <script src="/lib/angular-resource.min.js"></script>
     <script src="/lib/angular-route.min.js"></script>
     <script src="/lib/angular-sanitize.min.js"></script>
     <script src="/lib/angular-touch.min.js"></script>
-    <script src="/lib/angular-animate.min.js" ></script>
-
+    <script src="/lib/angular-animate.min.js"></script>
+    <script src="/lib/angular-cookies.min.js"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTOqratY641IYya28VEHtCQQl994mrAs&libraries=places"></script>
+    <script src="/lib/angularjs-google-maps.js"></script>
     <script src="/lib/ngStorage.min.js"></script>
+    
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jPushMenu.js"></script>
     <script src="/js/nav.min.js"></script>
+
     <!--<script src="js/styleguide.js"></script>-->
     <script src="/js/uswds.min.js"></script>
     <script src="/js/app.js"></script>
@@ -37,17 +42,22 @@
     <script src="/js/controller/MainController.js"></script>
     <script src="/js/controller/LoginController.js"></script>
     <script src="/js/controller/RegistrationController.js"></script>
+    <script src="/js/controller/AccountController.js"></script>
+    <script src="/js/controller/HistoryController.js"></script>
+    <!--<script src="/js/controller/GooglePredictionListController.js"></script>-->
     <script src="/js/directives/loginError.js"></script>
+    <script src="/js/directives/googlePredictionList.js"></script>
+    <script src="/js/modules/google/GConfiguration.js"></script>
     <script src="/js/modules/google/GooglePlacesFactory.js"></script>
+    <script src="/js/filters/filternotification.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTOqratY641IYya28VEHtCQQl994mrAs&libraries=places"></script>
-    <script src="/lib/angularjs-google-maps.js"></script>
 
 
 </head>
 <body ng-controller="MainController">
 <header class="usa-header usa-header-extended" role="banner">
     <div class="subheader">
+
         <div class="usa-navbar">
             <div class="usa-logo" id="logo">
                 <em class="usa-logo-text"> <a href accesskey="1" ng-click="go('/')"
@@ -59,7 +69,45 @@
             </div>
         </div>
     </div>
+    <nav role="navigation" class="usa-nav" ng-if="isLoggedIn">
+        <div class="usa-nav-inner">
+            <button class="usa-nav-close">
+                <img src="/images/close.svg" alt="close">
+            </button>
+            <ul class="usa-nav-primary usa-accordion">
+                <li ng-if="loginResponse.data.role == 'ADMIN'">
+                    <button class="usa-accordion-button usa-nav-link" aria-expanded="false"
+                            aria-controls="side-nav-1">
+                        <span>Notification</span>
+                    </button>
+                    <ul id="side-nav-1" class="usa-nav-submenu">
+                        <li>
+                            <a href="#">Send Notification</a>
+                        </li>
+                        <li>
+                            <a href ng-click="viewNotificationList(loginResponse.data.role)">Notification List</a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-if="loginResponse.data.role == 'USER'">
+                    <a class="usa-nav-link" href ng-click="viewNotificationList(loginResponse.data.role)">
+                        <span>Notification List</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="usa-nav-secondary">
+                <ul class="usa-unstyled-list usa-nav-secondary-links">
+                    <li class="hidden-sm hidden-xs">
+                        <a href="#">Welcome John</a>
+                    </li>
+                    <li>
+                        <a href ng-click="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>
-<divsss ng-view class="views"></divsss>
+<div ng-view class="views"></div>
 </body>
 </html>

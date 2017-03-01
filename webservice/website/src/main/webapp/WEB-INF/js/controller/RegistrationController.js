@@ -6,19 +6,15 @@
     function RegistrationController($scope, $timeout, HttpFactory, toaster, GooglePlacesFactory) {
         function onInit() {
             $scope.register = {};
-            var addressObj = {};
-            var input = document.getElementById('location');
-            var autocomplete = GooglePlacesFactory.initAutoComplete(input);
-            autocomplete.addListener('place_changed', function () {
-                $scope.register.location = GooglePlacesFactory.getLocationDetails()
-            });
         }
+
         $scope.submit = function () {
+            $scope.register.location = getLocationObject($scope.locationDetails);
             if ($scope.register.password != $scope.confirmPassword) {
                 toaster.pop('error', "Password and Confirm password are not matching");
                 return
             }
-
+            $scope.isLoading = true;
             HttpFactory.signup($scope.register).then(function (response) {
                 toaster.pop('info', "User successfully registered");
                 $timeout(function () {
@@ -28,6 +24,25 @@
                 toaster.pop('error', error.message);
             })
         };
+
+        function getLocationObject(loc) {
+            var addressObj={};
+            if(loc.address_components) {
+                loc.address_components.forEach(function(elem){
+                    addressObj[elem.types[0]] = elem.long_name
+                });
+                return  {
+                    addressLine1: addressObj.street_number,
+                    addressLine2: addressObj.route,
+                    city: addressObj.locality,
+                    zipCode: addressObj.postal_code,
+                    placeId: loc.place_id,
+                    latitude: loc.geometry.location.lat(),
+                    longitude: loc.geometry.location.lng(),
+                    currentLocation: false
+                };
+            }
+        }
 
         onInit();
     }
