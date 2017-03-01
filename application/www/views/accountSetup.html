@@ -1,5 +1,5 @@
 <ion-view>
-    <ion-header-bar class="bar-positive">
+    <ion-header-bar class="bar-positive" align-title="center">
 
         <h1 class="title">Setup Your Account</h1>
 
@@ -45,8 +45,8 @@
                 </div>
             </div>
 
-            <div class="registerLabel lBlueFontClr marginTop5">Track Location</div>
-            <li class="item item-toggle trackToggleItem">
+            <div ng-if="!isAndroid" class="registerLabel lBlueFontClr marginTop5">Track Location</div>
+            <li ng-if="!isAndroid" class="item item-toggle trackToggleItem">
                 Current Location
                 <label class="toggle toggle-balanced trackToggle">
                     <input type="checkbox" ng-model="account.userNotificationOptions.liveLocationTracking">
@@ -56,10 +56,10 @@
                 </label>
             </li>
 
-            <div class="registerLabel lBlueFontClr marginTop5">Options for Notification</div>
+            <div class="registerLabel lBlueFontClr marginTop5">Options for Notifications</div>
             <ion-checkbox ng-model="account.userNotificationOptions.sendEmail">Email</ion-checkbox>
             <ion-checkbox ng-model="account.userNotificationOptions.sendSms">SMS</ion-checkbox>
-            <ion-checkbox ng-model="account.userNotificationOptions.sendPushNotification">Notifications</ion-checkbox>
+            <ion-checkbox ng-model="account.userNotificationOptions.sendPushNotification">Push Notification</ion-checkbox>
 
 
         </div>

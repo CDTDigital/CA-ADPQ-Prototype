@@ -1,6 +1,6 @@
 <ion-view>
 
-    <ion-header-bar class="bar-positive">
+    <ion-header-bar class="bar-positive" align-title="center">
         <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()"></button>
         <h1 class="title">Settings</h1>
     </ion-header-bar>
@@ -9,7 +9,7 @@
 
 
 
-            <li class="item item-toggle settingTrackToggle">
+            <li class="item item-toggle settingTrackToggle" ng-if="!isAndroid">
                 Track Location
                 <label class="toggle toggle-balanced sTrackToggle">
                     <input type="checkbox" ng-model="settings.liveLocationTracking" ng-change="onChangeUpdate()">
@@ -41,7 +41,7 @@
 
 
             <li class="item item-toggle settingTrackToggle">
-                Notifications
+                Push Notification
                 <label class="toggle toggle-balanced sTrackToggle">
                     <input type="checkbox" ng-model="settings.sendPushNotification" ng-change="onChangeUpdate()">
                     <div class="track">

@@ -36,7 +36,7 @@ angular.module('CRNSCtrl')
             AccountServices.setUpAccount($scope.account).then(function(resp) {
                 if(resp.data && resp.data.responseStatus == 'SUCCESS') {
                     localStorage.setItem('accountSetup', true);
-                    $state.go('app.dash');
+                    $state.go('app.list');
                 };
             }, function(resp) {
                 Notify.errorToaster(resp.data.message);

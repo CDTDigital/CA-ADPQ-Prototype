@@ -13,6 +13,8 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
       StatusBar.styleDefault();
       // StatusBar.styleLightContent();
     }
+
+    $rootScope.isAndroid = ionic.Platform.isAndroid();
   });
 
   // While testing in browser
