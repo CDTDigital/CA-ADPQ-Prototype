@@ -33,6 +33,7 @@ import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserLocation;
 import com.intimetec.crns.core.models.UserNotificationOptions;
 import com.intimetec.crns.core.models.UserRole;
+import com.intimetec.crns.core.models.restmodels.GeoLocation;
 import com.intimetec.crns.core.models.restmodels.RestLocation;
 import com.intimetec.crns.core.models.restmodels.RestUser;
 import com.intimetec.crns.core.service.user.UserService;
@@ -701,12 +702,11 @@ public class UserController {
 	 * @param longitude   the longitude of the location.	
 	 * @return            the response.
 	 */
-	@RequestMapping(value = "/setCurrentLocation", method = RequestMethod.POST)
+	@RequestMapping(value = "/setCurrentLocation", method = RequestMethod.PUT)
 	public Map<String, Object> setCurrentLocation(
 			HttpServletRequest request, 
 			HttpServletResponse response,
-			@RequestParam("lat") String latitude,
-			@RequestParam("lng") String longitude) {
+			@RequestBody GeoLocation geoLocation) {
 		String authToken = request.getHeader("authToken");
 		LOGGER.debug("Getting user notification options for user={}", 
 				authToken);
@@ -726,7 +726,7 @@ public class UserController {
 				location.setUserId(user.get().getId());
 				try {
 					location = userLocationService.saveLocation(location, 
-							latitude, longitude);
+							geoLocation.getLocation().getCordinates().getLatitude(), geoLocation.getLocation().getCordinates().getLongitude());
 					Map<String, Object> responseMessage = ResponseMessage.
 							successResponse(HttpServletResponse.SC_OK);
 					responseMessage.put("data", location);
