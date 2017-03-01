@@ -5,8 +5,8 @@
 </div>
 <div class="form-group row" id="resComponent" ng-if="!isPredictionVisible">
     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-        <ul class="locationDropdown" style="">
-            <li class="form-control" style="height: initial; margin-bottom: 0px" ng-repeat="result in locResults" ng-if="result.description" ng-click="getLocationDescription(result)">{{ result.description }}</li>
+        <ul class="locationDropdown">
+            <li class="form-control prediction" ng-repeat="result in locResults" ng-if="result.description" ng-click="getLocationDescription(result)">{{ result.description }}</li>
         </ul>
     </div>
 </div>

@@ -32,7 +32,7 @@
             $scope.locPredictionsCallback = function(predictions, status) {
                 console.log(predictions);
                 if (status != google.maps.places.PlacesServiceStatus.OK) {
-                    $scope.locResults = {'Object': {'description': 'No results found!', 'code': 'NORESULT'}};
+                    $scope.locResults = {'obj': {'description': 'No results found!', 'code': 'NORESULT'}};
                     $scope.$apply();
                 } else {
                     /* Removed County, State and Country from results */
