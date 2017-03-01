@@ -5,10 +5,14 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.gson.Gson;
 import com.intimetec.crns.core.config.fcm.FcmConfig;
 import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.UserDevice;
@@ -20,6 +24,8 @@ public class FCMServiceImpl implements FCMService
 {
 	@Autowired
 	private FcmConfig fcmConfig;
+	@Autowired
+	private Gson gson;
 	
 	@Async
 	public void sendNotification(Collection<UserDevice> devices, Notification notification)
@@ -30,22 +36,46 @@ public class FCMServiceImpl implements FCMService
 		for(UserDevice device: devices){
 			if(device.getDeviceType().equalsIgnoreCase("android")){
 				androidDeviceIdList.add(device.getDeviceToken());
-			} 
+			}
 			else if(device.getDeviceType().equalsIgnoreCase("ios")){
 				iosDeviceIdList.add(device.getDeviceToken());
 			}
 		}
-		 
-		AndroidPayload androidPayLoad = new AndroidPayload(androidDeviceIdList, 
-				notification.getSubject(), notification.getMessage(), notification.getId(), notification.getId());
 		
-		IOSPayload iosPayLoad = new IOSPayload(iosDeviceIdList, notification.getSubject(), 
-				notification.getMessage(), notification.getId());
-				 
-	    RestTemplate restTemplate = new RestTemplate();
-	    restTemplate.postForObject( uri, androidPayLoad, AndroidPayload.class);
-	    
-	    restTemplate.postForObject( uri, iosPayLoad, IOSPayload.class);
+		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+		headers.add("Authorization", "key=" +fcmConfig.getKey());
+		headers.add("project_id", fcmConfig.getProjectKey());
+		headers.add("Content-Type", "application/json");
 
+		RestTemplate restTemplate = new RestTemplate();
+		/*restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());*/
+		 
+		if(!androidDeviceIdList.isEmpty()) {
+			AndroidPayload androidPayLoad = new AndroidPayload(androidDeviceIdList, 
+					notification.getSubject(), notification.getMessage(), notification.getId(), notification.getId());
+			
+			HttpEntity<String> requestAndroid = new HttpEntity<String>(gson.toJson(androidPayLoad), headers);
+			
+			System.out.println("Android Payload : "+requestAndroid);
+
+			String result = restTemplate.postForObject(uri, requestAndroid, String.class);
+			
+			System.out.println("Android Upload done: "+result);
+		}
+		
+		if(!iosDeviceIdList.isEmpty()) {
+			IOSPayload iosPayLoad = new IOSPayload(iosDeviceIdList, notification.getSubject(), 
+					notification.getMessage(), notification.getId());
+			
+			HttpEntity<String> requestIos = new HttpEntity<String>(gson.toJson(iosPayLoad), headers);
+			
+			System.out.println("Android Payload : "+requestIos);
+
+			String result = restTemplate.postForObject(uri, requestIos, String.class);
+			
+			System.out.println("IOS Upload done: "+result);
+		}
 	}
 }

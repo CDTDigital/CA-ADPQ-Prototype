@@ -85,10 +85,22 @@ public class Application extends SpringBootServletInitializer {
 	private String googleApiKey;
 	
 	/**
-	 * URL of the Google FCM API. 
+	 * URL of the FCM API. 
 	 */
 	@Value("${fcm.api.url}")
 	private String fcmApiUrl;
+	
+	/**
+	 * URL of the FCM API. 
+	 */
+	@Value("${fcm.api.key}")
+	private String fcmApiKey;
+	
+	/**
+	 * URL of the FCM API. 
+	 */
+	@Value("${fcm.api.projectKey}")
+	private String fcmApiProjectKey;
 	
 	/**
 	 * The mail host. 
@@ -123,11 +135,11 @@ public class Application extends SpringBootServletInitializer {
 	}
 	
 	/**
-	 * @return configurations of the Google FCM API.
+	 * @return configurations of the FCM API.
 	 */
 	@Bean
 	public FcmConfig getFcmApiConfig() {
-		return new FcmConfig(fcmApiUrl);
+		return new FcmConfig(fcmApiUrl, fcmApiKey, fcmApiProjectKey);
 	}
 	
 	/**
