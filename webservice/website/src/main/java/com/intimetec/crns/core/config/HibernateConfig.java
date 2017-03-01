@@ -7,13 +7,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 /**
- * @author shiva.dixit.
+ * {@code HibernateConfig} class for the Hibernate configurations.
+ *  @author shiva.dixit.
  */
 @Configuration
 public class HibernateConfig {
 	/**
 	 * 
-	 * @param emf The entity manager factory.
+	 * @param emf   the entity manager factory.
 	 * @return factory
 	 */
     @Bean

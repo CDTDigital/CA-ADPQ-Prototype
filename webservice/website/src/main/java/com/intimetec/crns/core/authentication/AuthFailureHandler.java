@@ -18,8 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intimetec.crns.util.ResponseMessage;
 
 /**
- * @author shiva.dixit
- *
+ * {@code AuthFailureHandler} class to handle the authentication failure.
+ *  @author shiva.dixit
  */
 @Component
 public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {

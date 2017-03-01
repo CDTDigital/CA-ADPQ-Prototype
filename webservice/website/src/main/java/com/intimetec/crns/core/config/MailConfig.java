@@ -1,7 +1,7 @@
 package com.intimetec.crns.core.config;
 
 /**
- * {@code MailConfig} for tracking address of the user.
+ * {@code MailConfig} class for tracking address of the user.
  * @author shiva.dixit
  *
  */
@@ -15,18 +15,20 @@ public class MailConfig {
 	 */
 	private String port;
 	/**
-	 * Email used for sending mails for notifications
+	 * Email used for sending mails for notifications.
 	 */
 	private String userName;
 	/**
-	 * Password of email account being used to send notifications
+	 * Password of email account being used to send notifications.
 	 */
 	private String password;
 
 	/**
 	 * Creating object of the {@link MailConfig}.
-	 * @param googleApiUrl  the URL of the Google API.
-	 * @param googleApiKey  the key of the Google API.
+	 * @param host         the host name of the mail server.
+	 * @param port         the port of mail server.
+	 * @param userName     the userName used for sending mails.
+	 * @param password     the password of the account. 
 	 */
 	public MailConfig(final String host, 
 			final String port, String userName, String password) {

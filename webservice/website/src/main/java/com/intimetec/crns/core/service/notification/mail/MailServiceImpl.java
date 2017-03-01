@@ -18,20 +18,32 @@ import com.intimetec.crns.core.config.MailConfig;
 import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.User;
 
+/**
+ * {@code MailServiceImpl} class for implementation of {@link MailService}.
+ * @author shiva.dixit
+ */
 @Service
-public class MailServiceImpl implements MailService
-{
+public class MailServiceImpl implements MailService {
+	/**
+	 * Instance of the class {@link MailConfig}.
+	 */
 	@Autowired
 	private MailConfig mailConfig;
-
-	public MailServiceImpl(MailConfig mailConfig)
-	{
+	
+	/**
+	 * Creating object of the class {@code MailServiceImpl}.
+	 */
+	public MailServiceImpl(MailConfig mailConfig) {
 		this.mailConfig = mailConfig;
 	}
 	
+	/**
+	 * Sending mails to the users.
+	 * @param user           the user to whom the mail has to be sent.
+	 * @param notification   the notification mail that has to be sent.
+	 */
 	@Async
-	public void sendMailToUsers(User user, Notification notification)
-	{
+	public void sendMailToUsers(User user, Notification notification) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", mailConfig.getHost());
 		props.put("mail.smtp.socketFactory.port", mailConfig.getPort());
@@ -43,7 +55,8 @@ public class MailServiceImpl implements MailService
 		Session session = Session.getDefaultInstance(props,
 			new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(mailConfig.getUserName(),mailConfig.getPassword());
+					return new PasswordAuthentication(mailConfig.getUserName(), 
+							mailConfig.getPassword());
 				}
 			});
 

@@ -7,6 +7,9 @@ import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
 import com.intimetec.crns.core.exceptions.InvalidUserException;
 import com.intimetec.crns.core.models.User;
 
+/**
+ * @author shiva.dixit
+ */
 public interface UserService {
 	Optional<User> getUserById(long id);
 

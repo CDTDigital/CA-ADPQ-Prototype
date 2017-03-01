@@ -1,4 +1,5 @@
 /**
+ * Contains all the custom exceptions.
  * @author shiva.dixit
  *
  */

@@ -10,7 +10,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
- * @author shiva.dixit.
+ * {@code MvcConfiguration} class for all the Java-based configuration, 
+ *  and as a source of all the Spring beans.
+ *  @author shiva.dixit.
  */
 @Configuration
 @EnableWebMvc
