@@ -2,12 +2,29 @@
  * Created by sunil.jhamnani on 2/25/17.
  */
 (function () {
+    'use strict';
 
+    /**
+     * RegistrationController responsible for view logic of registration.html
+     * @param $scope
+     * @param $timeout
+     * @param HttpFactory
+     * @param toaster
+     * @param GooglePlacesFactory
+     * @constructor
+     */
     function RegistrationController($scope, $timeout, HttpFactory, toaster, GooglePlacesFactory) {
+
+        /**
+         * RegistrationController initialization function
+         */
         function onInit() {
             $scope.register = {};
         }
 
+        /**
+         * Submit the registeration details to API
+         */
         $scope.submit = function () {
             $scope.register.location = getLocationObject($scope.locationDetails);
             if ($scope.register.password != $scope.confirmPassword) {
@@ -25,6 +42,11 @@
             })
         };
 
+        /**
+         * Create location object using details from $scope.locationDetails
+         * @param loc
+         * @returns {{addressLine1: *, addressLine2: *, city: *, zipCode: *, placeId: *, latitude: *, longitude: *, currentLocation: boolean}}
+         */
         function getLocationObject(loc) {
             var addressObj={};
             if(loc.address_components) {

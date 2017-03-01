@@ -2,12 +2,28 @@
  * Created by sunil.jhamnani on 2/26/17.
  */
 (function () {
+
+    'use strict'
+
+    /**
+     * AccountController responsible for view logic of account.html to manage account information
+     * @param $scope
+     * @param $sessionStorage
+     * @param HttpFactory
+     * @param GooglePlacesFactory
+     * @param toaster
+     * @constructor
+     */
     function AccountController($scope, $sessionStorage, HttpFactory, GooglePlacesFactory, toaster) {
+
+        /**
+         * AccountController initialization function
+         */
         function onInit() {
             HttpFactory.getUserProfile().then(function (userData) {
                 $scope.account = userData;
                 if ($scope.account.location) {
-                    var place = GooglePlacesFactory.getPlaceInformation($scope.account.location.placeId, function (result,status) {
+                    var place = GooglePlacesFactory.getPlaceInformation($scope.account.location.placeId, function (result, status) {
                         if (status === google.maps.GeocoderStatus.OK) {
                             $scope.name = result[0].formatted_address;
                             $scope.$apply();
@@ -19,6 +35,9 @@
             });
         }
 
+        /**
+         * Function to submit request for editing user details
+         */
         $scope.editDetails = function () {
             $scope.account.location = getLocationObject($scope.locationDetails);
             HttpFactory.setUserProfile($scope.account).then(function (res) {
@@ -27,22 +46,19 @@
             })
         };
 
-        $scope.logout = function () {
-            Object.keys($sessionStorage.loginResponse).forEach(function (key) {
-                delete $sessionStorage.loginResponse[key];
-            });
-            //$scope.isLoggedIn = false;
-            $scope.go('/login');
-        }
-
+        /**
+         * Function to create location object using details from $scope.locationDetails
+         * @param loc
+         * @returns {{addressLine1: *, addressLine2: *, city: *, zipCode: *, placeId: *, latitude: *, longitude: *, currentLocation: boolean}}
+         */
         function getLocationObject(loc) {
-            var addressObj={};
-            if(loc.address_components) {
-                loc.address_components.forEach(function(elem){
+            var addressObj = {};
+            if (loc.address_components) {
+                loc.address_components.forEach(function (elem) {
                     addressObj[elem.types[0]] = elem.long_name
                 });
-                return  {
-                    addressLine1: addressObj.street_number,
+                return {
+                    addressLine1: loc.formatted_address,
                     addressLine2: addressObj.route,
                     city: addressObj.locality,
                     zipCode: addressObj.postal_code,
@@ -56,6 +72,7 @@
 
         onInit();
     }
+
     var app = angular.module('CRNS'),
         requires = [
             '$scope',
