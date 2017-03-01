@@ -56,7 +56,7 @@ angular.module('CRNSCtrl')
                 }
 
                 if(zipCode == '') {
-                    Notify.errorToaster('Zip code is not available. Please choose another location!');
+                    Notify.errorAlert('Invalid', 'Zip code is not available. Please enter valid street address!', 'Ok', undefined);
                 } else {
                     var tempObj = {
                         address: results[0].formatted_address,
@@ -66,8 +66,8 @@ angular.module('CRNSCtrl')
                         zipCode: zipCode
                     };
                     GoogleMapService.setLocationAddress(tempObj);
+                    $rootScope.goBack();
                 }
-                $rootScope.goBack();
             }
         } else {
             console.log('Geocoder failed due to: ' + status);

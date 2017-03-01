@@ -48,7 +48,6 @@
                 register: function() {
                     $rootScope.$broadcast('httpCallStarted');
                     push.on('registration', function(data) {
-                        console.log(data.registrationId);
                         $rootScope.$broadcast('httpCallCompleted');
                         DeviceService.setDeviceInfo(data.registrationId, device.uuid);
                     });
