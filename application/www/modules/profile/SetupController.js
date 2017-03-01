@@ -1,6 +1,7 @@
 'use strict';
 angular.module('CRNSCtrl')
-.controller('SetupCtrl', ['$scope', '$state', 'GoogleMapService', 'AccountData', 'Notify', 'AccountServices', function($scope, $state, GoogleMapService, AccountData, Notify, AccountServices) {
+.controller('SetupCtrl', ['$scope', '$state', 'GoogleMapService', 'AccountData', 'Notify', 'AccountServices', 'BgGeoLocation',
+    function($scope, $state, GoogleMapService, AccountData, Notify, AccountServices, BgGeoLocation) {
     $scope.account = AccountData.getCurrentData();
     $scope.fetchCurrentLocationData = function() {
         var tempData = GoogleMapService.getLocationAddress();
@@ -41,6 +42,19 @@ angular.module('CRNSCtrl')
             }, function(resp) {
                 Notify.errorToaster(resp.data.message);
             });
+        }
+    };
+
+    $scope.toggleSwitch = function() {
+        $scope.account.userNotificationOptions.liveLocationTracking = false;
+        $scope.$apply();
+    };
+
+    $scope.onTrackLocationChange = function(val) {
+        if(val) {
+            BgGeoLocation.initCurrentLocation($scope.toggleSwitch, true);
+        } else {
+            BgGeoLocation.stopBackgroundGeoLocation();
         }
     };
 }]);
