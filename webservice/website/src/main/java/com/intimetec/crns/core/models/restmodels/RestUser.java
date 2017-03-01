@@ -1,4 +1,4 @@
-package com.intimetec.crns.core.restmodels;
+package com.intimetec.crns.core.models.restmodels;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

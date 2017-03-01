@@ -1,6 +1,7 @@
 package com.intimetec.crns.core.service.userdevice;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -35,6 +36,13 @@ public class UserDeviceServiceImpl implements UserDeviceService {
 	public Collection<UserDevice> getUserDevicesByUserId(long userId) {
 		LOGGER.debug("Getting userDevice by user id={}", userId);
 		Collection<UserDevice> userDevice = userDeviceRepository.getByUserId(userId);
+		return userDevice;
+	}
+	
+	@Override
+	public Collection<UserDevice> getUserDevicesByUserIds(List<Long> userIdList) {
+		LOGGER.debug("Getting userDevice by user id={}", userIdList);
+		Collection<UserDevice> userDevice = userDeviceRepository.findByUserIdIn(userIdList);
 		return userDevice;
 	}
 

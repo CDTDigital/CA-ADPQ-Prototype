@@ -111,16 +111,12 @@ public class UserLocationServiceImpl implements UserLocationService {
 	public UserLocation getLocationDetails(String lat, String lng) throws InvalidLocationCoordinatesException {
 		String url  = googleApiConfig.getUrl()+"?latlng="+lat+", "+lng+"&key="+googleApiConfig.getKey();
 		String postalCode = null;
-		String country = null;
-		String stateShortName = null;
-		String stateLongName = null;
 		String route = null;
 		String streetNumber = null;
 		String placeId = null;
 		String latitude = null;
 		String longitude = null;
 		
-		String county = null;
 		String cityName = null;
 		RestTemplate restTemplate= new RestTemplate();
 		String result = restTemplate.getForObject(url.toString(), String.class);
@@ -136,18 +132,6 @@ public class UserLocationServiceImpl implements UserLocationService {
 	
 			  if(postalData.isArray()){
 				for(final JsonNode dataNode : postalData) {
-	
-					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("country,political"))
-					      country =Utils.removeParenthesis( dataNode.get("long_name").toString());
-	
-					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("administrative_area_level_1,political"))
-					      stateLongName = Utils.removeParenthesis( dataNode.get("long_name").toString());
-	
-					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("administrative_area_level_1,political"))
-					      stateShortName = Utils.removeParenthesis( dataNode.get("short_name").toString());
-	
-					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("administrative_area_level_2,political"))
-					      county = Utils.removeParenthesis( dataNode.get("long_name").toString());
 	
 					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("route"))
 					      route = Utils.removeParenthesis( dataNode.get("long_name").toString());

@@ -1,6 +1,7 @@
 package com.intimetec.crns.core.repository;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -21,6 +22,8 @@ Integer> {
 	Optional<UserDevice> findByUserIdAndDeviceId(long userId, String deviceId);
 
 	Collection<UserDevice> getByUserId(long userId);
+	
+	Collection<UserDevice> findByUserIdIn(List<Long> userIdList);
 	
 	Collection<UserDevice> getByUserUserName(String userName);
 	

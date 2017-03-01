@@ -10,10 +10,10 @@ import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserLocation;
 import com.intimetec.crns.core.models.UserNotification;
-import com.intimetec.crns.core.restmodels.RestLocation;
-import com.intimetec.crns.core.restmodels.RestNotification;
-import com.intimetec.crns.core.restmodels.RestUser;
-import com.intimetec.crns.core.restmodels.RestUserNotification;
+import com.intimetec.crns.core.models.restmodels.RestLocation;
+import com.intimetec.crns.core.models.restmodels.RestNotification;
+import com.intimetec.crns.core.models.restmodels.RestUser;
+import com.intimetec.crns.core.models.restmodels.RestUserNotification;
 
 /**
  * @author shiva.dixit

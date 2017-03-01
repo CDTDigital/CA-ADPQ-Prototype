@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.intimetec.crns.core.config.MailConfig;
+import com.intimetec.crns.core.config.fcm.FcmConfig;
 import com.intimetec.crns.core.config.google.GoogleApiConfig;
 
 import springfox.documentation.builders.PathSelectors;
@@ -84,6 +85,12 @@ public class Application extends SpringBootServletInitializer {
 	private String googleApiKey;
 	
 	/**
+	 * URL of the Google FCM API. 
+	 */
+	@Value("${fcm.api.url}")
+	private String fcmApiUrl;
+	
+	/**
 	 * The mail host. 
 	 */
 	@Value("${spring.mail.host}")
@@ -113,6 +120,14 @@ public class Application extends SpringBootServletInitializer {
 	@Bean
 	public GoogleApiConfig getGoogleApiConfig() {
 		return new GoogleApiConfig(googleApiUrl, googleApiKey);
+	}
+	
+	/**
+	 * @return configurations of the Google FCM API.
+	 */
+	@Bean
+	public FcmConfig getFcmApiConfig() {
+		return new FcmConfig(fcmApiUrl);
 	}
 	
 	/**

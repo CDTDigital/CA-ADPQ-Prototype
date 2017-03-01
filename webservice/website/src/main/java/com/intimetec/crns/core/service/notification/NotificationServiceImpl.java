@@ -1,6 +1,8 @@
 package com.intimetec.crns.core.service.notification;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import com.intimetec.crns.core.repository.NotificationRepository;
 import com.intimetec.crns.core.service.notification.mail.MailService;
 import com.intimetec.crns.core.service.notification.pushnotification.fcm.FCMService;
 import com.intimetec.crns.core.service.user.UserService;
+import com.intimetec.crns.core.service.userdevice.UserDeviceService;
 import com.intimetec.crns.core.service.usernotification.UserNotificationService;
 
 /**
@@ -34,6 +37,8 @@ public class NotificationServiceImpl implements NotificationService {
 	private UserService userService;
 	@Autowired
 	private UserNotificationService userNotificationService;
+	@Autowired
+	private UserDeviceService userDeviceService;
 	
 	/**
 	 * To log the application messages.
@@ -88,14 +93,16 @@ public class NotificationServiceImpl implements NotificationService {
 	@Async
     public void sendNotification(Notification notification){
 		Collection<User> users = userService.getUsersByZipCode(notification.getZipCode());
+		List<Long> userIdList = new ArrayList<Long>();
 		for(User user:users){
 			userNotificationService.save(new UserNotification(user.getId(), notification));
 			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendEmail()) {
 				mailService.sendMailToUsers(user, notification);
 			}
 			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendPushNotification()) {
-				mailService.sendMailToUsers(user, notification);
+				userIdList.add(user.getId());
 			}
 		}
+		fcmService.sendNotification(userDeviceService.getUserDevicesByUserIds(userIdList), notification);
 	}
 }
