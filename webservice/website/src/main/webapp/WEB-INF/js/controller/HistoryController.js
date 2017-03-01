@@ -3,10 +3,16 @@
  */
 
 (function () {
-    function HistoryController($scope, HttpFactory) {
+    'use strict';
+
+    function HistoryController($scope, $filter, HttpFactory) {
         function onInit() {
-            $scope.notificationList = HttpFactory.notificationList;
-            console.log($scope.notificationList)
+            $scope.role = HttpFactory.getUserRole();
+            HttpFactory.getNotificationList().then(function (list) {
+                $scope.notificationList = list;
+            });
+
+            //var not = $filter('filternot')($scope.notificationList, "push");
         }
         onInit()
     }
@@ -14,7 +20,8 @@
     var app = angular.module("CRNS"),
         requires = [
             '$scope',
-            'modules.code.HttpFactory',
+            '$filter',
+            'modules.core.HttpFactory',
             HistoryController
         ];
     app.controller('HistoryController', requires);

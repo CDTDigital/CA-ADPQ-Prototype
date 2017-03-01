@@ -28,7 +28,8 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTOqratY641IYya28VEHtCQQl994mrAs&libraries=places"></script>
     <script src="/lib/angularjs-google-maps.js"></script>
     <script src="/lib/ngStorage.min.js"></script>
-    
+    <script src="/lib/angular-bootstrap-tpls.min.js"></script>
+
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jPushMenu.js"></script>
@@ -44,6 +45,7 @@
     <script src="/js/controller/RegistrationController.js"></script>
     <script src="/js/controller/AccountController.js"></script>
     <script src="/js/controller/HistoryController.js"></script>
+    <script src="/js/controller/MessageController.js"></script>
     <!--<script src="/js/controller/GooglePredictionListController.js"></script>-->
     <script src="/js/directives/loginError.js"></script>
     <script src="/js/directives/googlePredictionList.js"></script>
@@ -88,6 +90,11 @@
                             <a href ng-click="viewNotificationList(loginResponse.data.role)">Notification List</a>
                         </li>
                     </ul>
+                </li>
+                <li ng-if="loginResponse.data.role == 'ADMIN'">
+                    <a class="usa-nav-link" href="#">
+                        <span>User List</span>
+                    </a>
                 </li>
                 <li ng-if="loginResponse.data.role == 'USER'">
                     <a class="usa-nav-link" href ng-click="viewNotificationList(loginResponse.data.role)">

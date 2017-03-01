@@ -1,96 +1,34 @@
-	<!-- Bootstrap -->
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-	<!-- Custom StyleSheets -->
-	<link rel="stylesheet" type="text/css" href="/css/style.css" />
-	<!-- Scripts-->
-	<!-- Meta Data-->
-	<meta charset="UTF-8">
-	<meta name="description" content="California Residents Notification Service">
-	<meta name="keywords" content="Notifications, Userlist">
-	<meta name="author" content="CRNS">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<div>
-    <header class="usa-header usa-header-extended" role="banner">
-	  <div class="subheader">
-	    <div class="usa-navbar">
-		  <button class="usa-menu-btn">
-			  <div></div>
-			  <div></div>
-			  <div></div>
-		  </button>
-			<div class="usa-logo col-lg-8 col-md-8 col-sm-8 col-xs-10 noSpace" id="logo">
-			  <em class="usa-logo-text">
-			    <a href="#" class="col-xs-12 noSpace" accesskey="1" title="Home" aria-label="Home">
-				  <img src="/images/logo.png" alt="CRNS">
-			      <span>California Residents Notification Service</span>
-				</a>
-			  </em>
-			</div>
-		</div>
-	  </div>
-	  <nav role="navigation" class="usa-nav">
-	    <div class="usa-nav-inner">
-		  <button class="usa-nav-close">
-		    <img src="/images/close.svg" alt="close">
-		  </button>
-		  <ul class="usa-nav-primary usa-accordion">
-            <li>
-              <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="side-nav-1">
-                <span>Notification</span>
-			  </button>
-              <ul id="side-nav-1" class="usa-nav-submenu">
-                <li>
-                  <a href="#">Send Notification</a>
-				</li>
-                <li>
-                  <a href="#">Notification List</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a class="usa-nav-link" href="#">
-                <span>User List</span>
-              </a>
-            </li>
-		  </ul>
-		  <div class="usa-nav-secondary">
-		    <ul class="usa-unstyled-list usa-nav-secondary-links">
-			  <li class="hidden-sm hidden-xs">
-			    <a href="#">Welcome John</a>
-			  </li>
-			  <li>
-			    <a href="#">Logout</a>
-			  </li>
-			</ul>
-		  </div>
-		</div>
-	  </nav>
-	</header>
-	<div class="container main-body-content">
-	  <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
-		<h3>Send Notifications</h3>
-	      <div class="sendForm">
-		    <div class="form-group row">
-			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 noSpace">
-			    <input class="form-control" type="text" value="" id="text-input" placeholder="Location">
-			  </div>
-			</div>
-			<div class="form-group row">
-			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 noSpace">
-			    <input class="form-control" type="text" value="" id="text-input" placeholder="Subject">
-			  </div>
-			</div>
-			<div class="form-group row">
-			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 noSpace">
-			    <textarea class="form-control" id="comments" placeholder="Message"></textarea>
-			  </div>
-			</div>
-			<div class="form-group">
-		      <button type="submit" class="buttonLink btn btn-primary">Publish</button>
-			</div>
-		  </div>
-	  </div>
+<div class="container main-body-content">
+    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        <h3>Send Notifications</h3>
+        <div class="sendForm">
+            <div class="form-group row">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                    <input class="form-control" type="text" value="" id="subject" placeholder="Subject" ng-model="subject">
+                </div>
             </div>
+            <div class="form-group row">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                    <textarea class="form-control" id="comments" ng-model="message" placeholder="Message"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                    <input class="form-control" type="date" id="startDate" ng-model="startDate">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                    <input class="form-control" type="date" id="validThrough" ng-model="validThrough">
+                </div>
+            </div>
+            <div class="form-group row">
+                <google-prediction-list location="locationDetails" name="name"></google-prediction-list>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="buttonLink btn btn-primary pull-right" ng-click="publicNotification()">Publish</button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 

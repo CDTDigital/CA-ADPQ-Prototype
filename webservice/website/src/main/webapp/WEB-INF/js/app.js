@@ -8,7 +8,8 @@
         'ngRoute',
         'ngStorage',
         'toaster',
-        'ngAnimate'
+        'ngAnimate',
+        'ui.bootstrap'
     ]);
 }());
 (function () {

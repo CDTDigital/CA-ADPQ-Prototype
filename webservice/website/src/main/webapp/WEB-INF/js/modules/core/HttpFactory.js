@@ -85,30 +85,50 @@
                 return deferred.promise;
             }
 
-            function getNotificationList(role) {
+            function getNotificationList() {
                 var deferred = $q.defer();
                 var id = $sessionStorage.loginResponse.data.id;
-                queryUrl = role == "USER" ? self.baseUrl + '/notifications/userNotifications/' + id : self.baseUrl + "/notifications/list";
+                queryUrl = $sessionStorage.loginResponse.data.role == "USER" ? self.baseUrl + '/notifications/userNotifications/' + id : self.baseUrl + "/notifications/list";
                 $http.get(queryUrl).then(function (response) {
                     deferred.resolve(response.data.data);
-                    notificationList = response.data.data;
+                    //notificationList = response.data.data;
                 }, function (error) {
                     deferred.reject(error);
                 });
 
                 return deferred.promise;
             }
+
+            function pushNotification(notificationData) {
+                var deferred = $q.defer();
+                $http.post(self.baseUrl + '/notifications/send', notificationData).then(function (response) {
+                    deferred.resolve(response.data)
+                }, function () {
+                    deferred.reject(error)
+                });
+
+                return deferred.promise;
+            }
+
+            function getUserRole() {
+                return $sessionStorage.loginResponse.data.role;
+            }
+
+            function getUserId() {
+                return $sessionStorage.loginResponse.data.id;
+            }
             onInitialization();
 
             return {
                 login: login,
-                loginResponse: loginResponse,
-                notificationList: notificationList,
+                getUserRole: getUserRole,
+                getUserId:getUserId,
                 getNotificationList: getNotificationList,
                 isLoggedIn: isLoggedIn,
                 signup: signup,
                 getUserProfile: getUserProfile,
-                setUserProfile: setUserProfile
+                setUserProfile: setUserProfile,
+                pushNotification: pushNotification
             }
         }
 

@@ -15,7 +15,7 @@
             HttpFactory.login($scope.user.email, $scope.user.password).then(function (loginResponse) {
                 //$rootScope.isLoggedIn = true;
                 //$rootScope.user_role = "USER";
-                $scope.go('/account')
+                $scope.go('/history')
             }, function (error) {
                 $scope.isLoading = false;
                 toaster.pop('error', error.message);
