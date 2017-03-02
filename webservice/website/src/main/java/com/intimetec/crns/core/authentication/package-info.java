@@ -1,5 +1,5 @@
 /**
  * @author shiva.dixit
- * Contains the authentication handlers.
+ * Contains all the authentication handlers.
  */
 package com.intimetec.crns.core.authentication;

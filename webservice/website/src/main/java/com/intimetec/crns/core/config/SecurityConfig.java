@@ -28,6 +28,7 @@ import com.intimetec.crns.core.authentication.HttpAuthenticationEntryPoint;
 import com.intimetec.crns.core.authentication.HttpLogoutSuccessHandler;
 
 /**
+ * {@code SecurityConfig} class for the security related configurations.
  * @author shiva.dixit.
  */
 @Configuration
@@ -102,7 +103,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/**", "/users/signup").permitAll()
         .antMatchers("/swagger-ui.html", "/webjars/**").fullyAuthenticated()
-        .antMatchers("/view/**", "/lib/**", "/fonts/**", "/images/**", "/css/**", "/js/**", "/swagger-ui.html").permitAll()
+        .antMatchers("/view/**", "/lib/**", "/fonts/**", "/images/**",
+        		"/css/**", "/js/**", "/swagger-ui.html").permitAll()
         .antMatchers("/images/favicon.ico").permitAll()
         .antMatchers("/login").permitAll()
         .anyRequest().authenticated()

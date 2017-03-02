@@ -27,8 +27,8 @@ import com.intimetec.crns.core.service.userdevice.UserDeviceServiceImpl;
 import com.intimetec.crns.util.ResponseMessage;
 
 /**
- * @author shiva.dixit
- *
+ * {@code AuthSuccessHandler} class to handle a successful authentication.
+ *  @author shiva.dixit
  */
 @Component
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {
@@ -81,7 +81,8 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 		//Generate authToke
 		String authToken = null;
         
-		if (currentUser.getDeviceInfo() != null && currentUser.getRole() == UserRole.USER) {
+		if (currentUser.getDeviceInfo() != null && currentUser.getRole() 
+				== UserRole.USER) {
 				authToken = new BCryptPasswordEncoder().encode(authUser.
 						getUserName() + System.currentTimeMillis());
 				

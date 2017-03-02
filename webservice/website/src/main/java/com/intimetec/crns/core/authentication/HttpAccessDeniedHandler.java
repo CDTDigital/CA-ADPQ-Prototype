@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intimetec.crns.util.ResponseMessage;
 
 /**
- * @author shiva.dixit
- *
+ * {@code HttpAccessDeniedHandler} class to handle any access denied exceptions.
+ *  @author shiva.dixit
  */
 @Component
 public class HttpAccessDeniedHandler implements AccessDeniedHandler {

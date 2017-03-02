@@ -27,7 +27,8 @@ public class FcmConfig {
 	 * @param fcmApiKey  the Key of the Google FCM API.
 	 * @param fcmApiProjectKey  the Project Key of the Google FCM API.
 	 */
-	public FcmConfig(final String fcmApiUrl, final String fcmApiKey, final String fcmApiProjectKey) {
+	public FcmConfig(final String fcmApiUrl, final String fcmApiKey, 
+			final String fcmApiProjectKey) {
 		this.url = fcmApiUrl;
 		this.key = fcmApiKey;
 		this.projectKey = fcmApiProjectKey;

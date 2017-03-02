@@ -10,8 +10,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.stereotype.Component;
 
 /**
- * @author shiva.dixit
- *
+ * {@code HttpLogoutSuccessHandler} class to handle the successful logout.
+ *  @author shiva.dixit
  */
 @Component
 public class HttpLogoutSuccessHandler implements LogoutSuccessHandler {

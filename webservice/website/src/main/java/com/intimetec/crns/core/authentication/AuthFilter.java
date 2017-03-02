@@ -23,8 +23,8 @@ import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.models.UserRole;
 
 /**
- * @author shiva.dixit
- *
+ * {@code AuthFilter} class to process the authentication.
+ *  @author shiva.dixit
  */
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 	/**
@@ -68,9 +68,11 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 							"User Account is locked");
 				}
 				
-				if (loginRequest.getDeviceId() != null && authUser.getUserRole() == UserRole.ADMIN) {
+				if (loginRequest.getDeviceId() != null && authUser.
+						getUserRole() == UserRole.ADMIN) {
 					throw new InternalAuthenticationServiceException(
-							"Please user Web application for adminitrative purpose.");
+							"Please user Web application for "
+							+ "adminitrative purpose.");
 				}
 
 				if (loginRequest.getDeviceId() != null && !loginRequest.

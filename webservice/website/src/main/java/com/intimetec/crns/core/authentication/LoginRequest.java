@@ -3,8 +3,8 @@ package com.intimetec.crns.core.authentication;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * @author shiva.dixit
- *
+ * {@code LoginRequest} class for the login request.
+ *  @author shiva.dixit
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginRequest {
