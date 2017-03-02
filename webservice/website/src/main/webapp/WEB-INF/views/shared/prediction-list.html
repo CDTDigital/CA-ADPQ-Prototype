@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-        <input class="form-control" type="text" id="location" placeholder="Location" ng-bind="name" ng-model="search" ng-disabled="isLoading" ng-change="getLocation(search)" required>
+        <input class="form-control" type="text" id="location" autocomplete="off"  placeholder="Location" ng-bind="name" ng-model="search" ng-disabled="isLoading" ng-change="getLocation(search)" required>
     </div>
 </div>
 <div class="form-group row" id="resComponent" ng-if="!isPredictionVisible">

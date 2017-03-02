@@ -26,15 +26,14 @@
          */
         $scope.publicNotification = function () {
             if ($scope.notificationForm.$valid) {
+                $scope.isLoading = true;
                 $timeout(function () {
-                    var startDate = $scope.startDate.getFullYear() + '-' + $scope.startDate.getMonth() + '-' + $scope.startDate.getDate();
-                    var validThrough = $scope.validThrough.getFullYear() + '-' + $scope.validThrough.getMonth() + '-' + $scope.validThrough.getDate();
+                    var validThrough = $scope.validThrough.getFullYear() + '-' + ($scope.validThrough.getMonth() + 1) + '-' + $scope.validThrough.getDate();
                     var location = getLocationObject($scope.locationDetails);
                     angular.extend($scope.notification, {
                         address: location.formatted_address,
                         city: location.city,
                         message: $scope.message,
-                        sentTime: startDate + $filter('date')(Date.now(), 'Thh:mm:ss'),
                         subject: $scope.subject,
                         validThrough: validThrough + $filter('date')(Date.now(), 'Thh:mm:ss'),
                         latitude: location.latitude,
@@ -46,9 +45,10 @@
                     });
                     HttpFactory.pushNotification($scope.notification).then(function (response) {
                         toaster.pop('info', "Notification Pushed");
-                        $scope.notification = {};
+                        $scope.go('/history');
                     }, function () {
                         toaster.pop('error', "Error! Please try again");
+                        $scope.isLoading = false;
                     })
                 },1000);
             }
