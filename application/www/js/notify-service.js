@@ -1,6 +1,6 @@
 'use strict';
 angular.module('CRNSSrv')
-    .service('Notify', ['Constant', 'toaster', '$state', function(Constant, toaster, $state) {
+    .service('Notify', ['Constant', 'toaster', '$state', 'AuthServices', function(Constant, toaster, $state, AuthServices) {
         this.errorToaster = function(msg) {
             if (Constant.IS_TOASTER == true) {
                 toaster.pop('error', '', msg);
@@ -24,6 +24,12 @@ angular.module('CRNSSrv')
 
         this.commanDismissed = function(dismissState) {
             if (dismissState != undefined) $state.go(dismissState);
+            else if(dismissState == 'login') {
+                AuthServices.logout().then(function(resp) {
+                    $state.go('login');
+                }, function() {
+                });
+            }
         };
 
         this.errorAlert = function(title, subject, buttonText, dismissState) {
