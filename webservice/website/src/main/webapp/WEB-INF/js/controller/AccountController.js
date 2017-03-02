@@ -8,18 +8,18 @@
     /**
      * AccountController responsible for view logic of account.html to manage account information
      * @param $scope
-     * @param $sessionStorage
      * @param HttpFactory
      * @param GooglePlacesFactory
      * @param toaster
      * @constructor
      */
-    function AccountController($scope, $sessionStorage, HttpFactory, GooglePlacesFactory, toaster) {
+    function AccountController($scope, $timeout, HttpFactory, GooglePlacesFactory, toaster) {
 
         /**
          * AccountController initialization function
          */
         function onInit() {
+            $scope.locationDetails = {};
             HttpFactory.getUserProfile().then(function (userData) {
                 $scope.account = userData;
                 if ($scope.account.location) {
@@ -39,11 +39,22 @@
          * Function to submit request for editing user details
          */
         $scope.editDetails = function () {
-            $scope.account.location = getLocationObject($scope.locationDetails);
-            HttpFactory.setUserProfile($scope.account).then(function (res) {
-                $scope.account = res;
-                toaster.pop('success', "Profile Updated successfully");
-            })
+            if($scope.userDetails.$valid) {
+                if ($scope.account.password != $scope.confirmPassword) {
+                    toaster.pop('error', "Password and Confirm password are not matching");
+                    return
+                }
+                $scope.isLoading = true;
+                $scope.account.location = getLocationObject($scope.locationDetails.location);
+                HttpFactory.setUserProfile($scope.account).then(function (res) {
+                    $scope.account = res;
+                    toaster.pop('success', "Profile Updated successfully");
+                    $timeout(function () {
+                        $scope.go('/history')
+                    },2000);
+                    $scope.isLoading = false
+                })
+            }
         };
 
         /**
@@ -53,7 +64,7 @@
          */
         function getLocationObject(loc) {
             var addressObj = {};
-            if (loc.address_components) {
+            if (loc) {
                 loc.address_components.forEach(function (elem) {
                     addressObj[elem.types[0]] = elem.long_name
                 });
@@ -68,6 +79,7 @@
                     currentLocation: false
                 };
             }
+            return $scope.account.location;
         }
 
         onInit();
@@ -76,7 +88,7 @@
     var app = angular.module('CRNS'),
         requires = [
             '$scope',
-            '$sessionStorage',
+            '$timeout',
             'modules.core.HttpFactory',
             'modules.google.GooglePlacesFactory',
             'toaster',
