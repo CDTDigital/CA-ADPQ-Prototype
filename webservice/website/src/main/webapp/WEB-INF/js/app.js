@@ -24,9 +24,6 @@
         }).when('/register', {
             templateUrl: '/view/auth/registration.html',
             controller: 'RegistrationController'
-        }).when('/home', {
-            templateUrl: '/view/auth/home.html',
-            controller: "HomeController"
         }).when('/history', {
             templateUrl: '/view/notification/history.html',
             controller: "HistoryController"
