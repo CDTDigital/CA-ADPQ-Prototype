@@ -132,7 +132,6 @@ public class UserLocationServiceImpl implements UserLocationService {
 	
 			  if(postalData.isArray()){
 				for(final JsonNode dataNode : postalData) {
-	
 					if(Utils.removeParenthesis(dataNode.get("types").toString()).equalsIgnoreCase("route"))
 					      route = Utils.removeParenthesis( dataNode.get("long_name").toString());
 	
@@ -150,7 +149,7 @@ public class UserLocationServiceImpl implements UserLocationService {
 				  latitude = geometryNode.get("lat").asText();
 				  longitude = geometryNode.get("lng").asText();
 			  }
-			  location = new UserLocation(route, streetNumber, postalCode, cityName, latitude, longitude, placeId);
+			  location = new UserLocation(streetNumber, route, cityName, postalCode, latitude, longitude, placeId);
 		  }
 		  else {
 			  throw new InvalidLocationCoordinatesException("Invalid location coordinates.");
