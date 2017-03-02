@@ -34,14 +34,14 @@ public class UserNotificationServiceImpl implements UserNotificationService {
     @Override
 	public Collection<UserNotification> getByNotificationId(long notificationId) {
     	LOGGER.debug("Getting user Notifications by notificationId={}",notificationId);
-        Collection<UserNotification> userNotification= userNotificationRepository.getByNotificationId(notificationId);
+        Collection<UserNotification> userNotification= userNotificationRepository.getByNotificationIdOrderByNotificationSentTimeDesc(notificationId);
         return userNotification;
 	}
 
     @Override
     public Collection<UserNotification> getByUserId(long userId) {
        LOGGER.debug("Getting user Notifications  by userId={}",userId);
-       Collection<UserNotification> userNotifications= userNotificationRepository.getByUserId(userId);
+       Collection<UserNotification> userNotifications= userNotificationRepository.getByUserIdOrderByNotificationSentTimeDesc(userId);
        return userNotifications;
     }
     
@@ -65,7 +65,7 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 	@Override
 	public Collection<UserNotification> getUserNotificationsByUserId(long userId) throws InvalidUserException {
 		LOGGER.debug("Getting user Notifications by user id={}",userId);
-		return userNotificationRepository.getByUserId(userId);
+		return userNotificationRepository.getByUserIdOrderByNotificationSentTimeDesc(userId);
 	}
 
 	@Override
