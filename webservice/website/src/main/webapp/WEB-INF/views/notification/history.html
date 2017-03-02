@@ -36,7 +36,7 @@
                     <td>{{notification.notification.validThrough | date:"MM/dd/yyyy h:mma"}}</td>
                     <td>{{notification.notification.address}}</td>
                 </tr>
-                <tr ng-repeat="notification in notificationList" ng-if="role == 'ADMIN'">
+                <tr ng-repeat="notification in notificationList | filter: searchFilter" ng-if="role == 'ADMIN'">
                     <td>{{notification.subject}}</td>
                     <td>{{notification.message}}</td>
                     <td>{{notification.sentBy.firstName + notification.notification.sentBy.lastName}}</td>

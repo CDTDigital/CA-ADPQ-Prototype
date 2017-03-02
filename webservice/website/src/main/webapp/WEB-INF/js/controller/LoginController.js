@@ -27,15 +27,20 @@
          * Submit a post request to login with credentials
          */
         $scope.submitLogin = function () {
-            $scope.isLoading = true;
-            HttpFactory.login($scope.user.email, $scope.user.password).then(function (loginResponse) {
-                //$rootScope.isLoggedIn = true;
-                //$rootScope.user_role = "USER";
-                $scope.go('/history')
-            }, function (error) {
-                $scope.isLoading = false;
-                toaster.pop('error', error.message);
-            })
+            if ($scope.signin.$valid) {
+                $scope.isLoading = true;
+                HttpFactory.login($scope.user.email, $scope.user.password).then(function (loginResponse) {
+                    //$rootScope.isLoggedIn = true;
+                    //$rootScope.user_role = "USER";
+                    $scope.go('/history')
+                }, function (error) {
+                    $scope.isLoading = false;
+                    toaster.pop('error', error.message);
+                })
+            }
+            else {
+                toaster.pop('error', "Please fill all the required fields");
+            }
         };
 
         onLoad();

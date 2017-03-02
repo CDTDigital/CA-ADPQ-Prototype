@@ -35,7 +35,7 @@
             controller: "MessageController"
         }).when('/usersList', {
             templateUrl: '/view/user/list.html',
-            controller: "UserController"
+            controller: "UserListController"
         }).when('/account', {
             templateUrl: '/view/user/account.html',
             controller: "AccountController"

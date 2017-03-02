@@ -26,20 +26,26 @@
          * Submit the registeration details to API
          */
         $scope.submit = function () {
-            $scope.register.location = getLocationObject($scope.locationDetails);
-            if ($scope.register.password != $scope.confirmPassword) {
-                toaster.pop('error', "Password and Confirm password are not matching");
-                return
+            if($scope.registerForm.$valid) {
+                $scope.register.location = getLocationObject($scope.locationDetails);
+                if ($scope.register.password != $scope.confirmPassword) {
+                    toaster.pop('error', "Password and Confirm password are not matching");
+                    return
+                }
+                $scope.isLoading = true;
+                HttpFactory.signup($scope.register).then(function (response) {
+                    toaster.pop('info', "User successfully registered");
+                    $timeout(function () {
+                        $scope.go('/login');
+                    }, 2000);
+                }, function (error) {
+                    $scope.isLoading = false;
+                    toaster.pop('error', "Something went wrong while registering the user");
+                })
             }
-            $scope.isLoading = true;
-            HttpFactory.signup($scope.register).then(function (response) {
-                toaster.pop('info', "User successfully registered");
-                $timeout(function () {
-                    $scope.go('/login');
-                }, 2000);
-            }, function (error) {
-                toaster.pop('error', error.message);
-            })
+            else {
+                toaster.pop('error', "Please fill all the required fields");
+            }
         };
 
         /**

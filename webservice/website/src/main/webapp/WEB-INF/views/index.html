@@ -14,6 +14,7 @@
     <!-- External StyleSheets -->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
 
     <!-- Base StyleSheets -->
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
@@ -33,6 +34,8 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
+    <script src="/js/jPushMenu.js"></script>
+
 
     <!--Application scripts-->
     <!--Main module: CRNS-->
@@ -58,12 +61,13 @@
     <!--CRNS: Directives-->
     <script src="/js/directives/googlePredictionList.js"></script>
 
+    <script src="/js/nav.min.js"></script>
+
 
 </head>
 <body ng-controller="MainController">
 <header class="usa-header usa-header-extended" role="banner">
     <div class="subheader">
-
         <div class="usa-navbar">
             <div class="usa-logo" id="logo">
                 <em class="usa-logo-text"> <a href accesskey="1" ng-click="toNotfiPage()"
@@ -75,18 +79,47 @@
             </div>
         </div>
     </div>
-    <nav role="navigation" class="usa-nav" ng-if="isLoggedIn">
+    <nav role="navigation" class="usa-nav" ng-show="isLoggedIn">
         <div class="usa-nav-inner">
+            <button class="usa-nav-close">
+                <img src="/images/close.svg" alt="close">
+            </button>
+            <ul class="usa-nav-primary usa-accordion">
+                <li ng-show="loginResponse.data.role == 'ADMIN'">
+                    <button class="usa-accordion-button usa-nav-link" aria-expanded="false"
+                            aria-controls="side-nav-1">
+                        <span>Notification</span>
+                        <ul id="side-nav-1" class="usa-nav-submenu">
+                            <li>
+                                <a href ng-click="go('/message')">Send Notification</a>
+                            </li>
+                            <li>
+                                <a href ng-click="go('/history')">Notification List</a>
+                            </li>
+                        </ul>
+                    </button>
+
+                </li>
+                <li ng-show="loginResponse.data.role == 'ADMIN'">
+                    <a class="usa-nav-link" href ng-click="go('/usersList')">
+                        <span>User List</span>
+                    </a>
+                </li>
+                <li ng-show="loginResponse.data.role == 'USER'">
+                    <a class="usa-nav-link" href ng-click="go('/history')">
+                        <span>Notification List</span>
+                    </a>
+                </li>
+            </ul>
             <div class="usa-nav-secondary">
                 <ul class="usa-unstyled-list usa-nav-secondary-links">
-                    <li class="hidden-sm hidden-xs" style="margin-right: 50px;" ng-if="loginResponse.data.role == 'ADMIN'">
-                        <a href ng-click="go('/usersList')"><img ng-src="/images/userList.png" title="User List"></a>
+                    <li class="hidden-sm hidden-xs">
+                        <button class="center text-capitalize" ng-click="go('/account')">
+                            <i class="fa fa-user-circle-o"></i> {{loginResponse.data.userName}}</button>
                     </li>
-                    <li class="hidden-sm hidden-xs" style="margin-right: 50px;">
-                        <a href ng-click="go('/account')"><img ng-src="/images/account.png" title="Profile"></a>
-                    </li>
-                    <li>
-                        <a href ng-click="logout()"><img ng-src="/images/logout.png" title="Logout"></a>
+                    <li class="hidden-sm hidden-xs">
+                        <button class="center text-capitalize" ng-click="logout()">
+                            <i class="fa fa-sign-out"></i> Logout</button>
                     </li>
                 </ul>
             </div>

@@ -53,9 +53,11 @@
                         deferred.resolve(response.data)
                     }
                     else {
+                        $log.debug(response.data);
                         deferred.reject(response.data)
                     }
                 }, function (error) {
+                    $log.debug(error);
                     deferred.reject(error.data.data);
                 });
                 return deferred.promise;
@@ -84,6 +86,7 @@
                         deferred.reject(response.data.data);
                     }
                 }, function (error) {
+                    $log.debug(error);
                     deferred.reject(error);
                 });
 
@@ -100,6 +103,7 @@
                 $http.get(self.baseUrl + '/users/' + id).then(function (response) {
                     deferred.resolve(response.data.data)
                 }, function (error) {
+                    $log.debug(error);
                     deferred.reject(error);
                 });
 
@@ -117,6 +121,7 @@
                 $http.post(self.baseUrl + '/users/' + id, updatedData).then(function (response) {
                     deferred.resolve(response.data.data)
                 }, function (error) {
+                    $log.debug(error);
                     deferred.reject(error);
                 });
 
@@ -135,6 +140,7 @@
                     deferred.resolve(response.data.data);
                     //notificationList = response.data.data;
                 }, function (error) {
+                    $log.debug(error);
                     deferred.reject(error);
                 });
 
@@ -151,6 +157,7 @@
                 $http.post(self.baseUrl + '/notifications/send', notificationData).then(function (response) {
                     deferred.resolve(response.data)
                 }, function () {
+                    $log.debug(error);
                     deferred.reject(error)
                 });
 
@@ -166,6 +173,19 @@
                 $http.get(self.baseUrl + '/users/list').then(function (response) {
                     deferred.resolve(response.data);
                 }, function (error) {
+                    $log.debug(error);
+                    deferred.reject(error)
+                });
+
+                return deferred.promise;
+            }
+
+            function logoutUser() {
+                var deferred = $q.defer();
+                $http.get(self.baseUrl + '/logout').then(function (response) {
+                    deferred.resolve(response.data);
+                }, function (error) {
+                    $log.debug(error);
                     deferred.reject(error)
                 });
 
@@ -199,7 +219,8 @@
                 getUserProfile: getUserProfile,
                 setUserProfile: setUserProfile,
                 pushNotification: pushNotification,
-                getUserList:getUserList
+                getUserList:getUserList,
+                logoutUser:logoutUser
             }
         }
 
