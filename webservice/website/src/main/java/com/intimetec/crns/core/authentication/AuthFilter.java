@@ -1,6 +1,7 @@
 package com.intimetec.crns.core.authentication;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,57 +14,88 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intimetec.crns.core.models.CurrentUser;
+import com.intimetec.crns.core.models.User;
+import com.intimetec.crns.core.models.UserRole;
 
+/**
+ * {@code AuthFilter} class to process the authentication.
+ *  @author shiva.dixit
+ */
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthFilter.class);
-	
+	/**
+	 * To log the application messages. 
+	 */
+	private static final Logger LOGGER = LoggerFactory.
+	       getLogger(AuthFilter.class);
+
 	@Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response){
-        if (!request.getMethod().equals("POST")) {
-            throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
-        }
+	public final Authentication attemptAuthentication(HttpServletRequest 
+			request, HttpServletResponse response)
+			throws AuthenticationException {
+		if (!request.getMethod().equals("POST")) {
+			throw new AuthenticationServiceException(
+					"Authentication method not supported" + ": " 
+			+ request.getMethod());
+		}
+		try {
+			BufferedReader reader = request.getReader();
+			StringBuffer sb = new StringBuffer();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+			String parsedReq = sb.toString();
+			if (parsedReq != null) {
+				ObjectMapper mapper = new ObjectMapper();
+				LoginRequest loginRequest = mapper.readValue(parsedReq, 
+						LoginRequest.class);
+				LOGGER.debug("Login Request: " + loginRequest);
+				request.getSession().setAttribute("loginRequest", loginRequest);
+				Authentication authentication = getAuthenticationManager()
+						.authenticate(new UsernamePasswordAuthenticationToken(
+								loginRequest.getUserName(),
+								loginRequest.getPassword()));
 
-        try {
-            BufferedReader reader = request.getReader();
-            StringBuffer sb = new StringBuffer();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            String parsedReq = sb.toString();
-            if (parsedReq != null) {
-                ObjectMapper mapper = new ObjectMapper();
-                LoginRequest loginRequest = mapper.readValue(parsedReq, LoginRequest.class);
-                LOGGER.debug("Login Request: "+ loginRequest);
-                return new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
-            }
-        } catch (Exception e) {
-            LOGGER.debug(e.getMessage());
-            throw new InternalAuthenticationServiceException("Failed to parse authentication request body");
-        }
-        return null;
-    }
-	
+				User authUser = ((CurrentUser) authentication.
+						getPrincipal()).getUser();
+				if (!authUser.isEnabled()) {
+					throw new InternalAuthenticationServiceException(
+							"User Account is locked");
+				}
+				
+				if (loginRequest.getDeviceId() != null && authUser.
+						getUserRole() == UserRole.ADMIN) {
+					throw new InternalAuthenticationServiceException(
+							"Please user Web application for "
+							+ "adminitrative purpose.");
+				}
+
+				if (loginRequest.getDeviceId() != null && !loginRequest.
+						getDeviceId().isEmpty()) {
+					((CurrentUser) authentication.getPrincipal()).setDeviceInfo(
+							loginRequest.getDeviceId(),
+							loginRequest.getDeviceType(), 
+							loginRequest.getDeviceToken());
+				}
+				return authentication;
+			}
+		} catch (IOException ex) {
+			LOGGER.debug(ex.getMessage());
+			throw new InternalAuthenticationServiceException(
+					"Failed to parse authentication " + "request body");
+		}
+		return null;
+	}
+
 	@Autowired
-    @Override
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        super.setAuthenticationManager(authenticationManager);
-    }
-
-    @Autowired
-    @Override
-    public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler successHandler) {
-        super.setAuthenticationSuccessHandler(successHandler);
-    }
-    
-    @Autowired
-    @Override
-    public void setAuthenticationFailureHandler(AuthenticationFailureHandler failureHandler) {
-        super.setAuthenticationFailureHandler(failureHandler);
-    }
+	@Override
+	public final void setAuthenticationManager(
+			 AuthenticationManager authenticationManager) {
+		super.setAuthenticationManager(authenticationManager);
+	}
 }

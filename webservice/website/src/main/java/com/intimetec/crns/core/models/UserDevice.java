@@ -11,78 +11,157 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Entity model class for User table
+ * Entity model class for the User Device table.
  * @author shiva.dixit
  */
 @Entity
-@Table(name="user_device")
+@Table(name = "user_device")
 public class UserDevice {
+	/**
+	 * Id of the user_device.
+	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private int id;	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	/**
+	 * User of the device.
+	 */
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@Column(name="device_id")
+	/**
+	 * Id of the device.
+	 */
+	@Column(name = "device_id")
 	private String deviceId;
 	
-	@Column(name="device_token")
+	/**
+	 * Token of the device.
+	 */
+	@Column(name = "device_token")
 	private String deviceToken;
 	
-	@Column(name="device_type")
+	/**
+	 * Type of the device.
+	 */
+	@Column(name = "device_type")
 	private String deviceType;
 
-	@Column(name="auth_token")
+	/**
+	 * Authentication token of the device.
+	 */
+	@Column(name = "auth_token")
 	private String authToken;
 
-	public int getId() {
+	/**
+	 * Creating object of class {@code UserDevice}.
+	 */
+	public UserDevice() {
+	}
+	
+
+	/**
+	 * Creating object of class {@code UserDevice}.
+	 * @param user         the User of the device
+	 * @param deviceId     the Id of the device
+	 * @param deviceType   the type of the device
+	 * @param deviceToken  the token of the device
+	 * @param authToken    the authentication token of the device.
+	 */
+	public UserDevice(final User user, final String deviceId, 
+			final String deviceType, final String deviceToken, 
+			final String authToken) {
+		this.user = user;
+		this.deviceId = deviceId;
+		this.deviceType = deviceType;
+		this.deviceToken = deviceToken;
+		this.authToken = authToken;
+	}
+	
+	/**
+	 * @return id.
+	 */
+	public final int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	/**
+	 * @param id the of the user device.
+	 */	
+	public final void setId(final int id) {
 		this.id = id;
 	}
 
-	public User getUser() {
+	/**
+	 * @return the User of the device.
+	 */
+	public final User getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	/**
+	 * @param user the user of the device.
+	 */
+	public final void setUser(final User user) {
 		this.user = user;
 	}
 
-	public String getDeviceId() {
+	/**
+	 * @return the Id of the device.
+	 */
+	public final String getDeviceId() {
 		return deviceId;
 	}
 
-	public void setDeviceId(String deviceId) {
+	/**
+	 * @param deviceId the Id of the device.
+	 */
+	public final void setDeviceId(final String deviceId) {
 		this.deviceId = deviceId;
 	}
 
-	public String getDeviceToken() {
+	/**
+	 * @return the token of the device.
+	 */
+	public final String getDeviceToken() {
 		return deviceToken;
 	}
 
-	public void setDeviceToken(String deviceToken) {
+	/**
+	 * @param deviceToken the token of the device.
+	 */
+	public final void setDeviceToken(final String deviceToken) {
 		this.deviceToken = deviceToken;
 	}
 
-	public String getDeviceType() {
+	/**
+	 * @return the type of the device.
+	 */
+	public final String getDeviceType() {
 		return deviceType;
 	}
 
-	public void setDeviceType(String deviceType) {
+	/**
+	 * @param deviceType the type of the device.
+	 */
+	public final void setDeviceType(final String deviceType) {
 		this.deviceType = deviceType;
 	}
 
-	public String getAuthToken() {
+	/**
+	 * @return the authentication token of the device.
+	 */
+	public final String getAuthToken() {
 		return authToken;
 	}
 
-	public void setAuthToken(String authToken) {
+	/**
+	 * @param authToken the authentication token of the device.
+	 */
+	public final void setAuthToken(final String authToken) {
 		this.authToken = authToken;
 	}
 }

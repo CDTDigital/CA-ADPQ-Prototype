@@ -32,7 +32,7 @@ To avoid having to use the command prompt, you can set up Run configurations in 
 * Open Run > Run Configurations...
 * Right-click the Maven Build category and click New
 * Set the following properties on the Main tab
-	* Name (example): LW - Migrate DB (IOP)
+	* Name (example): CRNS - Migrate DB 
 	* Base directory: ${workspace_loc:/application/tools}
 	* Goals: flyway:migrate	
 * Click the Common tab
@@ -47,7 +47,7 @@ The run configuration approach listed previously uses the embedded Maven runtime
 * Open Run > External Tools > External Tools Configuration...
 * Right-click Program and select New
 * Set the following properties on the Main tab
-	* Name (example): LW - Migrate DB (IOP)
+	* Name (example): CRNS - Migrate DB 
 	* Location (example): C:\Program Files (x86)\Apache Software Foundation\Maven 3.3.1\bin\mvn.cmd
 	* Working directory: ${workspace_loc:/application/tools-maven}
 	* Arguments: flyway:migrate

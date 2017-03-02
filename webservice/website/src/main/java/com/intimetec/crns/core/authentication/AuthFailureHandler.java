@@ -1,32 +1,53 @@
-/**
- * 
- */
 package com.intimetec.crns.core.authentication;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intimetec.crns.util.ResponseMessage;
+
 /**
- * @author shiva.dixit
- *
+ * {@code AuthFailureHandler} class to handle the authentication failure.
+ *  @author shiva.dixit
  */
 @Component
 public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-    @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException exception) throws IOException, ServletException {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	/**
+	 * Framework to parse JSON into Java objects.
+	 */ 
+	private final ObjectMapper mapper;
+	/**
+	 * @param messageConverter the converter to read and write JSON
+	 * using {@link ObjectMapper}
+	 */
+	@Autowired
+	AuthFailureHandler(final MappingJackson2HttpMessageConverter 
+			messageConverter) {
+		this.mapper = messageConverter.getObjectMapper();
+	}
 
-        PrintWriter writer = response.getWriter();
-        writer.write(exception.getMessage());
-        writer.flush();
-    }
+	@Override
+	public final void onAuthenticationFailure(final HttpServletRequest request, 
+            final HttpServletResponse response,
+		    final AuthenticationException exception) throws IOException, 
+	       ServletException {
+
+		Map<String, Object> responseMap = ResponseMessage.failureResponse(
+				HttpServletResponse.SC_UNAUTHORIZED,
+				exception.getMessage(), response);
+		PrintWriter writer = response.getWriter();
+		writer.write(mapper.writeValueAsString(responseMap));
+		writer.flush();
+	}
 }

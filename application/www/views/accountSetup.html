@@ -1,5 +1,5 @@
 <ion-view>
-    <ion-header-bar class="bar-positive">
+    <ion-header-bar class="bar-positive" align-title="center">
 
         <h1 class="title">Setup Your Account</h1>
 
@@ -13,61 +13,67 @@
 
             <div class="registerLabel lBlueFontClr">Personal Information</div>
             <label class="item item-input extendInput">
-                <input type="text" placeholder="First Name" ng-model="information.firstName">
+                <input type="text" placeholder="First Name" ng-model="account.firstName">
             </label>
 
             <label class="item item-input extendInput marginTop5">
-                <input type="text" placeholder="Last Name" ng-model="information.lastName">
+                <input type="text" placeholder="Last Name" ng-model="account.lastName">
             </label>
 
             <label class="item item-input extendInput marginTop5">
-                <input type="number" placeholder="Phone Number" ng-model="information.phoneNumber">
+                <input type="number" placeholder="Mobile Number" ng-model="account.mobileNumber">
             </label>
 
             <div class="registerLabel lBlueFontClr marginTop5">Location</div>
-            <div class="locationLabel" ng-if="currentAddress.address != ''">{{currentAddress.address}}</div>
-            <div class="marginTop5" ng-if="currentAddress.address == ''">
+            <div class="locationLabel" ng-model='account.location.addressLine1' ng-if="account.location.addressLine1 != ''">{{account.location.addressLine1}}</div>
+            <div class="marginTop5" ng-if="account.location.addressLine1 == ''">
                 <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
                     Add
                 </button>
             </div>
 
-            <div class="row zeroPadding marginTop5"  ng-if="currentAddress.address != ''">
-                <div class="col zeroPadding alignRight btnMarRight">
+            <div class="row zeroPadding marginTop5"  ng-if="account.location.addressLine1 != ''">
+                <!--<div class="col zeroPadding alignRight btnMarRight">
                     <button class="button button-full button-assertive delBtn" ng-click="onTapDeleteLocation()">
                         Delete
                     </button>
-                </div>
+                </div>-->
                 <div class="col zeroPadding alignLeft btnMarLeft">
                     <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
-                        Edit
+                        Edit Location
                     </button>
                 </div>
             </div>
 
-            <div class="registerLabel lBlueFontClr marginTop5">Track Location</div>
-            <li class="item item-toggle trackToggleItem">
+            <div ng-if="!isAndroid" class="registerLabel lBlueFontClr marginTop5">Track Location</div>
+            <li ng-if="!isAndroid" class="item item-toggle trackToggleItem">
                 Current Location
                 <label class="toggle toggle-balanced trackToggle">
-                    <input type="checkbox">
+                    <input type="checkbox" ng-model="account.userNotificationOptions.liveLocationTracking" ng-change="onTrackLocationChange(account.userNotificationOptions.liveLocationTracking)">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
                 </label>
             </li>
 
-            <div class="registerLabel lBlueFontClr marginTop5">Options for Notification</div>
-            <ion-checkbox ng-model="information.email">Email</ion-checkbox>
-            <ion-checkbox ng-model="information.sms">SMS</ion-checkbox>
-            <ion-checkbox ng-model="information.notification">Notifications</ion-checkbox>
+            <div class="registerLabel lBlueFontClr marginTop5">Options for Notifications</div>
+            <ion-checkbox ng-model="account.userNotificationOptions.sendEmail">Email</ion-checkbox>
+            <ion-checkbox ng-model="account.userNotificationOptions.sendSms">SMS</ion-checkbox>
+            <ion-checkbox ng-model="account.userNotificationOptions.sendPushNotification">Push Notification</ion-checkbox>
 
 
         </div>
 
         <div class="row zeroPadding marginTop20">
-            <div class="col zeroPadding">
-                <button class="button button-positive positiveBtn" ng-click="onTapProceedBtn()">
-                    Procced
+            <div class="col zeroPadding alignRight btnMarRight">
+                <button class="button button-positive cancelBtn" ng-click="onTabLogout()">
+                    Logout
+                </button>
+            </div>
+
+            <div class="col zeroPadding alignLeft btnMarLeft">
+                <button class="button button-positive positiveBtn" ng-click="onTapContinueBtn()">
+                    Continue
                 </button>
             </div>
         </div>

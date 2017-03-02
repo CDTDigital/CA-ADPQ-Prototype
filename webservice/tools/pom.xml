@@ -13,7 +13,7 @@
 	</parent>
 
 	<dependencies>
-		<!-- Setting this dependency will allow Flyway to pick it up. http://stackoverflow.com/questions/12243172/flyway-unable-to-instantiate-jdbc-driver -->
+		<!-- Setting this dependency will allow Flyway to pick it up.-->
 		<!-- MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>

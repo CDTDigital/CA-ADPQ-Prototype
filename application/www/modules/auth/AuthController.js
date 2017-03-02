@@ -1,32 +1,29 @@
 angular.module('CRNSCtrl')
-.controller('AuthCtrl', ['$scope', '$ionicModal', '$ionicScrollDelegate', '$state', function($scope, $ionicModal, $ionicScrollDelegate, $state) {
+.controller('AuthCtrl', ['$rootScope', '$scope', '$ionicScrollDelegate', '$state', 'AuthServices', 'Notify', 'Constant', 'DeviceService', function($rootScope, $scope, $ionicScrollDelegate, $state, AuthServices, Notify, Constant, DeviceService) {
     'use strict';
-    // Create the registration modal that will use on tap on register link
-    $ionicModal.fromTemplateUrl('views/registration.html', {
-        scope: $scope,
-        animation: 'slide-in-up',
-        backdropClickToClose: false
-    }).then(function(modal) {
-        $scope.registerModal = modal;
-    });
-
-    // Create the forgot modal that will use on tap on forgot link
-    $ionicModal.fromTemplateUrl('views/forgot.html', {
-        scope: $scope,
-        animation: 'slide-in-up',
-        backdropClickToClose: false
-    }).then(function(modal) {
-        $scope.forgotModal = modal;
-    });
-
     // Open the Forgot password modal
-    $scope.onTapForgotLink = function() {
-        $ionicScrollDelegate.scrollTop();
+    $scope.resetModels = function() {
+        $scope.login = {
+            userName: '',
+            password: ''
+        };
+
+        $scope.register = {
+            userName: '',
+            email: '',
+            password: '',
+            cpassword: ''
+        };
+
         $scope.forgot = {
             email: ''
         };
+    };
 
-        $scope.forgotModal.show();
+    $scope.onTapForgotLink = function() {
+        $ionicScrollDelegate.scrollTop();
+        $scope.resetModels();
+        $state.go('forgot');
     };
 
     // Perform the register action when the user submits the register form
@@ -34,38 +31,70 @@ angular.module('CRNSCtrl')
         console.log('Doing register', $scope.forgot);
     };
 
-    $scope.onForgotCancel = function() {
-        $scope.forgotModal.hide();
-    };
-
     // Open the Register user modal
     $scope.onTapRegisterLink = function() {
         $ionicScrollDelegate.scrollTop();
-        $scope.register = {
-            userName: '',
-            email: '',
-            pasword: ''
-        };
-
-        $scope.registerModal.show();
+        $scope.resetModels();
+        $state.go('register');
     };
 
     // Perform the register action when the user submits the register form
     $scope.onTapRegisterBtn = function() {
         console.log('Doing register', $scope.register);
+        if($scope.register.userName == '' || $scope.register.email == '' || $scope.register.password == '' || $scope.register.cpassword == '') {
+            Notify.errorToaster('Please fill all the input fields!');
+        } else if(!Constant.IS_EMAIL.test($scope.register.email)) {
+            Notify.errorToaster('Email address is not valid!');
+        } else if($scope.register.password != $scope.register.cpassword) {
+            Notify.errorToaster('Password and Confirm Password are mismatch!');
+        } else {
+            AuthServices.register($scope.register).then(function(resp) {
+                console.log(resp);
+                if(resp.data && resp.data.responseStatus == 'SUCCESS') {
+                    Notify.successToaster('Registration Successful!');
+                    $state.go('login');
+                };
+            }, function(resp) {
+                Notify.errorToaster(resp.data.data.message);
+            });
+        }
     };
 
-    $scope.onRegisterCancel = function() {
-        $scope.registerModal.hide();
-    };
-
-    $scope.login = {
-        userName: '',
-        password: ''
+    $scope.backToLogin = function() {
+        $state.go('login');
     };
 
     // Perform the login action when the user submits the login form
     $scope.onTapLoginBtn = function() {
-        $state.go('accountSetup');
+        if($scope.login.userName == '' || $scope.login.password == '') {
+            Notify.errorToaster('Please fill Username and Password!');
+        } else {
+            var tmpDeviceInfo = DeviceService.getDeviceInfo();
+            $scope.login.deviceId = tmpDeviceInfo.deviceId;
+            $scope.login.deviceType = tmpDeviceInfo.deviceType;
+            $scope.login.deviceToken = tmpDeviceInfo.deviceToken;
+            AuthServices.login($scope.login).then(function(resp) {
+                if (resp.data && resp.data.responseStatus == 'SUCCESS') {
+                    var tempObj = {
+                        email: resp.data.data.email,
+                        userName: resp.data.data.userName,
+                        authToken: resp.data.authToken,
+                        accountSetupDone: resp.data.data.accountSetupDone,
+                    };
+
+                    $rootScope.loginData = tempObj;
+                    window.localStorage.setItem('loginData', angular.toJson($rootScope.loginData));
+                    if (!$rootScope.loginData.accountSetupDone) $state.go('accountSetup');
+                    else {
+                        localStorage.setItem('accountSetup', true);
+                        $state.go('app.list');
+                    }
+                };
+            }, function() {
+                Notify.errorToaster('Incorrect Username or Password!');
+            });
+        }
     };
+
+    $scope.resetModels();
 }]);

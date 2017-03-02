@@ -1,136 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>CRNS</title>
-  <!-- Bootstrap -->
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-  <!-- Custom StyleSheets -->
-  <link rel="stylesheet" type="text/css" href="/css/style.css" />
-  <!-- Scripts-->
-  <script src="js/bootstrap.min.js"></script>
-  <script src="/js/nav.min.js"></script>
-  <!-- Meta Data-->
-  <meta charset="UTF-8">
-  <meta name="description" content="California Residents Notification Service">
-  <meta name="keywords" content="Notifications, Userlist">
-  <meta name="author" content="CRNS">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-  <div>
-    <header class="usa-header usa-header-extended" role="banner">
-	  <div class="subheader">
-		<div class="usa-navbar">
-			<button class="usa-menu-btn">
-				<div></div>
-				<div></div>
-				<div></div>
-			</button>
-		    <div class="usa-logo col-lg-8 col-md-8 col-sm-8 col-xs-10 noSpace" id="logo">
-			  <em class="usa-logo-text">
-			    <a href="#" class="col-xs-12 noSpace" accesskey="1" title="Home" aria-label="Home">
-				  <img src="/images/logo.png" alt="CRNS">
-				    <span>California Residents Notification Service</span>
-				</a>
-			  </em>
-			</div>
-		</div>
-	  </div>
-	  <nav role="navigation" class="usa-nav">
-		<div class="usa-nav-inner">
-	      <button class="usa-nav-close">
-		    <img src="/images/close.svg" alt="close">
-		  </button>
-		  <ul class="usa-nav-primary usa-accordion">
-		    <li>
-			  <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="side-nav-1">
-			    <span>Notification</span>
-			  </button>
-			  <ul id="side-nav-1" class="usa-nav-submenu">
-			    <li>
-				  <a href="#">Send Notification</a>
-				</li>
-				<li>
-				  <a href="#">Notification List</a>
-				</li>
-			  </ul>
-			</li>
-			<li>
-			  <a class="usa-nav-link" href="#">
-				<span>User List</span>
-			  </a>
-			</li>
-		  </ul>
-		  <div class="usa-nav-secondary">
-		    <ul class="usa-unstyled-list usa-nav-secondary-links">
-			  <li class="hidden-sm hidden-xs">
-			    <a href="#">Welcome John</a>
-			  </li>
-			  <li>
-				<a href="#">Logout</a>
-			  </li>
-			</ul>
-		  </div>
-		</div>
-	  </nav>
-	</header>
-	<div class="usa-overlay"></div>
-	<div class="container main-body-content">
-	  <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
-		<div class="row">
-			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 noSpace clearfix">
-			<h3>Notifications History</h3>
-		  </div>
-			<div class="pull-right col-lg-4 col-md-4 col-sm-6 col-xs-12 noSpace">
-			<input type="text" class="searchInput left" data-search-input="true" data-search-url="/search?query=" id="searchTermTop" placeholder="Search">
-			<div data-search-button="true" class="left searchButton"></div>
-		  </div>
-		</div>
-		<div class="row notificationTable  table-responsive">
-		  <table>
-		    <thead>
-			  <tr>
-			    <th scope="col">City</th>
-				<th scope="col">Subject</th>
-				<th scope="col">Message</th>
-				<th scope="col">Sent By</th>
-				<th scope="col">Date</th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr>
-				<th scope="row">California</th>
-				<td>ABC</td>
-				<td>Test Message</td>
-				<td>Test</td>
-				<td>Test</td>
-			  </tr>
-			  <tr>
-			    <th scope="row">California</th>
-				<td>ABC</td>
-				<td>Test Message</td>
-				<td>Test</td>
-				<td>Test</td>
-			  </tr>
-			  <tr>
-				<th scope="row">California</th>
-				<td>ABC</td>
-				<td>Test Message</td>
-				<td>Test</td>
-				<td>Test</td>
-			  </tr>
-			  <tr>
-			    <th scope="row">California</th>
-				<td>ABC</td>
-				<td>Test Message</td>
-				<td>Test</td>
-				<td>Test</td>
-			  </tr>
-			</tbody>
-		  </table>
-		</div>
-	  </div>
-	</div>
-  </div>
-</body>
-</html>
+<div class="usa-overlay"></div>
+<div class="container main-body-content">
+    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 noSpace clearfix">
+                <h3>Notifications History</h3>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 noSpace clearfix" ng-if="role == 'ADMIN'">
+                <button ui-sref="message" type="submit" class="center" ng-click="go('/message')">Send Notification
+                </button>
+            </div>
+            <div class="pull-right col-lg-4 col-md-4 col-sm-6 col-xs-12 noSpace">
+                <input type="text" class="searchInput left" data-search-input="true" ng-model="searchFilter"
+                       id="searchTermTop" placeholder="Search">
+                <div data-search-button="true" class="left searchButton"></div>
+            </div>
+        </div>
+        <div class="row notificationTable  table-responsive">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Sent By</th>
+                    <th scope="col">Sent Date</th>
+                    <th scope="col">Valid Through</th>
+                    <th scope="col">Location</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="notification in notificationList | filter: searchFilter" ng-if="role == 'USER'">
+                    <td>{{notification.notification.subject}}</td>
+                    <td>{{notification.notification.message}}</td>
+                    <td>{{notification.notification.sentBy.firstName + notification.notification.sentBy.lastName}}</td>
+                    <td>{{notification.notification.sentTime | date:"MM/dd/yyyy h:mma"}}</td>
+                    <td>{{notification.notification.validThrough | date:"MM/dd/yyyy h:mma"}}</td>
+                    <td>{{notification.notification.address}}</td>
+                </tr>
+                <tr ng-repeat="notification in notificationList | filter: searchFilter" ng-if="role == 'ADMIN'">
+                    <td>{{notification.subject}}</td>
+                    <td>{{notification.message}}</td>
+                    <td>{{notification.sentBy.firstName + notification.notification.sentBy.lastName}}</td>
+                    <td>{{notification.sentTime | date:"MM/dd/yyyy h:mma"}}</td>
+                    <td>{{notification.validThrough | date:"MM/dd/yyyy h:mma"}}</td>
+                    <td>{{notification.address}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

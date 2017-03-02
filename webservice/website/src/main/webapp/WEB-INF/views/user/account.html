@@ -1,0 +1,68 @@
+<div>
+    <toaster-container toaster-options="{'time-out': 1000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+    <div class="container main-body-content">
+        <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+            <h3>Account Information</h3>
+            <div class="sendForm clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+                    <h4>Personal Information</h4>
+                    <div class="form-group row">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                            <input class="form-control" type="text" ng-model="account.firstName" id="firstName" placeholder="First Name" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                            <input class="form-control" type="text" ng-model="account.lastName" id="lastName" placeholder="Last Name" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                            <input class="form-control"  type="email" ng-model="account.email" ng-disabled="true" id="email" placeholder="Email" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                            <input class="form-control" type="text" ng-model="account.mobileNo" id="mobileNo" placeholder="mobile" >
+                        </div>
+                    </div>
+                    <google-prediction-list location="locationDetails" name="name"></google-prediction-list>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+                    <h4>Login Information</h4>
+                    <div class="form-group row">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                            <input class="form-control" type="text" ng-model="account.userName" ng-disabled="true" id="userName" placeholder="Username" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                            <input class="form-control" type="password" ng-model="account.password" id="password" placeholder="Password" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
+                            <input class="form-control" type="password" ng-model="confirmPassword" id="confirmPassword" placeholder="Confirm Password" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noSpace">
+                    <h4>Notification Setting</h4>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+                        <input type="checkbox" id="smsNotification" value="checkbox" ng-checked="account.userNotificationOptions.sendSms"> <label for="smsNotification">SMS</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+                        <input type="checkbox" id="emailNotification" value="checkbox" ng-checked="account.userNotificationOptions.sendEmail"> <label for="emailNotification">Email</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
+                        <input type="checkbox" id="pushNotification" ng-checked="account.userNotificationOptions.sendPushNotification" value="checkbox"> <label for="pushNotification">Push Notification</label>
+                    </div>
+                </div>
+                <div class="form-group col-lg-11 noSpace">
+                    <button type="submit" class="buttonLink btn btn-primary pull-right" ng-click="editDetails()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,19 @@
+<ion-view>
+    <ion-header-bar class="bar-positive" align-title="center">
+        <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()"></button>
+        <h1 class="title">Notifications List</h1>
+    </ion-header-bar>
+
+    <ion-content class="notification">
+        <ion-list>
+            <ion-item ng-repeat="item in listItems" class="item-icon-right" ng-click="openDetail(item)" ng-class="{'read': item.read}">
+                <h2>{{item.notification.subject}}</h2>
+                <h4 class="subtext">{{item.notification.sentTime | date:'MMM dd, yyyy HH:mm'}} <span class="sentBy"> {{item.notification.sentBy.firstName}}</span></h4>
+                <p class="description">{{item.notification.message | truncateStr:80}}</p>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+        </ion-list>
+        <div ng-if="listItems.length == 0" class="alignCenter padding25">No notifications are available for you!</div>
+    </ion-content>
+</ion-view>
+

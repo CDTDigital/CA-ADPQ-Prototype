@@ -1,72 +1,122 @@
-/**
- * 
- */
 package com.intimetec.crns.core.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-/**
- * 
- * Model class for User notifications
+/** 
+ * Model class for User notifications.
  * @author shiva.dixit
  *
  */
 
 @Entity
-@Table(name="user_notification")
+@Table(name = "user_notification")
 public class UserNotification {
+	/**
+	 * Id of the User notification.
+	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="user_notification_id")
-	private int id;
+	@GeneratedValue
+	@Column(name = "user_notification_id")
+	private long id;
 	
-	@Column(name="notification_id")
-	private int notificationId;
+	/**
+	 * Instance of the class {@code Notification}.
+	 */
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+	@JoinColumn(name = "notification_id")
+	private Notification notification;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private User userId;
+	/**
+	 * Id of the User.
+	 */
+	@Column(name = "user_id")
+	private long userId;
 	
-	@Column(name="is_read")
-	private boolean read;
+	/**
+	 * Status of the notification whether it's read or unread.
+	 */
+	@Column(name = "is_read")
+	private boolean read = false;
 
-	public int getId() {
+	/**
+	 * @return Id.
+	 */
+	public final long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	/**
+	 * @param id the id of the user notification.
+	 */
+	public final void setId(final long id) {
 		this.id = id;
 	}
 
-	public int getNotificationId() {
-		return notificationId;
+	/**
+	 * @return the notification.
+	 */
+	public final Notification getNotification() {
+		return notification;
 	}
 
-	public void setNotificationId(int notificationId) {
-		this.notificationId = notificationId;
+	/**
+	 * @param notification the notification of the user.
+	 */
+	public final void setNotification(final Notification notification) {
+		this.notification = notification;
 	}
 
-	public User getUserId() {
+	/**
+	 * @return the id of the user.
+	 */
+	public final long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(User userId) {
+	/**
+	 * @param userId the id of the User.
+	 */
+	public final void setUserId(final long userId) {
 		this.userId = userId;
 	}
 
-	public boolean isRead() {
+	/**
+	 * @return true if the notification is read.
+	 */
+	public final boolean isRead() {
 		return read;
 	}
 
-	public void setRead(boolean read) {
+	/**
+	 * @param read the status of the notification.
+	 */
+	public final void setRead(final boolean read) {
 		this.read = read;
+	}
+	
+	@Override
+	public final String toString() {
+		return "UserNotification{"
+				+ "id: " + id
+				+ ", notification: " + notification
+				+ ", userId: " + userId
+				+ ", isRead: " + read;
+	}
+	
+	public UserNotification(){
+		
+	}
+	
+	public UserNotification(long userId, Notification notifcation){
+		this.userId = userId;
+		this.notification = notifcation;
 	}
 }

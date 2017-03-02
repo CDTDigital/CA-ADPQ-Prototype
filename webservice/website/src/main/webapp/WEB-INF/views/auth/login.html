@@ -1,0 +1,27 @@
+<div class="login-screen center col-lg-3 col-md-3 col-sm-6 col-xs-8">
+	<h2 class="login-header">Welcome</h2>
+	<div class="form">
+		<h4 class="text-bold">Let's get started</h4>
+		<p class="grayFont">Enter your username and password and start the
+			tour.</p>
+		<form class="form-signin" ng-submit="submitLogin()" name="signin">
+			<div class="row">
+				<div class="form-group">
+					<input type="text" name="username" class="form-control" ng-model="user.email"
+						placeholder="Username or Email" ng-disabled="isLoading" required>
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" name="password" ng-model="user.password"
+						placeholder="Password" ng-disabled="isLoading" required />
+				</div>
+				<toaster-container toaster-options="{'time-out': 500, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+				<div class="button_wrapper fullwidth">
+					<button ui-sref="message" type="submit" ng-disabled="isLoading" class="center">SUBMIT</button>
+				</div>
+				<div id="dataLoading" ng-show="isLoading"><img width="20" src="/images/ajax-spinner-blue.gif"/>&nbsp;Logging in...
+				</div>
+				<a class="text-bold" href ng-click="go('/register')">Sign Up</a>
+			</div>
+		</form>
+	</div>
+</div>

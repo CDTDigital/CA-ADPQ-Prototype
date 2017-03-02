@@ -10,9 +10,10 @@ create table user (
 	first_name NVARCHAR(50) NULL,
 	last_name NVARCHAR(50) NULL,
 	email NVARCHAR(100) NOT NULL,
+	mobile_no NVARCHAR(15) NULL,
 	username NVARCHAR(16) NOT NULL,
 	password NVARCHAR(100) NOT NULL,
-	status BINARY DEFAULT 1,
+	enabled BINARY DEFAULT 1,
 	role NVARCHAR(10) NOT NULL,
 	CONSTRAINT pk_userLogin PRIMARY KEY (user_id),
 	CONSTRAINT unique_user_name UNIQUE INDEX (username),
@@ -23,13 +24,13 @@ create table user (
 create table user_locations (
 	id INT NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
-	address_line1 NVARCHAR(100) NOT NULL,
+	address_line1 NVARCHAR(100),
 	address_line2 NVARCHAR(100),
-	city NVARCHAR(100) NOT NULL,
+	city NVARCHAR(100),
 	zip_code NVARCHAR(100) NOT NULL,
 	place_id NVARCHAR(200) NOT NULL,
-	lattitude NVARCHAR(10) NOT NULL,
-	longitude NVARCHAR(10) NOT NULL,
+	latitude NVARCHAR(30) NOT NULL,
+	longitude NVARCHAR(30) NOT NULL,
 	current_location BOOLEAN NOT NULL DEFAULT 0,
 	CONSTRAINT pk_user PRIMARY KEY (id),
 	CONSTRAINT fk_userInfo_userLogin FOREIGN KEY (user_id) REFERENCES user(user_id)
@@ -51,11 +52,12 @@ create table user_device (
 	id INT  NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	device_id NVARCHAR(100) NOT NULL,
-	device_token NVARCHAR(250) NOT NULL UNIQUE,
+	device_token NVARCHAR(250) NOT NULL,
 	device_type NVARCHAR(15) NOT NULL,
-	auth_token NVARCHAR(25) UNIQUE,
+	auth_token NVARCHAR(150) UNIQUE,
 	CONSTRAINT pk_userDevice PRIMARY KEY (id),
-	CONSTRAINT fk_userDevice_user FOREIGN KEY (user_id) REFERENCES user(user_id)
+	CONSTRAINT fk_userDevice_user FOREIGN KEY (user_id) REFERENCES user(user_id),
+	CONSTRAINT unique_userDevice_user UNIQUE INDEX (user_id, device_id)
 );
 
 -- Table for Notification
@@ -64,8 +66,11 @@ create table notification (
 	sent_by INT NOT NULL,
 	subject NVARCHAR(100) NOT NULL, 
 	message NVARCHAR(1000) NOT NULL,
-	city NVARCHAR(100) NOT NULL,
+	city NVARCHAR(100),
 	zip_code NVARCHAR(100) NOT NULL,
+    address NVARCHAR(500) NOT NULL,
+	latitude NVARCHAR(30) NOT NULL,
+	longitude NVARCHAR(30) NOT NULL,
 	sent_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	valid_through TIMESTAMP NOT NULL,
 	CONSTRAINT pk_notification PRIMARY KEY (notification_id),

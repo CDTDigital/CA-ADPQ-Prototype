@@ -3,8 +3,13 @@ package com.intimetec.crns.core.service.user;
 import java.util.Collection;
 import java.util.Optional;
 
+import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
+import com.intimetec.crns.core.exceptions.InvalidUserException;
 import com.intimetec.crns.core.models.User;
 
+/**
+ * @author shiva.dixit
+ */
 public interface UserService {
 	Optional<User> getUserById(long id);
 
@@ -15,4 +20,14 @@ public interface UserService {
     Collection<User> getAllUsers();
 
     User create(User user);
+	
+	Optional<User> getValidUserForAuthToken(String authToken) throws InvalidAuthTokenException;
+	
+	User update(long id, User user) throws InvalidUserException;
+	
+	User update(String authToken, User user) throws InvalidUserException, InvalidAuthTokenException;
+
+	User removeSensitiveInfo(User user);
+	
+	Collection<User> getUsersByZipCode(String zipCode);
 }
