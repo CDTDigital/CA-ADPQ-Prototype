@@ -1,7 +1,7 @@
 'use strict';
 angular.module('CRNSCtrl')
-.controller('SetupCtrl', ['$scope', '$state', 'GoogleMapService', 'AccountData', 'Notify', 'AccountServices', 'BgGeoLocation',
-    function($scope, $state, GoogleMapService, AccountData, Notify, AccountServices, BgGeoLocation) {
+.controller('SetupCtrl', ['AuthServices', '$scope', '$state', 'GoogleMapService', 'AccountData', 'Notify', 'AccountServices', 'BgGeoLocation',
+    function(AuthServices, $scope, $state, GoogleMapService, AccountData, Notify, AccountServices, BgGeoLocation) {
     $scope.account = AccountData.getCurrentData();
     $scope.fetchCurrentLocationData = function() {
         var tempData = GoogleMapService.getLocationAddress();
@@ -56,5 +56,12 @@ angular.module('CRNSCtrl')
         } else {
             BgGeoLocation.stopBackgroundGeoLocation();
         }
+    };
+
+    $scope.onTabLogout = function() {
+        AuthServices.logout().then(function(resp) {
+            $state.go('login');
+        }, function() {
+        });
     };
 }]);

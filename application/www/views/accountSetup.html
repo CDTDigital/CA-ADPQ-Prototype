@@ -33,14 +33,14 @@
             </div>
 
             <div class="row zeroPadding marginTop5"  ng-if="account.location.addressLine1 != ''">
-                <div class="col zeroPadding alignRight btnMarRight">
+                <!--<div class="col zeroPadding alignRight btnMarRight">
                     <button class="button button-full button-assertive delBtn" ng-click="onTapDeleteLocation()">
                         Delete
                     </button>
-                </div>
+                </div>-->
                 <div class="col zeroPadding alignLeft btnMarLeft">
                     <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
-                        Edit
+                        Edit Location
                     </button>
                 </div>
             </div>
@@ -65,7 +65,13 @@
         </div>
 
         <div class="row zeroPadding marginTop20">
-            <div class="col zeroPadding">
+            <div class="col zeroPadding alignRight btnMarRight">
+                <button class="button button-positive cancelBtn" ng-click="onTabLogout()">
+                    Logout
+                </button>
+            </div>
+
+            <div class="col zeroPadding alignLeft btnMarLeft">
                 <button class="button button-positive positiveBtn" ng-click="onTapContinueBtn()">
                     Continue
                 </button>
