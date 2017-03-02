@@ -19,6 +19,7 @@
          * RegistrationController initialization function
          */
         function onInit() {
+            $scope.locationDetails = {};
             $scope.register = {};
         }
 
@@ -27,7 +28,8 @@
          */
         $scope.submit = function () {
             if($scope.registerForm.$valid) {
-                $scope.register.location = getLocationObject($scope.locationDetails);
+                $scope.register.location = getLocationObject($scope.locationDetails.location);
+                $scope.register.accountSetupDone = true;
                 if ($scope.register.password != $scope.confirmPassword) {
                     toaster.pop('error', "Password and Confirm password are not matching");
                     return
@@ -68,7 +70,6 @@
                     latitude: loc.geometry.location.lat(),
                     longitude: loc.geometry.location.lng(),
                     currentLocation: false,
-                    accountSetupDone: true
                 };
             }
         }
