@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 @SuppressWarnings("serial")

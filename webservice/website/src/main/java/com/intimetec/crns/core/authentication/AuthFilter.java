@@ -24,7 +24,7 @@ import com.intimetec.crns.core.models.UserRole;
 
 /**
  * {@code AuthFilter} class to process the authentication.
- *  @author shiva.dixit
+ *  @author In Time Tec
  */
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 	/**

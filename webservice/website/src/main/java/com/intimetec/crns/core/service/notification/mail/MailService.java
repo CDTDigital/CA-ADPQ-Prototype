@@ -5,7 +5,7 @@ import com.intimetec.crns.core.models.User;
 
 /**
  * {@code MailService} for sending mails to the users.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 public interface MailService 
 {

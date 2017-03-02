@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * {@code HttpLogoutSuccessHandler} class to handle the successful logout.
- *  @author shiva.dixit
+ *  @author In Time Tec
  */
 @Component
 public class HttpLogoutSuccessHandler implements LogoutSuccessHandler {

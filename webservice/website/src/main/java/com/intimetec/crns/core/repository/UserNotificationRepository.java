@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.intimetec.crns.core.models.UserNotification;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Repository
 @Transactional
@@ -21,10 +21,5 @@ JpaRepository<UserNotification, Long> {
     Collection<UserNotification> getByUserIdOrderByNotificationSentTimeDesc(long userId);
     Collection<UserNotification> getByNotificationIdOrderByNotificationSentTimeDesc(long notificationId);
     Optional<UserNotification> getByUserIdAndNotificationId(long userId, long id);
-    
-   /* @Query(value = "Select n From UserNotification n where n.id IN ("
-    		+ "Select un.NotificationId from UserNotification un where "
-    		+ "un.userId =?1 ) ")
-    Collection<UserNotification> findNotificationsByUserId(long userId);*/
-    
+      
 }

@@ -1,5 +1,5 @@
 /** 
  * Contains all the data models of the system.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 package com.intimetec.crns.core.models;

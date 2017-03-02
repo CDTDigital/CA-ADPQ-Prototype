@@ -24,7 +24,7 @@ import com.intimetec.crns.core.service.userdevice.UserDeviceService;
 import com.intimetec.crns.core.service.usernotification.UserNotificationService;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Service
 public class NotificationServiceImpl implements NotificationService {

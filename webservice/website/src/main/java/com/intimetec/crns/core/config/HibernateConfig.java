@@ -8,7 +8,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 /**
  * {@code HibernateConfig} class for the Hibernate configurations.
- *  @author shiva.dixit.
+ *  @author In Time Tec.
  */
 @Configuration
 public class HibernateConfig {

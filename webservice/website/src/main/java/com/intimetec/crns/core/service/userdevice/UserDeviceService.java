@@ -6,6 +6,11 @@ import java.util.Optional;
 
 import com.intimetec.crns.core.models.UserDevice;
 
+
+/**
+ * @author In Time Tec
+ *
+ */
 public interface UserDeviceService {
 	Optional<UserDevice> getUserDeviceById(int id);
 

@@ -3,7 +3,7 @@ package com.intimetec.crns.core.exceptions;
 /**
  * {@code InvalidLocationCoordinatesException} class to handle the invalid 
  * location coordinates exception.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @SuppressWarnings("serial")
 public class InvalidLocationCoordinatesException extends Exception {

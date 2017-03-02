@@ -21,7 +21,7 @@ import com.intimetec.crns.util.ResponseMessage;
 
 /**
  * {@code HttpAuthenticationEntryPoint} class to commence any authentication.
- *  @author shiva.dixit
+ *  @author In Time Tec
  */
 @Component
 public class HttpAuthenticationEntryPoint implements AuthenticationEntryPoint {

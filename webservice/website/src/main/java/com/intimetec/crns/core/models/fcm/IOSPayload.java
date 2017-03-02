@@ -2,6 +2,10 @@ package com.intimetec.crns.core.models.fcm;
 
 import java.util.List;
 
+/**
+ * @author In Time Tec
+ *
+ */
 public class IOSPayload {
 	private String priority = "high";
 

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 /** 
  * Model class for User notifications.
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 

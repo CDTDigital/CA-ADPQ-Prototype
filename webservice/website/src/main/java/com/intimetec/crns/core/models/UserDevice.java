@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 /**
  * Entity model class for the User Device table.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Entity
 @Table(name = "user_device")

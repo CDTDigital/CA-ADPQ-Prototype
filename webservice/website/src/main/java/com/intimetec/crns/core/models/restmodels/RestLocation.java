@@ -2,7 +2,7 @@ package com.intimetec.crns.core.models.restmodels;
 
 /**
  * Rest model class for User Locations table.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 public class RestLocation {
 	/**

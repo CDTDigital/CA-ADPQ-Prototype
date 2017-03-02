@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.intimetec.crns.core.models.User;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Repository("userRepository")
 @Transactional

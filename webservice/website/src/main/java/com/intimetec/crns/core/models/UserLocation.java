@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 /**
  * Entity model class for User Locations table.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 
 @Entity

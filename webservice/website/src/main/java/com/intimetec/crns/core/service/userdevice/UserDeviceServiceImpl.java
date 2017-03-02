@@ -12,10 +12,16 @@ import org.springframework.stereotype.Service;
 import com.intimetec.crns.core.models.UserDevice;
 import com.intimetec.crns.core.repository.UserDeviceRepository;
 
+
+/**
+ * @author In Time Tec
+ *
+ */
 @Service
 public class UserDeviceServiceImpl implements UserDeviceService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserDeviceServiceImpl.class);
+	private static final Logger LOGGER = 
+			LoggerFactory.getLogger(UserDeviceServiceImpl.class);
 	@Autowired
 	private UserDeviceRepository userDeviceRepository;
 
@@ -28,42 +34,53 @@ public class UserDeviceServiceImpl implements UserDeviceService {
 	@Override
 	public Collection<UserDevice> getUserDevicesByUserName(String userName) {
 		LOGGER.debug("Getting userDevice by user name={}", userName);
-		Collection<UserDevice> userDevices = userDeviceRepository.getByUserUserName(userName);
+		Collection<UserDevice> userDevices = userDeviceRepository.
+				getByUserUserName(userName);
 		return userDevices;
 	}
 
 	@Override
 	public Collection<UserDevice> getUserDevicesByUserId(long userId) {
 		LOGGER.debug("Getting userDevice by user id={}", userId);
-		Collection<UserDevice> userDevice = userDeviceRepository.getByUserId(userId);
+		Collection<UserDevice> userDevice = userDeviceRepository.
+				getByUserId(userId);
 		return userDevice;
 	}
 	
 	@Override
 	public Collection<UserDevice> getUserDevicesByUserIds(List<Long> userIdList) {
 		LOGGER.debug("Getting userDevice by user id={}", userIdList);
-		Collection<UserDevice> userDevice = userDeviceRepository.findByUserIdIn(userIdList);
+		Collection<UserDevice> userDevice = userDeviceRepository.
+				findByUserIdIn(userIdList);
 		return userDevice;
 	}
 
 	@Override
-	public Optional<UserDevice> getAllUserDevicesByUserNameDeviceId(String userName, String deviceId) {
-		LOGGER.debug("Getting userDevice by user name, deviceId={}", userName + ", " + deviceId);
-		Optional<UserDevice> userDevice = userDeviceRepository.findByUserUserNameAndDeviceId(userName, deviceId);
+	public Optional<UserDevice> getAllUserDevicesByUserNameDeviceId(
+			String userName, String deviceId) {
+		LOGGER.debug("Getting userDevice by user name, deviceId={}",
+				userName + ", " + deviceId);
+		Optional<UserDevice> userDevice = userDeviceRepository.
+				findByUserUserNameAndDeviceId(userName, deviceId);
 		return userDevice;
 	}
 
 	@Override
-	public Optional<UserDevice> getAllUserDevicesByUserIdDeviceId(long userId, String deviceId) {
-		LOGGER.debug("Getting userDevice by user Id, deviceId={}", userId + ", " + deviceId);
-		Optional<UserDevice> userDevice = userDeviceRepository.findByUserIdAndDeviceId(userId, deviceId);
+	public Optional<UserDevice> getAllUserDevicesByUserIdDeviceId(
+			long userId, String deviceId) {
+		LOGGER.debug("Getting userDevice by user Id, deviceId={}", 
+				userId + ", " + deviceId);
+		Optional<UserDevice> userDevice = userDeviceRepository.
+				findByUserIdAndDeviceId(userId, deviceId);
 		return userDevice;
 	}
 	
 	@Override
 	public Optional<UserDevice> getByAuthToken(String authToken) {
-		LOGGER.debug("Getting userDevice by Auth Token, deviceId={}", authToken);
-		Optional<UserDevice> userDevice = userDeviceRepository.getByAuthToken(authToken);
+		LOGGER.debug("Getting userDevice by Auth Token, deviceId ="
+				+ "{}", authToken);
+		Optional<UserDevice> userDevice = userDeviceRepository.
+				getByAuthToken(authToken);
 		return userDevice;
 	}
 	
@@ -71,8 +88,9 @@ public class UserDeviceServiceImpl implements UserDeviceService {
 	public UserDevice save(UserDevice userDevice) {
 		long userId = userDevice.getUser().getId();
 		String deviceId = userDevice.getDeviceId();
-		Optional<UserDevice> userDevices = userDeviceRepository.findByUserIdAndDeviceId(userId, deviceId);
-		if(userDevices.isPresent()){
+		Optional<UserDevice> userDevices = userDeviceRepository.
+				findByUserIdAndDeviceId(userId, deviceId);
+		if (userDevices.isPresent()) {
 			userDevice.setId(userDevices.get().getId());
 		}
 		return userDeviceRepository.save(userDevice);

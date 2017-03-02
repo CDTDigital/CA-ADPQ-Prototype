@@ -2,7 +2,7 @@ package com.intimetec.crns.core.config;
 
 /**
  * {@code MailConfig} class for tracking address of the user.
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 public class MailConfig {

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * {@code MvcConfiguration} class for all the Java-based configuration, 
  *  and as a source of all the Spring beans.
- *  @author shiva.dixit.
+ *  @author In Time Tec.
  */
 @Configuration
 @EnableWebMvc
@@ -63,14 +63,4 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowCredentials(true);
 	}
-	
-	/*@Override
-	public void addCorsMappings(CorsRegistry registry) {
-	    registry.addMapping("/api/**")
-	        .allowedOrigins("http://domain2.com")
-	        .allowedMethods("PUT", "DELETE")
-	        .allowedHeaders("header1", "header2", "header3")
-	        .exposedHeaders("header1", "header2")
-	        .allowCredentials(false).maxAge(3600);
-	}*/
 }

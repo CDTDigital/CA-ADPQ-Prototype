@@ -15,17 +15,21 @@ import com.intimetec.crns.core.models.UserNotification;
 import com.intimetec.crns.core.service.notification.pushnotification.fcm.FCMService;
 import com.intimetec.crns.core.service.userdevice.UserDeviceService;
 
+
+/**
+ * @author In Time Tec
+ *
+ */
 @Service
-public class PushNotificationServiceImpl implements PushNotificationService
-{
+public class PushNotificationServiceImpl implements PushNotificationService {
 	@Autowired
 	private final UserDeviceService userDeviceService;
 	@Autowired
 	private final FCMService fcmService;
 	
 
-	public PushNotificationServiceImpl(UserDeviceService userDeviceService, FCMService fcmService)
-	{
+	public PushNotificationServiceImpl(UserDeviceService userDeviceService, 
+			FCMService fcmService) {
 		this.userDeviceService = userDeviceService;
 		this.fcmService = fcmService;
 	}

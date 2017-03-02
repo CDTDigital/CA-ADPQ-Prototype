@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 /**
  * Entity model class for User Notification Options table.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 
 @Entity

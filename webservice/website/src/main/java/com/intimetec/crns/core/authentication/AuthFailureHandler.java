@@ -19,7 +19,7 @@ import com.intimetec.crns.util.ResponseMessage;
 
 /**
  * {@code AuthFailureHandler} class to handle the authentication failure.
- *  @author shiva.dixit
+ *  @author In Time Tec
  */
 @Component
 public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {

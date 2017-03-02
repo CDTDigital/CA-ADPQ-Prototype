@@ -54,7 +54,7 @@ public class UserController {
 	/**
 	 * To log the application messages. 
 	 */
-	private static Logger LOGGER = 
+	private static final Logger LOGGER = 
 			LoggerFactory.getLogger(UserController.class);
 	
 	/**

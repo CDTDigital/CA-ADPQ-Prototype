@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * {@code LoginRequest} class for the login request.
- *  @author shiva.dixit
+ *  @author In Time Tec
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginRequest {

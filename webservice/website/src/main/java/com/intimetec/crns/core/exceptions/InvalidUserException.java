@@ -6,7 +6,7 @@ package com.intimetec.crns.core.exceptions;
 /**
  * {@code InvalidUserException} class to handle the invalid 
  * user exception.
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 @SuppressWarnings("serial")

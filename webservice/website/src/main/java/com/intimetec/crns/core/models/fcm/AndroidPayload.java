@@ -3,6 +3,10 @@ package com.intimetec.crns.core.models.fcm;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author In Time Tec
+ *
+ */
 public class AndroidPayload {
 	private String priority = "high";
 

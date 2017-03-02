@@ -3,7 +3,7 @@ package com.intimetec.crns.core.exceptions;
 /**
  * {@code InvalidAuthTokenException} class to handle the invalid 
  * authentication token exception.
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 @SuppressWarnings("serial")

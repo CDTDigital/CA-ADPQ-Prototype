@@ -2,7 +2,7 @@ package com.intimetec.crns.core.config.google;
 
 /**
  * {@code GoogleApiConfig} for tracking address of the user.
- *  @author shiva.dixit
+ *  @author In Time Tec
  *
  */
 public class GoogleApiConfig {

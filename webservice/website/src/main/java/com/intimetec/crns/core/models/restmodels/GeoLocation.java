@@ -6,7 +6,7 @@ package com.intimetec.crns.core.models.restmodels;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 public class GeoLocation {
