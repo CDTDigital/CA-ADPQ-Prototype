@@ -67,7 +67,8 @@
                     placeId: loc.place_id,
                     latitude: loc.geometry.location.lat(),
                     longitude: loc.geometry.location.lng(),
-                    currentLocation: false
+                    currentLocation: false,
+                    accountSetupDone: true
                 };
             }
         }

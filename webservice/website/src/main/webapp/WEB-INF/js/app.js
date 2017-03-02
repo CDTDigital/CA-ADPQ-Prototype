@@ -42,6 +42,23 @@
         }).otherwise({
             redirectTo: '/login'
         });
+
+        $httpProvider.interceptors.push(function ($q, $rootScope, $sessionStorage) {
+            return {
+                responseError: function (rejection) {
+                    if(rejection.data.statusCode == 401 || rejection.data.statusCode == 402) {
+                        console.log("rejected credentials");
+                        Object.keys($sessionStorage.loginResponse).forEach(function (key) {
+                            delete $sessionStorage.loginResponse[key];
+                        });
+                        $rootScope.isLoggedIn = false;
+                        $rootScope.go('/login');
+                    }
+                }
+            }
+
+        });
+
         $httpProvider.defaults.withCredentials = true;
         HttpFactoryProvider.config({
             baseUrl: Configuration.API_URL
