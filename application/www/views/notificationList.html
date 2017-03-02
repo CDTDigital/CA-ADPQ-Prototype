@@ -1,7 +1,7 @@
 <ion-view>
     <ion-header-bar class="bar-positive" align-title="center">
         <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()"></button>
-        <h1 class="title">Notification</h1>
+        <h1 class="title">Notifications List</h1>
     </ion-header-bar>
 
     <ion-content class="notification">
@@ -13,6 +13,7 @@
                 <i class="icon ion-ios-arrow-right"></i>
             </ion-item>
         </ion-list>
+        <div ng-if="listItems.length == 0" class="alignCenter padding25">No notifications are available for you!</div>
     </ion-content>
 </ion-view>
 

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('CRNSCtrl')
-.controller('ProfileCtrl', ['$scope', 'GoogleMapService', 'AccountData', '$state', function($scope, GoogleMapService, AccountData, $state) {
+.controller('ProfileCtrl', ['Notify', '$scope', 'GoogleMapService', 'AccountData', '$state', 'AccountServices', function(Notify, $scope, GoogleMapService, AccountData, $state, AccountServices) {
      $scope.profile = AccountData.getUserProfileData();
      $scope.fetchCurrentLocationData = function() {
         var tempData = GoogleMapService.getLocationAddress();
@@ -26,7 +26,7 @@ angular.module('CRNSCtrl')
         } else if($scope.profile.location.addressLine1 == '') {
             Notify.errorToaster('Please add your location for getting the notifications!');
         } else {
-            $scope.profile.mobileNo = String($scope.account.mobileNumber);
+            $scope.profile.mobileNo = String($scope.profile.mobileNumber);
             AccountServices.setUpAccount($scope.profile).then(function(resp) {
                 Notify.successToaster('Profile Updated Successfully!');
             }, function(resp) {

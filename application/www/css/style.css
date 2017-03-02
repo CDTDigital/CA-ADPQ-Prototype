@@ -267,12 +267,12 @@ input[type="text"], input[type="password"], input[type="number"], input[type="em
 }
 
 .sideMenuHeader.bar {
-    height: 123px;
+    height: 123px !important;
     margin-top: 5px;
 }
 
 .sideMenuTop.has-header {
-    top: 134px;
+    top: 134px !important;
 }
 
 .sideMenuLogo {
@@ -285,6 +285,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="em
 
 .item-icon-right .icon-accessory {
     font-size: 24px;
+    color: #036;
 }
 
 .spinner svg g g path {

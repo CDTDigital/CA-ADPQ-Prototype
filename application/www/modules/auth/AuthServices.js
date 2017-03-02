@@ -1,5 +1,5 @@
 angular.module('CRNSSrv')
-    .service('AuthToken', ['$http', function($http) {
+    .service('AuthToken', ['$http', 'AccountData', function($http, AccountData) {
         this.setAuthToken = function(token) {
             if(token != undefined && token != null) {
                 $http.defaults.headers.common['authToken']= token;
@@ -16,6 +16,7 @@ angular.module('CRNSSrv')
             localStorage.removeItem('loginData');
             localStorage.removeItem('accountSetup');
             localStorage.removeItem('locationData');
+            AccountData.clearProfileSetup();
             $http.defaults.headers.common['authToken']= null;
         };
     }])
@@ -28,6 +29,19 @@ angular.module('CRNSSrv')
                     .then(function(data, status, headers, config) {
                         $rootScope.$broadcast('httpCallCompleted');
                         AuthToken.setAuthToken(data.data.authToken);
+                        return defered.resolve(data);
+                    }, function(data, status, headers, config) {
+                        return defered.reject(data);
+                 });
+                return defered.promise;
+            },
+            logout: function() {
+                $rootScope.$broadcast('httpCallStarted');
+                var defered = $q.defer();
+                $http.get(Constant.API_URL + 'logout')
+                    .then(function(data, status, headers, config) {
+                        $rootScope.$broadcast('httpCallCompleted');
+                        AuthToken.removeAuthItems();
                         return defered.resolve(data);
                     }, function(data, status, headers, config) {
                         return defered.reject(data);

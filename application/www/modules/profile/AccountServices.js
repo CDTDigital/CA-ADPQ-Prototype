@@ -66,6 +66,10 @@ angular.module('CRNSSrv')
         this.isProfileSetup = function() {
             return (profileData.firstName != '');
         };
+
+        this.clearProfileSetup = function() {
+            profileData.firstName = '';
+        };
     }])
     .factory('AccountServices', ['$rootScope', '$http', 'Constant', '$q', 'AccountData', function($rootScope, $http, Constant, $q, AccountData) {
         return {
