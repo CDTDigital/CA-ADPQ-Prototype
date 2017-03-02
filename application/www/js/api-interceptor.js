@@ -1,6 +1,3 @@
-/**
- * Created by Harish Patidar on 2/16/17.
- */
 // Intercepting HTTP calls with AngularJS.
 angular.module('CRNSInterceptor')
     .config(function($provide, $httpProvider) {

@@ -4,39 +4,64 @@
 
 (function () {
     'use strict';
+    /**
+     * MessageController responsible for view logic of message.html to publish notifications
+     * @param $scope
+     * @param $timeout
+     * @param $filter
+     * @param HttpFactory
+     * @constructor
+     */
+    function MessageController($scope, $timeout, $filter, toaster, HttpFactory) {
 
-    function MessageController($scope, $timeout, $filter, HttpFactory) {
+        /**
+         * MessageController initialization function
+         */
         function onInit() {
             $scope.notification = {};
         }
-        $scope.publicNotification = function () {
-            $timeout(function () {
-                var startDate = $scope.startDate.getFullYear() + '-' + $scope.startDate.getMonth() + '-' + $scope.startDate.getDate();
-                var validThrough = $scope.validThrough.getFullYear() + '-' + $scope.validThrough.getMonth() + '-' + $scope.validThrough.getDate();
-                var location = getLocationObject($scope.locationDetails);
-                angular.extend($scope.notification, {
-                    address: location.formatted_address,
-                    city: location.city,
-                    message: $scope.message,
-                    sentTime: startDate + $filter('date')(Date.now(), 'Thh:mm:ss'),
-                    subject: $scope.subject,
-                    validThrough: validThrough + $filter('date')(Date.now(), 'Thh:mm:ss'),
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                    zipCode: location.zipCode,
-                    sentBy: {
-                        id: HttpFactory.getUserId()
-                    }
-                });
-                HttpFactory.pushNotification($scope.notification).then(function (response) {
-                    toaster.pop('info', "Notification Pushed");
-                    $scope.notification = {};
-                }, function () {
-                    toaster.pop('error', "Error! Please try again");
-                })
-            },1000);
-        }
 
+        /**
+         * Public notication with all the required details
+         */
+        $scope.publicNotification = function () {
+            if ($scope.notificationForm.$valid) {
+                $timeout(function () {
+                    var startDate = $scope.startDate.getFullYear() + '-' + $scope.startDate.getMonth() + '-' + $scope.startDate.getDate();
+                    var validThrough = $scope.validThrough.getFullYear() + '-' + $scope.validThrough.getMonth() + '-' + $scope.validThrough.getDate();
+                    var location = getLocationObject($scope.locationDetails);
+                    angular.extend($scope.notification, {
+                        address: location.formatted_address,
+                        city: location.city,
+                        message: $scope.message,
+                        sentTime: startDate + $filter('date')(Date.now(), 'Thh:mm:ss'),
+                        subject: $scope.subject,
+                        validThrough: validThrough + $filter('date')(Date.now(), 'Thh:mm:ss'),
+                        latitude: location.latitude,
+                        longitude: location.longitude,
+                        zipCode: location.zipCode,
+                        sentBy: {
+                            id: HttpFactory.getUserId()
+                        }
+                    });
+                    HttpFactory.pushNotification($scope.notification).then(function (response) {
+                        toaster.pop('info', "Notification Pushed");
+                        $scope.notification = {};
+                    }, function () {
+                        toaster.pop('error', "Error! Please try again");
+                    })
+                },1000);
+            }
+            else {
+                toaster.pop('error', "Please fill all the required fields");
+            }
+        };
+
+        /**
+         * Create location object using details from $scope.locationDetails
+         * @param loc
+         * @returns {{formatted_address: *, addressLine1: *, addressLine2: *, city: *, zipCode: *, latitude: *, longitude: *}}
+         */
         function getLocationObject(loc) {
             var addressObj = {};
             if (loc.address_components) {
@@ -54,6 +79,7 @@
                 };
             }
         }
+
         onInit();
     }
 
@@ -62,6 +88,7 @@
             '$scope',
             '$timeout',
             '$filter',
+            'toaster',
             'modules.core.HttpFactory',
             MessageController
         ];

@@ -3,6 +3,13 @@
  */
 (function () {
     'use strict';
+
+    /**
+     * Factory to get google pages
+     * @param $log
+     * @param GConfiguration
+     * @constructor
+     */
     function GooglePlacesFactory($log, GConfiguration) {
 
         var autoCompleteObj;

@@ -5,11 +5,12 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 noSpace clearfix">
                 <h3>Notifications History</h3>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 noSpace clearfix">
-                <button ui-sref="message" type="submit" class="center" ng-click="go('/message')">Send Notification</button>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 noSpace clearfix" ng-if="role == 'ADMIN'">
+                <button ui-sref="message" type="submit" class="center" ng-click="go('/message')">Send Notification
+                </button>
             </div>
             <div class="pull-right col-lg-4 col-md-4 col-sm-6 col-xs-12 noSpace">
-                <input type="text" class="searchInput left" data-search-input="true" data-search-url="/search?query="
+                <input type="text" class="searchInput left" data-search-input="true" ng-model="searchFilter"
                        id="searchTermTop" placeholder="Search">
                 <div data-search-button="true" class="left searchButton"></div>
             </div>
@@ -18,30 +19,30 @@
             <table>
                 <thead>
                 <tr>
-                    <th scope="col">City</th>
                     <th scope="col">Subject</th>
                     <th scope="col">Message</th>
                     <th scope="col">Sent By</th>
                     <th scope="col">Sent Date</th>
                     <th scope="col">Valid Through</th>
+                    <th scope="col">Location</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="notification in notificationList" ng-if="role == 'USER'">
-                    <th scope="row">{{notification.notification.city}}</th>
+                <tr ng-repeat="notification in notificationList | filter: searchFilter" ng-if="role == 'USER'">
                     <td>{{notification.notification.subject}}</td>
                     <td>{{notification.notification.message}}</td>
                     <td>{{notification.notification.sentBy.firstName + notification.notification.sentBy.lastName}}</td>
                     <td>{{notification.notification.sentTime | date:"MM/dd/yyyy h:mma"}}</td>
                     <td>{{notification.notification.validThrough | date:"MM/dd/yyyy h:mma"}}</td>
+                    <td>{{notification.notification.address}}</td>
                 </tr>
-                <tr ng-repeat="notification in notificationList" ng-if="role == 'ADMIN'">
-                    <th scope="row">{{notification.city}}</th>
+                <tr ng-repeat="notification in notificationList | filter: searchFilter" ng-if="role == 'ADMIN'">
                     <td>{{notification.subject}}</td>
                     <td>{{notification.message}}</td>
                     <td>{{notification.sentBy.firstName + notification.notification.sentBy.lastName}}</td>
                     <td>{{notification.sentTime | date:"MM/dd/yyyy h:mma"}}</td>
                     <td>{{notification.validThrough | date:"MM/dd/yyyy h:mma"}}</td>
+                    <td>{{notification.address}}</td>
                 </tr>
                 </tbody>
             </table>

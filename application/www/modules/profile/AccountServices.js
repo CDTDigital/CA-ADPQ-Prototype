@@ -93,6 +93,18 @@ angular.module('CRNSSrv')
                         return defered.reject(data);
                     });
                 return defered.promise;
+            },
+            addCurrentLocation: function(paramObj) {
+                $rootScope.$broadcast('httpCallStarted');
+                var defered = $q.defer();
+                $http.put(Constant.API_URL + 'users/setCurrentLocation', paramObj)
+                    .then(function(data, status, headers, config) {
+                        $rootScope.$broadcast('httpCallCompleted');
+                        return defered.resolve(data);
+                    }, function(data, status, headers, config) {
+                        return defered.reject(data);
+                    });
+                return defered.promise;
             }
         };
     }]);

@@ -1,6 +1,6 @@
 // Ionic CRNS App
 angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaster', 'CRNSPushManager', 'CRNSInterceptor', 'CRNSFilters', 'CRNSDirective'])
-.run(function($ionicPlatform, $rootScope, Constant, AuthToken, DeviceService, PushNotificationService, $ionicLoading) {
+.run(function($ionicPlatform, $rootScope, Constant, AuthToken, DeviceService, PushNotificationService, $ionicLoading, BgGeoLocation) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
     // (remove this to show the accessory bar above the keyboard for form inputs)
@@ -28,6 +28,11 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
             PushNotificationService.register();
             PushNotificationService.notification();
         });
+
+        if(localStorage.getItem('bgGeoCalled') == 'true' && !ionic.Platform.isAndroid()) {
+            BgGeoLocation.initBackgroundGeoLocation();
+            BgGeoLocation.startBackgroundGeoLocation();
+        }
     });
 
     if (localStorage.getItem('loginData') == undefined || localStorage.getItem('loginData') == null) {
@@ -47,7 +52,6 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
             template: '<ion-spinner icon="spiral"></ion-spinner>'
         });
     });
-
 
     $rootScope.$on('httpCallCompleted', function(e) {
         console.log('httpCallCompleted');
@@ -101,9 +105,10 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
   };
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.views.swipeBackEnabled(false);
 
+  $stateProvider
   .state('login', {
       url: '/login',
       cache: 'false',

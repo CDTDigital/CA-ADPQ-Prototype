@@ -1,25 +1,26 @@
 <div class="container main-body-content">
+    <toaster-container toaster-options="{'time-out': 1000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
     <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
         <h3>Send Notifications</h3>
-        <div class="sendForm">
+        <form class="notificationForm" name="notificationForm">
             <div class="form-group row">
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                    <input class="form-control" type="text" value="" id="subject" placeholder="Subject" ng-model="subject">
+                    <input class="form-control" type="text" value="" id="subject" placeholder="Subject" ng-model="subject" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                    <textarea class="form-control" id="comments" ng-model="message" placeholder="Message"></textarea>
+                    <textarea class="form-control" id="comments" ng-model="message" placeholder="Message" required></textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                    <input class="form-control" type="date" id="startDate" ng-model="startDate">
+                    <input class="form-control" type="date" id="startDate" ng-model="startDate" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                    <input class="form-control" type="date" id="validThrough" ng-model="validThrough">
+                    <input class="form-control" type="date" id="validThrough" ng-model="validThrough" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -28,7 +29,7 @@
             <div class="form-group">
                 <button type="submit" class="buttonLink btn btn-primary pull-right" ng-click="publicNotification()">Publish</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
