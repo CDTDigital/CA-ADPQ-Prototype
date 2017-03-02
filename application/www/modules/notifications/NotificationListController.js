@@ -3,7 +3,6 @@ angular.module('CRNSCtrl')
   $scope.listItems = NotificationServices.notificationList.data.data;
 
   $scope.openDetail = function(item) {
-    NotificationServices.setNotificationDetail(item);
     $state.go('app.detail', {id: item.notification.id});
   };
 }]);

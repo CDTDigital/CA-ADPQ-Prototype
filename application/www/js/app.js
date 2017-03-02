@@ -1,6 +1,6 @@
 // Ionic CRNS App
 angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaster', 'CRNSPushManager', 'CRNSInterceptor', 'CRNSFilters', 'CRNSDirective'])
-.run(function($ionicPlatform, $rootScope, Constant, AuthToken, DeviceService, PushNotificationService, $ionicLoading, BgGeoLocation) {
+.run(function($ionicPlatform, $rootScope, Constant, AuthToken, DeviceService, PushNotificationService, $ionicLoading, BgGeoLocation, Notify, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default
     // (remove this to show the accessory bar above the keyboard for form inputs)
@@ -43,8 +43,76 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
     }
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      // console.log(toState);
+        // TO DO
     });
+
+    $rootScope.tempErrorHandler = function(title, subject, buttonText, dismissState) {
+        Notify.errorAlert(title, subject, buttonText, dismissState);
+    };
+
+    $rootScope.goBack = function() {
+        if ($state.current.name == 'app.profile' || $state.current.name == 'app.settings' || $rootScope.isHome) {
+            $rootScope.isHome = false;
+            $state.go('app.list');
+        } else {
+            history.back();
+        }
+    };
+
+    /**
+     * @param {buttonIndex} buttonIndex while user tap on hardware back button
+     */
+    function onExitPopup(buttonIndex) {
+        if (buttonIndex == 2) {
+            navigator.app.exitApp();
+        }
+    };
+
+    /**
+     * @param {event} e while user tap on hardware back button
+     */
+    function backButtonHandler(e) {
+        if ($state.current.name == 'app.list' || $state.current.name == 'app.accountSetup') {
+            navigator.notification.confirm(
+                'Are you sure you want to quit?',
+                onExitPopup,
+                'Exit Application',
+                ['Cancel', 'Ok']
+            );
+        } else {
+            $rootScope.goBack();
+        }
+    };
+
+    /**
+     *  When network goes DOWN.
+     */
+    function onOffline() {
+        console.log('Network is Down');
+        if (!Constant.IsNetworkAlive) return;
+        Constant.IsNetworkAlive = false;
+        Notify.errorAlert('Error', 'Your are not connected to the network!', 'Ok', undefined);
+    };
+
+    /**
+     *  When network goes UP.
+     */
+    function onOnline() {
+        console.log('Network is UP');
+        try {
+            $rootScope.$apply();
+        } catch (e) {
+            // alert('error');
+        }
+
+        if (navigator.connection.type !== Connection.NONE) {
+            Constant.IsNetworkAlive = true;
+        }
+    };
+
+    $ionicPlatform.registerBackButtonAction(backButtonHandler, 100);
+    document.addEventListener('offline', onOffline, false);
+    document.addEventListener('online', onOnline, false);
 
     $rootScope.$on('httpCallStarted', function(e) {
         console.log('httpCallStarted');
@@ -74,7 +142,8 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
    * @param {number} notificationId is query string param for Notification detail api.
    */
   function callOrderDetailAPI(returnHome, notificationId) {
-        // TO DO
+      if(returnHome) $rootScope.isHome = true;
+      $state.go('app.detail', {id: notificationId});
   };
 
   /**
@@ -156,6 +225,7 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
   })
   .state('app.list', {
     url: '/list',
+    cache: 'false',
     views: {
       'menuview': {
         templateUrl: 'views/notificationList.html',
@@ -172,6 +242,7 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
   })
   .state('app.detail', {
     url: '/detail/:id',
+    cache: 'false',
     views: {
       'menuview': {
         templateUrl: 'views/notificationDetail.html',

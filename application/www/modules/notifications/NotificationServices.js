@@ -35,6 +35,7 @@ angular.module('CRNSSrv')
         $http.post(Constant.API_URL + 'notifications/userNotifications/'+id+'/read')
             .then(function(data, status, headers, config) {
               $rootScope.$broadcast('httpCallCompleted');
+              self.setNotificationDetail(data.data.data);
               return defered.resolve(data);
             }, function(data, status, headers, config) {
               return defered.reject(data);
