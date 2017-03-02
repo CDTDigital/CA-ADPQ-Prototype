@@ -2,7 +2,7 @@
     <toaster-container toaster-options="{'time-out': 1000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
     <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
         <h3>Registration</h3>
-        <div class="sendForm clearfix">
+        <form class="sendForm clearfix" name="registerForm">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
                 <h4>Personal Information</h4>
                 <div class="form-group row">
@@ -47,9 +47,10 @@
             </div>
             <div class="form-group col-lg-5 noSpace marginTop100">
                 <button type="submit" class="buttonLink btn btn-primary pull-right" ng-click="submit()" ng-disabled="isLoading">Register</button>
-                <div id="dataLoading" ng-show="isLoading"><img width="20" src="/images/ajax-spinner-blue.gif"/>
+                <div id="registerLoading" ng-show="isLoading"><img width="20" src="/images/ajax-spinner-blue.gif"/>
                 </div>
             </div>
-        </div>
+
+        </form>
     </div>
 </div>
