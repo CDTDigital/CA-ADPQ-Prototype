@@ -5,8 +5,8 @@ variable "provider" {
         secret_key = ""
         region = "us-west-2"
 		key_name = ""
-		instance_type = "t2.micro"
+		instance_type = "t2.medium"
 		ami = "ami-5e63d13e"
-		private_key = ""
+		private_key_path = ""
 		}
 	}	
