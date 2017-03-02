@@ -1,20 +1,17 @@
-Project Setup
+**Project Setup**
 
-Follow these steps to setup the project for development.
-    Install Node
-    Install Cordova
+Follow these steps to setup the project for development:
 
-Open command prompt
-    Navigate to \application
-Execute: npm install
+ - Install Node - https://nodejs.org/en/download/
+ - Install Cordova - sudo npm install -g cordova
 
-Open command prompt
-    Navigate to \application
-    Run a Cordova prepare operation (see section Local Cordova Module for more details)
-    cordova platform add android / ios
-    cordova build ios / android
+**Open command prompt**
+ - Navigate to \application
+ - Execute: npm install
+ - cordova platform add android / ios
+ - cordova build ios / android
 
-Open Xcode
+**Open Xcode**
 Open \application\platforms\ios\CRNS.xcodeproj
 
 Select "CRNS" on the left
