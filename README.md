@@ -88,4 +88,4 @@ Reviewers can sign up or register on the landing page, create a profile, and opt
 
 **License**
 
-Copyright (c)2017 Intime Tec.
+Copyright (c) 2017 In Time Tec.
