@@ -12,7 +12,7 @@
 **Open command prompt**
  - Navigate to \application
  - Execute: npm install
- - Run: cordova platform add android OR cordova platform add android
+ - Run: cordova platform add ios OR cordova platform add android
  - Run: cordova build ios OR cordova build android
 
 **Open Xcode** for iOS:
