@@ -10,6 +10,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,19 @@ import com.intimetec.crns.core.config.MailConfig;
 import com.intimetec.crns.core.models.Notification;
 import com.intimetec.crns.core.models.User;
 
+
 @Service
 public class MailServiceImpl implements MailService
 {
+	/**
+	 * To log the application messages. 
+	 */
+	private static final Logger LOGGER = LoggerFactory.
+			getLogger(MailServiceImpl.class);
+	
 	@Autowired
 	private MailConfig mailConfig;
+	private Transport t;
 
 	public MailServiceImpl(MailConfig mailConfig)
 	{
@@ -49,17 +59,38 @@ public class MailServiceImpl implements MailService
 
 		try {
 
+			StringBuilder addresses = new StringBuilder();
+			if(user.getUserNotificationOptions().isSendEmail() && user.getEmail()!=null && !user.getEmail().isEmpty()) {
+				addresses.append(user.getEmail()+", ");
+			}
+			if(user.getUserNotificationOptions().isSendSms() && user.getMobileNo()!=null && !user.getMobileNo().isEmpty()) {
+				addresses.append(user.getMobileNo()+"@txt.att.net, ");
+				addresses.append(user.getMobileNo()+"@tmomail.net, ");
+				addresses.append(user.getMobileNo()+"@messaging.sprintpcs.com,");
+				addresses.append(user.getMobileNo()+"@vtext.com ");
+			}
+			 
+			
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("mailConfig.getUserName()"));
 			message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse(user.getEmail()));
+					InternetAddress.parse(addresses.toString()));
 			message.setSubject(notification.getSubject());
 			message.setText(notification.getMessage());
 
 			Transport.send(message);
+			
+			t = session.getTransport("smtp");
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
+		} finally {
+			try {
+				t.close();
+			} catch (MessagingException e) {
+				LOGGER.warn("Unable to close Transport connection");
+				e.printStackTrace();
+			}
 		}
 	}
 }

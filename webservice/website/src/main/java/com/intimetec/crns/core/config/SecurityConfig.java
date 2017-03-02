@@ -19,7 +19,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.intimetec.crns.core.authentication.AuthFailureHandler;
 import com.intimetec.crns.core.authentication.AuthFilter;
@@ -37,10 +36,6 @@ import com.intimetec.crns.core.authentication.HttpLogoutSuccessHandler;
 @ComponentScan(value = "com.intimetec.crns.core.authentication")
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 class SecurityConfig extends WebSecurityConfigurerAdapter {
-	/**
-	 * The path of the Login page.
-	 */
-	private static final String LOGIN_PATH = "/login";
 	/**
 	 * Instance of the {@link UserDetailsService}.
 	 */
@@ -121,7 +116,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         		UsernamePasswordAuthenticationFilter.class)
         .logout()
         .permitAll()
-        .logoutRequestMatcher(new AntPathRequestMatcher(LOGIN_PATH, "DELETE"))
+        .logoutUrl("/logout")
         .logoutSuccessHandler(logoutSuccessHandler)
         .and()
         .sessionManagement()

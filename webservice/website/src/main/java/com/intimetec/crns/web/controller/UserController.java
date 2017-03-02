@@ -503,7 +503,7 @@ public class UserController {
 	 */
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public Collection<RestUser> getUserCreatePage() {
+	public Collection<RestUser> getUsers() {
 		Collection<RestUser> users = new ArrayList<RestUser>();
 		for (User user : userService.getAllUsers()) {
 			Optional<UserLocation> userLocation = userLocationService.
