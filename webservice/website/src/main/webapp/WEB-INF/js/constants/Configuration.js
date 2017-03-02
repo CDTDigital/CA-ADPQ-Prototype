@@ -4,6 +4,8 @@
 (function () {
     var app = angular.module("CRNS");
     app.constant("Configuration", {
+
+        //Back api base URL
         API_URL: ""
     })
 }());

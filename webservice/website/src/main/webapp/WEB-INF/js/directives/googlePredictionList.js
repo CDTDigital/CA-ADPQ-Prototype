@@ -5,10 +5,28 @@
 (function () {
     'use strict';
 
+    /**
+     * Directive for google predictions. Can be used as Element directly wherever required.
+     * @returns {{restrict: string, templateUrl: string, controller: *[], scope: {location: string, name: string}, link: linkFunc}}
+     */
     function googlePredictionList() {
-        function linkFunc(scope, eleement, attr) {
+
+        /**
+         * Directive's linc function
+         * @param scope
+         * @param element
+         * @param attr
+         */
+        function linkFunc(scope, element, attr) {
 
         }
+
+        /**
+         * Directive controller function to get predictions using Autocomplete Service class
+         * @param $scope
+         * @param GooglePlacesFactory
+         * @constructor
+         */
         function GooglePredictionListController($scope, GooglePlacesFactory) {
             $scope.$watch('name', function () {
                 $scope.search = $scope.name;

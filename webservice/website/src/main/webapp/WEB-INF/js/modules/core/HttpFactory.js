@@ -3,14 +3,28 @@
  */
 
 (function () {
+    'use strict';
+
     function HttpProvider() {
         var self = this;
         self.config = function (config) {
             angular.extend(self, config);
         };
 
+        /**
+         * Service function. It exposes tjhe api to be used anywhere in the application
+         * @param $http
+         * @param $log
+         * @param $q
+         * @param $sessionStorage
+         * @returns {{login: login, getUserRole: getUserRole, getUserId: getUserId, getNotificationList: getNotificationList, isLoggedIn: isLoggedIn, signup: signup, getUserProfile: getUserProfile, setUserProfile: setUserProfile, pushNotification: pushNotification, getUserList: getUserList}}
+         * @constructor
+         */
         function HttpFactory($http, $log, $q, $sessionStorage) {
 
+            /**
+             * Intialization function
+             */
             function onInitialization() {
                 $sessionStorage.$default({
                     loginResponse: {}
@@ -20,6 +34,12 @@
             var loginResponse = {};
             var notificationList = {};
 
+            /**
+             * Send post request to api for logging in
+             * @param email
+             * @param password
+             * @returns {*|r.promise|promise|d.promise}
+             */
             function login(email, password) {
                 var deferred = $q.defer();
                 var credentials = {userName: email, password: password};
@@ -41,10 +61,19 @@
                 return deferred.promise;
             }
 
+            /**
+             * Get a true flag if the used is logged in
+             * @returns {Number}
+             */
             function isLoggedIn() {
                 return Object.keys($sessionStorage.loginResponse).length;
             }
 
+            /**
+             * Post request to create new user
+             * @param registerData
+             * @returns {*|r.promise|promise|d.promise}
+             */
             function signup(registerData) {
                 var deferred = $q.defer();
                 $http.post(self.baseUrl + '/users/createUser', registerData).then(function (response) {
@@ -61,6 +90,10 @@
                 return deferred.promise;
             }
 
+            /**
+             * Get request for fetching user/admin details
+             * @returns {*|r.promise|promise|d.promise}
+             */
             function getUserProfile() {
                 var deferred = $q.defer();
                 var id = $sessionStorage.loginResponse.data.id;
@@ -73,6 +106,11 @@
                 return deferred.promise;
             }
 
+            /**
+             * Post request to change details of user/admin
+             * @param updatedData
+             * @returns {*|r.promise|promise|d.promise}
+             */
             function setUserProfile(updatedData) {
                 var deferred = $q.defer();
                 var id = $sessionStorage.loginResponse.data.id;
@@ -85,10 +123,14 @@
                 return deferred.promise;
             }
 
+            /**
+             * Get the Notication list based on user role
+             * @returns {*|r.promise|promise|d.promise}
+             */
             function getNotificationList() {
                 var deferred = $q.defer();
                 var id = $sessionStorage.loginResponse.data.id;
-                queryUrl = $sessionStorage.loginResponse.data.role == "USER" ? self.baseUrl + '/notifications/userNotifications/' + id : self.baseUrl + "/notifications/list";
+                var queryUrl = $sessionStorage.loginResponse.data.role == "USER" ? self.baseUrl + '/notifications/userNotifications/' + id : self.baseUrl + "/notifications/list";
                 $http.get(queryUrl).then(function (response) {
                     deferred.resolve(response.data.data);
                     //notificationList = response.data.data;
@@ -99,6 +141,11 @@
                 return deferred.promise;
             }
 
+            /**
+             * Push new notifcation to server
+             * @param notificationData
+             * @returns {*|r.promise|promise|d.promise}
+             */
             function pushNotification(notificationData) {
                 var deferred = $q.defer();
                 $http.post(self.baseUrl + '/notifications/send', notificationData).then(function (response) {
@@ -110,10 +157,33 @@
                 return deferred.promise;
             }
 
+            /**
+             * Get the complete user list for Admin
+             * @returns {*|r.promise|promise|d.promise}
+             */
+            function getUserList() {
+                var deferred = $q.defer();
+                $http.get(self.baseUrl + '/users/list').then(function (response) {
+                    deferred.resolve(response.data);
+                }, function (error) {
+                    deferred.reject(error)
+                });
+
+                return deferred.promise;
+            }
+
+            /**
+             * Getter to get user role
+             * @returns {*}
+             */
             function getUserRole() {
                 return $sessionStorage.loginResponse.data.role;
             }
 
+            /**
+             * Getter to get user id
+             * @returns {*}
+             */
             function getUserId() {
                 return $sessionStorage.loginResponse.data.id;
             }
@@ -128,7 +198,8 @@
                 signup: signup,
                 getUserProfile: getUserProfile,
                 setUserProfile: setUserProfile,
-                pushNotification: pushNotification
+                pushNotification: pushNotification,
+                getUserList:getUserList
             }
         }
 

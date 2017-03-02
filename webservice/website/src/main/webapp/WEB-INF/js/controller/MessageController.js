@@ -4,11 +4,26 @@
 
 (function () {
     'use strict';
-
+    /**
+     * MessageController responsible for view logic of message.html to publish notifications
+     * @param $scope
+     * @param $timeout
+     * @param $filter
+     * @param HttpFactory
+     * @constructor
+     */
     function MessageController($scope, $timeout, $filter, HttpFactory) {
+
+        /**
+         * MessageController initialization function
+         */
         function onInit() {
             $scope.notification = {};
         }
+
+        /**
+         * Public notication with all the required details
+         */
         $scope.publicNotification = function () {
             $timeout(function () {
                 var startDate = $scope.startDate.getFullYear() + '-' + $scope.startDate.getMonth() + '-' + $scope.startDate.getDate();
@@ -35,8 +50,13 @@
                     toaster.pop('error', "Error! Please try again");
                 })
             },1000);
-        }
+        };
 
+        /**
+         * Create location object using details from $scope.locationDetails
+         * @param loc
+         * @returns {{formatted_address: *, addressLine1: *, addressLine2: *, city: *, zipCode: *, latitude: *, longitude: *}}
+         */
         function getLocationObject(loc) {
             var addressObj = {};
             if (loc.address_components) {
@@ -54,6 +74,7 @@
                 };
             }
         }
+
         onInit();
     }
 
