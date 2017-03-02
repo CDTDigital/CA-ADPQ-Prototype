@@ -35,12 +35,15 @@
          * Clear the session varible and redirect to login screen
          */
         $scope.logout = function () {
-            Object.keys($sessionStorage.loginResponse).forEach(function (key) {
-                delete $sessionStorage.loginResponse[key];
-            });
-            $rootScope.isLoggedIn = false;
+            HttpFactory.logoutUser().then(function (response) {
+                Object.keys($sessionStorage.loginResponse).forEach(function (key) {
+                    delete $sessionStorage.loginResponse[key];
+                });
+                $rootScope.isLoggedIn = false;
 
-            $rootScope.go('/login');
+                $rootScope.go('/login');
+            })
+
         };
 
         /**
