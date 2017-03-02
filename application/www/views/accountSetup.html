@@ -49,7 +49,7 @@
             <li ng-if="!isAndroid" class="item item-toggle trackToggleItem">
                 Current Location
                 <label class="toggle toggle-balanced trackToggle">
-                    <input type="checkbox" ng-model="account.userNotificationOptions.liveLocationTracking">
+                    <input type="checkbox" ng-model="account.userNotificationOptions.liveLocationTracking" ng-change="onTrackLocationChange(account.userNotificationOptions.liveLocationTracking)">
                     <div class="track">
                         <div class="handle"></div>
                     </div>

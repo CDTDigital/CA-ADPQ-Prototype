@@ -96,7 +96,8 @@ public class NotificationServiceImpl implements NotificationService {
 		List<Long> userIdList = new ArrayList<Long>();
 		for(User user:users){
 			userNotificationService.save(new UserNotification(user.getId(), notification));
-			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendEmail()) {
+			if(user.getUserNotificationOptions()!=null && (user.getUserNotificationOptions().isSendEmail() 
+					|| user.getUserNotificationOptions().isSendSms())) {
 				mailService.sendMailToUsers(user, notification);
 			}
 			if(user.getUserNotificationOptions()!=null && user.getUserNotificationOptions().isSendPushNotification()) {
