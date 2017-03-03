@@ -86,6 +86,10 @@ Additional information and Application Architecture can be found here ([Document
 
 ([Instructions](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/blob/master/application/README.md))
 
+**Test Reports**
+
+([Test reports](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/tree/master/process-docs/Test-reports))
+
 
 **Dependencies:**
 
