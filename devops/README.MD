@@ -22,7 +22,7 @@ A git webhook notifies Jenkins on every commit in the webservice folder at https
 Jenkins triggers the job build.sh.
 ROOT.war is created.
 
-Once ROOT.war is successfully built, we build dockerfile, which pulls tomcat8:jre8 image and deploy the ROOT.war on 
+Once ROOT.war is successfully built, we build the dockerfile, which pulls tomcat8:jre8 image and deploy the ROOT.war on 
 it. At this point, docker image with solution code is created.
 After that docker image is pushed to docker hub.
 
