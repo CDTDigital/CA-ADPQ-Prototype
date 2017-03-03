@@ -1,41 +1,48 @@
 angular.module('CRNSSrv')
     .service('AccountData', ['GoogleMapService', function(GoogleMapService) {
-        var accountData = {
-            firstName: '',
-            lastName: '',
-            mobileNumber: '',
-            location: {
-                addressLine1: '',
-                latitude: '',
-                longitude: '',
-                placeId: '',
-                city: '',
-                zipCode: ''
-            },
-            userNotificationOptions: {
-                liveLocationTracking: false,
-                sendEmail: true,
-                sendSms: true,
-                sendPushNotification: false
-            }
+        var self = this;
+        var accountData;
+        var profileData;
+        this.initObjects = function() {
+            accountData = {
+                firstName: '',
+                lastName: '',
+                mobileNumber: '',
+                location: {
+                    addressLine1: '',
+                    latitude: '',
+                    longitude: '',
+                    placeId: '',
+                    city: '',
+                    zipCode: ''
+                },
+                userNotificationOptions: {
+                    liveLocationTracking: false,
+                    sendEmail: true,
+                    sendSms: true,
+                    sendPushNotification: false
+                }
+            };
+
+            profileData = {
+                firstName: '',
+                lastName: '',
+                mobileNumber: '',
+                email: '',
+                password: '',
+                cpassword: '',
+                location: {
+                    addressLine1: '',
+                    latitude: '',
+                    longitude: '',
+                    placeId: '',
+                    city: '',
+                    zipCode: ''
+                }
+            };
         };
 
-        var profileData = {
-            firstName: '',
-            lastName: '',
-            mobileNumber: '',
-            email: '',
-            password: '',
-            cpassword: '',
-            location: {
-                addressLine1: '',
-                latitude: '',
-                longitude: '',
-                placeId: '',
-                city: '',
-                zipCode: ''
-            }
-        };
+        self.initObjects();
 
         this.setCurrentData = function(data) {
             accountData = data;
@@ -70,7 +77,7 @@ angular.module('CRNSSrv')
         };
 
         this.clearProfileSetup = function() {
-            profileData.firstName = '';
+            self.initObjects();
         };
     }])
     .factory('AccountServices', ['$rootScope', '$http', 'Constant', '$q', 'AccountData', function($rootScope, $http, Constant, $q, AccountData) {
