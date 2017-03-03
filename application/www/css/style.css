@@ -306,6 +306,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="em
 .notification .sentBy,
 .nDetail .sentBy {
     color: #ff8c00;
+    font-size: 14px;
 }
 
 .nDetail .expire {

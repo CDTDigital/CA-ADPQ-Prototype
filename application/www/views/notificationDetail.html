@@ -12,7 +12,7 @@
             <h3>{{detailObj.notification.subject}}</h3>
             <h6>Sent at: <span class="sent">{{detailObj.notification.sentTime | date:'MMM dd, yyyy HH:mm'}}</span></h6>
             <h6>Expire by: <span class="expire">{{detailObj.notification.validThrough | date:'MMM dd, yyyy HH:mm'}}</span></h6>
-            <h5 class="sentBy">{{detailObj.notification.sentBy.firstName}}</h5>
+            <h6>Send From: <span class="sentBy">{{detailObj.notification.sentBy.firstName}}</span></h6>
             <p class="description">
                 {{detailObj.notification.message}}
             </p>
