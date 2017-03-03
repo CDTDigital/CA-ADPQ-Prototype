@@ -20,10 +20,13 @@
          * UserListController initialization function
          */
         function onInit() {
+            $scope.isLoading = true;
             HttpFactory.getUserList().then(function (list) {
+                $scope.isLoading = false;
                 $scope.userList = list;
             }, function (error) {
                 toaster.pop('error', "Error while fetching user list")
+                $scope.isLoading = false;
             })
         }
 
