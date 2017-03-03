@@ -29,7 +29,7 @@ import com.intimetec.crns.core.authentication.HttpLogoutSuccessHandler;
 
 /**
  * {@code SecurityConfig} class for the security related configurations.
- * @author shiva.dixit.
+ * @author In Time Tec.
  */
 @Configuration
 @EnableWebSecurity

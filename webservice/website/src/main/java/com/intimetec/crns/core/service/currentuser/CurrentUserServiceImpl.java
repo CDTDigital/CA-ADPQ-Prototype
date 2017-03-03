@@ -8,7 +8,7 @@ import com.intimetec.crns.core.models.CurrentUser;
 import com.intimetec.crns.core.models.UserRole;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Service
 public class CurrentUserServiceImpl implements CurrentUserService {

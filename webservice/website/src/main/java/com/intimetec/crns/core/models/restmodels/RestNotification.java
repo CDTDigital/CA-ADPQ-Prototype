@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Rest model class for the Notification table.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 public class RestNotification {
 	/**

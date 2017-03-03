@@ -17,7 +17,7 @@ import com.intimetec.crns.core.service.userLocation.UserLocationService;
 import com.intimetec.crns.util.ResponseMessage;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @RestController
 public class LocationController {
@@ -25,7 +25,7 @@ public class LocationController {
 	/**
 	 * To log the application messages. 
 	 */
-	private static Logger LOGGER = 
+	private static final Logger LOGGER = 
 			LoggerFactory.getLogger(LocationController.class);
 	
 	/**

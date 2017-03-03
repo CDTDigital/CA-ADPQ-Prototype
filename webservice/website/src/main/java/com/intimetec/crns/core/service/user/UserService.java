@@ -8,7 +8,7 @@ import com.intimetec.crns.core.exceptions.InvalidUserException;
 import com.intimetec.crns.core.models.User;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 public interface UserService {
 	Optional<User> getUserById(long id);

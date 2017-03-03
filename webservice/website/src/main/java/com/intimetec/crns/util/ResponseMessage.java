@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 public class ResponseMessage {

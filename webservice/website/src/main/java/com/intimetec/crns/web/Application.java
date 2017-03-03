@@ -30,7 +30,7 @@ import springfox.documentation.swagger1.annotations.EnableSwagger;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.intimetec.crns"})
@@ -182,28 +182,8 @@ public class Application extends SpringBootServletInitializer {
 	    ApiInfo apiInfo = new ApiInfo("California Residents Notification"
 	    		+ " Service", "Description of APIs.", "API TOS", 
 	    		"Terms of service", new Contact("InTimeTec", 
-	    		"http://intimetec.com/", "shiva.dixit@intimetec.com"),
+	    		"http://intimetec.com/", "In Time Tec@intimetec.com"),
 	    		"License of API", "API license URL");
 	    return apiInfo;
 	}
-	
-	/*@Bean
-	public Integer port() {
-		return SocketUtils.findAvailableTcpPort();
-	}
-
-	@Bean
-	public EmbeddedServletContainerFactory servletContainer() {
-		TomcatEmbeddedServletContainerFactory tomcat = 
-				new TomcatEmbeddedServletContainerFactory();
-		tomcat.addAdditionalTomcatConnectors(createStandardConnector());
-		return tomcat;
-	}
-
-	private Connector createStandardConnector() {
-		Connector connector = new Connector(
-				"org.apache.coyote.http11.Http11NioProtocol");
-		connector.setPort(port());
-		return connector;
-	}*/
 }

@@ -12,7 +12,7 @@ import com.intimetec.crns.core.models.User;
 import com.intimetec.crns.core.service.user.UserService;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Service
 public class CurrentUserDetailsService implements UserDetailsService {

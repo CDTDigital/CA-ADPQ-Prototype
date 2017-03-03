@@ -19,63 +19,72 @@ import com.intimetec.crns.core.models.UserDevice;
 import com.intimetec.crns.core.models.fcm.AndroidPayload;
 import com.intimetec.crns.core.models.fcm.IOSPayload;
 
+/**
+ * @author In Time Tec
+ */
 @Service
-public class FCMServiceImpl implements FCMService
-{
+public class FCMServiceImpl implements FCMService {
+	/**
+	 * Instance of the class {@link FcmConfig}.
+	 */
 	@Autowired
 	private FcmConfig fcmConfig;
+	/**
+	 * Instance of the class {@link Gson}.
+	 */
 	@Autowired
 	private Gson gson;
 	
+	/**
+	 * To send the notifications to the users.
+	 * @param devices        the devices on which the notification 
+	 *                       has to be sent.
+	 * @param notification   the notification to be sent.
+	 */
 	@Async
-	public void sendNotification(Collection<UserDevice> devices, Notification notification)
-	{
+	public void sendNotification(Collection<UserDevice> devices,
+			final Notification notification) {
 		final String uri = fcmConfig.getUrl();
 		List<String> androidDeviceIdList = new ArrayList<String>();
 		List<String> iosDeviceIdList = new ArrayList<String>();
-		for(UserDevice device: devices){
-			if(device.getDeviceType().equalsIgnoreCase("android")){
-				androidDeviceIdList.add(device.getDeviceToken());
-			}
-			else if(device.getDeviceType().equalsIgnoreCase("ios")){
+		for (UserDevice device: devices) {
+			if (device.getDeviceType().equalsIgnoreCase("android")) {
+				androidDeviceIdList.add(device.getDeviceToken()); 
+			} else if (device.getDeviceType().equalsIgnoreCase("ios")) {
 				iosDeviceIdList.add(device.getDeviceToken());
 			}
 		}
 		
-		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-		headers.add("Authorization", "key=" +fcmConfig.getKey());
+		MultiValueMap<String, String> headers = new 
+				LinkedMultiValueMap<String, String>();
+		headers.add("Authorization", "key=" + fcmConfig.getKey());
 		headers.add("project_id", fcmConfig.getProjectKey());
 		headers.add("Content-Type", "application/json");
 
 		RestTemplate restTemplate = new RestTemplate();
-		/*restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
-		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());*/
 		 
-		if(!androidDeviceIdList.isEmpty()) {
-			AndroidPayload androidPayLoad = new AndroidPayload(androidDeviceIdList, 
-					notification.getSubject(), notification.getMessage(), notification.getId(), notification.getId());
+		if (!androidDeviceIdList.isEmpty()) {
+			AndroidPayload androidPayLoad = new AndroidPayload(
+					androidDeviceIdList, notification.getSubject(), 
+					notification.getMessage(), notification.getId(), 
+					notification.getId());
 			
-			HttpEntity<String> requestAndroid = new HttpEntity<String>(gson.toJson(androidPayLoad), headers);
+			HttpEntity<String> requestAndroid = new HttpEntity<String>(
+					gson.toJson(androidPayLoad), headers);
 			
-			System.out.println("Android Payload : "+requestAndroid);
-
-			String result = restTemplate.postForObject(uri, requestAndroid, String.class);
+			restTemplate.postForObject(uri, requestAndroid, String.class);
 			
-			System.out.println("Android Upload done: "+result);
 		}
 		
-		if(!iosDeviceIdList.isEmpty()) {
-			IOSPayload iosPayLoad = new IOSPayload(iosDeviceIdList, notification.getSubject(), 
+		if (!iosDeviceIdList.isEmpty()) {
+			IOSPayload iosPayLoad = new IOSPayload(
+					iosDeviceIdList, notification.getSubject(), 
 					notification.getMessage(), notification.getId());
 			
-			HttpEntity<String> requestIos = new HttpEntity<String>(gson.toJson(iosPayLoad), headers);
-			
-			System.out.println("Android Payload : "+requestIos);
+			HttpEntity<String> requestIos = new HttpEntity<String>(
+					gson.toJson(iosPayLoad), headers);
 
-			String result = restTemplate.postForObject(uri, requestIos, String.class);
-			
-			System.out.println("IOS Upload done: "+result);
+			restTemplate.postForObject(uri, requestIos, String.class);			
 		}
 	}
 }

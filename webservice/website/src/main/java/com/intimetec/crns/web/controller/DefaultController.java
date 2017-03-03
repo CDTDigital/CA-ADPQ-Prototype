@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @CrossOrigin(maxAge = 3600)
 @Controller

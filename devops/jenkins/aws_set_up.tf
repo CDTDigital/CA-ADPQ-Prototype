@@ -37,6 +37,12 @@ resource "aws_security_group" "docker_host_sg" {
         protocol= "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
+	    ingress {
+        from_port = 3306
+        to_port = 3306
+        protocol= "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
 	   egress {
         from_port = 0
         to_port = 65535
@@ -63,7 +69,7 @@ resource "aws_instance" "docker_host"  {
                type = "ssh"
                user = "ubuntu"
                port = 22
-               private_key = "${file("${var.provider["private_key"]}")}"
+               private_key = "${file("${var.provider["private_key_path"]}")}"
                timeout = "15m"
             }
 
@@ -71,6 +77,8 @@ resource "aws_instance" "docker_host"  {
         inline = [
          "sudo apt-get update",
 		 "sudo apt-get install docker.io -y",
+		 "sudo apt-get install mysql-client -y",
+		 "sudo apt-get install maven -y",
 		 "sudo docker pull jenkins",
 		 "sudo mkdir /var/jenkins-home",
 		 "sudo docker run -d --name crns-jenkins -p 8080:8080 -p 50000:50000 -v /var/jenkins-home:/var/jenkins_home -u root jenkins"

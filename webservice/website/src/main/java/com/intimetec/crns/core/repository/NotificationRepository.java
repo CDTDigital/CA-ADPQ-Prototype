@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.intimetec.crns.core.models.Notification;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Repository("notificationRepository")
 @Transactional

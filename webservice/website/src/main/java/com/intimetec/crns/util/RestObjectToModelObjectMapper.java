@@ -16,7 +16,7 @@ import com.intimetec.crns.core.models.restmodels.RestUser;
 import com.intimetec.crns.core.models.restmodels.RestUserNotification;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 public class RestObjectToModelObjectMapper {

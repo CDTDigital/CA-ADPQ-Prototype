@@ -6,6 +6,9 @@ import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
 import com.intimetec.crns.core.exceptions.InvalidUserException;
 import com.intimetec.crns.core.models.UserNotificationOptions;
 
+/**
+ * @author In Time Tec
+ */
 public interface UserNotificationOptionsService {
 	Optional<UserNotificationOptions> getById(long id);
 

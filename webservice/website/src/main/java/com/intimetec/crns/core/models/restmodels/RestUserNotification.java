@@ -3,7 +3,7 @@ package com.intimetec.crns.core.models.restmodels;
 /**
  * 
  * Model class for User notifications.
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 

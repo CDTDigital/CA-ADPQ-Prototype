@@ -6,7 +6,7 @@ package com.intimetec.crns.core.exceptions;
 /**
  * {@code InvalidNotificatioException} class to handle the invalid 
  * notification exception.
- * @author shiva.dixit
+ * @author In Time Tec
  *
  */
 @SuppressWarnings("serial")

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Entity model class for User table.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Entity
 @Table(name = "user")
@@ -74,7 +74,7 @@ public class User {
 	/**
 	 * Role of the User.
 	 */
-	@JsonProperty(value="role")
+	@JsonProperty(value = "role")
 	@Column(name = "role")
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;

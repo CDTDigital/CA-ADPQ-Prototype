@@ -22,7 +22,7 @@ import com.intimetec.crns.core.models.User;
 
 /**
  * {@code MailServiceImpl} class for implementation of {@link MailService}.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Service
 public class MailServiceImpl implements MailService {
@@ -71,14 +71,19 @@ public class MailServiceImpl implements MailService {
 		try {
 
 			StringBuilder addresses = new StringBuilder();
-			if(user.getUserNotificationOptions().isSendEmail() && user.getEmail()!=null && !user.getEmail().isEmpty()) {
-				addresses.append(user.getEmail()+", ");
+			if (user.getUserNotificationOptions().isSendEmail() 
+					&& user.getEmail()
+					!= null && !user.getEmail().isEmpty()) {
+				addresses.append(user.getEmail() + ", ");
 			}
-			if(user.getUserNotificationOptions().isSendSms() && user.getMobileNo()!=null && !user.getMobileNo().isEmpty()) {
-				addresses.append(user.getMobileNo()+"@txt.att.net, ");
-				addresses.append(user.getMobileNo()+"@tmomail.net, ");
-				addresses.append(user.getMobileNo()+"@messaging.sprintpcs.com,");
-				addresses.append(user.getMobileNo()+"@vtext.com ");
+			if (user.getUserNotificationOptions().isSendSms() 
+					&& user.getMobileNo()
+					!= null && !user.getMobileNo().isEmpty()) {
+				addresses.append(user.getMobileNo() + "@txt.att.net, ");
+				addresses.append(user.getMobileNo() + "@tmomail.net, ");
+				addresses.append(user.getMobileNo() 
+						+ "@messaging.sprintpcs.com,");
+				addresses.append(user.getMobileNo() + "@vtext.com ");
 			}
 			 
 			

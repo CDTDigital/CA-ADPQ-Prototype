@@ -43,7 +43,7 @@ public class NotificationController {
 	/**
 	 * To log the application messages. 
 	 */
-	private static Logger LOGGER = 
+	private static final Logger LOGGER = 
 			LoggerFactory.getLogger(NotificationController.class);
 
 	/**

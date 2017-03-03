@@ -1,5 +1,5 @@
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  * Contains all the configurations.
  *
  */

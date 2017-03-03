@@ -3,7 +3,7 @@ package com.intimetec.crns.core.models;
 /**
  * Contains the roles of the user.
  * 
- * @author shiva.dixit
+ * @author In Time Tec
  */
 public enum UserRole {
 	/**

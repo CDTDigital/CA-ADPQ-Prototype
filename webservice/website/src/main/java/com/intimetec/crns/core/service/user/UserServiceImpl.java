@@ -18,7 +18,7 @@ import com.intimetec.crns.core.repository.UserRepository;
 import com.intimetec.crns.core.service.userdevice.UserDeviceService;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Service
 public class UserServiceImpl implements UserService {

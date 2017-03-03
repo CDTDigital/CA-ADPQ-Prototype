@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 /**
  * Entity model class for Notification table.
- * @author shiva.dixit
+ * @author In Time Tec
  */
 @Entity
 @Table(name = "notification")
@@ -25,8 +25,8 @@ public class Notification {
 	 */
 	@Id
 
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="notification_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "notification_id")
 	private long id;
 	
 	/**

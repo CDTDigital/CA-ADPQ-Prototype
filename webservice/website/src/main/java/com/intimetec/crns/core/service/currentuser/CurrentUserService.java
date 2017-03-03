@@ -3,7 +3,7 @@ package com.intimetec.crns.core.service.currentuser;
 import com.intimetec.crns.core.models.CurrentUser;
 
 /**
- * @author shiva.dixit
+ * @author In Time Tec
  */
 public interface CurrentUserService {
 

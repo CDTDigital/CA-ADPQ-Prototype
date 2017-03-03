@@ -7,6 +7,11 @@ import com.intimetec.crns.core.exceptions.InvalidAuthTokenException;
 import com.intimetec.crns.core.exceptions.InvalidLocationCoordinatesException;
 import com.intimetec.crns.core.models.UserLocation;
 
+
+/**
+ * @author In Time Tec
+ *
+ */
 public interface UserLocationService {
 	Optional<UserLocation> getById(int id);
 	

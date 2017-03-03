@@ -28,7 +28,7 @@ import com.intimetec.crns.util.ResponseMessage;
 
 /**
  * {@code AuthSuccessHandler} class to handle a successful authentication.
- *  @author shiva.dixit
+ *  @author In Time Tec
  */
 @Component
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {

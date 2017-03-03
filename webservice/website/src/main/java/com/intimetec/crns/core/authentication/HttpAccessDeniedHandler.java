@@ -21,7 +21,7 @@ import com.intimetec.crns.util.ResponseMessage;
 
 /**
  * {@code HttpAccessDeniedHandler} class to handle any access denied exceptions.
- *  @author shiva.dixit
+ *  @author In Time Tec
  */
 @Component
 public class HttpAccessDeniedHandler implements AccessDeniedHandler {
