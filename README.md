@@ -117,4 +117,4 @@ Reviewers can sign up or register on the landing page, create a profile, and opt
 
 **License**
 
-Copyright (c) 2017 In Time Tec.
+This prototype and platforms used to develop this prototype are open source and available under GNU license.
