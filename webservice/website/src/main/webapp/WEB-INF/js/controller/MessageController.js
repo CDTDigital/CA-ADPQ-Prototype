@@ -35,7 +35,7 @@
                         city: location.city,
                         message: $scope.message,
                         subject: $scope.subject,
-                        validThrough: $filter('date')(Date.now() + ($scope.validThrough * 60000), 'yyyy-MM-ddThh:mm:ss'),
+                        validThrough: $filter('date')(Date.now() + ($scope.validThrough * 60000), 'yyyy-MM-ddThh:mm:ss', '+0000'),
                         latitude: location.latitude,
                         longitude: location.longitude,
                         zipCode: location.zipCode,
