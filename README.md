@@ -27,14 +27,22 @@ To get started, users will register with the web app by providing the basic info
 We have followed an Agile and User Driven Design Process to build this prototype where all the requirements were driven by users (California residents). Scrum is the software development methodology utilized for this project:
 
  - We have started with interviewing users and collected the information to build user stories which were owned by Product owner for continuous refinement and prioritization.
- - Created initial UI designs and presented to users, and incorporated review feedback.
+ - Created initial UI designs following user centeric design process and presented to users, and incorporated review feedback.
  - One week sprints were used.  Each sprint was kicked off with a Sprint Planning meeting where the product owner designated the Sprint Objective. During the Sprint Planning, the development team committed to finishing the stories identified from the top of the prioritized product backlog according to their capacity as measured by their sprint velocity. 
  - At the closure of the Sprint, a Sprint Review was held to demo the user-centric features to the product owner and users which was delivered in the sprint. 
  - A Retrospective Meeting at the closure of each sprint was held to review the software development process and identify the areas that were working well and those areas that needed improvement. Changes to the process were implemented immediately.  
 
 The product owner represented the interests of the end user and determined the details and acceptance criteria of the user stories (features) of the application. The product owner also determined the priority order of the user stories in the backlog. End users received frequent releases of the application (usually at the end of each sprint) to evaluate the application for its features and overall progress.
 
-JIRA is used as the Scrum tool that contains the Scrum Artifacts: user stories, product backlog, sprint backlog, burndown charts, sprint reports, bug reports, test cases, and test results.
+JIRA is used as the Scrum tool that contains the Scrum Artifacts: user stories, product backlog, sprint backlog, burndown charts, sprint reports, bug reports, test cases, and test results. 
+
+**Further Information**
+ -  We have used JIRA as Scrum tool, and the reports (in .xlsx format) of each Sprint in terms of tasks done/carry forwarded has been added to GitHub. ([Process Documents](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/tree/master/process-docs))
+
+
+**U.S. Digital Services Playbook**
+
+Our approach is consistent with the US Digital Services Playbook. Details can be found here ([US Digital Services Playbook](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/wiki/U.S.-Digital-Services-Playbook))
 
 
 **User Stories**
@@ -61,9 +69,10 @@ User stories can be found here. ([User stories](https://github.com/InTimeTec-Adm
 
 Additional information and Application Architecture can be found here ([Document](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/wiki/Application-Architecture))
 
+
 **Deployment Instructions (Development Environment)**
 
-([Process Document](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/blob/master/devops/README.MD))
+([Instructions](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/blob/master/devops/README.MD))
 
 
 **Build Instructions for Web**
@@ -91,10 +100,6 @@ $ bin/run-app-in-container --env development
 Access CRNS in your browser using the IP address output by the last command.
 
 Setting up and deploying CRNS in production in Heroku is documented on the wiki.
-
-**Further Information**
- 
- -  We have used JIRA as Scrum tool, and the reports (in .xlsx format) of each Sprint in terms of tasks done/carry forwarded has been added to GitHub. ([Process Documents](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/tree/master/process-docs))
  
  
 **Release Notes**
