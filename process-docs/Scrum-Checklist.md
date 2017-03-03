@@ -3,9 +3,9 @@
 
 **The following checklist can be used to assess our Scrum process**
 
-# Are the following roles being filled?  Do we know who they are and do they know their role?
-## ScrumMaster
--- Product Owner/Product Manager
+1. Are the following roles being filled?  Do we know who they are and do they know their role?
+  1. ScrumMaster
+  2. Product Owner/Product Manager
 -- Technical Architect
 -- Stakeholders
 -- Agile Coach
