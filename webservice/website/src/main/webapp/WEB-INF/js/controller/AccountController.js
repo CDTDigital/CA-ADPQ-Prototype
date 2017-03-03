@@ -20,6 +20,7 @@
          */
         function onInit() {
             $scope.locationDetails = {};
+            $scope.confirmPassword = null;
             HttpFactory.getUserProfile().then(function (userData) {
                 $scope.account = userData;
                 if ($scope.account.location) {
@@ -40,7 +41,7 @@
          */
         $scope.editDetails = function () {
             if($scope.userDetails.$valid) {
-                if (angular.equals($scope.account.password, $scope.confirmPassword)) {
+                if (!angular.equals($scope.account.password, $scope.confirmPassword)) {
                     toaster.pop('error', "Password and Confirm password are not matching");
                     return
                 }
