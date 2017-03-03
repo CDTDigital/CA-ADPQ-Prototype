@@ -13,26 +13,32 @@
      * @param HttpFactory
      * @constructor
      */
-    function HistoryController($scope, $filter, HttpFactory) {
+    function HistoryController($scope, HttpFactory) {
 
         /**
          * HistoryController initialization function
          */
         function onInit() {
+            $scope.isLoading = true;
             $scope.role = HttpFactory.getUserRole();
             HttpFactory.getNotificationList().then(function (list) {
                 $scope.notificationList = list;
+                $scope.isLoading = false;
+            }, function (error) {
+                $scope.isLoading = false;
             });
             $scope.role = HttpFactory.getUserRole();
             //var not = $filter('filternot')($scope.notificationList, "push");
         }
+        $scope.$watch('notificationList', function(){
+            console.log($scope.notificationList);
+        });
         onInit()
     }
 
     var app = angular.module("CRNS"),
         requires = [
             '$scope',
-            '$filter',
             'modules.core.HttpFactory',
             HistoryController
         ];

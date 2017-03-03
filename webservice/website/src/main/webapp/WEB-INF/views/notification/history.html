@@ -16,7 +16,7 @@
                 <div data-search-button="true" class="left searchButton"></div>
             </div>
         </div>
-        <div class="row notificationTable  table-responsive">
+        <div class="row notificationTable table-responsive" ng-if="!isLoading">
             <table class="listTable">
                 <thead>
                 <tr>
@@ -29,7 +29,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="notification in notificationList | filter: searchFilter" ng-if="role == 'USER'">
+                <tr ng-repeat="notification in notificationList | filter: searchFilter"
+                    ng-if="role == 'USER' && notificationList.length != 0">
                     <td>{{notification.notification.subject}}</td>
                     <td>{{notification.notification.message}}</td>
                     <td>{{notification.notification.sentBy.firstName + notification.notification.sentBy.lastName}}</td>
@@ -37,7 +38,8 @@
                     <td>{{notification.notification.validThrough | date:"MM/dd/yyyy h:mma"}}</td>
                     <td>{{notification.notification.address}}</td>
                 </tr>
-                <tr ng-repeat="notification in notificationList | filter: searchFilter" ng-if="role == 'ADMIN'">
+                <tr ng-repeat="notification in notificationList | filter: searchFilter"
+                    ng-if="role == 'ADMIN'  && notificationList.length != 0">
                     <td>{{notification.subject}}</td>
                     <td>{{notification.message}}</td>
                     <td>{{notification.sentBy.firstName + notification.notification.sentBy.lastName}}</td>
@@ -45,8 +47,14 @@
                     <td>{{notification.validThrough | date:"MM/dd/yyyy h:mma"}}</td>
                     <td>{{notification.address}}</td>
                 </tr>
+                <tr ng-if="notificationList.length == 0 || (notificationList |filter:searchFilter).length == 0">
+                    <td colspan="6" class="text-center">No Data Found</td>
+                </tr>
                 </tbody>
             </table>
+        </div>
+        <div ng-if="isLoading" class="text-center">
+            <img ng-src="/images/Loading_icon.gif" alt="">
         </div>
     </div>
 </div>
