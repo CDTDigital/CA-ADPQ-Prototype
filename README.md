@@ -29,7 +29,7 @@ To get started, users will register with the web app by providing the basic info
 We have followed an Agile and User Driven Design Process to build this prototype where all the requirements were driven by users (California residents). Scrum is the software development methodology utilized for this project:
 
  - We have started with interviewing users and collected the information to build user stories which were owned by Product owner for continuous refinement and prioritization.
- - Created initial UI designs following user centeric design process and presented to users, and incorporated review feedback.
+ - Created initial UI designs following user centeric design process and presented to users, and incorporated review feedback. While creating UI designs, we have adhered to [US Design standards](https://standards.usa.gov/).
  - One week sprints were used.  Each sprint was kicked off with a Sprint Planning meeting where the product owner designated the Sprint Objective. During the Sprint Planning, the development team committed to finishing the stories identified from the top of the prioritized product backlog according to their capacity as measured by their sprint velocity. 
  - At the closure of the Sprint, a Sprint Review was held to demo the user-centric features to the product owner and users which was delivered in the sprint. 
  - A Retrospective Meeting at the closure of each sprint was held to review the software development process and identify the areas that were working well and those areas that needed improvement. Changes to the process were implemented immediately.  
@@ -93,19 +93,15 @@ Additional information and Application Architecture can be found here ([Document
 
 **Dependencies:**
 
-A Github account
-A computer running Mac OS X 10.9.5+ with Xcode Version 6.1.1+
-Download and install Virtualbox 5.0.20
-Download and install Docker Toolbox version 1.11.2
-To install and run CRNS, execute these commands:
+* A Github account
+* A computer running Mac OS X 10.9.5+ with Xcode Version 6.1.1+
+* Download and install Virtualbox 5.0.20
+* Download and install Docker Toolbox version 1.11.2
+* To install and run CRNS, execute these commands:
 
 $ git clone git@github.com: https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype
-$ cd 
-$ bin/setup-virtualmachine
-$ bin/run-app-in-container --env development
-Access CRNS in your browser using the IP address output by the last command.
 
-Setting up and deploying CRNS in production in Heroku is documented on the wiki.
+Follow various ReadMe files provided in respective folders application(for mobile applictaion), webservices(for web application and REST APIs) and setup complete deployment environment by following ReadMe of docker folder includes Jenkins scripts for build and deployment.
  
  
 **Release Notes**
