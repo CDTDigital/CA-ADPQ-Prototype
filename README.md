@@ -40,7 +40,7 @@ JIRA is used as the Scrum tool that contains the Scrum Artifacts: user stories, 
 
 **Further Information**
  -  We have used JIRA as Scrum tool, and the reports (in .xlsx format) of each Sprint in terms of tasks done/carry forwarded has been added to GitHub. ([Process Documents](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/tree/master/process-docs))
-
+ - More information on technical appraoch can be found in [wiki](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/wiki/Application-Architecture-&-Technical-Approach)
 
 **U.S. Digital Services Playbook**
 
