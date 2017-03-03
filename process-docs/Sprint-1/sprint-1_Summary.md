@@ -19,8 +19,8 @@
 
 **Review feedback from end users:**
 
- - Is the desktop experience intended for admins only?  I think users may also want to register via the desktop in addition to on their mobile device Desktop
- -Login page:   
+ - Is the desktop experience intended for admins only?  I think users may also want to register via the desktop in addition to on their mobile device
+ - Desktop - Login page:   
       * I think it would be better to say "Welcome" vs. "Welcome to our page"...or possibly remove the welcome.  The "to our page" piece doesn't feel right to me.
       * "Lets" is spelled incorrectly.  It should be "Let's".
  - Mobile--Login screen: 
