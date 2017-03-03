@@ -26,6 +26,7 @@ angular.module('CRNSSrv')
             mobileNumber: '',
             email: '',
             password: '',
+            cpassword: '',
             location: {
                 addressLine1: '',
                 latitude: '',
@@ -49,7 +50,8 @@ angular.module('CRNSSrv')
             profileData.lastName = data.lastName;
             profileData.mobileNumber = Number(data.mobileNo);
             profileData.email = data.email;
-            profileData.password = (data.password == null || data.password == '') ? '*******' : data.password,
+            profileData.password = (data.password == null || data.password == '') ? '' : data.password,
+            profileData.cpassword = profileData.password,
             profileData.location.addressLine1 = data.location.addressLine1;
             profileData.location.latitude = data.location.latitude;
             profileData.location.longitude = data.location.longitude;

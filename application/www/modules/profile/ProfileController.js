@@ -23,12 +23,16 @@ angular.module('CRNSCtrl')
     $scope.onTapUpdateProfile = function() {
         if($scope.profile.firstName == '' || $scope.profile.lastName == '' || $scope.profile.mobileNumber == '') {
             Notify.errorToaster('You can not update profile with blank inputs!');
+        } else if($scope.profile.password != $scope.profile.cpassword) {
+            Notify.errorToaster('Password and Confirm Password are mismatch!');
         } else if($scope.profile.location.addressLine1 == '') {
             Notify.errorToaster('Please add your location for getting the notifications!');
         } else {
             $scope.profile.mobileNo = String($scope.profile.mobileNumber);
             AccountServices.setUpAccount($scope.profile).then(function(resp) {
                 Notify.successToaster('Profile Updated Successfully!');
+                $scope.profile.password = '';
+                $scope.profile.cpassword = '';
             }, function(resp) {
                 Notify.errorToaster(resp.data.message);
             });
