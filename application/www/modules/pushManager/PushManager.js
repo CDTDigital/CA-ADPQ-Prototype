@@ -34,7 +34,7 @@
                         },
                         'ios': {
                             'senderID': '450574513627',
-                            'gcmSandbox': true,
+                            /* 'gcmSandbox': true, */
                             'alert': 'true',
                             'badge': 'true',
                             'sound': 'true',
