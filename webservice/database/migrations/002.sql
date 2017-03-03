@@ -13,8 +13,9 @@ create table user (
 	mobile_no NVARCHAR(15) NULL,
 	username NVARCHAR(16) NOT NULL,
 	password NVARCHAR(100) NOT NULL,
-	enabled BINARY DEFAULT 1,
+	enabled BOOLEAN DEFAULT 1,
 	role NVARCHAR(10) NOT NULL,
+	account_setup_done BOOLEAN DEFAULT 0,
 	CONSTRAINT pk_userLogin PRIMARY KEY (user_id),
 	CONSTRAINT unique_user_name UNIQUE INDEX (username),
 	CONSTRAINT unique_user_email UNIQUE INDEX (email)

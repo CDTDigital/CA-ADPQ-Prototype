@@ -90,6 +90,11 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 
 	@Override
+	public void saveAll(List<Notification> notificationList) {
+		notificationRepository.save(notificationList);
+	}
+	
+	@Override
 	@Async
     public void sendNotification(Notification notification){
 		Collection<User> users = userService.getUsersByZipCode(notification.getZipCode());

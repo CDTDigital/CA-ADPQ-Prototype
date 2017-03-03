@@ -22,10 +22,10 @@ CREATE TABLE scriptlog (
   CONSTRAINT PK_ScriptLog PRIMARY KEY (version)
 );
 
-CREATE INDEX IX_ScriptLog_version_rank ON ScriptLog (version_rank);
-CREATE INDEX IX_ScriptLog_installed_rank ON ScriptLog (installed_rank);
-CREATE INDEX IX_ScriptLog_success ON ScriptLog (success);
+CREATE INDEX IX_ScriptLog_version_rank ON scriptlog (version_rank);
+CREATE INDEX IX_ScriptLog_installed_rank ON scriptlog (installed_rank);
+CREATE INDEX IX_ScriptLog_success ON scriptlog (success);
 
 -- Add the baseline entry
-insert into ScriptLog (version_rank, installed_rank, version, description, type, script, checksum, installed_by, installed_on, execution_time, success)
+insert into scriptlog (version_rank, installed_rank, version, description, type, script, checksum, installed_by, installed_on, execution_time, success)
 values (1, 1, '001', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', null, CURRENT_USER, CURRENT_TIMESTAMP, 0, 1)

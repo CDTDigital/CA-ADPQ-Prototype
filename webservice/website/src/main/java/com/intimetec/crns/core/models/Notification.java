@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 /**
  * Entity model class for Notification table.
+ * 
  * @author In Time Tec
  */
 @Entity
@@ -28,14 +29,14 @@ public class Notification {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "notification_id")
 	private long id;
-	
+
 	/**
 	 * User who will be sending the notification.
 	 */
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.DETACH)
-	@JoinColumn(name="sent_by", referencedColumnName="user_id")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+	@JoinColumn(name = "sent_by", referencedColumnName = "user_id")
 	private User sentBy;
-	
+
 	/**
 	 * Subject of the notification.
 	 */
@@ -47,25 +48,25 @@ public class Notification {
 	 */
 	@Column(name = "message")
 	private String message;
-	
+
 	/**
 	 * City where the notification will be sent.
 	 */
 	@Column(name = "city")
 	private String city;
-	
+
 	/**
 	 * Zip code on whose basis the notification will be sent.
 	 */
 	@Column(name = "zip_code")
 	private String zipCode;
-	
+
 	/**
 	 * Address where the notification will be sent.
 	 */
 	@Column(name = "address")
 	private String address;
-	
+
 	/**
 	 * Latitude of the User's location.
 	 */
@@ -78,13 +79,30 @@ public class Notification {
 	@Column(name = "longitude")
 	private String longitude;
 
+	public Notification() {
+	}
+
+	public Notification(User sentBy, Date sentTime, String address, String city, String latitude, String longitude, String zipCode,
+			String subject, String message, Date validThrough) {
+		this.sentBy = sentBy;
+		this.sentTime = sentTime;
+		this.address = address;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.subject = subject;
+		this.message = message;
+		this.validThrough = validThrough;
+
+	}
 
 	/**
 	 * Time when the notification will be sent.
 	 */
 	@Column(name = "sent_time")
 	private Date sentTime;
-	
+
 	/**
 	 * The Date and time till when the notification is valid.
 	 */
@@ -99,7 +117,8 @@ public class Notification {
 	}
 
 	/**
-	 * @param id the id of the notification.
+	 * @param id
+	 *            the id of the notification.
 	 */
 	public final void setId(final long id) {
 		this.id = id;
@@ -113,7 +132,8 @@ public class Notification {
 	}
 
 	/**
-	 * @param sentBy the User .
+	 * @param sentBy
+	 *            the User .
 	 */
 	public final void setSentBy(final User sentBy) {
 		this.sentBy = sentBy;
@@ -127,7 +147,8 @@ public class Notification {
 	}
 
 	/**
-	 * @param subject the subject of the notification..
+	 * @param subject
+	 *            the subject of the notification..
 	 */
 	public final void setSubject(String subject) {
 		this.subject = subject;
@@ -141,7 +162,8 @@ public class Notification {
 	}
 
 	/**
-	 * @param message of the notification.
+	 * @param message
+	 *            of the notification.
 	 */
 	public final void setMessage(final String message) {
 		this.message = message;
@@ -169,7 +191,8 @@ public class Notification {
 	}
 
 	/**
-	 * @param zipCode the zip code.
+	 * @param zipCode
+	 *            the zip code.
 	 */
 	public final void setZipCode(final String zipCode) {
 		this.zipCode = zipCode;
@@ -197,12 +220,13 @@ public class Notification {
 	}
 
 	/**
-	 * @param latitude the latitude of the Notification's location.
+	 * @param latitude
+	 *            the latitude of the Notification's location.
 	 */
 	public final void setLatitude(final String latitude) {
 		this.latitude = latitude;
 	}
-	
+
 	/**
 	 * @return the longitude of the Notification's location.
 	 */
@@ -211,12 +235,13 @@ public class Notification {
 	}
 
 	/**
-	 * @param longitude the longitude of the Notification's location.
+	 * @param longitude
+	 *            the longitude of the Notification's location.
 	 */
 	public final void setLongitude(final String longitude) {
 		this.longitude = longitude;
 	}
-	
+
 	/**
 	 * @return Date.
 	 */
@@ -225,7 +250,8 @@ public class Notification {
 	}
 
 	/**
-	 * @param sentTime the Date and time.
+	 * @param sentTime
+	 *            the Date and time.
 	 */
 	public final void setSentTime(Date sentTime) {
 		this.sentTime = sentTime;

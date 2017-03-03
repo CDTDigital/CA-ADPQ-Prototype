@@ -130,6 +130,20 @@ public class Application extends SpringBootServletInitializer {
 	private String mailPassword;
 	
 	/**
+	 * URL of the FCM API. 
+	 */
+	@Value("${weather.alerts.url}")
+	private String weatherAlertsUrl;
+	
+	/**
+	 * @return configurations of the NOAA Weather Alerts API.
+	 */
+	@Bean
+	public String getWeatherAlertsUrl() {
+		return weatherAlertsUrl;
+	}
+	
+	/**
 	 * @return configurations of the Google API.
 	 */
 	@Bean

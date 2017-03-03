@@ -1,6 +1,7 @@
 package com.intimetec.crns.core.service.notification;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.intimetec.crns.core.models.Notification;
@@ -20,6 +21,8 @@ public interface NotificationService {
     Collection<Notification> getAll();
 
     Notification save(Notification notification);
+    
+    void saveAll(List<Notification> notificationList);
     
     void sendNotification(Notification notification);
 }
