@@ -37,6 +37,11 @@ The product owner represented the interests of the end user and determined the d
 JIRA is used as the Scrum tool that contains the Scrum Artifacts: user stories, product backlog, sprint backlog, burndown charts, sprint reports, bug reports, test cases, and test results.
 
 
+**User Stories**
+
+User stories can be found here. ([User stories](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/wiki/User-Stories))
+
+
 **CRNS Open Source Technologies**
 
 - For Hybrid Mobile Application
@@ -60,6 +65,17 @@ Additional information and Application Architecture can be found here ([Document
 
 ([Process Document](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/blob/master/devops/README.MD))
 
+
+**Build Instructions for Web**
+
+([Instructions](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/blob/master/webservice/README.md))
+
+
+**Build Instructions for Mobile**
+
+([Instructions](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/blob/master/application/README.md))
+
+
 **Dependencies:**
 
 A Github account
@@ -79,6 +95,10 @@ Setting up and deploying CRNS in production in Heroku is documented on the wiki.
 **Further Information**
  
  -  We have used JIRA as Scrum tool, and the reports (in .xlsx format) of each Sprint in terms of tasks done/carry forwarded has been added to GitHub. ([Process Documents](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/tree/master/process-docs))
+ 
+ 
+**Release Notes**
+- Mobile application build release notes can be found here ([Release Notes](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/blob/master/builds/Release%20Notes.md))
 
 <b>Reviewer Testing</b>
 
