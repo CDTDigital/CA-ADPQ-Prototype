@@ -24,7 +24,7 @@
                 <input type="number" placeholder="Mobile Number" ng-model="account.mobileNumber">
             </label>
 
-            <div class="registerLabel lBlueFontClr marginTop5">Location</div>
+            <div class="registerLabel lBlueFontClr marginTop5">Address</div>
             <div class="locationLabel" ng-model='account.location.addressLine1' ng-if="account.location.addressLine1 != ''">{{account.location.addressLine1}}</div>
             <div class="marginTop5" ng-if="account.location.addressLine1 == ''">
                 <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
@@ -40,7 +40,7 @@
                 </div>-->
                 <div class="col zeroPadding alignLeft btnMarLeft">
                     <button class="button button-full button-positive locBtn" ng-click="onTapAddLocation()">
-                        Edit Location
+                        Edit Address
                     </button>
                 </div>
             </div>

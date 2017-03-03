@@ -4,7 +4,7 @@
 
 California Residents Notification Service (CRNS) is a web-based, responsive messaging application designed for communication between authorized administrators and California residents. It allows authorized administrators to login to the web app and generate notifications, as well as track the previous notifications and their details. The users, California residents, can manage their profile and receive emergency and non-emergency notifications via email, Short Message Service (SMS), CRNS App, Location-based tracking services that were opted during the profile registration.
 
-To get started, users will register with the web app by providing the basic information such as name, city, phone numbers and zip code, etc. While registering, they can opt to receive notification via the services mentioned above and also, opt to receive notifications based on the geo-location of their cellphone. Once logged in, users can check for regular updates and the notifications that were opted for. Users can edit their profiles with additional information as required. Users can also reset passwords, update profiles, and upload profile pictures. (need confirmation)
+To get started, users will register with the web app by providing the basic information such as name, city, phone numbers and zip code, etc. While registering, they can opt to receive notification via the services mentioned above and also, opt to receive notifications based on the geo-location of their cellphone. Once logged in, users can check for regular updates and the notifications that were opted for. Users can edit their profiles with additional information as required and also, reset passwords.
 
 **Team Work Categories**
 

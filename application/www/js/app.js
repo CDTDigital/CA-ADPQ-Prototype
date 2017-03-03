@@ -154,6 +154,8 @@ angular.module('CRNS', ['ionic', 'CRNSCtrl', 'CRNSSrv', 'CRNSConstants', 'toaste
   function onConfirmNotification(buttonIndex, notificationId) {
         if (buttonIndex == 2) {
             callOrderDetailAPI(false, notificationId);
+        } else if ($state.current.name == 'app.list') {
+            $state.go($state.current.name, {}, {reload: true});
         }
   };
 
