@@ -1,5 +1,5 @@
 <div class="login-screen center col-lg-3 col-md-3 col-sm-6 col-xs-8">
-	<toaster-container toaster-options="{'time-out': 1000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+	<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
 	<h2 class="login-header">Welcome</h2>
 	<div class="form">
 		<h4 class="text-bold">Let's get started</h4>
@@ -15,7 +15,7 @@
 					<input type="password" class="form-control" name="password" ng-model="user.password"
 						placeholder="Password" ng-disabled="isLoading" required />
 				</div>
-				<toaster-container toaster-options="{'time-out': 500, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+				<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
 				<div class="button_wrapper fullwidth">
 					<button ui-sref="message" type="submit" ng-disabled="isLoading" class="center">SUBMIT</button>
 				</div>
