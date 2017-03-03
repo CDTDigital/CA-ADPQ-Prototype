@@ -3,7 +3,7 @@ Overview
 ========
 This webservice contains one main Java project:
 
--Website: This project contains the code for the main website. 
+-Website: This project contains the code for the main website.
 
 Code & Assets
 ===============
@@ -29,13 +29,8 @@ Prerequisites
 Website Project Configuration
 =============================
 - Go to \webservice\website\src\main\resources\config
-- Copy override.properties.sample and rename to override.properties
+- Modify override.properties to 
 	- Set the datasource properties to control which database is used.
-	
-To run the application against a database, do the following:
-
-- Update the properties beginning with "spring.datasource" with values for your given database
-	- Refer to the \webservice\database folder for obtaining a database backup.
 
 Running the Website Project without Eclipse
 ===========================================
@@ -97,9 +92,6 @@ Application Configuration
 =========================
 Terminology
 
-* Core (required)
-	* The base logic/configuration that is shared by all sites, in all environments
-	* These files are stored at \webservice\website\src\main\resources\core
 * Environment (required)
 	* The tier where the site is deployed (e.g. dev, qa, staging, production)
 	* These files are named <environment>.properties
@@ -135,4 +127,4 @@ The repository for CRNS is hosted at [here](https://github.com/InTimeTec-Admin/C
 License
 ===================
 
-Copyright (c) 2017 In Time Tec.
+Copyright (c) 2017 In Time Tec under GNU License (https://www.gnu.org/licenses/agpl-3.0.en.html)
