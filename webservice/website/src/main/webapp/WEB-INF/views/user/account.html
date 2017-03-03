@@ -1,29 +1,34 @@
 <div>
-    <toaster-container toaster-options="{'time-out': 1000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+    <toaster-container
+            toaster-options="{'time-out': 1000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
     <div class="container main-body-content">
         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
             <h3>Account Information</h3>
-            <div class="sendForm clearfix">
+            <form class="sendForm clearfix" name="userDetails">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
                     <h4>Personal Information</h4>
                     <div class="form-group row">
                         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                            <input class="form-control" type="text" ng-model="account.firstName" id="firstName" placeholder="First Name" >
+                            <input class="form-control" type="text" ng-model="account.firstName" ng-disabled="isLoading"
+                                   id="firstName" placeholder="First Name">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                            <input class="form-control" type="text" ng-model="account.lastName" id="lastName" placeholder="Last Name" >
+                            <input class="form-control" type="text" ng-model="account.lastName" ng-disabled="isLoading"
+                                   id="lastName" placeholder="Last Name">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                            <input class="form-control"  type="email" ng-model="account.email" ng-disabled="true" id="email" placeholder="Email" >
+                            <input class="form-control" type="email" ng-model="account.email" ng-disabled="isLoading"
+                                   id="email" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                            <input class="form-control" type="text" ng-model="account.mobileNo" id="mobileNo" placeholder="mobile" >
+                            <input class="form-control" type="text" ng-model="account.mobileNo" ng-disabled="isLoading"
+                                   id="mobileNo" placeholder="mobile">
                         </div>
                     </div>
                     <google-prediction-list location="locationDetails" name="name"></google-prediction-list>
@@ -32,36 +37,50 @@
                     <h4>Login Information</h4>
                     <div class="form-group row">
                         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                            <input class="form-control" type="text" ng-model="account.userName" ng-disabled="true" id="userName" placeholder="Username" >
+                            <input class="form-control" type="text" ng-model="account.userName" ng-disabled="true"
+                                   id="userName" placeholder="Username">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                            <input class="form-control" type="password" ng-model="account.password" id="password" placeholder="Password" >
+                            <input class="form-control" type="password" ng-model="account.password"
+                                   ng-disabled="isLoading" id="password" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                            <input class="form-control" type="password" ng-model="confirmPassword" id="confirmPassword" placeholder="Confirm Password" >
+                            <input class="form-control" type="password" ng-model="confirmPassword"
+                                   ng-disabled="isLoading" id="confirmPassword" placeholder="Confirm Password">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noSpace">
                     <h4>Notification Setting</h4>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
-                        <input type="checkbox" id="smsNotification" value="checkbox" ng-checked="account.userNotificationOptions.sendSms"> <label for="smsNotification">SMS</label>
+                        <input type="checkbox" id="smsNotification" value="checkbox" ng-disabled="isLoading"
+                               ng-checked="account.userNotificationOptions.sendSms"
+                               ng-model="account.userNotificationOptions.sendSms"> <label
+                            for="smsNotification">SMS</label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
-                        <input type="checkbox" id="emailNotification" value="checkbox" ng-checked="account.userNotificationOptions.sendEmail"> <label for="emailNotification">Email</label>
+                        <input type="checkbox" id="emailNotification" value="checkbox" ng-disabled="isLoading"
+                               ng-checked="account.userNotificationOptions.sendEmail"
+                               ng-model="account.userNotificationOptions.sendEmail"> <label for="emailNotification">Email</label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 noSpace">
-                        <input type="checkbox" id="pushNotification" ng-checked="account.userNotificationOptions.sendPushNotification" value="checkbox"> <label for="pushNotification">Push Notification</label>
+                        <input type="checkbox" id="pushNotification" ng-disabled="isLoading"
+                               ng-checked="account.userNotificationOptions.sendPushNotification" value="checkbox"
+                               ng-model="account.userNotificationOptions.sendPushNotification"> <label
+                            for="pushNotification">Push Notification</label>
                     </div>
                 </div>
                 <div class="form-group col-lg-11 noSpace">
-                    <button type="submit" class="buttonLink btn btn-primary pull-right" ng-click="editDetails()">Save</button>
+                    <button type="submit" class="buttonLink btn btn-primary pull-right" ng-click="editDetails()">Save
+                    </button>
+                    <div id="registerLoading" ng-show="isLoading"><img width="20" src="/images/ajax-spinner-blue.gif"/>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

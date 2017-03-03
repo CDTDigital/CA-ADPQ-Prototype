@@ -15,7 +15,22 @@
             </div>
             <div class="form-group row">
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 noSpace">
-                    <input class="form-control" ng-disabled="isLoading" type="date" id="validThrough" ng-model="validThrough" required>
+                    <select class="form-control fa-sort-desc" id="durationSelect" name="durationSelect" ng-model="validThrough">
+                        <option value="">--Valid Through--</option>
+                        <option id="15m" value="15">15 minutes</option>
+                        <option id="30m" value="30">30 minutes</option>
+                        <option id="45m" value="45">45 minutes</option>
+                        <option id="1h" value="60">1 hour</option>
+                        <option id="2h" value="120">2 hours</option>
+                        <option id="6h" value="360">6 hours</option>
+                        <option id="12h" value="720">12 hours</option>
+                        <option id="1d" value="1440">1 day</option>
+                        <option id="2d" value="2880">2 days</option>
+                        <option id="5d" value="7200">5 days</option>
+                        <option id="1w" value="10080">1 week</option>
+                        <option id="2w" value="20160">2 weeks</option>
+                        <option id="4w" value="40320">4 weeks</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">

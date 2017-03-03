@@ -18,6 +18,7 @@
          * MessageController initialization function
          */
         function onInit() {
+            $scope.locationDetails = {};
             $scope.notification = {};
         }
 
@@ -28,14 +29,13 @@
             if ($scope.notificationForm.$valid) {
                 $scope.isLoading = true;
                 $timeout(function () {
-                    var validThrough = $scope.validThrough.getFullYear() + '-' + ($scope.validThrough.getMonth() + 1) + '-' + $scope.validThrough.getDate();
-                    var location = getLocationObject($scope.locationDetails);
+                    var location = getLocationObject($scope.locationDetails.location);
                     angular.extend($scope.notification, {
                         address: location.formatted_address,
                         city: location.city,
                         message: $scope.message,
                         subject: $scope.subject,
-                        validThrough: validThrough + $filter('date')(Date.now(), 'Thh:mm:ss'),
+                        validThrough: $filter('date')(Date.now() + ($scope.validThrough * 60000), 'yyyy-MM-ddThh:mm:ss', '+0000'),
                         latitude: location.latitude,
                         longitude: location.longitude,
                         zipCode: location.zipCode,

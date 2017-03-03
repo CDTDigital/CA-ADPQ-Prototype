@@ -74,7 +74,7 @@
                 if (status === google.maps.GeocoderStatus.OK) {
                     //return results[0];
                     console.log(results);
-                    $scope.location = results[0];
+                    $scope.location.location = results[0];
                 } else {
                     console.log('Geocoder failed due to: ' + status);
                 }
