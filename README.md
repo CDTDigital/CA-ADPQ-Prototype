@@ -53,6 +53,7 @@ JIRA is used as the Scrum tool that contains the Scrum Artifacts: user stories, 
 	- Spring Security - To have session management and user authentication/authorization
 	- Hibernate - ORM (Object-Relational Mapping) tool for DB connectivity
 	- JPA - Java Persistence API (JPA) is a Java specification for accessing, persisting, and managing data between Java objects / classes and a relational database.
+
 Additional information and Application Architecture can be found here ([Document](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/wiki/Application-Architecture))
 
 **Deployment Instructions (Development Environment)**
