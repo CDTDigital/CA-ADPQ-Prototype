@@ -19,6 +19,7 @@
          * AccountController initialization function
          */
         function onInit() {
+            $scope.isLoading = true;
             $scope.locationDetails = {};
             $scope.confirmPassword = null;
             HttpFactory.getUserProfile().then(function (userData) {
@@ -31,8 +32,10 @@
                         }
                     });
                 }
+                $scope.isLoading = false;
             }, function (error) {
                 toaster.pop('error', error.message);
+                $scope.isLoading = false
             });
         }
 
