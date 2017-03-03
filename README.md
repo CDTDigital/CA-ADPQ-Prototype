@@ -2,9 +2,9 @@
 **California Residents Notification Service (CRNS)**
 ------------------------------------------------
 
-California Residents Notification Service (CRNS) is a web-based, responsive messaging application designed for communication between the authorized administrative users and the California residents. It allows the authorized administrative users from the California department to login to the web app and generate notifications, track the previous notifications and their details. The California residents can manage their profile and receive emergency and non-emergency notifications via email, Short Message Service (SMS), CRNS App, Location-based tracking services that were opted during the profile registration.
+California Residents Notification Service (CRNS) is a web-based, responsive messaging application designed for communication between authorized administrators and California residents. It allows authorized administrators to login to the web app and generate notifications, as well as track the previous notifications and their details. The users, California residents, can manage their profile and receive emergency and non-emergency notifications via email, Short Message Service (SMS), CRNS App, Location-based tracking services that were opted during the profile registration.
 
-To get started, the residents of California will register themselves into the web app by providing the basic information such as name, city, phone numbers and zip code, etc. While registering, they can opt to receive notification via the services mentioned above and also, opt to receive notifications based on the geo-location of their cellphone. Once logged in, users can check for regular updates and the notifications that were opted for. Users can edit their profiles with additional information as required. Users can also reset passwords, update profiles, and upload profile pictures. (need confirmation)
+To get started, users will register with the web app by providing the basic information such as name, city, phone numbers and zip code, etc. While registering, they can opt to receive notification via the services mentioned above and also, opt to receive notifications based on the geo-location of their cellphone. Once logged in, users can check for regular updates and the notifications that were opted for. Users can edit their profiles with additional information as required. Users can also reset passwords, update profiles, and upload profile pictures. (need confirmation)
 
 **Team Work Categories**
 
@@ -24,11 +24,11 @@ To get started, the residents of California will register themselves into the we
 
 **Technical Approach**
 
-We have followed Agile and User Driven Design Process to build this prototype where all the requirements were driven by users (in our case those were the residents of California state). Scrum is the software development methodology utilized for this project:
+We have followed an Agile and User Driven Design Process to build this prototype where all the requirements were driven by users (California residents). Scrum is the software development methodology utilized for this project:
 
  - We have started with interviewing users and collected the information to build user stories which were owned by Product owner for continuous refinement and prioritization.
  - Created initial UI designs and presented to users, and incorporated review feedback.
- - One week sprint was kicked off with a Sprint Planning meeting where the product owner designated the Sprint Objective. During the Sprint Planning, the development team committed to finishing the stories identified from the top of the prioritized product backlog according to their capacity as measured by their sprint velocity. 
+ - One week sprints were used.  Each sprint was kicked off with a Sprint Planning meeting where the product owner designated the Sprint Objective. During the Sprint Planning, the development team committed to finishing the stories identified from the top of the prioritized product backlog according to their capacity as measured by their sprint velocity. 
  - At the closure of the Sprint, a Sprint Review was held to demo the user-centric features to the product owner and users which was delivered in the sprint. 
  - A Retrospective Meeting at the closure of each sprint was held to review the software development process and identify the areas that were working well and those areas that needed improvement. Changes to the process were implemented immediately.  
 

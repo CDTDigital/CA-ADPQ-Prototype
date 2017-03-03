@@ -46,11 +46,11 @@
                 </div>
             </div>
             <div class="form-group col-lg-5 noSpace marginTop100">
-                <button type="submit" class="buttonLink btn btn-primary pull-right" ng-click="submit()" ng-disabled="isLoading">Register</button>
+                <button type="submit" class="buttonLink btn btn-primary pull-right" ng-click="go('/login')" ng-disabled="isLoading">Cancel</button>
+                <button type="submit" class="buttonLink btn btn-primary pull-right" style="margin-right: 10px;" ng-click="submit()" ng-disabled="isLoading">Register</button>
                 <div id="registerLoading" ng-show="isLoading"><img width="20" src="/images/ajax-spinner-blue.gif"/>
                 </div>
             </div>
-
         </form>
     </div>
 </div>

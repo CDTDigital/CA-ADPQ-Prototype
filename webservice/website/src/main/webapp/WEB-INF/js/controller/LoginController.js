@@ -12,12 +12,16 @@
      * @param toaster
      * @constructor
      */
-    function LoginController($scope, $rootScope, HttpFactory, toaster) {
+    function LoginController($scope, $rootScope, $routeParams, HttpFactory, toaster) {
 
         /**
          * LoginController on load function. Redirects to account page if already logged in
          */
         function onLoad() {
+            //$scope.message = $routeParams.message;
+            //if($scope.message) {
+            //    toaster.pop('error', $scope.message);
+            //}
             if (HttpFactory.isLoggedIn()) {
                 $scope.go('/account')
             }
@@ -30,12 +34,10 @@
             if ($scope.signin.$valid) {
                 $scope.isLoading = true;
                 HttpFactory.login($scope.user.email, $scope.user.password).then(function (loginResponse) {
-                    //$rootScope.isLoggedIn = true;
-                    //$rootScope.user_role = "USER";
                     $scope.go('/history')
                 }, function (error) {
                     $scope.isLoading = false;
-                    toaster.pop('error', error.message);
+                    toaster.pop('error', "Error: " + error.message);
                 })
             }
             else {
@@ -50,6 +52,7 @@
         requires = [
             '$scope',
             '$rootScope',
+            '$routeParams',
             'modules.core.HttpFactory',
             'toaster',
             LoginController

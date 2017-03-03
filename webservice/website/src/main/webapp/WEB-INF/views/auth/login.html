@@ -1,4 +1,5 @@
 <div class="login-screen center col-lg-3 col-md-3 col-sm-6 col-xs-8">
+	<toaster-container toaster-options="{'time-out': 1000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
 	<h2 class="login-header">Welcome</h2>
 	<div class="form">
 		<h4 class="text-bold">Let's get started</h4>
@@ -20,7 +21,7 @@
 				</div>
 				<div id="dataLoading" ng-show="isLoading"><img width="20" src="/images/ajax-spinner-blue.gif"/>&nbsp;Logging in...
 				</div>
-				<a class="text-bold" href ng-click="go('/register')">Sign Up</a>
+				<a class="text-bold" href ng-click="go('/register')">Register</a>
 			</div>
 		</form>
 	</div>

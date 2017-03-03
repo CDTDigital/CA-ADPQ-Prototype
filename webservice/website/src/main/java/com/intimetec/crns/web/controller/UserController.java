@@ -100,6 +100,7 @@ public class UserController {
 				UserLocation userLocation = RestObjectToModelObjectMapper
 						.RestLocationToUserLocation(restUser.getLocation());
 				userLocation.setUserId(user.getId());
+				userLocation.setCurrentLocation(false);
 				userLocationService.save(userLocation);
 			}
 		} catch (DataIntegrityViolationException e) {
@@ -133,6 +134,7 @@ public class UserController {
 				UserLocation userLocation = RestObjectToModelObjectMapper
 						.RestLocationToUserLocation(restUser.getLocation());
 				userLocation.setUserId(user.getId());
+				userLocation.setCurrentLocation(false);
 				userLocationService.save(userLocation);
 			}
 		} catch (DataIntegrityViolationException e) {
@@ -301,6 +303,7 @@ public class UserController {
 			if (profileLocation.isPresent()) {
 				userLocation.setId(profileLocation.get().getId());
 			}
+			userLocation.setCurrentLocation(false);
 			userLocation = userLocationService.save(userLocation);
 			Map<String, Object> responseMap = ResponseMessage.
 					successResponse(HttpServletResponse.SC_OK);
@@ -343,6 +346,7 @@ public class UserController {
 			UserLocation userLocation = RestObjectToModelObjectMapper.
 					RestLocationToUserLocation(location);
 			userLocation.setUserId(user.getId());
+			userLocation.setCurrentLocation(false);
 			Optional<UserLocation> profileLocation = userLocationService.getProfileLocationByUserId(user.getId());
 			if(profileLocation.isPresent()){
 				userLocation.setId(profileLocation.get().getId());

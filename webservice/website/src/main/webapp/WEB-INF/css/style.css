@@ -5710,3 +5710,7 @@ button.usa-menu-btn:hover div {
 	float: right;
 	margin-top: 20px;
 }
+
+.listTable {
+	word-wrap: break-word;
+}

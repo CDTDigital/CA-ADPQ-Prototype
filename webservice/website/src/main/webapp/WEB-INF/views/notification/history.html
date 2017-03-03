@@ -3,7 +3,8 @@
     <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 noSpace clearfix">
-                <h3>Notifications History</h3>
+                <h3 ng-if="role == 'ADMIN'">Notifications History</h3>
+                <h3 ng-if="role == 'USER'">Notifications List</h3>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 noSpace clearfix" ng-if="role == 'ADMIN'">
                 <button ui-sref="message" type="submit" class="center" ng-click="go('/message')">Send Notification
@@ -16,7 +17,7 @@
             </div>
         </div>
         <div class="row notificationTable  table-responsive">
-            <table>
+            <table class="listTable">
                 <thead>
                 <tr>
                     <th scope="col">Subject</th>
