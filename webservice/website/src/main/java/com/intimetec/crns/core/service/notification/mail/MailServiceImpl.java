@@ -96,17 +96,8 @@ public class MailServiceImpl implements MailService {
 
 			Transport.send(message);
 			
-			t = session.getTransport("smtp");
-
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
-		} finally {
-			try {
-				t.close();
-			} catch (MessagingException e) {
-				LOGGER.warn("Unable to close Transport connection");
-				e.printStackTrace();
-			}
 		}
 	}
 }
