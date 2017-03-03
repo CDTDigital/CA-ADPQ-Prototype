@@ -2916,8 +2916,21 @@ fieldset {
 	}
 }
 
+@media screen and (max-width: 720px) {
+	.usa-logo {
+	    float: left;
+	    line-height: 0rem;
+	    margin-left: 0rem;
+	    width: 80%;
+	}
+	
+	.usa-logo-text {
+		font-weight: 600;
+	}
+}
+
 .usa-menu-btn {
-	background-color: transparent;
+	background-color: #0071bc;
 	border: 0;
 	border-radius: 0;
 	font-weight: 400;

@@ -1,131 +1,134 @@
 <!DOCTYPE html>
 <html ng-app="CRNS">
 <head>
-    <title>CRNS</title>
+<title>CRNS</title>
 
-    <!-- meta data-->
-    <meta charset="UTF-8">
-    <meta name="description"
-          content="California Residents Notification Service">
-    <meta name="keywords" content="Notifications, Userlist">
-    <meta name="author" content="CRNS">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- meta data-->
+<meta charset="UTF-8">
+<meta name="description"
+	content="California Residents Notification Service">
+<meta name="keywords" content="Notifications, Userlist">
+<meta name="author" content="CRNS">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- External StyleSheets -->
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
+<!-- External StyleSheets -->
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css"
+	rel="stylesheet" />
+<link rel="stylesheet" href="/css/font-awesome.min.css">
 
-    <!-- Base StyleSheets -->
-    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+<!-- Base StyleSheets -->
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
 
-    <!-- Library scripts -->
-    <script src="/lib/angular.min.js"></script>
-    <script src="/lib/angular-resource.min.js"></script>
-    <script src="/lib/angular-route.min.js"></script>
-    <script src="/lib/angular-sanitize.min.js"></script>
-    <script src="/lib/angular-touch.min.js"></script>
-    <script src="/lib/angular-animate.min.js"></script>
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTOqratY641IYya28VEHtCQQl994mrAs&libraries=places"></script>
-    <script src="/lib/angularjs-google-maps.js"></script>
-    <script src="/lib/ngStorage.min.js"></script>
-    <script src="/lib/angular-bootstrap-tpls.min.js"></script>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
-    <script src="/js/jPushMenu.js"></script>
+<!-- Library scripts -->
+<script src="/lib/angular.min.js"></script>
+<script src="/lib/angular-resource.min.js"></script>
+<script src="/lib/angular-route.min.js"></script>
+<script src="/lib/angular-sanitize.min.js"></script>
+<script src="/lib/angular-touch.min.js"></script>
+<script src="/lib/angular-animate.min.js"></script>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTOqratY641IYya28VEHtCQQl994mrAs&libraries=places"></script>
+<script src="/lib/angularjs-google-maps.js"></script>
+<script src="/lib/ngStorage.min.js"></script>
+<script src="/lib/angular-bootstrap-tpls.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
+<script src="/js/jPushMenu.js"></script>
 
 
-    <!--Application scripts-->
-    <!--Main module: CRNS-->
-    <script src="/js/app.js"></script>
+<!--Application scripts-->
+<!--Main module: CRNS-->
+<script src="/js/app.js"></script>
 
-    <!--CRNS: Constants-->
-    <script src="/js/constants/Configuration.js"></script>
-    <script src="/js/modules/google/GConfiguration.js"></script>
+<!--CRNS: Constants-->
+<script src="/js/constants/Configuration.js"></script>
+<script src="/js/modules/google/GConfiguration.js"></script>
 
-     <!--CRNS: modules-->
-    <script src="/js/modules/core/HttpFactory.js"></script>
-    <script src="/js/modules/google/GooglePlacesFactory.js"></script>
+<!--CRNS: modules-->
+<script src="/js/modules/core/HttpFactory.js"></script>
+<script src="/js/modules/google/GooglePlacesFactory.js"></script>
 
-    <!--CRNS: controllers-->
-    <script src="/js/controller/MainController.js"></script>
-    <script src="/js/controller/LoginController.js"></script>
-    <script src="/js/controller/RegistrationController.js"></script>
-    <script src="/js/controller/AccountController.js"></script>
-    <script src="/js/controller/HistoryController.js"></script>
-    <script src="/js/controller/MessageController.js"></script>
-    <script src="/js/controller/UserListController.js"></script>
+<!--CRNS: controllers-->
+<script src="/js/controller/MainController.js"></script>
+<script src="/js/controller/LoginController.js"></script>
+<script src="/js/controller/RegistrationController.js"></script>
+<script src="/js/controller/AccountController.js"></script>
+<script src="/js/controller/HistoryController.js"></script>
+<script src="/js/controller/MessageController.js"></script>
+<script src="/js/controller/UserListController.js"></script>
 
-    <!--CRNS: Directives-->
-    <script src="/js/directives/googlePredictionList.js"></script>
+<!--CRNS: Directives-->
+<script src="/js/directives/googlePredictionList.js"></script>
 
-    <script src="/js/nav.min.js"></script>
+<script src="/js/nav.min.js"></script>
 
 
 </head>
 <body ng-controller="MainController">
-<header class="usa-header usa-header-extended" role="banner">
-    <div class="subheader">
-        <div class="usa-navbar">
-            <div class="usa-logo" id="logo">
-                <em class="usa-logo-text"> <a href accesskey="1" ng-click="toNotfiPage()"
-                                              title="Home" aria-label="Home"> <img src="/images/logo.png"
-                                                                                   alt="CRNS"> <span>California Residents Notification
-								Service</span>
-                </a>
-                </em>
-            </div>
-        </div>
-    </div>
-    <nav role="navigation" class="usa-nav" ng-show="isLoggedIn">
-        <div class="usa-nav-inner">
-            <button class="usa-nav-close">
-                <img src="/images/close.svg" alt="close">
-            </button>
-            <ul class="usa-nav-primary usa-accordion">
-                <li ng-show="loginResponse.data.role == 'ADMIN'">
-                    <button class="usa-accordion-button usa-nav-link" aria-expanded="false"
-                            aria-controls="side-nav-1">
-                        <span>Notification</span>
-                        <ul id="side-nav-1" class="usa-nav-submenu">
-                            <li>
-                                <a href ng-click="go('/message')">Send Notification</a>
-                            </li>
-                            <li>
-                                <a href ng-click="go('/history')">Notification List</a>
-                            </li>
-                        </ul>
-                    </button>
+	<header class="usa-header usa-header-extended" role="banner">
+			<div class="subheader">
+				<div class="usa-navbar">
+				    <button class="usa-menu-btn">Menu</button>
+					<div class="usa-logo" id="logo">
+						<em class="usa-logo-text"> <a href accesskey="1"
+							ng-click="toNotfiPage()" title="Home" aria-label="Home"> <img
+								src="/images/logo.png" alt="CRNS"> <span>California
+									Residents Notification Service</span>
+						</a>
+						</em>
+					</div>
+				</div>
+			</div>
+			<nav role="navigation" class="usa-nav" ng-show="isLoggedIn">
+				<div class="usa-nav-inner">
+					<button class="usa-nav-close">
+						<img src="/images/close.svg" alt="close">
+					</button>
+					<ul class="usa-nav-primary usa-accordion">
+						<li ng-show="loginResponse.data.role == 'ADMIN'">
+							<button class="usa-accordion-button usa-nav-link"
+								aria-expanded="false" aria-controls="side-nav-1">
+								<span>Notification</span>
+								<ul id="side-nav-1" class="usa-nav-submenu">
+									<li><a href ng-click="go('/message')">Send
+											Notification</a></li>
+									<li><a href ng-click="go('/history')">Notification
+											List</a></li>
+								</ul>
+							</button>
 
-                </li>
-                <li ng-show="loginResponse.data.role == 'ADMIN'">
-                    <a class="usa-nav-link" href ng-click="go('/usersList')">
-                        <span>User List</span>
-                    </a>
-                </li>
-                <li ng-show="loginResponse.data.role == 'USER'">
-                    <a class="usa-nav-link" href ng-click="go('/history')">
-                        <span>Notification List</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="usa-nav-secondary">
-                <ul class="usa-unstyled-list usa-nav-secondary-links">
-                    <li class="hidden-sm hidden-xs">
-                        <button class="center text-capitalize" ng-click="go('/account')">
-                            <i class="fa fa-user-circle-o"></i> {{loginResponse.data.userName}}</button>
-                    </li>
-                    <li class="hidden-sm hidden-xs">
-                        <button class="center text-capitalize" ng-click="logout()">
-                            <i class="fa fa-sign-out"></i> Logout</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<div ng-view class="views"></div>
+						</li>
+						<li ng-show="loginResponse.data.role == 'ADMIN'"><a
+							class="usa-nav-link" href ng-click="go('/usersList')"> <span>User
+									List</span>
+						</a></li>
+						<li ng-show="loginResponse.data.role == 'USER'"><a
+							class="usa-nav-link" href ng-click="go('/history')"> <span>Notification
+									List</span>
+						</a></li>
+					</ul>
+					<div class="usa-nav-secondary">
+						<ul class="usa-unstyled-list usa-nav-secondary-links">
+							<li>
+								<button class="center text-capitalize" ng-click="go('/account')">
+									<i class="fa fa-user-circle-o"></i>
+									{{loginResponse.data.userName}}
+								</button>
+							</li>
+							<li>
+								<button class="center text-capitalize" ng-click="logout()">
+									<i class="fa fa-sign-out"></i> Logout
+								</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+	</header>
+	<div ng-view class="views"></div>
 </body>
 </html>
