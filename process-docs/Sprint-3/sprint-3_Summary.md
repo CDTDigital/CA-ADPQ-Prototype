@@ -27,7 +27,7 @@
   
 **Needs Improvement:**
 
-  - Unable to have background geo location tracking for Android due to open source restriction by CDT
+  - Unable to implement background geo location tracking for Android based on open source technology
   - Need to work on server stability
   - Pagination for list pages have not been implemented
   - Validations for user input have not been implemented in prototype
