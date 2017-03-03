@@ -5,7 +5,10 @@
  - Android Studio
  - Apple Developer Account
  - Install Node: https://nodejs.org/en/download/
- - Install Cordova: sudo npm install -g cordova
+ **Install Cordova:**
+ - MAC machine: sudo npm install -g cordova
+ - Windows machine: npm install -g cordova
+
 
 *Follow these steps to setup the project for development:*
 

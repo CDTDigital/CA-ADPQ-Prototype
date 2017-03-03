@@ -16,7 +16,7 @@ To get started, users will register with the web app by providing the basic info
 - Inwinder Kochhar, Technical Architect, Front End Web Developer
 - Jitendra Sen, Usability Tester
 - Sunil Jhamnani, Front End Web Developer
-- Harish Patidar, Front End Mobile Web Developer
+- Harish Patidar, Mobile App Developer
 - Bincy Samuel, Back End Web Developer
 - Umesh Kumar Mehta, DevOps Engineer
 - Mohan Singh, Visual Designer
