@@ -116,10 +116,6 @@ Terminology
 
 The running application applies the configuration files in the order listed above, with values in later files taking precedence.  
 
-Mail Service
-============
-When admin publish any notification requests, the website saves the request into the database and also sends the notification via email to the recipient configured in the properties files.  
-
 Unmanaged Maven Libraries
 =========================
 
