@@ -1,6 +1,6 @@
 'use strict';
 angular.module('CRNSCtrl')
-.controller('AppCtrl', ['$scope', 'AuthServices', '$state', '$ionicSideMenuDelegate', function($scope, AuthServices, $state, $ionicSideMenuDelegate) {
+.controller('AppCtrl', ['$scope', 'Notify', '$state', '$ionicSideMenuDelegate', function($scope, Notify, $state, $ionicSideMenuDelegate) {
     /* Toggle Left for Side Menu */
     $scope.toggleLeft = function() {
         $ionicSideMenuDelegate.toggleLeft();
@@ -10,10 +10,7 @@ angular.module('CRNSCtrl')
     $scope.onTapSideMenu = function(type) {
         // TO DO
         if(type == 'logout') {
-            AuthServices.logout().then(function(resp) {
-                $state.go('login');
-            }, function() {
-            });
+            Notify.errorConfirm('Confirm', 'Are you sure you want to sign out?', ['Cancel', 'Ok'], 'logout');
         } else if(type == 'settings') {
             $state.go('app.settings');
         } else if(type == 'notification') {

@@ -34,7 +34,7 @@ angular.module('CRNSInterceptor')
                             $rootScope.tempErrorHandler('Error', 'Your are not connected to the network!', 'Ok', undefined);
                         }
                     } else if (rejection.status == 401) {
-                        $rootScope.tempErrorHandler('Error', 'Your authentication session is expired. Please logout the app.', 'Ok', 'login');
+                        // $rootScope.tempErrorHandler('Error', 'Your authentication session is expired. Please logout the app.', 'Ok', 'login');
                     }
 
                     defer.reject(rejection);
