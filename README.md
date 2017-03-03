@@ -56,7 +56,7 @@ JIRA is used as the Scrum tool that contains the Scrum Artifacts: user stories, 
 
 **Deployment Instructions (Development Environment)**
 
-([Process Document](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/tree/master/process-docs))
+([Process Document](https://github.com/InTimeTec-Admin/CA-ADPQ-Prototype/blob/master/devops/README.MD))
 
 **Dependencies:**
 
