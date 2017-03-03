@@ -1,4 +1,4 @@
-As an administrator when I login to web application I should be able to use the features where i can publish the notifications for a specific location, i can see all registered users in the application, history of all the notification sent from the web application and configure my own profile.
+As an administrator, when i login to web application, i should be able to publish the notifications for a specific location, and should be able to view information about all registered users in the application. I hould also be able to view history of all the notification sent from the web application and configure my own profile.
 
 Acceptance Criteria:
 
