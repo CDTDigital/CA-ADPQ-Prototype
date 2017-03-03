@@ -14,6 +14,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.intimetec.crns.core.config.MailConfig;
@@ -33,6 +35,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author In Time Tec
  */
 @SpringBootApplication
+@EnableScheduling
 @ComponentScan(basePackages = {"com.intimetec.crns"})
 @EnableAutoConfiguration
 @EnableSwagger // Enable swagger 1.2 spec
