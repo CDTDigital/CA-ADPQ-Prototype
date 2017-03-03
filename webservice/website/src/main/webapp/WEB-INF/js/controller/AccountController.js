@@ -40,7 +40,7 @@
          */
         $scope.editDetails = function () {
             if($scope.userDetails.$valid) {
-                if ($scope.account.password != $scope.confirmPassword) {
+                if (angular.equals($scope.account.password, $scope.confirmPassword)) {
                     toaster.pop('error', "Password and Confirm password are not matching");
                     return
                 }
