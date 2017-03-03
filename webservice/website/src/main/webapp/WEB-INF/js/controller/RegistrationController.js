@@ -29,6 +29,10 @@
         $scope.submit = function () {
             if($scope.registerForm.$valid) {
                 $scope.register.location = getLocationObject($scope.locationDetails.location);
+                if (!$scope.register.location.zipCode) {
+                    toaster.pop('error', "Zip code is not available. Please enter valid street address!");
+                    return;
+                }
                 $scope.register.accountSetupDone = true;
                 if (!angular.equals($scope.register.password, $scope.confirmPassword)) {
                     toaster.pop('error', "Password and Confirm password are not matching");

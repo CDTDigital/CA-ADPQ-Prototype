@@ -45,8 +45,13 @@
                     toaster.pop('error', "Password and Confirm password are not matching");
                     return
                 }
-                $scope.isLoading = true;
+
                 $scope.account.location = getLocationObject($scope.locationDetails.location);
+                if (!$scope.account.location.zipCode) {
+                    toaster.pop('error', "Zip code is not available. Please enter valid street address!");
+                    return;
+                }
+                $scope.isLoading = true;
                 HttpFactory.setUserProfile($scope.account).then(function (res) {
                     $scope.account = res;
                     toaster.pop('success', "Profile Updated successfully");

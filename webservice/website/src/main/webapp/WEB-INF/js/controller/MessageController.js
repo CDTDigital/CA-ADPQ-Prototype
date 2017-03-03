@@ -30,6 +30,10 @@
                 $scope.isLoading = true;
                 $timeout(function () {
                     var location = getLocationObject($scope.locationDetails.location);
+                    if (!location.zipCode) {
+                        toaster.pop('error', "Zip code is not available. Please enter valid street address!");
+                        return;
+                    }
                     angular.extend($scope.notification, {
                         address: location.formatted_address,
                         city: location.city,
